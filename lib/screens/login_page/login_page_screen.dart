@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
@@ -12,8 +13,21 @@ class LoginPageScreen extends StatelessWidget {
     LoginPageController loginController = Get.put(LoginPageController());
     return Scaffold(
       appBar: AppBar(
-        title: Text("ログイン"),
+        title: Text(
+          "ログイン",
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: "SF Pro Display",
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+          ),
+        ),
         centerTitle: true,
+        elevation: 0,
+        leading: new IconButton(
+          icon: SvgPicture.asset('assets/images/back.svg'),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       backgroundColor: Colors.white,
       body: Container(
@@ -82,14 +96,15 @@ class LoginPageScreen extends StatelessWidget {
               ),
               onPress: () async {
                 bool result = await loginController.login(context);
-                if (result) Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return HomePageScreen();
-                    },
-                  ),
-                );
+                if (!result)
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return HomePageScreen();
+                      },
+                    ),
+                  );
               },
             ),
             SizedBox(
