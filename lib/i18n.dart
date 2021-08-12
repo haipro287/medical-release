@@ -8,6 +8,10 @@ class Messages extends Translations {
         },
         'ja_JP': {
           'hello': 'こんにちは, @name',
+          'home': 'ホーム',
+          'share': '共有',
+          'view': 'ビュー',
+          'user': 'アカウント',
         }
       };
 }
