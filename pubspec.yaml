@@ -35,6 +35,12 @@ dependencies:
   flutter_svg: ^0.22.0
   url_launcher: ^6.0.9
   flutter_dotenv: ^5.0.1
+  secp256k1: ^0.3.0
+  tuple: ^2.0.0
+  cryptography: ^2.0.2
+  encrypt: ^5.0.0
+  fixnum: ^1.0.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
