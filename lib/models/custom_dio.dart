@@ -5,8 +5,8 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
 class CustomDio {
-  // static String baseUrl = 'http://mcsrv.dev.nftal.io/v1';
-  static String baseUrl = 'https://test.dev.nftal.io/api';
+  static String baseUrl = 'http://mcsrv.dev.nftal.io/v1';
+  // static String baseUrl = 'https://test.dev.nftal.io/api';
 
   static CustomDio _instance() => CustomDio._();
 

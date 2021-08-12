@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
@@ -32,18 +34,20 @@ class LoginPageController extends GetxController {
     isHidePassword.value = !isHidePassword.value;
   }
 
-  Future getPing(String certificate) async {
+  Future getPing(List<String> certificateList) async {
     try {
-      Response response;
       CustomDio customDio = new CustomDio();
-      print({"certificate": certificate});
-      customDio.dio.options.headers["Authorization"] = certificate;
-      response = await customDio.post(
+      print({"certificate": certificateList[0]});
+      // var certificateJson = jsonDecode(certificate);
+      customDio.dio.options.headers["Authorization"] = certificateList[0];
+      Response response = await customDio.post(
         "/auth/ping",
-        certificate,
+        certificateList[1],
       );
+      print({"res": response});
       return response;
-    } catch (e) {
+    } catch (e, s) {
+      print({'s': s});
       return null;
     }
   }
@@ -83,7 +87,7 @@ class LoginPageController extends GetxController {
     }
   }
 
-  Future<void> login() async {
+  Future<bool> login(context) async {
     if (username.text == "") {
       messValidateUsername.value = "Username can not be empty";
     } else if (password.text == "") {
@@ -94,9 +98,11 @@ class LoginPageController extends GetxController {
       if (validateUsername.status == "OK") {
         print({"data": responseCredential});
         var data = responseCredential.data["data"];
-        var userId = data["_id"];
+        var userId = data["id"];
         var publicKey = data['publicKey'];
         var encryptedPrivateKey = data['encryptedPrivateKey'];
+        var email = data["mail"];
+        var username = data["username"];
         String? privateKey =
             decryptAESCryptoJS(encryptedPrivateKey, password.text);
         Status validatePassword = new Status();
@@ -113,16 +119,25 @@ class LoginPageController extends GetxController {
           String signature = SignatureService.getSignature(
               certificateInfo, privateKey as String);
           String times = TimeService.getTimeNow().toString();
-          String certificate = SignatureService.getCertificateLogin(
-              certificateInfo, signature, publicKey, times);
+          List<String> certificateList = SignatureService.getCertificateLogin(
+              certificateInfo,
+              userId,
+              email,
+              username,
+              encryptedPrivateKey,
+              signature,
+              publicKey,
+              times);
 
-          var responsePing = await getPing(certificate);
+          var responsePing = await getPing(certificateList);
+          print({"resPing": responsePing.toString()});
           Status validateServer2 = ResponseValidator.check(responsePing);
-          print({'pingData': validateServer2.status});
+          print({'pingData': validateServer2.message});
           if (validateServer2.status == "OK") {
             var dataPing = responsePing.data['data'];
             var user = dataPing;
-            print({'email': user.id});
+            print({'id': user.id});
+            return true;
           } else {
             messValidatePassword.value = "Wrong password";
           }
@@ -131,5 +146,6 @@ class LoginPageController extends GetxController {
         messValidateUsername.value = "Username Invalid";
       }
     }
+    return false;
   }
 }

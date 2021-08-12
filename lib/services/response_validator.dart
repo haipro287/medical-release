@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:medical_chain_mobile_ui/models/status.dart';
 
 class ResponseValidator {
-  static Status check(Response response) {
+  static Status check(Response? response) {
     if (response == null) {
       return new Status(status: "ERROR.SERVER", message: "EMPTY.SERVER");
     }

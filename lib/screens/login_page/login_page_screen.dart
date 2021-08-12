@@ -80,16 +80,16 @@ class LoginPageScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text('ログイン'),
               ),
-              onPress: () {
-                loginController.login();
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) {
-                //       return HomePageScreen();
-                //     },
-                //   ),
-                // );
+              onPress: () async {
+                bool result = await loginController.login(context);
+                if (result) Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return HomePageScreen();
+                    },
+                  ),
+                );
               },
             ),
             SizedBox(
