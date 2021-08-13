@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/globle_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/scanQRController/scanQR_controller.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
@@ -116,7 +116,7 @@ class ScanQRScreen extends StatelessWidget {
                                   getWidth(30),
                                 ),
                               ),
-                              data: Get.put(GlobleController())
+                              data: Get.put(GlobalController())
                                   .user
                                   .value
                                   .username
@@ -232,7 +232,9 @@ class ScanQRScreen extends StatelessWidget {
                     margin: EdgeInsets.only(
                         right: getWidth(30), top: getHeight(20)),
                     child: Bouncing(
-                      onPress: () {Get.back();},
+                      onPress: () {
+                        Get.back();
+                      },
                       child: SvgPicture.asset("assets/images/cancel.svg"),
                     ),
                   ),
