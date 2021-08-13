@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/contact_page/search_user_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
 
 class ContactListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // LoginPageController loginController = Get.put(LoginPageController());
+    ContactPageController contactPageController =
+        Get.put(ContactPageController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -32,6 +34,15 @@ class ContactListPage extends StatelessWidget {
         backgroundColor: Color(0xFF61B3FF),
         foregroundColor: Colors.white,
         onPressed: () {
+          print(contactPageController.contactList);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return SearchUserScreen();
+              },
+            ),
+          );
           // Respond to button press
         },
         child: Icon(Icons.add),
