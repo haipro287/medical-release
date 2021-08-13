@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/i18n.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 
 Future<void> main() async {
   // await dotenv.load(fileName: ".env");
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePageScreen(),
+      home: MyAccountScreen(),
     );
   }
 }
+
