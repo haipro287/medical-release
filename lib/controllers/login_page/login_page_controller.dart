@@ -88,8 +88,6 @@ class LoginPageController extends GetxController {
   }
 
   Future<bool> login(context) async {
-    username.text = "0123416089";
-    password.text = "123456";
     User userInfo = User();
     if (username.text == "") {
       messValidateUsername.value = "Username can not be empty";
