@@ -3,13 +3,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/my_account/edit_my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 
 class MyAccountScreen extends StatelessWidget {
   MyAccountController myAccountController = Get.put(MyAccountController());
-  GlobalController globalController = Get.put(GlobalController());
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class MyAccountScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 10),
-                  child: Text(globalController.userName,
+                  child: Text(myAccountController.userName,
                       style: TextStyle(
                         color: Color(0xFF2F3842),
                         fontSize: getWidth(20),
@@ -101,15 +101,15 @@ class MyAccountScreen extends StatelessWidget {
                     children: [
                       myAccountField(
                         myAccountText('name'.trParams()),
-                        myAccountText(globalController.fullName),
+                        myAccountText(myAccountController.fullName),
                       ),
                       myAccountField(
                         myAccountText('alphabetName'.trParams()),
-                        myAccountText(globalController.alphabetName),
+                        myAccountText(myAccountController.alphabetName),
                       ),
                       myAccountField(
                         myAccountText('dob'.trParams()),
-                        myAccountText(globalController.dob),
+                        myAccountText(myAccountController.dob),
                       ),
                       myAccountField(
                         Column(
@@ -119,7 +119,7 @@ class MyAccountScreen extends StatelessWidget {
                             verifiedIcon(myAccountController.emailVerified),
                           ],
                         ),
-                        myAccountText(globalController.email),
+                        myAccountText(myAccountController.email),
                       ),
                       myAccountField(
                         Column(
@@ -129,12 +129,12 @@ class MyAccountScreen extends StatelessWidget {
                             verifiedIcon(myAccountController.phoneVerified),
                           ],
                         ),
-                        myAccountText(globalController.phoneNumber),
+                        myAccountText(myAccountController.phoneNumber),
                       ),
                       Row(
                         children: [
                           myAccountText('citizenCode'.trParams()),
-                          myAccountText(globalController.citizenCode),
+                          myAccountText(myAccountController.citizenCode),
                         ],
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       ),
@@ -154,7 +154,14 @@ class MyAccountScreen extends StatelessWidget {
                         color: Color(0xFFD0E8FF),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditMyAccountScreen(),
+                        ),
+                      );
+                    },
                     child: myAccountText('edit'.trParams()),
                   ),
                 )

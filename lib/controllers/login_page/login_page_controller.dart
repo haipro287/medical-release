@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
 import 'package:medical_chain_mobile_ui/api/signature_service.dart';
-import 'package:medical_chain_mobile_ui/controllers/globle_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/models/status.dart';
@@ -139,8 +139,8 @@ class LoginPageController extends GetxController {
           userInfo.encryptedPrivateKey = encryptedPrivateKey;
           userInfo.username = username.text;
           userInfo.password = password.text;
-          Get.put(GlobleController()).db.put("user", userInfo);
-          Get.put(GlobleController()).user.value = userInfo;
+          Get.put(GlobalController()).db.put("user", userInfo);
+          Get.put(GlobalController()).user.value = userInfo;
 
           var responsePing = await getPing(certificateList);
           print({"resPing": responsePing.toString()});
