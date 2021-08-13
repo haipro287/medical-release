@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -30,10 +32,11 @@ class MyApp extends StatelessWidget {
       translations: Messages(),
       locale: Locale('ja', 'JP'),
       fallbackLocale: Locale('en', 'UK'),
+      defaultTransition:
+          Platform.isIOS ? Transition.cupertino : Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "SFPro"),
       home: globleController.user.value.username != null
           ? HomePageScreen()
           : LoginPageScreen(),

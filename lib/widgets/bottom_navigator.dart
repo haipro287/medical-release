@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
@@ -88,9 +89,14 @@ Container bottomNavigator() {
                       ),
                     );
                   }),
-                  SvgPicture.asset(
-                    "assets/images/qr.svg",
-                    width: getWidth(45),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => ScanQRScreen());
+                    },
+                    child: SvgPicture.asset(
+                      "assets/images/qr.svg",
+                      width: getWidth(45),
+                    ),
                   ),
                   Obx(() {
                     return Bouncing(

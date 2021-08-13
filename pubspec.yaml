@@ -41,6 +41,8 @@ dependencies:
   encrypt: ^5.0.0
   fixnum: ^1.0.0
   intl: ^0.17.0
+  qr_code_scanner: ^0.5.2
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +63,11 @@ flutter:
   assets:
     - .env
     - assets/images/
+
+  fonts:
+    - family: SFPro
+      fonts:
+        - asset: assets/fonts/FontsFree-Net-SFProDisplay-Regular.ttf
 
 #  fonts:
 
