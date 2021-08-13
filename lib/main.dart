@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:medical_chain_mobile_ui/controllers/globle_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/i18n.dart';
 import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
@@ -13,15 +13,15 @@ Future<void> main() async {
   Hive.registerAdapter(UserAdapter());
   var db = await Hive.openBox('medical-chain');
 
-  GlobleController globleController = Get.put(GlobleController());
-  globleController.db = db;
-  if (globleController.db.get("user") != null)
-    globleController.user.value = globleController.db.get("user");
+  GlobalController globalController = Get.put(GlobalController());
+  globalController.db = db;
+  if (globalController.db.get("user") != null)
+    globalController.user.value = globalController.db.get("user");
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  GlobleController globleController = Get.put(GlobleController());
+  GlobalController globalController = Get.put(GlobalController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: globleController.user.value.username != null
+      home: globalController.user.value.username != null
           ? HomePageScreen()
           : LoginPageScreen(),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/globle_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -43,7 +43,7 @@ class UserScreen extends StatelessWidget {
                             width: getWidth(18),
                           ),
                           Text(
-                            Get.put(GlobleController())
+                            Get.put(GlobalController())
                                 .user
                                 .value
                                 .name
@@ -254,7 +254,7 @@ class UserScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.put(GlobleController()).db.deleteFromDisk();
+                    Get.put(GlobalController()).db.deleteFromDisk();
                     Get.offAll(() => LoginPageScreen());
                   },
                   child: Container(
