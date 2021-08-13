@@ -1,9 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
 import 'package:medical_chain_mobile_ui/api/signature_service.dart';
+import 'package:medical_chain_mobile_ui/controllers/globle_controller.dart';
+import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/models/status.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
@@ -88,6 +88,9 @@ class LoginPageController extends GetxController {
   }
 
   Future<bool> login(context) async {
+    username.text = "0123416089";
+    password.text = "123456";
+    User userInfo = User();
     if (username.text == "") {
       messValidateUsername.value = "Username can not be empty";
     } else if (password.text == "") {
@@ -102,7 +105,7 @@ class LoginPageController extends GetxController {
         var publicKey = data['publicKey'];
         var encryptedPrivateKey = data['encryptedPrivateKey'];
         var email = data["mail"];
-        var username = data["username"];
+        var userName = data["username"];
         String? privateKey =
             decryptAESCryptoJS(encryptedPrivateKey, password.text);
         Status validatePassword = new Status();
@@ -123,11 +126,23 @@ class LoginPageController extends GetxController {
               certificateInfo,
               userId,
               email,
-              username,
+              userName,
               encryptedPrivateKey,
               signature,
               publicKey,
               times);
+
+          userInfo.id = userId;
+          userInfo.name = userName;
+          userInfo.phone = data["phone"];
+          userInfo.mail = email;
+          userInfo.publicKey = publicKey;
+          userInfo.privateKey = privateKey;
+          userInfo.encryptedPrivateKey = encryptedPrivateKey;
+          userInfo.username = username.text;
+          userInfo.password = password.text;
+          Get.put(GlobleController()).db.put("user", userInfo);
+          Get.put(GlobleController()).user.value = userInfo;
 
           var responsePing = await getPing(certificateList);
           print({"resPing": responsePing.toString()});

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/globle_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 class UserScreen extends StatelessWidget {
@@ -40,7 +42,11 @@ class UserScreen extends StatelessWidget {
                             width: getWidth(18),
                           ),
                           Text(
-                            "hang1234",
+                            Get.put(GlobleController())
+                                .user
+                                .value
+                                .name
+                                .toString(),
                             style: TextStyle(
                                 fontSize: getWidth(20),
                                 fontWeight: FontWeight.w600),
@@ -237,7 +243,10 @@ class UserScreen extends StatelessWidget {
                   height: getHeight(12),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.put(GlobleController()).db.deleteFromDisk();
+                    Get.offAll(() => LoginPageScreen());
+                  },
                   child: Container(
                     color: Colors.white,
                     padding: EdgeInsets.symmetric(
