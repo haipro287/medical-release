@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/screens/contact_page/user_saved_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 Container inputPassword(BuildContext context, TextEditingController controller,
@@ -128,9 +131,12 @@ Container inputSearch(BuildContext context,
   );
 }
 
-Container userInputSearch(BuildContext context,
-    {required String hintText,
-    required TextEditingController textEditingController}) {
+Container userInputSearch(
+  BuildContext context, {
+  required String hintText,
+  required TextEditingController textEditingController,
+  required dynamic onSearch,
+}) {
   return Container(
     height: getHeight(56),
     margin: EdgeInsets.only(
@@ -154,7 +160,12 @@ Container userInputSearch(BuildContext context,
               SizedBox(
                 width: getWidth(16),
               ),
-              SvgPicture.asset("assets/images/search-icon.svg"),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => UserSavedScreen());
+                },
+                child: SvgPicture.asset("assets/images/search-icon.svg"),
+              ),
               SizedBox(
                 width: getWidth(240),
                 height: getHeight(56),

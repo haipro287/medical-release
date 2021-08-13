@@ -55,9 +55,11 @@ class TimeService {
   }
 
   static String? timeToBackEndMaster(DateTime dateTime) {
+    DateTime a = DateTime.now();
+    print({"8601": a.toIso8601String()});
     if (dateTime == null) return null;
-    var datedFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(dateTime);
-
+    var datedFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss.ms'Z'").format(dateTime);
+    print({"dateFormat": datedFormat});
     return datedFormat;
   }
 

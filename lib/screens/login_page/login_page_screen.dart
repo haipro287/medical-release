@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
 
@@ -12,23 +13,7 @@ class LoginPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     LoginPageController loginController = Get.put(LoginPageController());
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "ログイン",
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: "SF Pro Display",
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        leading: new IconButton(
-          icon: SvgPicture.asset('assets/images/back.svg'),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
+      appBar: appBar(context, "ログイン"),
       backgroundColor: Colors.white,
       body: Container(
         margin: EdgeInsets.only(
@@ -96,15 +81,9 @@ class LoginPageScreen extends StatelessWidget {
               ),
               onPress: () async {
                 bool result = await loginController.login(context);
-                if (!result)
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return HomePageScreen();
-                      },
-                    ),
-                  );
+                if (!result) {
+                  Get.to(() => HomePageScreen());
+                }
               },
             ),
             SizedBox(

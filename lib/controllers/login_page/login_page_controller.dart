@@ -139,8 +139,8 @@ class LoginPageController extends GetxController {
           userInfo.encryptedPrivateKey = encryptedPrivateKey;
           userInfo.username = username.text;
           userInfo.password = password.text;
-          Get.put(GlobalController()).db.put("user", userInfo);
-          Get.put(GlobalController()).user.value = userInfo;
+          // Get.put(GlobalController()).db.put("user", userInfo);
+          // Get.put(GlobalController()).user.value = userInfo;
 
           var responsePing = await getPing(certificateList);
           print({"resPing": responsePing.toString()});

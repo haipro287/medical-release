@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/search_user_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
 
 class ContactListPage extends StatelessWidget {
@@ -12,38 +13,13 @@ class ContactListPage extends StatelessWidget {
     ContactPageController contactPageController =
         Get.put(ContactPageController());
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          "ログイン",
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: "SF Pro Display",
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        leading: new IconButton(
-          icon: SvgPicture.asset('assets/images/back.svg'),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
+      appBar: appBar(context, "ログイン"),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF61B3FF),
         foregroundColor: Colors.white,
         onPressed: () {
           print(contactPageController.contactList);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return SearchUserScreen();
-              },
-            ),
-          );
-          // Respond to button press
+          Get.to(() => SearchUserScreen());
         },
         child: Icon(Icons.add),
       ),

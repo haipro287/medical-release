@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
 
 class SearchUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // ContactPageController contactPageController = Get.put(ContactPageController());
+    UserSearchController userSearchController = Get.put(UserSearchController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -33,7 +34,8 @@ class SearchUserScreen extends StatelessWidget {
             userInputSearch(
               context,
               hintText: "氏名、ユーザーID、ニックネーム",
-              textEditingController: TextEditingController(),
+              textEditingController: userSearchController.searchInput,
+              onSearch: userSearchController.search(),
             ),
           ],
         ),
