@@ -12,6 +12,11 @@ class Messages extends Translations {
           'share': '共有',
           'view': 'ビュー',
           'user': 'アカウント',
+          'my_account': 'マイアカウント',
+          'my_qr': 'マイQRコード',
+          'change_password': "パスワード変更",
+          'tac': 'サービス利用規約',
+          'log_out': 'ログアウト'
         }
       };
 }
