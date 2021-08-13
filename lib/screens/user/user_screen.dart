@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 class UserScreen extends StatelessWidget {
@@ -67,7 +68,16 @@ class UserScreen extends StatelessWidget {
                         height: getHeight(20),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return MyAccountScreen();
+                              },
+                            ),
+                          )
+                        },
                         child: Column(
                           children: [
                             Row(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/i18n.dart';
-import 'package:medical_chain_mobile_ui/screens/contact_page/contact_list_screen.dart';
-import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 
 Future<void> main() async {
