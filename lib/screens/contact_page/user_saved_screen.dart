@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
-import 'package:medical_chain_mobile_ui/screens/my_account/edit_my_account_screen.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 
 class UserSavedScreen extends StatelessWidget {
-  // MyAccountController myAccountController = Get.put(MyAccountController());
-
+  final userInfo = Get.put(GlobalController()).user.value;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -37,7 +35,7 @@ class UserSavedScreen extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(6),
                 child: SvgPicture.asset(
-                  'assets/images/lock.svg',
+                  'assets/images/delete-icon.svg',
                 ),
               ),
             ),
@@ -61,7 +59,7 @@ class UserSavedScreen extends StatelessWidget {
                     color: Color(0xFFD0E8FF),
                   ),
                 ),
-                Padding(
+                Container(
                   padding: EdgeInsets.only(top: 10),
                   child: Container(
                     margin: EdgeInsets.only(
@@ -118,7 +116,16 @@ class UserSavedScreen extends StatelessWidget {
                   width: getWidth(343),
                   height: getHeight(139),
                   child: Column(
-                    children: [],
+                    children: [
+                      myAccountField(
+                        myAccountText(('ユーザーID')),
+                        myAccountText('${userInfo.id.toString().substring(0, 15)}...'),
+                      ),
+                      myAccountField(
+                        myAccountText(('氏名')),
+                        myAccountText('佐藤様 (${userInfo.name.toString()})'),
+                      ),
+                    ],
                   ),
                 ),
                 Container(

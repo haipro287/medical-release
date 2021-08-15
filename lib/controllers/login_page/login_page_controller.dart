@@ -40,7 +40,7 @@ class LoginPageController extends GetxController {
       print({"certificate": certificateList[0]});
       // var certificateJson = jsonDecode(certificate);
       customDio.dio.options.headers["Authorization"] = certificateList[0];
-      Response response = await customDio.post(
+      var response = await customDio.post(
         "/auth/ping",
         certificateList[1],
       );
@@ -139,17 +139,16 @@ class LoginPageController extends GetxController {
           userInfo.encryptedPrivateKey = encryptedPrivateKey;
           userInfo.username = username.text;
           userInfo.password = password.text;
-          // Get.put(GlobalController()).db.put("user", userInfo);
-          // Get.put(GlobalController()).user.value = userInfo;
+          Get.put(GlobalController()).db.put("user", userInfo);
+          Get.put(GlobalController()).user.value = userInfo;
 
           var responsePing = await getPing(certificateList);
           print({"resPing": responsePing.toString()});
           Status validateServer2 = ResponseValidator.check(responsePing);
-          print({'pingData': validateServer2.message});
           if (validateServer2.status == "OK") {
-            var dataPing = responsePing.data['data'];
-            var user = dataPing;
-            print({'id': user.id});
+            // var dataPing = responsePing.data['data'];
+            // var user = dataPing;
+            // print({'id': user.id});
             return true;
           } else {
             messValidatePassword.value = "Wrong password";

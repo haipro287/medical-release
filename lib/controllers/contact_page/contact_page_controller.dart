@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class ContactPageController extends GetxController {
@@ -19,7 +20,7 @@ class ContactPageController extends GetxController {
 
   Future getContactList(String searchInput) async {
     try {
-      var userID = "CFEmHlBSw0pf40jhWw5y_";
+      var userID = Get.put(GlobalController()).user.value.id.toString();
       var response;
       CustomDio customDio = CustomDio();
       customDio.dio.options.headers["Authorization"] = jsonEncode({
@@ -33,7 +34,7 @@ class ContactPageController extends GetxController {
         "publicKey": "A9VMrb8olmifFj4QVhG63fIJDK1+kkKsdKE3bmm+E9Xx"
       });
       response =
-          await customDio.get("/user/$userID/contacts?offset=0&limit=2", {
+          await customDio.get("/user/$userID/contacts", {
         "offset": 0,
         "limit": 2,
       });

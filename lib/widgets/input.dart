@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/user_saved_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -161,8 +162,9 @@ Container userInputSearch(
                 width: getWidth(16),
               ),
               GestureDetector(
-                onTap: () {
-                  Get.to(() => UserSavedScreen());
+                onTap: () async {
+                  var data = await onSearch();
+                  if (data != null) Get.to(() => UserSavedScreen());
                 },
                 child: SvgPicture.asset("assets/images/search-icon.svg"),
               ),

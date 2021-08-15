@@ -81,7 +81,7 @@ class LoginPageScreen extends StatelessWidget {
               ),
               onPress: () async {
                 bool result = await loginController.login(context);
-                if (!result) {
+                if (result) {
                   Get.to(() => HomePageScreen());
                 }
               },

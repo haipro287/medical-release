@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
-import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 
 class UserSearchController extends GetxController {
   TextEditingController searchInput = TextEditingController();
@@ -17,7 +16,7 @@ class UserSearchController extends GetxController {
     super.onInit();
   }
 
-Future searchUser(String searchInput) async {
+  Future searchUser(String searchInput) async {
     try {
       var userID = "CFEmHlBSw0pf40jhWw5y_";
       var response;
@@ -47,7 +46,14 @@ Future searchUser(String searchInput) async {
     }
   }
 
-  Future<void> search() async {
-    // Get.to(() => LoginPageScreen());
+  Future<dynamic> search() async {
+    var fakeData = {"id": "12345XHR", "name": "Alexander"};
+    if (searchInput.text == "123456") {
+      userData.value = fakeData;
+      searchInput.clear();
+      return fakeData;
+    }
+    userData.value = {"id": "NullID"};
+    return null;
   }
 }
