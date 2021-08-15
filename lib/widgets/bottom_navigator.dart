@@ -8,6 +8,7 @@ import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
 Container bottomNavigator() {
   HomePageController homePageController = Get.put(HomePageController());
+
   return Container(
     height: getHeight(80),
     width: double.infinity,

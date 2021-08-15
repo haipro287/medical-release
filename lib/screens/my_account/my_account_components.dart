@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
 Text myAccountText(String text) {
   return Text(
@@ -49,5 +52,40 @@ Container verifiedIcon(bool isVerified) {
         fontSize: getWidth(13),
       ),
     ),
+  );
+}
+
+Bouncing colorButton(int color) {
+  EditMyAccountController editMyAccountController =
+      Get.put(EditMyAccountController());
+
+  return Bouncing(
+    onPress: () {
+      editMyAccountController.avatar.value = color;
+    },
+    child: Obx(() => Container(
+          padding: EdgeInsets.only(
+            top: getHeight(10),
+            left: getWidth(8),
+            bottom: getHeight(10),
+            right: getWidth(8),
+          ),
+          margin: EdgeInsets.only(
+            left: getWidth(6),
+            right: getWidth(6),
+          ),
+          width: getWidth(36),
+          height: getHeight(36),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(color),
+          ),
+          child: editMyAccountController.avatar.value == color
+              ? SvgPicture.asset(
+                  'assets/images/tick-icon.svg',
+                  color: Colors.white,
+                )
+              : Container(),
+        )),
   );
 }

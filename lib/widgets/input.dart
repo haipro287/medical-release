@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/user_saved_screen.dart';
-import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 Container inputPassword(BuildContext context, TextEditingController controller,
@@ -195,6 +194,112 @@ Container userInputSearch(
           width: getWidth(16),
         ),
         SvgPicture.asset("assets/images/qrcode-icon.svg"),
+      ],
+    ),
+  );
+}
+
+Container inputWithHint(BuildContext context,
+    {required String hintText,
+    required String labelText,
+    required String initialText,
+    required TextEditingController textEditingController}) {
+  return Container(
+    height: getHeight(56),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(getHeight(4)),
+      border: Border.all(
+        color: Color(0xFFE7E8EA),
+        width: getHeight(1),
+      ),
+    ),
+    child: Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: textEditingController,
+            style: TextStyle(fontSize: getWidth(16)),
+            decoration: InputDecoration(
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              labelText: labelText,
+              hintText: hintText,
+              contentPadding:
+                  EdgeInsets.only(left: getWidth(16), right: getWidth(16)),
+              labelStyle:
+                  TextStyle(color: Color(0xFF878C92), fontSize: getWidth(16)),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Container inputDate(BuildContext context,
+    {required String hintText,
+    required String labelText,
+    required TextEditingController textEditingController}) {
+  _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null) {
+      textEditingController.text = picked.year.toString() +
+          '年' +
+          picked.month.toString() +
+          '月' +
+          picked.day.toString() +
+          '日';
+    }
+  }
+
+  return Container(
+    height: getHeight(56),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(getHeight(4)),
+      border: Border.all(
+        color: Color(0xFFE7E8EA),
+        width: getHeight(1),
+      ),
+    ),
+    child: Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            readOnly: true,
+            onTap: () {
+              _selectDate(context);
+            },
+            controller: textEditingController,
+            style: TextStyle(fontSize: getWidth(16)),
+            decoration: InputDecoration(
+              suffixIcon: ImageIcon(
+                AssetImage('assets/images/calendar.png'),
+                color: Color(0xFF757A80),
+              ),
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              labelText: labelText,
+              hintText: hintText,
+              contentPadding:
+                  EdgeInsets.only(left: getWidth(16), right: getWidth(16)),
+              labelStyle:
+                  TextStyle(color: Color(0xFF878C92), fontSize: getWidth(16)),
+            ),
+          ),
+        ),
       ],
     ),
   );
