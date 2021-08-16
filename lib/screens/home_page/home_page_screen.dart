@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/list_service/list_service_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/user/user_screen.dart';
 import 'package:medical_chain_mobile_ui/widgets/bottom_navigator.dart';
 
@@ -23,6 +24,7 @@ class HomePageScreen extends StatelessWidget {
             Center(
               child: Text("share".tr),
             ),
+            // ListServiceScreen(),
             Center(
               child: Text("view".tr),
             ),

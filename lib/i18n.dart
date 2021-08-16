@@ -42,6 +42,8 @@ class Messages extends Translations {
       'scan_qr_guide': 'QRコードをスキャンして友達を追加します。',
       'cancel': 'キャンセル',
       'save': '保存',
+      'connectService': 'サービス連携',
+      
     }
   };
 }
