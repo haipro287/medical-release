@@ -25,7 +25,7 @@ class LoginPageScreen extends StatelessWidget {
           children: [
             inputRegular(
               context,
-              hintText: "ログインID",
+              hintText: "userId".tr,
               textEditingController: loginController.username,
             ),
             SizedBox(
@@ -35,7 +35,7 @@ class LoginPageScreen extends StatelessWidget {
               () => inputPassword(
                   context,
                   loginController.password,
-                  "パスワード",
+                  "password".tr,
                   loginController.isHidePassword.value,
                   loginController.changeHidePassword),
             ),
@@ -63,7 +63,7 @@ class LoginPageScreen extends StatelessWidget {
               height: getHeight(21),
             ),
             InkWell(
-              child: Text("パスワードをお忘れですか。"),
+              child: Text("forgotPassword".tr),
               onTap: () {
                 print('forgot password');
               },
@@ -77,7 +77,7 @@ class LoginPageScreen extends StatelessWidget {
                 height: getHeight(48),
                 color: Color(0xFF61B3FF),
                 alignment: Alignment.center,
-                child: Text('ログイン'),
+                child: Text('login'.tr),
               ),
               onPress: () async {
                 bool result = await loginController.login(context);
@@ -90,7 +90,7 @@ class LoginPageScreen extends StatelessWidget {
               height: getHeight(30),
             ),
             InkWell(
-              child: Text("次へ"),
+              child: Text("signup".tr),
               onTap: () {
                 print('signup');
               },

@@ -6,7 +6,6 @@ import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
-import 'package:medical_chain_mobile_ui/widgets/input.dart';
 
 class UserSavedScreen extends StatelessWidget {
   final userInfo = Get.put(GlobalController()).user.value;
@@ -33,7 +32,7 @@ class UserSavedScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           appBar: appBar(
             context,
-            "myAccount".trParams(),
+            "",
             GestureDetector(
               onTap: () {},
               child: Container(
@@ -245,7 +244,7 @@ class UserSavedScreen extends StatelessWidget {
                               width: getWidth(12),
                             ),
                             Text(
-                              "データ共有",
+                              "リクエスト送信",
                               style: TextStyle(
                                 color: Colors.black,
                               ),

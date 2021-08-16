@@ -15,6 +15,19 @@ class Messages extends Translations {
       'edit': 'Edit',
       'cancel': 'Cancel',
       'save': 'Save',
+      'login': 'Sign in',
+      'forgotPassword': 'Forgot Password',
+      'signup': 'Sign up',
+      'userId': 'User ID',
+      'password': 'Password',
+      'contact': 'Contact',
+      'searchInput': 'Type Name, ID or nickname',
+      'userNotFound': 'User not found',
+      'searchById': 'Search by UserID',
+      'shareData': 'Share data',
+      'sentRequest': 'Sent request',
+      'username': 'Username',
+      'nickname': '氏名'
     },
     'ja_JP': {
       'hello': 'こんにちは, @name',
@@ -43,7 +56,19 @@ class Messages extends Translations {
       'cancel': 'キャンセル',
       'save': '保存',
       'connectService': 'サービス連携',
-      
+      'login': 'ログイン',
+      'forgotPassword': 'パスワードをお忘れですか。',
+      'signup': '新規アカウント作成',
+      'userId': 'ログインID',
+      'password': 'パスワード',
+      'contact': '連携先',
+      'searchInput': '氏名、ユーザーID、ニックネーム',
+      'userNotFound': 'ユーザーが見つかりませんでした。',
+      'searchById': 'UserIDで検索',
+      'shareData': 'データ共有',
+      'sentRequest': 'リクエスト送信',
+      'username': 'ユーザーID',
+      'nickname': '氏名'
     }
   };
 }

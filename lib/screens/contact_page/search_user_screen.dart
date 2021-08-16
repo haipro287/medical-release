@@ -35,7 +35,7 @@ class SearchUserScreen extends StatelessWidget {
           children: [
             userInputSearch(
               context,
-              hintText: "氏名、ユーザーID、ニックネーム",
+              hintText: "searchById".tr,
               textEditingController: userSearchController.searchInput,
               onSearch: userSearchController.search,
             ),
@@ -51,7 +51,7 @@ class SearchUserScreen extends StatelessWidget {
                   SizedBox(
                     height: getHeight(33.3),
                   ),
-                  Text("ユーザーが見つかりませんでした。"),
+                  Text("userNotFound".tr),
                 ],
               ) : Container(),
             ),

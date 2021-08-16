@@ -13,7 +13,7 @@ class ContactListPage extends StatelessWidget {
     ContactPageController contactPageController =
         Get.put(ContactPageController());
     return Scaffold(
-      appBar: appBar(context, "ログイン"),
+      appBar: appBar(context, "contact".tr),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF61B3FF),
         foregroundColor: Colors.white,
@@ -29,7 +29,7 @@ class ContactListPage extends StatelessWidget {
           children: [
             inputSearch(
               context,
-              hintText: "氏名、ユーザーID、ニックネーム",
+              hintText: "searchInput".tr,
               textEditingController: TextEditingController(),
             ),
             SizedBox(
