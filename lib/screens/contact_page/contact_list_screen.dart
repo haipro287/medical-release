@@ -17,7 +17,7 @@ class ContactListPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF61B3FF),
         foregroundColor: Colors.white,
-        onPressed: () {
+        onPressed: () async {
           print(contactPageController.contactList);
           Get.to(() => SearchUserScreen());
         },

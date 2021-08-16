@@ -23,16 +23,8 @@ class ContactPageController extends GetxController {
       var userID = Get.put(GlobalController()).user.value.id.toString();
       var response;
       CustomDio customDio = CustomDio();
-      customDio.dio.options.headers["Authorization"] = jsonEncode({
-        "signature":
-            "Z8NKBS+nnVjUmCRafKqEFWhJODEkCQp9mYtrGnW84MIBpqMUVvkEd0gxLYTBqyQihFytmbE7pNAohXYZxzcwtg==",
-        "certificateInfo": {
-          "id": "CFEmHlBSw0pf40jhWw5y_",
-          "timestamp": "2021-08-12T10:56:13.676Z",
-          "exp": 2799360000000
-        },
-        "publicKey": "A9VMrb8olmifFj4QVhG63fIJDK1+kkKsdKE3bmm+E9Xx"
-      });
+      var signature = Get.put(GlobalController()).user.value.certificate.toString();
+      customDio.dio.options.headers["Authorization"] = signature;
       response =
           await customDio.get("/user/$userID/contacts", {
         "offset": 0,

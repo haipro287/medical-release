@@ -5,7 +5,7 @@ import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 class CertificateApiService {
   static String getCertificate() {
     var certificateInfo = SignatureService.getCertificateInfo(
-        Get.put(GlobalController()).user.value.username.toString());
+        Get.put(GlobalController()).user.value.id.toString());
 
     String signature = SignatureService.getSignature(certificateInfo,
         Get.put(GlobalController()).user.value.privateKey.toString());

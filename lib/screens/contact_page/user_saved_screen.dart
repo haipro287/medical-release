@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
+import 'package:medical_chain_mobile_ui/widgets/input.dart';
 
 class UserSavedScreen extends StatelessWidget {
   final userInfo = Get.put(GlobalController()).user.value;
+  UserSearchController userSearchController = Get.put(UserSearchController());
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -26,6 +29,7 @@ class UserSavedScreen extends StatelessWidget {
           ),
         ),
         Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           appBar: appBar(
             context,
@@ -59,41 +63,96 @@ class UserSavedScreen extends StatelessWidget {
                     color: Color(0xFFD0E8FF),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 10),
+                SafeArea(
                   child: Container(
-                    margin: EdgeInsets.only(
-                      left: getWidth(17),
-                      right: getWidth(17),
-                    ),
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(
-                      bottom: getHeight(4),
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          width: 1,
-                          color: Colors.black12,
-                        ),
+                    padding: EdgeInsets.only(top: 10),
+                    child: Container(
+                      margin: EdgeInsets.only(
+                        left: getWidth(17),
+                        right: getWidth(17),
                       ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: getWidth(17),
-                        ),
-                        Text(
-                          "病院Kの医者さん",
-                          style: TextStyle(
-                            color: Color(0xFF2F3842),
-                            fontSize: getWidth(20),
-                            fontWeight: FontWeight.w500,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.only(
+                        bottom: getHeight(4),
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            width: 1,
+                            color: Colors.black12,
                           ),
                         ),
-                        SvgPicture.asset("assets/images/tick-icon.svg"),
-                      ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: getWidth(17),
+                          ),
+                          Obx(
+                            () => userSearchController.isEditing.value
+                                ? Container(
+                                    margin: EdgeInsets.only(
+                                      bottom: getHeight(4),
+                                    ),
+                                    width: getWidth(200),
+                                    height: getHeight(36),
+                                    alignment: Alignment.center,
+                                    child: TextFormField(
+                                      style: TextStyle(
+                                        color: Color(0xFF2F3842),
+                                        fontSize: getWidth(20),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      controller: userSearchController.nickname,
+                                      autofocus: true,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
+                                        errorBorder: InputBorder.none,
+                                        disabledBorder: InputBorder.none,
+                                        contentPadding: EdgeInsets.only(
+                                            left: getWidth(16),
+                                            right: getWidth(16)),
+                                        labelStyle: TextStyle(
+                                            color: Color(0xFF878C92),
+                                            fontSize: getWidth(16)),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    margin: EdgeInsets.only(
+                                      bottom: getHeight(4),
+                                    ),
+                                    width: getWidth(200),
+                                    height: getHeight(36),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "病院Kの医者さん",
+                                      style: TextStyle(
+                                        color: Color(0xFF2F3842),
+                                        fontSize: getWidth(20),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              print('change');
+                              userSearchController.changeEditStatus();
+                            },
+                            child: Obx(
+                              () => userSearchController.isEditing.value
+                                  ? SvgPicture.asset(
+                                      "assets/images/tick-icon.svg")
+                                  : SvgPicture.asset(
+                                      "assets/images/edit-icon.svg"),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -119,7 +178,8 @@ class UserSavedScreen extends StatelessWidget {
                     children: [
                       myAccountField(
                         myAccountText(('ユーザーID')),
-                        myAccountText('${userInfo.id.toString().substring(0, 15)}...'),
+                        myAccountText(
+                            '${userInfo.id.toString().substring(0, 15)}...'),
                       ),
                       myAccountField(
                         myAccountText(('氏名')),
@@ -195,7 +255,7 @@ class UserSavedScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

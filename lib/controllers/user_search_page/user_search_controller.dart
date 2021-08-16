@@ -6,14 +6,20 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class UserSearchController extends GetxController {
   TextEditingController searchInput = TextEditingController();
+  TextEditingController nickname = TextEditingController();
 
   var contactList = [].obs;
   var userData = {}.obs;
+  var isEditing = true.obs;
 
   @override
   void onInit() async {
-    searchInput.addListener(() {});
+    nickname.text = "病院Kの医者さん";
     super.onInit();
+  }
+
+  void changeEditStatus() {
+    isEditing.value = !isEditing.value;
   }
 
   Future searchUser(String searchInput) async {

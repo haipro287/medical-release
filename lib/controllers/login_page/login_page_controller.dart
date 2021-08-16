@@ -139,6 +139,7 @@ class LoginPageController extends GetxController {
           userInfo.encryptedPrivateKey = encryptedPrivateKey;
           userInfo.username = username.text;
           userInfo.password = password.text;
+          userInfo.certificate = certificateList[0];
           Get.put(GlobalController()).db.put("user", userInfo);
           Get.put(GlobalController()).user.value = userInfo;
 
