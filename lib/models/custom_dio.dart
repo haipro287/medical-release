@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/adapter.dart';
@@ -42,6 +43,8 @@ class CustomDio {
         onRequest:
             (RequestOptions options, RequestInterceptorHandler handler) async {
           print({"onRequest": options.uri});
+          print(1);
+          print(options.data);
           return handler.next(options); //continue
         },
         onResponse:
@@ -80,7 +83,8 @@ class CustomDio {
   }
 
   Future put(String url, [Map<String, dynamic>? params]) async {
-    return _dio.put(url, data: params);
+    print(params);
+    return _dio.put(url, data: jsonEncode({"data": params}));
   }
 
   Future delete(String url, [Map<String, dynamic>? params]) async {

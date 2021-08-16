@@ -152,20 +152,14 @@ class EditMyAccountScreen extends StatelessWidget {
                       ),
                     ),
                     onPress: () {
-                      myAccountController.fullName.value =
-                          editMyAccountController.name.text;
-                      myAccountController.alphabetName.value =
-                          editMyAccountController.alphabetName.text;
-                      myAccountController.dob.value =
-                          editMyAccountController.dob.text;
-                      myAccountController.email.value =
-                          editMyAccountController.email.text;
-                      myAccountController.phoneNumber.value =
-                          editMyAccountController.phone.text;
-                      myAccountController.citizenCode.value =
-                          editMyAccountController.citizenCode.text;
-                      myAccountController.avatar.value =
-                          editMyAccountController.avatar.value;
+                      myAccountController.editUserInfo(
+                        kanji: editMyAccountController.name.text,
+                        romanji: editMyAccountController.alphabetName.text,
+                        mail: editMyAccountController.email.text,
+                        birthday: editMyAccountController.dob.text,
+                        pid: editMyAccountController.citizenCode.text,
+                        phone: editMyAccountController.phone.text,
+                      );
                       Get.back();
                     },
                   ),

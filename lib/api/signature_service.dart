@@ -60,6 +60,9 @@ class SignatureService {
       "_signature": signature,
     });
 
+    print(body);
+    print(certificate);
+
     List<String> result = [];
     result.add(certificate);
     result.add(body);

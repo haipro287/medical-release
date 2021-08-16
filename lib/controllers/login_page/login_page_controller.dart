@@ -116,7 +116,7 @@ class LoginPageController extends GetxController {
 
         if (validatePassword.status == "SUCCESS") {
           var certificateInfo = SignatureService.getCertificateInfo(userId);
-
+          print(certificateInfo);
           String signature = SignatureService.getSignature(
               certificateInfo, privateKey as String);
           String times = TimeService.getTimeNow().toString();
@@ -140,6 +140,7 @@ class LoginPageController extends GetxController {
           userInfo.username = username.text;
           userInfo.password = password.text;
           userInfo.certificate = certificateList[0];
+          print("dscds: " + userInfo.certificate.toString());
           Get.put(GlobalController()).db.put("user", userInfo);
           Get.put(GlobalController()).user.value = userInfo;
 

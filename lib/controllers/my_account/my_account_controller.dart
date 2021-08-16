@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class MyAccountController extends GetxController {
   var avatar = 0xFFD0E8FF.obs;
@@ -12,4 +16,63 @@ class MyAccountController extends GetxController {
 
   bool emailVerified = true;
   bool phoneVerified = true;
+
+  GlobalController globalController = Get.put(GlobalController());
+
+  Future<Map> getUserInfo() async {
+    try {
+      var userID = globalController.user.value.id.toString();
+      var response;
+      CustomDio customDio = CustomDio();
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate.toString();
+      response = await customDio.get("/user/$userID/my-account");
+      var json = jsonDecode(response.toString());
+      print(json.toString());
+      print(userID);
+      print(globalController.user.value.certificate.toString());
+      return (json["data"]);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return {};
+    }
+  }
+
+  Future<Map> editUserInfo(
+      {required String romanji,
+      required String kanji,
+      required String birthday,
+      required String mail,
+      required String phone,
+      required String pid}) async {
+    try {
+      print(romanji);
+      var userID = globalController.user.value.id.toString();
+      var response;
+      CustomDio customDio = CustomDio();
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate.toString();
+      response = await customDio.put(
+        "/user/$userID/my-account",
+        {
+          "romanji": romanji,
+          "kanji": kanji,
+          "birthday": birthday,
+          "mail": mail,
+          "phone": phone,
+          "pid": pid,
+        },
+      );
+      var json = jsonDecode(response.toString());
+      print('response:' + json.toString());
+      print(userID);
+      print(globalController.user.value.certificate.toString());
+      return (json["data"]);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return {};
+    }
+  }
 }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/contact_list_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -78,14 +80,7 @@ class UserScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return MyAccountScreen();
-                              },
-                            ),
-                          )
+                          Get.to(() => MyAccountScreen())
                         },
                         child: Column(
                           children: [
