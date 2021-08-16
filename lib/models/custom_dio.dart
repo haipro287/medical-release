@@ -3,9 +3,10 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class CustomDio {
-  static String baseUrl = 'http://mcsrv.dev.nftal.io/v1';
+  static final String baseUrl = dotenv.env["SERVER_URL"] as String;
   // static String baseUrl = 'https://test.dev.nftal.io/api';
 
   static CustomDio _instance() => CustomDio._();

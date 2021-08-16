@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
@@ -10,7 +11,7 @@ import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart'
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 
 Future<void> main() async {
-  // await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: ".env");
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   var db = await Hive.openBox('medical-chain');
