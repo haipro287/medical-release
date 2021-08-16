@@ -36,9 +36,7 @@ class MyApp extends StatelessWidget {
           Platform.isIOS ? Transition.cupertino : Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "SFPro"),
       home: globalController.user.value.username != null
           ? HomePageScreen()
           : LoginPageScreen(),

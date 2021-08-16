@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/scanQRController/scanQR_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/scanQR/test_qr.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -250,9 +251,9 @@ class ScanQRScreen extends StatelessWidget {
   void _onQRViewCreated(QRViewController controller) {
     this.qrScanController.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      // controller.pauseCamera();
+      controller.pauseCamera();
       print(scanData.code);
-
+      Get.to(() => TestQRScreen(qr: scanData.code));
       controller.resumeCamera();
     });
   }
