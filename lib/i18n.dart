@@ -27,7 +27,8 @@ class Messages extends Translations {
       'shareData': 'Share data',
       'sentRequest': 'Sent request',
       'username': 'Username',
-      'nickname': '氏名'
+      'nickname': 'Nickname',
+      'longnickname': 'Nickname'
     },
     'ja_JP': {
       'hello': 'こんにちは, @name',
@@ -68,7 +69,8 @@ class Messages extends Translations {
       'shareData': 'データ共有',
       'sentRequest': 'リクエスト送信',
       'username': 'ユーザーID',
-      'nickname': '氏名'
+      'nickname': '氏名',
+      'longnickname': 'ニックネーム'
     }
   };
 }

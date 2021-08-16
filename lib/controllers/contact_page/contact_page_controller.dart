@@ -23,8 +23,8 @@ class ContactPageController extends GetxController {
       var userID = Get.put(GlobalController()).user.value.id.toString();
       var response;
       CustomDio customDio = CustomDio();
-      var signature = Get.put(GlobalController()).user.value.certificate.toString();
-      customDio.dio.options.headers["Authorization"] = signature;
+      var certificate = Get.put(GlobalController()).user.value.certificate.toString();
+      customDio.dio.options.headers["Authorization"] = certificate;
       response =
           await customDio.get("/user/$userID/contacts", {
         "offset": 0,

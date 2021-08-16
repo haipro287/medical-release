@@ -11,6 +11,7 @@ class UserSearchController extends GetxController {
   var contactList = [].obs;
   var userData = {}.obs;
   var isEditing = true.obs;
+  var nicknameText = "病院Kの医者さん";
 
   @override
   void onInit() async {
@@ -19,7 +20,19 @@ class UserSearchController extends GetxController {
   }
 
   void changeEditStatus() {
-    isEditing.value = !isEditing.value;
+    if (isEditing.value) {
+      isEditing.value = false;
+      nicknameText = nickname.text;
+      nickname.clear();
+    } else {
+      isEditing.value = !isEditing.value;
+      // searchInput.value = TextEditingValue(
+      //   text: nicknameText,
+      //   selection: TextSelection.fromPosition(
+      //     TextPosition(offset: nicknameText.length),
+      //   ),
+      // );
+    }
   }
 
   Future searchUser(String searchInput) async {

@@ -98,6 +98,7 @@ class UserSavedScreen extends StatelessWidget {
                                     height: getHeight(36),
                                     alignment: Alignment.center,
                                     child: TextFormField(
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Color(0xFF2F3842),
                                         fontSize: getWidth(20),
@@ -128,7 +129,7 @@ class UserSavedScreen extends StatelessWidget {
                                     height: getHeight(36),
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "病院Kの医者さん",
+                                      userSearchController.nicknameText,
                                       style: TextStyle(
                                         color: Color(0xFF2F3842),
                                         fontSize: getWidth(20),
