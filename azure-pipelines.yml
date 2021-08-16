@@ -1,0 +1,49 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  - dev
+
+pool:
+  name: 'Builder'
+
+variables:
+  GIT_PAT: $(gitPat)
+  AZURE_PAT: $(azurePass)
+
+name: 1.0.0+$(Rev:.r)
+
+steps:
+  - task: mirror-git-repository-vsts-task@1
+    inputs:
+      sourceGitRepositoryUri: '$(Build.Repository.Uri)'
+      sourceVerifySSLCertificate: false
+      destinationGitRepositoryUri: 'https://github.com/sonntuet1997/medical-release'
+      sourceGitRepositoryPersonalAccessToken: $(AZURE_PAT)
+      destinationGitRepositoryPersonalAccessToken: $(GIT_PAT)
+  - task: CmdLine@2
+    inputs:
+      script: 'cp .env.example .env'
+  - task: FlutterInstall@0
+    inputs:
+      mode: 'auto'
+      channel: 'stable'
+      version: 'latest'
+  # - task: CmdLine@2
+  #   inputs:
+  #     script: '$(FlutterToolPath)/flutter.bat build apk --profile "--target-platform=android-arm" "--build-number=1"'
+  - task: FlutterBuild@0
+    inputs:
+      target: 'apk'
+      projectDirectory: '.'
+      splitPerAbi: true
+      apkTargetPlatform: 'android-arm64'
+      extraArgs: '--release'
+      buildName: 
+      buildNumber: 
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'build/app/outputs/flutter-apk'
+      ArtifactName: 'output'
+      publishLocation: 'Container'
