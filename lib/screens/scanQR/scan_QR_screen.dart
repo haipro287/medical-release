@@ -15,6 +15,10 @@ class ScanQRScreen extends StatelessWidget {
   ScanQRScreen({this.type});
   @override
   Widget build(BuildContext context) {
+    if (type.toString() != "scan") {
+      qrScanController.init(1);
+    } else
+      qrScanController.init(0);
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(

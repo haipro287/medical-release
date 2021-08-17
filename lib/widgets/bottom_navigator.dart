@@ -92,7 +92,9 @@ Container bottomNavigator() {
                   }),
                   GestureDetector(
                     onTap: () {
-                      Get.to(() => ScanQRScreen());
+                      Get.to(() => ScanQRScreen(
+                            type: "scan",
+                          ));
                     },
                     child: SvgPicture.asset(
                       "assets/images/qr.svg",

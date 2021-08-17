@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/user_saved_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -204,7 +203,9 @@ Container userInputSearch(
         ),
         GestureDetector(
           onTap: () async {
-            Get.to(() => ScanQRScreen());
+            Get.to(() => ScanQRScreen(
+                  type: "scan",
+                ));
           },
           child: SvgPicture.asset("assets/images/qrcode-icon.svg"),
         ),
