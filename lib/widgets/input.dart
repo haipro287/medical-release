@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/user_saved_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 Container inputPassword(BuildContext context, TextEditingController controller,
@@ -85,9 +86,12 @@ Container inputRegular(BuildContext context,
   );
 }
 
-Container inputSearch(BuildContext context,
-    {required String hintText,
-    required TextEditingController textEditingController}) {
+Container inputSearch(
+  BuildContext context, {
+  required String hintText,
+  required TextEditingController textEditingController,
+  required dynamic onSearch,
+}) {
   return Container(
     height: getHeight(56),
     decoration: BoxDecoration(
@@ -107,7 +111,12 @@ Container inputSearch(BuildContext context,
         SizedBox(
           width: getWidth(16),
         ),
-        SvgPicture.asset("assets/images/search-icon.svg"),
+        GestureDetector(
+          onTap: () {
+            onSearch();
+          },
+          child: SvgPicture.asset("assets/images/search-icon.svg"),
+        ),
         Expanded(
           child: TextFormField(
             controller: textEditingController,
@@ -193,7 +202,12 @@ Container userInputSearch(
         SizedBox(
           width: getWidth(16),
         ),
-        SvgPicture.asset("assets/images/qrcode-icon.svg"),
+        GestureDetector(
+          onTap: () async {
+            Get.to(() => ScanQRScreen());
+          },
+          child: SvgPicture.asset("assets/images/qrcode-icon.svg"),
+        ),
       ],
     ),
   );

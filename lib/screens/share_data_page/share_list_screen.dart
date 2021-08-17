@@ -83,23 +83,24 @@ class ShareListScreen extends StatelessWidget {
                                   alignment: Alignment.centerLeft,
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(
-                                    left: getWidth(15),
-                                    right: getWidth(15),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Color(0xF2F3F7F2),
-                                        width: getHeight(3),
-                                      ),
-                                    ),
-                                  ),
-                                  height: getHeight(78),
+                                  height: getHeight(442),
                                   child: ListView(
+                                    scrollDirection: Axis.vertical,
                                     children: List.generate(
                                       10,
                                       (index) => Container(
+                                        margin: EdgeInsets.only(
+                                          left: getWidth(15),
+                                          right: getWidth(15),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: Color(0xF2F3F7F2),
+                                              width: getHeight(3),
+                                            ),
+                                          ),
+                                        ),
                                         child: Row(
                                           children: [
                                             Radio(
@@ -118,8 +119,8 @@ class ShareListScreen extends StatelessWidget {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                      "秋原新一 (Akihara Shinichi)"),
-                                                  Text("akiharashinichi1"),
+                                                      "Akira$index"),
+                                                  Text("09${(index + 1) * 123}${(index + 1)*10982}"),
                                                 ],
                                               ),
                                             )

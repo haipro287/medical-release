@@ -13,15 +13,22 @@ class ContactListPage extends StatelessWidget {
     ContactPageController contactPageController =
         Get.put(ContactPageController());
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: appBar(context, "contact".tr),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFF61B3FF),
-        foregroundColor: Colors.white,
-        onPressed: () async {
-          print(contactPageController.contactList);
-          Get.to(() => SearchUserScreen());
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(
+          bottom: getHeight(52),
+          right: getWidth(24),
+        ),
+        child: FloatingActionButton(
+          backgroundColor: Color(0xFF61B3FF),
+          foregroundColor: Colors.white,
+          onPressed: () async {
+            print(contactPageController.contactList);
+            Get.to(() => SearchUserScreen());
+          },
+          child: Icon(Icons.add),
+        ),
       ),
       backgroundColor: Colors.white,
       body: Container(
@@ -30,17 +37,18 @@ class ContactListPage extends StatelessWidget {
             inputSearch(
               context,
               hintText: "searchInput".tr,
-              textEditingController: TextEditingController(),
+              textEditingController: contactPageController.searchInput,
+              onSearch: contactPageController.search,
             ),
             SizedBox(
-              height: getHeight(9),
+              height: getHeight(12),
             ),
             Container(
               decoration: BoxDecoration(
                 color: Colors.black12,
                 borderRadius: BorderRadius.circular(getHeight(4)),
                 border: Border.all(
-                  color: Color(0xF2F3F7F2),
+                  color: Color(0xFFECEFF1),
                   width: getHeight(1),
                 ),
               ),
@@ -55,37 +63,53 @@ class ContactListPage extends StatelessWidget {
               ),
               alignment: Alignment.centerLeft,
             ),
-            Container(
-              margin: EdgeInsets.only(
-                left: getWidth(15),
-                right: getWidth(15),
-              ),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Color(0xF2F3F7F2),
-                    width: getHeight(3),
-                  ),
-                ),
-              ),
-              height: getHeight(78),
-              child: Row(
-                children: [
-                  SvgPicture.asset("assets/images/avatar.svg"),
-                  SizedBox(width: getWidth(15)),
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("秋原新一 (Akihara Shinichi)"),
-                        Text("akiharashinichi1"),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              alignment: Alignment.centerLeft,
+            Obx(
+              () => Expanded(
+                  flex: 1,
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: contactPageController.searchList.value
+                        .map(
+                          (e) => Container(
+                            margin: EdgeInsets.only(
+                              left: getWidth(15),
+                              right: getWidth(15),
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: Color(0xFFECEFF1),
+                                  width: getHeight(1),
+                                ),
+                              ),
+                            ),
+                            height: getHeight(78),
+                            child: Row(
+                              children: [
+                                SvgPicture.asset("assets/images/avatar.svg"),
+                                SizedBox(width: getWidth(15)),
+                                Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(e["longName"]),
+                                      Text(
+                                        e["username"],
+                                        style: TextStyle(
+                                            color: Colors.blueGrey.shade300),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            alignment: Alignment.centerLeft,
+                          ),
+                        )
+                        .toList(),
+                  )),
             ),
           ],
         ),

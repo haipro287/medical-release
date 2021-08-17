@@ -220,7 +220,7 @@ class UserScreen extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () => {Get.to(() => ShareListScreen())},
+                        onTap: () => {},
                         child: Container(
                           color: Colors.white,
                           child: Column(
