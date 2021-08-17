@@ -130,27 +130,23 @@ class LoginPageController extends GetxController {
               publicKey,
               times);
 
-          userInfo.id = userId;
-          userInfo.name = userName;
-          userInfo.phone = data["phone"];
-          userInfo.mail = email;
-          userInfo.publicKey = publicKey;
-          userInfo.privateKey = privateKey;
-          userInfo.encryptedPrivateKey = encryptedPrivateKey;
-          userInfo.username = username.text;
-          userInfo.password = password.text;
-          userInfo.certificate = certificateList[0];
-          print("dscds: " + userInfo.certificate.toString());
-          Get.put(GlobalController()).db.put("user", userInfo);
-          Get.put(GlobalController()).user.value = userInfo;
-
           var responsePing = await getPing(certificateList);
           print({"resPing": responsePing.toString()});
           Status validateServer2 = ResponseValidator.check(responsePing);
           if (validateServer2.status == "OK") {
-            // var dataPing = responsePing.data['data'];
-            // var user = dataPing;
-            // print({'id': user.id});
+            userInfo.id = userId;
+            userInfo.name = userName;
+            userInfo.phone = data["phone"];
+            userInfo.mail = email;
+            userInfo.publicKey = publicKey;
+            userInfo.privateKey = privateKey;
+            userInfo.encryptedPrivateKey = encryptedPrivateKey;
+            userInfo.username = username.text;
+            userInfo.password = password.text;
+            userInfo.certificate = certificateList[0];
+            print("dscds: " + userInfo.certificate.toString());
+            Get.put(GlobalController()).db.put("user", userInfo);
+            Get.put(GlobalController()).user.value = userInfo;
             return true;
           } else {
             messValidatePassword.value = "Wrong password";

@@ -8,8 +8,7 @@ class QrScanController extends GetxController {
 
   RxInt i = 0xFFD0E8FF.obs;
   var isFlash = false.obs;
-  PageController pageController =
-      PageController(initialPage: 0, keepPage: false);
+  late PageController pageController;
   var index = 0.obs;
 
   void changeTab(int tab) {
@@ -20,5 +19,10 @@ class QrScanController extends GetxController {
         duration: Duration(milliseconds: 500),
         curve: Curves.ease,
       );
+  }
+
+  void init(int page) {
+    pageController = PageController(initialPage: page, keepPage: false);
+    index.value = page;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,8 @@ class HomePageTabScreen extends StatelessWidget {
             height: getHeight(40),
           ),
           Wrap(
-            spacing: getWidth(13),
+            alignment: WrapAlignment.center,
+            spacing: getWidth(10),
             runSpacing: getWidth(10),
             children: [
               Container(

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
-import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 class UserScreen extends StatelessWidget {
@@ -31,30 +31,38 @@ class UserScreen extends StatelessWidget {
                       SizedBox(
                         height: getHeight(36),
                       ),
-                      Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(56),
-                            child: Container(
-                              width: getWidth(56),
-                              height: getWidth(56),
-                              color: Color(0xFFD0E8FF),
-                            ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(() => MyAccountScreen());
+                        },
+                        child: Container(
+                          color: Colors.white,
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(56),
+                                child: Container(
+                                  width: getWidth(56),
+                                  height: getWidth(56),
+                                  color: Color(0xFFD0E8FF),
+                                ),
+                              ),
+                              SizedBox(
+                                width: getWidth(18),
+                              ),
+                              Text(
+                                Get.put(GlobalController())
+                                    .user
+                                    .value
+                                    .name
+                                    .toString(),
+                                style: TextStyle(
+                                    fontSize: getWidth(20),
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            width: getWidth(18),
-                          ),
-                          Text(
-                            Get.put(GlobalController())
-                                .user
-                                .value
-                                .name
-                                .toString(),
-                            style: TextStyle(
-                                fontSize: getWidth(20),
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ],
+                        ),
                       ),
                       SizedBox(
                         height: getHeight(24),
@@ -124,7 +132,9 @@ class UserScreen extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => ScanQRScreen());
+                        },
                         child: Container(
                           color: Colors.white,
                           child: Column(
