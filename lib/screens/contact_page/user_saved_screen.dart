@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
+import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_service.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 
@@ -206,7 +207,9 @@ class UserSavedScreen extends StatelessWidget {
                             bottom: getHeight(14),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(() => ShareListService());
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -236,7 +239,9 @@ class UserSavedScreen extends StatelessWidget {
                               top: getHeight(14),
                               bottom: getHeight(14),
                             )),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(() => ShareListService());
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

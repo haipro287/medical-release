@@ -59,8 +59,15 @@ Container switchService(
         Obx(
           () => CupertinoSwitch(
             value: listServiceController.serviceList[index]['isConnected'].value,
-            onChanged: (bool value) {
-              listServiceController.serviceList[index]['isConnected'].value = value;
+            onChanged: (bool value) async {
+              if (!value) {
+                var a = await listServiceController.disconnectService(serviceId: '123');
+                if (a) {
+                  listServiceController.serviceList[index]['isConnected'].value = false;
+                }
+              } else {
+                listServiceController.serviceList[index]['isConnected'].value = value;
+              }
             },
           ),
         ),

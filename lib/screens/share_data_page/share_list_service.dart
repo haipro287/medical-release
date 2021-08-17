@@ -1,0 +1,147 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/share_data_page/share_time_service.dart';
+import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
+
+class ShareListService extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    ShareServiceListController shareServiceListController =
+        ShareServiceListController();
+    Get.put(ContactPageController());
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: appBar(context, "share_service_list".tr),
+      backgroundColor: Colors.white,
+      body: Container(
+        child: Column(
+          children: [
+            SizedBox(
+              height: getHeight(12),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.circular(getHeight(4)),
+                border: Border.all(
+                  color: Color(0xFFECEFF1),
+                  width: getHeight(1),
+                ),
+              ),
+              height: getHeight(56),
+              child: Row(
+                children: [
+                  SizedBox(width: getWidth(15)),
+                  Text(
+                    "連携したいサービスを選択してください。",
+                  ),
+                ],
+              ),
+              alignment: Alignment.centerLeft,
+            ),
+            Obx(
+              () => Expanded(
+                  flex: 1,
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: shareServiceListController.serviceList
+                        .map(
+                          (e) => Container(
+                            margin: EdgeInsets.only(
+                              left: getWidth(15),
+                              right: getWidth(15),
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: Color(0xFFECEFF1),
+                                  width: getHeight(1),
+                                ),
+                              ),
+                            ),
+                            height: getHeight(78),
+                            child: Row(
+                              children: [
+                                Checkbox(
+                                    value: shareServiceListController.checkList
+                                        .contains(e["id"]),
+                                    onChanged: (bool? isCheck) => {
+                                          if (isCheck == true)
+                                            {
+                                              shareServiceListController
+                                                  .checkList
+                                                  .add(e["id"])
+                                            }
+                                          else
+                                            shareServiceListController.checkList
+                                                .remove(e["id"])
+                                        }),
+                                SvgPicture.asset("assets/images/avatar.svg"),
+                                SizedBox(width: getWidth(15)),
+                                Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(e["name"]),
+                                      Text(
+                                        e["username"],
+                                        style: TextStyle(
+                                            color: Colors.blueGrey.shade300),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            alignment: Alignment.centerLeft,
+                          ),
+                        )
+                        .toList(),
+                  )),
+            ),
+            Obx(
+              () => Container(
+                margin: EdgeInsets.only(
+                  bottom: getHeight(46),
+                ),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor:
+                        shareServiceListController.checkList.length > 0
+                            ? Color(0xFFD0E8FF)
+                            : Colors.blueGrey.shade100,
+                    side: BorderSide(
+                      color: shareServiceListController.checkList.length > 0
+                          ? Color(0xFFD0E8FF)
+                          : Colors.blueGrey.shade100,
+                    ),
+                    padding: EdgeInsets.only(
+                      top: getHeight(14),
+                      bottom: getHeight(14),
+                      left: getHeight(170),
+                      right: getHeight(170),
+                    ),
+                  ),
+                  onPressed: () {
+                    if (shareServiceListController.checkList.length > 0) {}
+                      Get.to(() => ShareTimeService());
+                  },
+                  child: Text(
+                    'next'.tr,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/contact_list_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/list_service/list_service_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
@@ -81,7 +82,8 @@ class HomePageTabScreen extends StatelessWidget {
               actionTab(
                   color: Color(0xFFF7EBE8),
                   icon: "assets/images/link.svg",
-                  tag: "connectService"),
+                  tag: "connectService",
+                  function: () => Get.to(() => ListServiceScreen())),
               actionTab(
                   color: Color(0xFFD8F4FF),
                   icon: "assets/images/people.svg",
