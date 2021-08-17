@@ -48,7 +48,7 @@ Container bottomNavigator() {
                             Text(
                               "home".tr,
                               style: TextStyle(
-                                  fontSize: getWidth(12),
+                                  fontSize: 12,
                                   color:
                                       homePageController.currentPage.value == 0
                                           ? Color(0xFF61B3FF)
@@ -79,7 +79,7 @@ Container bottomNavigator() {
                             Text(
                               "share".tr,
                               style: TextStyle(
-                                  fontSize: getWidth(12),
+                                  fontSize: 12,
                                   color:
                                       homePageController.currentPage.value == 1
                                           ? Color(0xFF61B3FF)
@@ -119,7 +119,7 @@ Container bottomNavigator() {
                             Text(
                               "view".tr,
                               style: TextStyle(
-                                  fontSize: getWidth(12),
+                                  fontSize: 12,
                                   color:
                                       homePageController.currentPage.value == 2
                                           ? Color(0xFF61B3FF)
@@ -150,7 +150,7 @@ Container bottomNavigator() {
                             Text(
                               "user".tr,
                               style: TextStyle(
-                                  fontSize: getWidth(12),
+                                  fontSize: 12,
                                   color:
                                       homePageController.currentPage.value == 3
                                           ? Color(0xFF61B3FF)

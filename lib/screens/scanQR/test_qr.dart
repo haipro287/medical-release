@@ -5,8 +5,10 @@ class TestQRScreen extends StatelessWidget {
   TestQRScreen({required this.qr});
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(qr),
+    return Scaffold(
+      body: Center(
+        child: Text(qr),
+      ),
     );
   }
 }
