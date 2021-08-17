@@ -28,7 +28,8 @@ class Messages extends Translations {
           'sentRequest': 'Sent request',
           'username': 'Username',
           'nickname': 'Nickname',
-          'longnickname': 'Nickname'
+          'longnickname': 'Nickname',
+          "next": "Next"
         },
         'ja_JP': {
           'hello': 'こんにちは, @name',
@@ -74,7 +75,8 @@ class Messages extends Translations {
           'longnickname': 'ニックネーム',
           'viewData': 'データビュー',
           'viewSettings': '共有設定',
-          'contact_address': "連絡先"
+          'contact_address': "連絡先",
+          "next": "次へ"
         }
       };
 }

@@ -25,7 +25,7 @@ class SearchUserScreen extends StatelessWidget {
         elevation: 0,
         leading: new IconButton(
           icon: SvgPicture.asset('assets/images/back.svg'),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Get.back(),
         ),
       ),
       backgroundColor: Colors.white,

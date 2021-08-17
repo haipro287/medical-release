@@ -24,11 +24,13 @@ class ContactPageController extends GetxController {
     {"longName": "秋原新一 (Asd BasdBasd)", "username": "aasddc2"},
     {"longName": "秋原新一 (Asd BasdBasd)", "username": "ababda2"},
   ].obs;
+  
   var searchList = [].obs;
 
   @override
   void onInit() async {
-    // var response = await getContactList("");
+    var response = await getContactList("");
+    print("response: " + response.toString());
     // contactList.value = response;
     searchList.value = contactList;
     searchInput.addListener(() {});

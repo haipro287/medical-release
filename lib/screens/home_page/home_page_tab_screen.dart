@@ -86,26 +86,12 @@ class HomePageTabScreen extends StatelessWidget {
                   color: Color(0xFFD8F4FF),
                   icon: "assets/images/people.svg",
                   tag: "contact_address",
-                  function: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return ContactListPage();
-                          },
-                        ),
-                      )),
+                  function: () => Get.to(() => ContactListPage())),
               actionTab(
                   color: Color(0xFFD0E8FF),
                   icon: "assets/images/send.svg",
                   tag: "sentRequest",
-                  function: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return ShareListScreen();
-                          },
-                        ),
-                      )),
+                  function: () => Get.to(() => ShareListScreen())),
               actionTab(
                   color: Color(0xFFF0F7E6),
                   icon: "assets/images/person.svg",

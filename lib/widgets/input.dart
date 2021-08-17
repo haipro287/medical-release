@@ -214,6 +214,79 @@ Container userInputSearch(
   );
 }
 
+Container inputSearchWithQrCode(
+  BuildContext context, {
+  required String hintText,
+  required TextEditingController textEditingController,
+  required dynamic onSearch,
+}) {
+  return Container(
+    height: getHeight(56),
+    margin: EdgeInsets.only(
+      right: getWidth(16),
+      left: getWidth(16),
+    ),
+    child: Row(
+      textDirection: TextDirection.ltr,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.black12,
+            borderRadius: BorderRadius.circular(getHeight(4)),
+            border: Border.all(
+              color: Color(0xF2F3F7F2),
+              width: getHeight(1),
+            ),
+          ),
+          child: Row(
+            children: [
+              SizedBox(
+                width: getWidth(16),
+              ),
+              GestureDetector(
+                onTap: () async {
+                  var data = await onSearch();
+                  if (data != null) Get.to(() => UserSavedScreen());
+                },
+                child: SvgPicture.asset("assets/images/search-icon.svg"),
+              ),
+              SizedBox(
+                width: getWidth(240),
+                height: getHeight(56),
+                child: TextFormField(
+                  controller: textEditingController,
+                  style: TextStyle(fontSize: getWidth(16)),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    labelText: hintText,
+                    contentPadding: EdgeInsets.only(
+                        left: getWidth(16), right: getWidth(16)),
+                    labelStyle: TextStyle(
+                        color: Color(0xFF878C92), fontSize: getWidth(16)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          width: getWidth(16),
+        ),
+        GestureDetector(
+          onTap: () async {
+            Get.to(() => ScanQRScreen());
+          },
+          child: SvgPicture.asset("assets/images/qrcode-icon.svg"),
+        ),
+      ],
+    ),
+  );
+}
+
 Container inputWithHint(BuildContext context,
     {required String hintText,
     required String labelText,

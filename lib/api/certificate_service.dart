@@ -86,7 +86,8 @@ String? decryptAESCryptoJS(String encrypted, String passphrase) {
     final decrypted =
         encrypter.decrypt64(base64.encode(encryptedBytes), iv: iv);
     return decrypted;
-  } catch (error) {
+  } catch (s, e) {
+    print("error: " + e.toString());
     return null;
   }
 }

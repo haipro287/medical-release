@@ -24,7 +24,7 @@ class ContactListPage extends StatelessWidget {
           backgroundColor: Color(0xFF61B3FF),
           foregroundColor: Colors.white,
           onPressed: () async {
-            print(contactPageController.contactList);
+            // print(contactPageController.contactList);
             Get.to(() => SearchUserScreen());
           },
           child: Icon(Icons.add),

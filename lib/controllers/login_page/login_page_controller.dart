@@ -106,6 +106,8 @@ class LoginPageController extends GetxController {
         var userName = data["username"];
         String? privateKey =
             decryptAESCryptoJS(encryptedPrivateKey, password.text);
+        
+        print(privateKey);
         Status validatePassword = new Status();
 
         if (privateKey == null)
@@ -151,6 +153,8 @@ class LoginPageController extends GetxController {
           } else {
             messValidatePassword.value = "Wrong password";
           }
+        } else {
+          messValidatePassword.value = "Wrong password";
         }
       } else {
         messValidateUsername.value = "Username Invalid";

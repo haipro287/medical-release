@@ -62,11 +62,16 @@ class LoginPageScreen extends StatelessWidget {
             SizedBox(
               height: getHeight(21),
             ),
-            InkWell(
-              child: Text("forgotPassword".tr),
-              onTap: () {
-                print('forgot password');
-              },
+            Obx(
+              () => (loginController.messValidateUsername.value != "" ||
+                      loginController.messValidatePassword.value != "")
+                  ? InkWell(
+                      child: Text("forgotPassword".tr),
+                      onTap: () {
+                        print('forgot password');
+                      },
+                    )
+                  : Container(),
             ),
             SizedBox(
               height: getHeight(52),
