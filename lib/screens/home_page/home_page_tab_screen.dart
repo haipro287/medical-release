@@ -54,9 +54,7 @@ class HomePageTabScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      Get.put(
-                        GlobalController().user.value.name.toString(),
-                      ),
+                      Get.put(GlobalController()).user.value.name.toString(),
                       style: TextStyle(
                         fontSize: getWidth(24),
                       ),
