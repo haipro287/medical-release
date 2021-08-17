@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.abc.medical_chain_mobile_ui">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="medical_chain_mobile_ui"
         android:icon="@mipmap/ic_launcher">
