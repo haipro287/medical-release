@@ -94,9 +94,9 @@ class ContactListPage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(e["longName"]),
+                                      Text(e["secondaryName"]),
                                       Text(
-                                        e["username"],
+                                        e["secondaryUsername"],
                                         style: TextStyle(
                                             color: Colors.blueGrey.shade300),
                                       ),

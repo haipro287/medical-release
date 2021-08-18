@@ -1,57 +1,85 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class ShareListController extends GetxController {
   TextEditingController searchInput1 = TextEditingController();
   TextEditingController searchInput2 = TextEditingController();
 
-  var contactList = [
+  RxList<Map<String, String>> contactList = [
     {
-      "id": "LNmBW-PTDilttfsVw-NbM",
-      "username": "account1",
-      "phone": "0123456781",
-      "mail": "acc1@gmail.com",
-      "romanji": "tokuda1",
-      "kanji": "田中",
-      "secondaryName": "",
+      "id": "K_Zaj8IVqO1bWI7lXaO6H",
+      "secondaryId": "LNmBW - PTDilttfsVw - NbM",
+      "secondaryName": "Template",
+      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
+      "secondaryUsername": "account1"
     },
     {
-      "id": "LNmBW-PTDilttfsVw-NbM",
-      "username": "account2",
-      "phone": "0123456782",
-      "mail": "acc2@gmail.com",
-      "romanji": "tokuda2",
-      "kanji": "田中",
-      "secondaryName": "",
+      "id": "-F - LbOUewpbZQvvoKNpAh",
+      "secondaryId": "XAgxrs9wzKaycOy2Kug1B",
+      "secondaryName": "Magic",
+      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
+      "secondaryUsername": "account2"
+    }
+  ].obs;
+
+  RxList<Map<String, String>> searchList = [
+    {
+      "id": "K_Zaj8IVqO1bWI7lXaO6H",
+      "secondaryId": "LNmBW - PTDilttfsVw - NbM",
+      "secondaryName": "Template",
+      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
+      "secondaryUsername": "account1"
     },
     {
-      "id": "LNmBW-PTDilttfsVw-NbM",
-      "username": "account3",
-      "phone": "0123456783",
-      "mail": "acc3@gmail.com",
-      "romanji": "tokuda3",
-      "kanji": "田中",
-      "secondaryName": "",
-    },
-    {
-      "id": "LNmBW-PTDilttfsVw-NbM",
-      "username": "account4",
-      "phone": "0123456784",
-      "mail": "acc4@gmail.com",
-      "romanji": "tokuda4",
-      "kanji": "田中",
-      "secondaryName": "",
-    },
+      "id": "-F - LbOUewpbZQvvoKNpAh",
+      "secondaryId": "XAgxrs9wzKaycOy2Kug1B",
+      "secondaryName": "Magic",
+      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
+      "secondaryUsername": "account2"
+    }
   ].obs;
 
   var userSelected = "".obs;
-  var searchList = [].obs;
   var userData = {}.obs;
 
   @override
   void onInit() async {
-    searchList.value = contactList;
+    var response = await getContactList("");
+    print("response: " + response.toString());
+    contactList.value = response;
+    searchList.value = response;
     super.onInit();
+  }
+
+  Future getContactList(String searchInput) async {
+    try {
+      var userID = Get.put(GlobalController()).user.value.id.toString();
+      var response;
+      CustomDio customDio = CustomDio();
+      var certificate =
+          Get.put(GlobalController()).user.value.certificate.toString();
+      customDio.dio.options.headers["Authorization"] = certificate;
+      response = await customDio.get("/user/$userID/contacts", {
+        "offset": 0,
+        "limit": 2,
+      });
+      var json = jsonDecode(response.toString());
+      var list = json["data"];
+      List<Map<String, String>> res = [];
+      for (var i = 0; i < list.length; i++) {
+        var item = list[i];
+        res.add(item);
+      }
+      return res;
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return null;
+    }
   }
 
   void search() {

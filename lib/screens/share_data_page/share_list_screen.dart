@@ -111,12 +111,12 @@ class ShareListScreen extends StatelessWidget {
                                                 Radio(
                                                   value: shareListController
                                                           .userSelected.value !=
-                                                      e["username"],
+                                                      e["secondaryUsername"],
                                                   groupValue: false,
                                                   onChanged: (var a) {
                                                     shareListController
                                                         .userSelected
-                                                        .value = e["username"];
+                                                        .value = e["secondaryUsername"] ?? "";
                                                   },
                                                 ),
                                                 SvgPicture.asset(
@@ -131,8 +131,8 @@ class ShareListScreen extends StatelessWidget {
                                                         MainAxisAlignment
                                                             .center,
                                                     children: [
-                                                      Text(e["username"]),
-                                                      Text(e["phone"]),
+                                                      Text(e["secondaryUsername"] ?? ""),
+                                                      Text(e["phone"] ?? "unknown phone number"),
                                                     ],
                                                   ),
                                                 )

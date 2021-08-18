@@ -8,31 +8,46 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 class ContactPageController extends GetxController {
   TextEditingController searchInput = TextEditingController();
 
-  var contactList = [
-    {"longName": "秋原新一 (Akihara Shinichi)", "username": "akiharashinichi1"},
-    {"longName": "秋原新一 (Asd Basd)", "username": "abcd1aw2"},
-    {"longName": "秋原新一 (Asaasd Asd)", "username": "assd12"},
-    {"longName": "秋原新一 (Asd Asaasd)", "username": "abc21"},
-    {"longName": "秋原新一 (Asaasd Basd)", "username": "agfssa"},
-    {"longName": "秋原新一 (Basd Basd)", "username": "abassa"},
-    {"longName": "秋原新一 (Asd BasdBasd)", "username": "assw"},
-    {"longName": "秋原新一 (Asd BasdBasd)", "username": "ass11"},
-    {"longName": "秋原新一 (Asd BasdBasd)", "username": "abxx"},
-    {"longName": "秋原新一 (Asd BasdBasd)", "username": "abqw"},
-    {"longName": "秋原新一 (Asd BasdBasd)", "username": "a2ffas"},
-    {"longName": "秋原新一 (Asd BasdBasd)", "username": "abbas2"},
-    {"longName": "秋原新一 (Asd BasdBasd)", "username": "aasddc2"},
-    {"longName": "秋原新一 (Asd BasdBasd)", "username": "ababda2"},
+  RxList<Map<String, dynamic>> contactList = [
+    {
+      "id": "K_Zaj8IVqO1bWI7lXaO6H",
+      "secondaryId": "LNmBW - PTDilttfsVw - NbM",
+      "secondaryName": "Template",
+      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
+      "secondaryUsername": "account1"
+    },
+    {
+      "id": "-F - LbOUewpbZQvvoKNpAh",
+      "secondaryId": "XAgxrs9wzKaycOy2Kug1B",
+      "secondaryName": "Magic",
+      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
+      "secondaryUsername": "account2"
+    }
   ].obs;
-  
-  var searchList = [].obs;
+
+  RxList<Map<String, dynamic>> searchList = [
+    {
+      "id": "K_Zaj8IVqO1bWI7lXaO6H",
+      "secondaryId": "LNmBW - PTDilttfsVw - NbM",
+      "secondaryName": "Template",
+      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
+      "secondaryUsername": "account1"
+    },
+    {
+      "id": "-F - LbOUewpbZQvvoKNpAh",
+      "secondaryId": "XAgxrs9wzKaycOy2Kug1B",
+      "secondaryName": "Magic",
+      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
+      "secondaryUsername": "account2"
+    }
+  ].obs;
 
   @override
   void onInit() async {
     var response = await getContactList("");
     print("response: " + response.toString());
-    // contactList.value = response;
-    searchList.value = contactList;
+    contactList.value = response;
+    searchList.value = response;
     searchInput.addListener(() {});
     super.onInit();
   }
@@ -50,8 +65,13 @@ class ContactPageController extends GetxController {
         "limit": 2,
       });
       var json = jsonDecode(response.toString());
-      print(json.toString());
-      return (json["data"]);
+      var list = json["data"];
+      List<Map<String, String>> res = [];
+      for (var i = 0; i < list.length; i++) {
+        var item = list[i];
+        res.add(item);
+      }
+      return res;
     } catch (e, s) {
       print(e);
       print(s);
@@ -64,7 +84,9 @@ class ContactPageController extends GetxController {
       searchList.value = contactList.value;
       searchInput.clear();
     } else {
-      searchList.value = contactList.value.where((ele) => ele["username"]!.contains(searchInput.text)).toList();
+      searchList.value = contactList.value
+          .where((ele) => ele["username"]!.contains(searchInput.text))
+          .toList();
     }
   }
 }

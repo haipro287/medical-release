@@ -8,7 +8,7 @@ import 'package:medical_chain_mobile_ui/utils/config.dart';
 Container switchService(
     {required String? serviceName,
     required String? userName,
-    required RxBool? isConnected,
+    required dynamic? isConnected,
     required int? index}) {
   ListServiceController listServiceController =
       Get.put(ListServiceController());
