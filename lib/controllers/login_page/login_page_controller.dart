@@ -57,8 +57,7 @@ class LoginPageController extends GetxController {
       var response;
       CustomDio customDio = CustomDio();
       response = await customDio.post("/auth/credential", {
-        "username": username,
-        "_actionType": "POST_API-AUTH-PING",
+        "data": username,
       });
       return response;
     } catch (e, s) {
@@ -95,6 +94,7 @@ class LoginPageController extends GetxController {
       messValidatePassword.value = "Password can not be empty";
     } else {
       var responseCredential = await getCredential(username.text);
+      print(responseCredential.toString());
       Status validateUsername = ResponseValidator.check(responseCredential);
       if (validateUsername.status == "OK") {
         print({"data": responseCredential});
