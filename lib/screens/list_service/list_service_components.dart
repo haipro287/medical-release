@@ -6,10 +6,10 @@ import 'package:medical_chain_mobile_ui/controllers/service_list/list_service_co
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 Container switchService(
-    {required String serviceName,
-    required String userName,
-    required RxBool isConnected,
-    required int index}) {
+    {required String? serviceName,
+    required String? userName,
+    required RxBool? isConnected,
+    required int? index}) {
   ListServiceController listServiceController =
       Get.put(ListServiceController());
   return Container(
@@ -26,7 +26,7 @@ Container switchService(
             bottom: getHeight(10),
           ),
           child: SvgPicture.asset(
-              'assets/images/${serviceName.toLowerCase()}.svg'),
+              'assets/images/${serviceName?.toLowerCase()}.svg'),
         ),
         SizedBox(
           width: getWidth(12),
@@ -35,7 +35,7 @@ Container switchService(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              serviceName,
+              serviceName ?? "",
               style: TextStyle(
                 fontSize: getWidth(17),
                 fontWeight: FontWeight.w400,
@@ -46,7 +46,7 @@ Container switchService(
               height: getHeight(3),
             ),
             Text(
-              userName,
+              userName ?? "",
               style: TextStyle(
                 fontSize: getWidth(13),
                 fontWeight: FontWeight.w400,
@@ -58,15 +58,15 @@ Container switchService(
         Spacer(),
         Obx(
           () => CupertinoSwitch(
-            value: listServiceController.serviceList[index]['isConnected'].value,
+            value: listServiceController.serviceList[index ?? 0].isConnected ?? true,
             onChanged: (bool value) async {
               if (!value) {
                 var a = await listServiceController.disconnectService(serviceId: '123');
                 if (a) {
-                  listServiceController.serviceList[index]['isConnected'].value = false;
+                  listServiceController.serviceList[index ?? 0].isConnected = false;
                 }
               } else {
-                listServiceController.serviceList[index]['isConnected'].value = value;
+                listServiceController.serviceList[index ?? 0].isConnected = value;
               }
             },
           ),
