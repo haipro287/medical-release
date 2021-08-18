@@ -10,6 +10,7 @@ import 'package:medical_chain_mobile_ui/i18n.dart';
 import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "SFPro"),
       home: globalController.user.value.username != null
           ? HomePageScreen()
-          : LoginPageScreen(),
+          : LoginWelcomePage(),
     );
   }
 }

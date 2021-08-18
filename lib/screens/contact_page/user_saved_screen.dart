@@ -9,10 +9,10 @@ import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 
 class UserSavedScreen extends StatelessWidget {
-  final userInfo = Get.put(GlobalController()).user.value;
   UserSearchController userSearchController = Get.put(UserSearchController());
   @override
   Widget build(BuildContext context) {
+    var userInfo = userSearchController.userData;
     return Stack(
       children: [
         Container(
@@ -180,11 +180,11 @@ class UserSavedScreen extends StatelessWidget {
                       myAccountField(
                         myAccountText(('ユーザーID')),
                         myAccountText(
-                            '${userInfo.id.toString().substring(0, 15)}...'),
+                            '${userInfo["id"].toString().substring(0, 15)}...'),
                       ),
                       myAccountField(
                         myAccountText(('氏名')),
-                        myAccountText('佐藤様 (${userInfo.name.toString()})'),
+                        myAccountText('${userInfo["kanji"]} (${userInfo["romanji"].toString()})'),
                       ),
                     ],
                   ),

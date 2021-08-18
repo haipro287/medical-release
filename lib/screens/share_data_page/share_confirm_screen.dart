@@ -10,7 +10,7 @@ class ShareConfirmScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ShareServiceListController shareServiceListController =
-        ShareServiceListController();
+        Get.put(ShareServiceListController());
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -63,7 +63,7 @@ class ShareConfirmScreen extends StatelessWidget {
             customBoxHeader("データ"),
             Obx(
               () => Column(
-                children: shareServiceListController.serviceList
+                children: shareServiceListController.checkList
                     .map(
                       (e) => Container(
                         margin: EdgeInsets.only(
@@ -120,32 +120,37 @@ class ShareConfirmScreen extends StatelessWidget {
                 ),
               ),
               height: getHeight(78),
-              child: Text("1週間（2021/04/13 07:53まで）"),
+              child: Text(shareServiceListController.getFormatTimeCal()),
               alignment: Alignment.centerLeft,
             ),
-            Container(
-              margin: EdgeInsets.only(
-                // top: getHeight(132),
-              ),
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  backgroundColor: Color(0xFFD0E8FF),
-                  side: BorderSide(
-                    color: Color(0xFFD0E8FF),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: EdgeInsets.only(
+                      bottom: getHeight(46),
+                      ),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Color(0xFFD0E8FF),
+                      side: BorderSide(
+                        color: Color(0xFFD0E8FF),
+                      ),
+                      padding: EdgeInsets.only(
+                        top: getHeight(14),
+                        bottom: getHeight(14),
+                        left: getHeight(170),
+                        right: getHeight(170),
+                      ),
+                    ),
+                    onPressed: () {
+                      Get.to(() => ShareConfirmScreen());
+                    },
+                    child: Text(
+                      'next'.tr,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
-                  padding: EdgeInsets.only(
-                    top: getHeight(14),
-                    bottom: getHeight(14),
-                    left: getHeight(170),
-                    right: getHeight(170),
-                  ),
-                ),
-                onPressed: () {
-                  Get.to(() => ShareConfirmScreen());
-                },
-                child: Text(
-                  'next'.tr,
-                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ),

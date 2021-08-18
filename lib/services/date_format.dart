@@ -95,6 +95,11 @@ class TimeService {
     return datedFormat;
   }
 
+  static String stringToDJP(DateTime dateTime) {
+    var datedFormat = DateFormat("yyyy/MM/dd HH:mm'まで'").format(dateTime);
+    return datedFormat;
+  }
+
   static DateTime getTimeNow() {
     return new DateTime.now();
   }

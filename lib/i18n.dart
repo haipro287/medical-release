@@ -29,7 +29,8 @@ class Messages extends Translations {
           'username': 'Username',
           'nickname': 'Nickname',
           'longnickname': 'Nickname',
-          "next": "Next"
+          "next": "Next",
+          "wrongPass": "Wrong username or password"
         },
         'ja_JP': {
           'hello': 'こんにちは, @name',
@@ -76,7 +77,8 @@ class Messages extends Translations {
           'viewData': 'データビュー',
           'viewSettings': '共有設定',
           'contact_address': "連絡先",
-          "next": "次へ"
+          "next": "次へ",
+          "wrongPass": "ログインID又はパスワードが一致しません。"
         }
       };
 }

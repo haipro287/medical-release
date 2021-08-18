@@ -11,7 +11,7 @@ class ShareListService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ShareServiceListController shareServiceListController =
-        ShareServiceListController();
+        Get.put(ShareServiceListController());
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -68,17 +68,17 @@ class ShareListService extends StatelessWidget {
                               children: [
                                 Checkbox(
                                     value: shareServiceListController.checkList
-                                        .contains(e["id"]),
+                                        .contains(e),
                                     onChanged: (bool? isCheck) => {
                                           if (isCheck == true)
                                             {
                                               shareServiceListController
                                                   .checkList
-                                                  .add(e["id"])
+                                                  .add(e)
                                             }
                                           else
                                             shareServiceListController.checkList
-                                                .remove(e["id"])
+                                                .remove(e)
                                         }),
                                 SvgPicture.asset("assets/images/avatar.svg"),
                                 SizedBox(width: getWidth(15)),

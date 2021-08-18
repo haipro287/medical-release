@@ -2,20 +2,21 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class UserSearchController extends GetxController {
+  GlobalController globalController = Get.put(GlobalController());
   TextEditingController searchInput = TextEditingController();
   TextEditingController nickname = TextEditingController();
 
   var contactList = [].obs;
-  var userData = {}.obs;
+  dynamic userData = {}.obs;
   var isEditing = true.obs;
-  var nicknameText = "病院Kの医者さん";
+  var nicknameText = "";
 
   @override
   void onInit() async {
-    nickname.text = "病院Kの医者さん";
     super.onInit();
   }
 
@@ -35,25 +36,14 @@ class UserSearchController extends GetxController {
     }
   }
 
-  Future searchUser(String searchInput) async {
+  Future searchUser(String username) async {
     try {
-      var userID = "CFEmHlBSw0pf40jhWw5y_";
       var response;
       CustomDio customDio = CustomDio();
-      customDio.dio.options.headers["Authorization"] = jsonEncode({
-        "signature":
-            "Z8NKBS+nnVjUmCRafKqEFWhJODEkCQp9mYtrGnW84MIBpqMUVvkEd0gxLYTBqyQihFytmbE7pNAohXYZxzcwtg==",
-        "certificateInfo": {
-          "id": "CFEmHlBSw0pf40jhWw5y_",
-          "timestamp": "2021-08-12T10:56:13.676Z",
-          "exp": 2799360000000
-        },
-        "publicKey": "A9VMrb8olmifFj4QVhG63fIJDK1+kkKsdKE3bmm+E9Xx"
-      });
-      response =
-          await customDio.get("/user/$userID/contacts?offset=0&limit=2", {
-        "offset": 0,
-        "limit": 2,
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate;
+      response = await customDio.get("/user", {
+        "username": username,
       });
       var json = jsonDecode(response.toString());
       print(json.toString());
@@ -66,11 +56,14 @@ class UserSearchController extends GetxController {
   }
 
   Future<dynamic> search() async {
-    var fakeData = {"id": "12345XHR", "name": "Alexander"};
-    if (searchInput.text == "123456") {
-      userData.value = fakeData;
+    var data = await searchUser(searchInput.text);
+    print(data.toString());
+
+    if (data["id"] != null) {
+      userData = data;
+      nicknameText = data["secondaryName"];
       searchInput.clear();
-      return fakeData;
+      return data;
     }
     userData.value = {"id": "NullID"};
     return null;

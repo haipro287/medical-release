@@ -28,8 +28,18 @@ class LoginPageScreen extends StatelessWidget {
               hintText: "userId".tr,
               textEditingController: loginController.username,
             ),
-            SizedBox(
-              height: getHeight(40),
+            Container(
+              padding: EdgeInsets.symmetric(
+                vertical: getHeight(12),
+              ),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "ユーザーID、メールアドレスまたは電話番号",
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
             ),
             Obx(
               () => inputPassword(
@@ -39,39 +49,14 @@ class LoginPageScreen extends StatelessWidget {
                   loginController.isHidePassword.value,
                   loginController.changeHidePassword),
             ),
-            // Obx(() {
-            //   return AnimatedSwitcher(
-            //     duration: Duration(milliseconds: 500),
-            //     child: loginController.messValidateUsername.value == ""
-            //         ? SizedBox(
-            //             height: getHeight(50),
-            //           )
-            //         : Container(
-            //             height: getHeight(50),
-            //             child: Center(
-            //               child: Text(
-            //                 loginController.messValidateUsername.value,
-            //                 style: TextStyle(
-            //                     fontSize: getWidth(14),
-            //                     color: Colors.red),
-            //               ),
-            //             ),
-            //           ),
-            //   );
-            // }),
             SizedBox(
               height: getHeight(21),
             ),
-            Obx(
-              () => (loginController.messValidateUsername.value != "" ||
-                      loginController.messValidatePassword.value != "")
-                  ? InkWell(
-                      child: Text("forgotPassword".tr),
-                      onTap: () {
-                        print('forgot password');
-                      },
-                    )
-                  : Container(),
+            InkWell(
+              child: Text("forgotPassword".tr),
+              onTap: () {
+                print('forgot password');
+              },
             ),
             SizedBox(
               height: getHeight(52),
@@ -92,7 +77,24 @@ class LoginPageScreen extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: getHeight(30),
+              height: getHeight(10),
+            ),
+            Obx(
+              () => (loginController.messValidateUsername.value != "" ||
+                      loginController.messValidatePassword.value != "")
+                  ? InkWell(
+                      child: Text(
+                        "wrongPass".tr,
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                      onTap: () {},
+                    )
+                  : Container(),
+            ),
+            SizedBox(
+              height: getHeight(20),
             ),
             InkWell(
               child: Text("signup".tr),

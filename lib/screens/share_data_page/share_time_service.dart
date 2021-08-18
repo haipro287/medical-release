@@ -11,7 +11,7 @@ class ShareTimeService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ShareServiceListController shareServiceListController =
-        ShareServiceListController();
+        Get.put(ShareServiceListController());
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
