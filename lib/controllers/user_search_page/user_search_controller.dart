@@ -68,4 +68,11 @@ class UserSearchController extends GetxController {
     userData.value = {"id": "NullID"};
     return null;
   }
+
+  String getHintText() {
+    if (userData["romanji"] != null && userData["kanji"] != null) {
+      return userData["romanji"] + " (" + userData["kanji"] + ")";
+    }
+    return "佐藤桜(Sato Sakura)";
+  }
 }

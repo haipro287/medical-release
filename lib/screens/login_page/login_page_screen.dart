@@ -65,7 +65,7 @@ class LoginPageScreen extends StatelessWidget {
               child: Container(
                 width: getWidth(double.infinity),
                 height: getHeight(48),
-                color: Color(0xFF61B3FF),
+                color: Color(0xFFD0E8FF),
                 alignment: Alignment.center,
                 child: Text('login'.tr),
               ),

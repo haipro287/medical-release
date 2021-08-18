@@ -8,47 +8,14 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 class ContactPageController extends GetxController {
   TextEditingController searchInput = TextEditingController();
 
-  RxList<Map<String, dynamic>> contactList = [
-    {
-      "id": "K_Zaj8IVqO1bWI7lXaO6H",
-      "secondaryId": "LNmBW - PTDilttfsVw - NbM",
-      "secondaryName": "Template",
-      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
-      "secondaryUsername": "account1"
-    },
-    {
-      "id": "-F - LbOUewpbZQvvoKNpAh",
-      "secondaryId": "XAgxrs9wzKaycOy2Kug1B",
-      "secondaryName": "Magic",
-      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
-      "secondaryUsername": "account2"
-    }
-  ].obs;
+  RxList<dynamic> contactList = [{}].obs;
 
-  RxList<Map<String, dynamic>> searchList = [
-    {
-      "id": "K_Zaj8IVqO1bWI7lXaO6H",
-      "secondaryId": "LNmBW - PTDilttfsVw - NbM",
-      "secondaryName": "Template",
-      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
-      "secondaryUsername": "account1"
-    },
-    {
-      "id": "-F - LbOUewpbZQvvoKNpAh",
-      "secondaryId": "XAgxrs9wzKaycOy2Kug1B",
-      "secondaryName": "Magic",
-      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
-      "secondaryUsername": "account2"
-    }
-  ].obs;
+  RxList<dynamic> searchList = [{}].obs;
 
   @override
   void onInit() async {
     var response = await getContactList("");
     print("response: " + response.toString());
-    contactList.value = response;
-    searchList.value = response;
-    searchInput.addListener(() {});
     super.onInit();
   }
 
@@ -65,12 +32,27 @@ class ContactPageController extends GetxController {
         "limit": 2,
       });
       var json = jsonDecode(response.toString());
-      var list = json["data"];
-      List<Map<String, String>> res = [];
-      for (var i = 0; i < list.length; i++) {
-        var item = list[i];
+
+      var responseData = json["data"];
+
+      print(responseData[0]["phone"]);
+
+      List<Map<dynamic, dynamic>> res = [];
+
+      for (int i = 0; i < responseData.length; i++) {
+        Map<dynamic, dynamic> item = {};
+        item["phone"] = responseData[i]["phone"];
+        item["id"] = responseData[i]["id"];
+        item["secondaryId"] = responseData[i]["secondaryId"];
+        item["secondaryName"] = responseData[i]["secondaryName"];
+        item["primaryId"] = responseData[i]["primaryId"];
+        item["secondaryUsername"] = responseData[i]["secondaryUsername"];
+        item["romanji"] = responseData[i]["romanji"];
+        item["kanji"] = responseData[i]["kanji"];
         res.add(item);
       }
+      contactList.value = res;
+      searchList.value = res;
       return res;
     } catch (e, s) {
       print(e);

@@ -210,7 +210,7 @@ class ShareListScreen extends StatelessWidget {
                 if (shareListController.userSelected.value != "") {
                   var userData = shareListController.contactList
                       .where((e) =>
-                          e["username"] ==
+                          e["secondaryUsername"] ==
                           shareListController.userSelected.value)
                       .first;
                   userSearchController.userData = userData;

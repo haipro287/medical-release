@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 
@@ -11,6 +12,7 @@ class ShareConfirmScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ShareServiceListController shareServiceListController =
         Get.put(ShareServiceListController());
+    UserSearchController userSearchController = Get.put(UserSearchController());
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -47,10 +49,14 @@ class ShareConfirmScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
+                      // romanji kanji name
                       children: [
-                        Text("佐藤桜(Sato Sakura)"),
+                        Text(userSearchController.getHintText()),
                         Text(
-                          "userid1234",
+                          userSearchController.userData["username"] ??
+                              userSearchController
+                                  .userData["secondaryUsername"] ??
+                              "userid1234",
                           style: TextStyle(color: Colors.blueGrey.shade300),
                         ),
                       ],
@@ -128,8 +134,8 @@ class ShareConfirmScreen extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   margin: EdgeInsets.only(
-                      bottom: getHeight(46),
-                      ),
+                    bottom: getHeight(46),
+                  ),
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       backgroundColor: Color(0xFFD0E8FF),

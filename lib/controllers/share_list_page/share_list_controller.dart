@@ -9,38 +9,12 @@ class ShareListController extends GetxController {
   TextEditingController searchInput1 = TextEditingController();
   TextEditingController searchInput2 = TextEditingController();
 
-  RxList<Map<String, String>> contactList = [
-    {
-      "id": "K_Zaj8IVqO1bWI7lXaO6H",
-      "secondaryId": "LNmBW - PTDilttfsVw - NbM",
-      "secondaryName": "Template",
-      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
-      "secondaryUsername": "account1"
-    },
-    {
-      "id": "-F - LbOUewpbZQvvoKNpAh",
-      "secondaryId": "XAgxrs9wzKaycOy2Kug1B",
-      "secondaryName": "Magic",
-      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
-      "secondaryUsername": "account2"
-    }
+  RxList<dynamic> contactList = [
+    {},
   ].obs;
 
-  RxList<Map<String, String>> searchList = [
-    {
-      "id": "K_Zaj8IVqO1bWI7lXaO6H",
-      "secondaryId": "LNmBW - PTDilttfsVw - NbM",
-      "secondaryName": "Template",
-      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
-      "secondaryUsername": "account1"
-    },
-    {
-      "id": "-F - LbOUewpbZQvvoKNpAh",
-      "secondaryId": "XAgxrs9wzKaycOy2Kug1B",
-      "secondaryName": "Magic",
-      "primaryId": "gZ1bDTd46q8vzxofjOz0w",
-      "secondaryUsername": "account2"
-    }
+  RxList<dynamic> searchList = [
+    {},
   ].obs;
 
   var userSelected = "".obs;
@@ -48,14 +22,12 @@ class ShareListController extends GetxController {
 
   @override
   void onInit() async {
-    var response = await getContactList("");
+    dynamic response = await getContactList();
     print("response: " + response.toString());
-    contactList.value = response;
-    searchList.value = response;
     super.onInit();
   }
 
-  Future getContactList(String searchInput) async {
+  Future getContactList() async {
     try {
       var userID = Get.put(GlobalController()).user.value.id.toString();
       var response;
@@ -68,12 +40,27 @@ class ShareListController extends GetxController {
         "limit": 2,
       });
       var json = jsonDecode(response.toString());
-      var list = json["data"];
-      List<Map<String, String>> res = [];
-      for (var i = 0; i < list.length; i++) {
-        var item = list[i];
+
+      var responseData = json["data"];
+
+      print(responseData[0]["phone"]);
+
+      List<Map<dynamic, dynamic>> res = [];
+
+      for (int i = 0; i < responseData.length; i++) {
+        Map<dynamic, dynamic> item = {};
+        item["phone"] = responseData[i]["phone"];
+        item["id"] = responseData[i]["id"];
+        item["secondaryId"] = responseData[i]["secondaryId"];
+        item["secondaryName"] = responseData[i]["secondaryName"];
+        item["primaryId"] = responseData[i]["primaryId"];
+        item["secondaryUsername"] = responseData[i]["secondaryUsername"];
+        item["romanji"] = responseData[i]["romanji"];
+        item["kanji"] = responseData[i]["kanji"];
         res.add(item);
       }
+      contactList.value = res;
+      searchList.value = res;
       return res;
     } catch (e, s) {
       print(e);
@@ -82,13 +69,13 @@ class ShareListController extends GetxController {
     }
   }
 
-  void search() {
+  void search() async {
     if (searchInput1.text == "") {
       searchList.value = contactList.value;
       searchInput1.clear();
     } else {
       searchList.value = contactList.value
-          .where((ele) => ele["username"]!.contains(searchInput1.text))
+          .where((ele) => ele["secondaryUsername"]!.contains(searchInput1.text))
           .toList();
     }
   }
