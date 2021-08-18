@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/searchUserController/search_user_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_list_page/share_list_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/user_saved_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
@@ -17,6 +18,7 @@ class ShareListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ShareListController shareListController = Get.put(ShareListController());
     SearchUserController searchUserController = Get.put(SearchUserController());
+    UserSearchController userSearchController = Get.put(UserSearchController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: appBar(
@@ -155,75 +157,26 @@ class ShareListScreen extends StatelessWidget {
                     userInputSearch(
                       context,
                       hintText: "userId".tr,
-                      textEditingController: shareListController.searchInput2,
-                      onSearch: shareListController.searchById,
+                      textEditingController: userSearchController.searchInput,
+                      onSearch: userSearchController.search,
                     ),
-                    Obx(
-                      () => shareListController.userData["id"] == "NullID"
-                          ? Column(
-                              children: [
-                                SizedBox(
-                                  height: getHeight(41.15),
-                                ),
-                                Container(
-                                  child: SvgPicture.asset(
-                                      "assets/images/no-result.svg"),
-                                ),
-                                SizedBox(
-                                  height: getHeight(33.3),
-                                ),
-                                Text("userNotFound".tr),
-                              ],
-                            )
-                          : shareListController.userData["username"] != null ? Container(
-                              margin: EdgeInsets.only(
-                                left: getWidth(15),
-                                right: getWidth(15),
+                    userSearchController.userData["id"] == "NullID"
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                height: getHeight(41.15),
                               ),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: Color(0xF2F3F7F2),
-                                    width: getHeight(3),
-                                  ),
-                                ),
+                              Container(
+                                child: SvgPicture.asset(
+                                    "assets/images/no-result.svg"),
                               ),
-                              child: Row(
-                                children: [
-                                  Radio(
-                                    value: shareListController
-                                            .userSelected.value !=
-                                        "alexander_libra",
-                                    groupValue: false,
-                                    onChanged: (var a) {
-                                      var b = shareListController
-                                          .userSelected.value;
-                                      if (b == "")
-                                        shareListController.userSelected.value =
-                                            "alexander_libra";
-                                      else
-                                        shareListController.userSelected.value =
-                                            "";
-                                    },
-                                  ),
-                                  SvgPicture.asset("assets/images/avatar.svg"),
-                                  SizedBox(width: getWidth(15)),
-                                  Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(shareListController.userData["username"] ?? ""),
-                                        Text(shareListController.userData["phone"] ?? ""),
-                                      ],
-                                    ),
-                                  )
-                                ],
+                              SizedBox(
+                                height: getHeight(33.3),
                               ),
-                            ) : Container(),
-                    ),
+                              Text("userNotFound".tr),
+                            ],
+                          )
+                        : Container(),
                   ],
                 ),
               ),
@@ -231,7 +184,7 @@ class ShareListScreen extends StatelessWidget {
           ),
         ),
         Obx(
-          () => Container(
+          () => searchUserController.currentPage == 0 ? Container(
             margin: EdgeInsets.only(
               bottom: getHeight(12),
             ),
@@ -253,15 +206,23 @@ class ShareListScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                if (shareListController.userSelected.value != "")
+                print(shareListController.userSelected.value);
+                if (shareListController.userSelected.value != "") {
+                  var userData = shareListController.contactList
+                      .where((e) =>
+                          e["username"] ==
+                          shareListController.userSelected.value)
+                      .first;
+                  userSearchController.userData = userData;
                   Get.to(() => UserSavedScreen());
+                }
               },
               child: Text(
                 'next'.tr,
                 style: TextStyle(color: Colors.black),
               ),
             ),
-          ),
+          ) : Container(),
         ),
       ]),
     );

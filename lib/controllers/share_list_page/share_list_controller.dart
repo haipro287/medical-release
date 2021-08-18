@@ -7,74 +7,40 @@ class ShareListController extends GetxController {
 
   var contactList = [
     {
-      "longName": "秋原新一 (Akihara Shinichi)",
-      "username": "akiharashinichi1",
-      "phone": "012312318"
+      "id": "LNmBW-PTDilttfsVw-NbM",
+      "username": "account1",
+      "phone": "0123456781",
+      "mail": "acc1@gmail.com",
+      "romanji": "tokuda1",
+      "kanji": "田中",
+      "secondaryName": "",
     },
     {
-      "longName": "秋原新一 (Asd Basd)",
-      "username": "abcd1aw2",
-      "phone": "01231231228"
+      "id": "LNmBW-PTDilttfsVw-NbM",
+      "username": "account2",
+      "phone": "0123456782",
+      "mail": "acc2@gmail.com",
+      "romanji": "tokuda2",
+      "kanji": "田中",
+      "secondaryName": "",
     },
     {
-      "longName": "秋原新一 (Asaasd Asd)",
-      "username": "assd12",
-      "phone": "012312323218"
+      "id": "LNmBW-PTDilttfsVw-NbM",
+      "username": "account3",
+      "phone": "0123456783",
+      "mail": "acc3@gmail.com",
+      "romanji": "tokuda3",
+      "kanji": "田中",
+      "secondaryName": "",
     },
     {
-      "longName": "秋原新一 (Asd Asaasd)",
-      "username": "abc21",
-      "phone": "012312321118"
-    },
-    {
-      "longName": "秋原新一 (Asaasd Basd)",
-      "username": "agfssa",
-      "phone": "09931232118"
-    },
-    {
-      "longName": "秋原新一 (Basd Basd)",
-      "username": "abassa",
-      "phone": "02311231218"
-    },
-    {
-      "longName": "秋原新一 (Asd BasdBasd)",
-      "username": "assw",
-      "phone": "0431231228"
-    },
-    {
-      "longName": "秋原新一 (Asd BasdBasd)",
-      "username": "ass11",
-      "phone": "092312318"
-    },
-    {
-      "longName": "秋原新一 (Asd BasdBasd)",
-      "username": "abxx",
-      "phone": "014312218"
-    },
-    {
-      "longName": "秋原新一 (Asd BasdBasd)",
-      "username": "abqw",
-      "phone": "012312218"
-    },
-    {
-      "longName": "秋原新一 (Asd BasdBasd)",
-      "username": "a2ffas",
-      "phone": "022312318"
-    },
-    {
-      "longName": "秋原新一 (Asd BasdBasd)",
-      "username": "abbas2",
-      "phone": "052312318"
-    },
-    {
-      "longName": "秋原新一 (Asd BasdBasd)",
-      "username": "aasddc2",
-      "phone": "053312318"
-    },
-    {
-      "longName": "秋原新一 (Asd BasdBasd)",
-      "username": "ababda2",
-      "phone": "055312318"
+      "id": "LNmBW-PTDilttfsVw-NbM",
+      "username": "account4",
+      "phone": "0123456784",
+      "mail": "acc4@gmail.com",
+      "romanji": "tokuda4",
+      "kanji": "田中",
+      "secondaryName": "",
     },
   ].obs;
 
@@ -97,26 +63,5 @@ class ShareListController extends GetxController {
           .where((ele) => ele["username"]!.contains(searchInput1.text))
           .toList();
     }
-  }
-
-  Future<dynamic> searchById() async {
-    var fakeData = {
-      "longName": "秋新一 (Alex Libra)",
-      "username": "alexander_libra",
-      "phone": "0922999112"
-    };
-    if (searchInput2.text == "123456") {
-      userData.value = fakeData;
-      userSelected.value = "alexander_libra";
-      searchInput2.clear();
-      return fakeData;
-    }
-    userData.value = {
-      "id": "NullID",
-      "longName": "",
-      "username": "",
-      "phone": ""
-    };
-    return null;
   }
 }
