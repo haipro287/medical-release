@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/user_saved_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
+import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 Container inputPassword(BuildContext context, TextEditingController controller,
@@ -332,6 +334,7 @@ Container inputDate(BuildContext context,
     {required String hintText,
     required String labelText,
     required TextEditingController textEditingController}) {
+
   _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -340,12 +343,9 @@ Container inputDate(BuildContext context,
       lastDate: DateTime(2025),
     );
     if (picked != null) {
-      textEditingController.text = picked.year.toString() +
-          '年' +
-          picked.month.toString() +
-          '月' +
-          picked.day.toString() +
-          '日';
+      Get.put(EditMyAccountController()).birthday = picked;
+      Get.put(EditMyAccountController()).dob.text = TimeService.dateTimeToString4(picked) ?? "";
+      print(TimeService.timeToBackEnd(picked));
     }
   }
 

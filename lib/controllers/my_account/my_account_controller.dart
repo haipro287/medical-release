@@ -9,7 +9,7 @@ class MyAccountController extends GetxController {
   String userName = "hang1234";
   RxString fullName = "佐藤桜".obs;
   RxString alphabetName = "Sato Sakura".obs;
-  RxString dob = "1960年4月1日".obs;
+  Rx<DateTime> dob = DateTime.parse("0001-01-01T00:00:00Z").obs;
   RxString email = "hang@gmail.com".obs;
   RxString phoneNumber = "09876543".obs;
   RxString citizenCode = "1234567".obs;
@@ -42,11 +42,12 @@ class MyAccountController extends GetxController {
   Future<Map> editUserInfo(
       {required String romanji,
       required String kanji,
-      required String birthday,
+      required String? birthday,
       required String mail,
       required String phone,
       required String pid}) async {
     try {
+      MyAccountController myAccountController = Get.put(MyAccountController());
       print(romanji);
       var userID = globalController.user.value.id.toString();
       var response;
@@ -65,9 +66,16 @@ class MyAccountController extends GetxController {
         },
       );
       var json = jsonDecode(response.toString());
-      print('response:' + json.toString());
-      print(userID);
-      print(globalController.user.value.certificate.toString());
+
+      var data = json["data"];
+      myAccountController.fullName.value = data['kanji'].toString();
+      myAccountController.alphabetName.value =
+          data['romanji'].toString();
+      myAccountController.dob.value = DateTime.parse(data['birthday']);
+      myAccountController.email.value = data['mail'].toString();
+      myAccountController.phoneNumber.value =
+          data['phone'].toString();
+      myAccountController.citizenCode.value = data['pid'].toString();
       return (json["data"]);
     } catch (e, s) {
       print(e);

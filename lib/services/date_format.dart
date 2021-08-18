@@ -42,15 +42,19 @@ class TimeService {
     return DateFormat("HH:mm:ss dd-MM-yyyy").format(dateTime);
   }
 
+  static String dateTimeToString4(DateTime dateTime) {
+    return DateFormat("yyyy'年'MM'月'dd'日'").format(dateTime);
+  }
+
   static String timeNowToString() {
     return DateTime.now().toString();
   }
 
   static String? timeToBackEnd(DateTime dateTime) {
     if (dateTime == null) return null;
-    DateTime beTime = dateTime.subtract(
-        Duration(hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
-    var datedFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(beTime);
+    // DateTime beTime = dateTime.subtract(
+    //     Duration(hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
+    var datedFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(dateTime);
     return datedFormat;
   }
 
