@@ -37,7 +37,7 @@ class ShareListController extends GetxController {
       customDio.dio.options.headers["Authorization"] = certificate;
       response = await customDio.get("/user/$userID/contacts", {
         "offset": 0,
-        "limit": 2,
+        "limit": 10,
       });
       var json = jsonDecode(response.toString());
 

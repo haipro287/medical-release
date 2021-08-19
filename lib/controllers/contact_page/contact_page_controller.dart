@@ -29,7 +29,7 @@ class ContactPageController extends GetxController {
       customDio.dio.options.headers["Authorization"] = certificate;
       response = await customDio.get("/user/$userID/contacts", {
         "offset": 0,
-        "limit": 2,
+        "limit": 10,
       });
       var json = jsonDecode(response.toString());
 
@@ -62,12 +62,13 @@ class ContactPageController extends GetxController {
   }
 
   void search() {
+    print(searchInput.text);
     if (searchInput.text == "") {
       searchList.value = contactList.value;
       searchInput.clear();
     } else {
       searchList.value = contactList.value
-          .where((ele) => ele["username"]!.contains(searchInput.text))
+          .where((ele) => ele["secondaryUsername"]!.contains(searchInput.text))
           .toList();
     }
   }
