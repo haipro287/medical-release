@@ -44,7 +44,7 @@ class ShareListScreen extends StatelessWidget {
                       onSearch: shareListController.search,
                     ),
                     Obx(
-                      () => shareListController.searchList.value.length == 0
+                      () => shareListController.searchList.length == 0
                           ? Column(
                               children: [
                                 SizedBox(

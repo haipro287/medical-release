@@ -43,73 +43,97 @@ class ContactListPage extends StatelessWidget {
             SizedBox(
               height: getHeight(12),
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(getHeight(4)),
-                border: Border.all(
-                  color: Color(0xFFECEFF1),
-                  width: getHeight(1),
-                ),
-              ),
-              height: getHeight(56),
-              child: Row(
-                children: [
-                  SizedBox(width: getWidth(15)),
-                  Text(
-                    "A",
-                  ),
-                ],
-              ),
-              alignment: Alignment.centerLeft,
-            ),
             Obx(
-              () => Expanded(
-                  flex: 1,
-                  child: ListView(
-                    scrollDirection: Axis.vertical,
-                    children: contactPageController.searchList.value
-                        .map(
-                          (e) => Container(
-                            margin: EdgeInsets.only(
-                              left: getWidth(15),
-                              right: getWidth(15),
-                            ),
+              () => contactPageController.searchList.length == 0
+                  ? Column(
+                      children: [
+                        SizedBox(
+                          height: getHeight(41.15),
+                        ),
+                        Container(
+                          child:
+                              SvgPicture.asset("assets/images/no-result.svg"),
+                        ),
+                        SizedBox(
+                          height: getHeight(33.3),
+                        ),
+                        Text("userNotFound".tr),
+                      ],
+                    )
+                  : Expanded(
+                      flex: 1,
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          Container(
                             decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: Color(0xFFECEFF1),
-                                  width: getHeight(1),
-                                ),
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.circular(getHeight(4)),
+                              border: Border.all(
+                                color: Color(0xFFECEFF1),
+                                width: getHeight(1),
                               ),
                             ),
-                            height: getHeight(78),
+                            height: getHeight(56),
                             child: Row(
                               children: [
-                                SvgPicture.asset("assets/images/avatar.svg"),
                                 SizedBox(width: getWidth(15)),
-                                Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(e["secondaryName"] ?? 'Unknown'),
-                                      Text(
-                                        e["secondaryUsername"] ?? 'Unknown',
-                                        style: TextStyle(
-                                            color: Colors.blueGrey.shade300),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                Text(
+                                  "A",
+                                ),
                               ],
                             ),
                             alignment: Alignment.centerLeft,
                           ),
-                        )
-                        .toList(),
-                  )),
+                          ...contactPageController.searchList.value
+                              .map(
+                                (e) => Container(
+                                  margin: EdgeInsets.only(
+                                    left: getWidth(15),
+                                    right: getWidth(15),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        color: Color(0xFFECEFF1),
+                                        width: getHeight(1),
+                                      ),
+                                    ),
+                                  ),
+                                  height: getHeight(78),
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                          "assets/images/avatar.svg"),
+                                      SizedBox(width: getWidth(15)),
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(e["secondaryName"] ??
+                                                'Unknown'),
+                                            Text(
+                                              e["secondaryUsername"] ??
+                                                  'Unknown',
+                                              style: TextStyle(
+                                                  color:
+                                                      Colors.blueGrey.shade300),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  alignment: Alignment.centerLeft,
+                                ),
+                              )
+                              .toList(),
+                        ],
+                      ),
+                    ),
             ),
           ],
         ),

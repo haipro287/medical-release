@@ -74,9 +74,15 @@ class ShareListController extends GetxController {
       searchList.value = contactList.value;
       searchInput1.clear();
     } else {
-      searchList.value = contactList.value
-          .where((ele) => ele["secondaryUsername"]!.contains(searchInput1.text))
-          .toList();
+      searchList.value = contactList.value.where((ele) {
+        String pattern = searchInput1.text.toLowerCase();
+        var listCheck = ["secondaryUsername", "id", "secondaryName", "phone"];
+        for (int i = 0; i < listCheck.length; i++) {
+          if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern))
+            return true;
+        }
+        return false;
+      }).toList();
     }
   }
 }

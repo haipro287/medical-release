@@ -69,10 +69,12 @@ class ContactPageController extends GetxController {
     } else {
       searchList.value = contactList.value
           .where((ele) {
-            bool condition1 = ele["secondaryUsername"]!.contains(searchInput.text);
-            bool condition2 = ele["id"]!.contains(searchInput.text);
-            bool condition3 = ele["secondaryName"]!.contains(searchInput.text);
-            return (condition1 || condition2 || condition3);
+            String pattern = searchInput.text.toLowerCase();
+            var listCheck = ["secondaryUsername", "id", "secondaryName"];
+            for (int i = 0; i < listCheck.length; i++) {
+              if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern)) return true;
+            }
+            return false;
           })
           .toList();
     }
