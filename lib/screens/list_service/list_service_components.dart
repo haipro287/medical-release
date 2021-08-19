@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -8,8 +9,8 @@ import 'package:medical_chain_mobile_ui/utils/config.dart';
 Container switchService(
     {required String? serviceName,
     required String? userName,
-    required dynamic? isConnected,
-    required int? index}) {
+    required dynamic isConnected,
+    required int index}) {
   ListServiceController listServiceController =
       Get.put(ListServiceController());
   return Container(
@@ -56,20 +57,39 @@ Container switchService(
           ],
         ),
         Spacer(),
-        Obx(
-          () => CupertinoSwitch(
-            value: listServiceController.serviceList[index ?? 0].isConnected ?? true,
-            onChanged: (bool value) async {
-              if (!value) {
-                var a = await listServiceController.disconnectService(serviceId: '123');
-                if (a) {
-                  listServiceController.serviceList[index ?? 0].isConnected = false;
-                }
-              } else {
-                listServiceController.serviceList[index ?? 0].isConnected = value;
-              }
-            },
-          ),
+        GetBuilder<ListServiceController>(
+          builder: (listController) {
+            if (listController.serviceList.length > 0) {
+              return Switch(
+                value: listController.serviceList[index].isConnected ??
+                    true,
+                onChanged: (bool value) async {
+                  if (!value) {
+                    var a = await listController.disconnectService(
+                        serviceId:
+                            listController.serviceList[index].id ?? "");
+                    if (a) {
+                      listController.serviceList[index].isConnected =
+                          false;
+                    }
+                  } else {
+                    // listController.update();
+                    // listController.serviceList[index].isConnected =
+                    //     value;
+                    var a = await listController.connectService(
+                        serviceId:
+                        listController.serviceList[index].id ?? "");
+                    if (a) {
+                      listController.serviceList[index].isConnected =
+                      true;
+                    }
+                  }
+                  listController.update();
+                },
+              );
+            } else
+              return Container();
+          },
         ),
         SizedBox(
           width: getWidth(18),

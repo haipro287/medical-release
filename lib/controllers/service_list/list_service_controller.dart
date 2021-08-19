@@ -7,7 +7,7 @@ import 'package:medical_chain_mobile_ui/models/service.dart';
 
 class ListServiceController extends GetxController {
   GlobalController globalController = Get.put(GlobalController());
-  RxList serviceList = [].obs;
+  RxList<Service> serviceList = <Service>[].obs;
 
 
   Future disconnectService({required String serviceId}) async {
@@ -20,6 +20,27 @@ class ListServiceController extends GetxController {
 
       response = await customDio
           .post("/user/$userID/service/disconnect/$serviceId", {});
+
+      var json = jsonDecode(response.toString());
+      print(json.toString());
+      return (json["success"]);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return null;
+    }
+  }
+
+  Future connectService({required String serviceId}) async {
+    try {
+      var response;
+      var userID = globalController.user.value.id.toString();
+      CustomDio customDio = CustomDio();
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate.toString();
+
+      response = await customDio
+          .post("/user/$userID/service/connect/$serviceId", {});
 
       var json = jsonDecode(response.toString());
       print(json.toString());
