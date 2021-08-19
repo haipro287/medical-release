@@ -12,19 +12,12 @@ variables:
   GIT_PAT: $(gitPat)
   AZURE_PAT: $(azurePass)
 
-name: 1.0.0+$(Rev:.r)
+name: 1.0.0+$(Rev:r)
 
 steps:
-  - task: mirror-git-repository-vsts-task@1
-    inputs:
-      sourceGitRepositoryUri: '$(Build.Repository.Uri)'
-      sourceVerifySSLCertificate: false
-      destinationGitRepositoryUri: 'https://github.com/sonntuet1997/medical-release'
-      sourceGitRepositoryPersonalAccessToken: $(AZURE_PAT)
-      destinationGitRepositoryPersonalAccessToken: $(GIT_PAT)
   - task: CmdLine@2
     inputs:
-      script: 'cp .env.example .env'
+      script: 'printf "SERVER_URL=%s\n" $SERVER_URL > .env'
   - task: FlutterInstall@0
     inputs:
       mode: 'auto'
@@ -42,6 +35,14 @@ steps:
       extraArgs: '--release'
       buildName: 
       buildNumber: 
+  - task: mirror-git-repository-vsts-task@1
+    inputs:
+      sourceGitRepositoryUri: '$(Build.Repository.Uri)'
+      sourceVerifySSLCertificate: false
+      destinationGitRepositoryUri: 'https://github.com/sonntuet1997/medical-release'
+      sourceGitRepositoryPersonalAccessToken: $(AZURE_PAT)
+      destinationGitRepositoryPersonalAccessToken: $(GIT_PAT)
+
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: 'build/app/outputs/flutter-apk'
