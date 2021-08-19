@@ -17,7 +17,7 @@ name: 1.0.0+$(Rev:r)
 steps:
   - task: CmdLine@2
     inputs:
-      script: 'printf "SERVER_URL=%s\n" $SERVER_URL > .env'
+      script: 'cp .env.example .env'
   - task: FlutterInstall@0
     inputs:
       mode: 'auto'
