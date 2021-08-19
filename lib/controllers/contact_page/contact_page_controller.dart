@@ -8,18 +8,18 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 class ContactPageController extends GetxController {
   TextEditingController searchInput = TextEditingController();
 
-  RxList<dynamic> contactList = [{}].obs;
+  RxList<dynamic> contactList = [].obs;
 
-  RxList<dynamic> searchList = [{}].obs;
+  RxList<dynamic> searchList = [].obs;
 
   @override
   void onInit() async {
-    var response = await getContactList("");
+    var response = await getContactList();
     print("response: " + response.toString());
     super.onInit();
   }
 
-  Future getContactList(String searchInput) async {
+  Future getContactList() async {
     try {
       var userID = Get.put(GlobalController()).user.value.id.toString();
       var response;
@@ -34,8 +34,6 @@ class ContactPageController extends GetxController {
       var json = jsonDecode(response.toString());
 
       var responseData = json["data"];
-
-      print(responseData[0]["phone"]);
 
       List<Map<dynamic, dynamic>> res = [];
 

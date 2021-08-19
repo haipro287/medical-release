@@ -114,6 +114,7 @@ Container inputSearch(
         ),
         GestureDetector(
           onTap: () {
+            FocusScope.of(context).unfocus();
             onSearch();
           },
           child: SvgPicture.asset("assets/images/search-icon.svg"),
@@ -172,6 +173,7 @@ Container userInputSearch(
               ),
               GestureDetector(
                 onTap: () async {
+                  FocusScope.of(context).unfocus();
                   var data = await onSearch();
                   if (data != null) Get.to(() => UserSavedScreen());
                 },
@@ -247,6 +249,7 @@ Container inputSearchWithQrCode(
               ),
               GestureDetector(
                 onTap: () async {
+                  FocusScope.of(context).unfocus();
                   var data = await onSearch();
                   if (data != null) Get.to(() => UserSavedScreen());
                 },
@@ -334,7 +337,6 @@ Container inputDate(BuildContext context,
     {required String hintText,
     required String labelText,
     required TextEditingController textEditingController}) {
-
   _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -344,7 +346,8 @@ Container inputDate(BuildContext context,
     );
     if (picked != null) {
       Get.put(EditMyAccountController()).birthday = picked;
-      Get.put(EditMyAccountController()).dob.text = TimeService.dateTimeToString4(picked);
+      Get.put(EditMyAccountController()).dob.text =
+          TimeService.dateTimeToString4(picked);
       print(TimeService.timeToBackEnd(picked));
     }
   }

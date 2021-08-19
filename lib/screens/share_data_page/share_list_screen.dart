@@ -115,8 +115,10 @@ class ShareListScreen extends StatelessWidget {
                                                   groupValue: false,
                                                   onChanged: (var a) {
                                                     shareListController
-                                                        .userSelected
-                                                        .value = e["secondaryUsername"] ?? "";
+                                                            .userSelected
+                                                            .value =
+                                                        e["secondaryUsername"] ??
+                                                            "";
                                                   },
                                                 ),
                                                 SvgPicture.asset(
@@ -131,8 +133,11 @@ class ShareListScreen extends StatelessWidget {
                                                         MainAxisAlignment
                                                             .center,
                                                     children: [
-                                                      Text(e["secondaryUsername"] ?? ""),
-                                                      Text(e["phone"] ?? "unknown phone number"),
+                                                      Text(
+                                                          e["secondaryUsername"] ??
+                                                              ""),
+                                                      Text(e["phone"] ??
+                                                          "unknown phone number"),
                                                     ],
                                                   ),
                                                 )
@@ -184,45 +189,50 @@ class ShareListScreen extends StatelessWidget {
           ),
         ),
         Obx(
-          () => searchUserController.currentPage == 0 ? Container(
-            margin: EdgeInsets.only(
-              bottom: getHeight(12),
-            ),
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                backgroundColor: shareListController.userSelected.value != ""
-                    ? Color(0xFFD0E8FF)
-                    : Colors.blueGrey.shade100,
-                side: BorderSide(
-                  color: shareListController.userSelected.value != ""
-                      ? Color(0xFFD0E8FF)
-                      : Colors.blueGrey.shade100,
-                ),
-                padding: EdgeInsets.only(
-                  top: getHeight(14),
-                  bottom: getHeight(14),
-                  left: getHeight(170),
-                  right: getHeight(170),
-                ),
-              ),
-              onPressed: () {
-                print(shareListController.userSelected.value);
-                if (shareListController.userSelected.value != "") {
-                  var userData = shareListController.contactList
-                      .where((e) =>
-                          e["secondaryUsername"] ==
-                          shareListController.userSelected.value)
-                      .first;
-                  userSearchController.userData = userData;
-                  Get.to(() => UserSavedScreen());
-                }
-              },
-              child: Text(
-                'next'.tr,
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          ) : Container(),
+          () => searchUserController.currentPage == 0
+              ? Container(
+                  margin: EdgeInsets.only(
+                    bottom: getHeight(12),
+                  ),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor:
+                          shareListController.userSelected.value != ""
+                              ? Color(0xFFD0E8FF)
+                              : Colors.blueGrey.shade100,
+                      side: BorderSide(
+                        color: shareListController.userSelected.value != ""
+                            ? Color(0xFFD0E8FF)
+                            : Colors.blueGrey.shade100,
+                      ),
+                      padding: EdgeInsets.only(
+                        top: getHeight(14),
+                        bottom: getHeight(14),
+                        left: getHeight(170),
+                        right: getHeight(170),
+                      ),
+                    ),
+                    onPressed: () {
+                      print(shareListController.userSelected.value);
+                      if (shareListController.userSelected.value != "") {
+                        var userData = shareListController.contactList
+                            .where((e) =>
+                                e["secondaryUsername"] ==
+                                shareListController.userSelected.value)
+                            .first;
+                        userSearchController.userData = userData;
+                        userSearchController.isEditing.value = false;
+                        print("userDataOfSharing: " + userData.toString());
+                        Get.to(() => UserSavedScreen());
+                      }
+                    },
+                    child: Text(
+                      'next'.tr,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                )
+              : Container(),
         ),
       ]),
     );

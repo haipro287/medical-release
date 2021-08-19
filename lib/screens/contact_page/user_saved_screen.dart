@@ -5,6 +5,7 @@ import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_service.dart';
+import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 
@@ -130,7 +131,8 @@ class UserSavedScreen extends StatelessWidget {
                                     height: getHeight(36),
                                     alignment: Alignment.center,
                                     child: Text(
-                                      userSearchController.nicknameText,
+                                      userSearchController
+                                          .userData["secondaryName"],
                                       style: TextStyle(
                                         color: Color(0xFF2F3842),
                                         fontSize: getWidth(20),
@@ -140,9 +142,9 @@ class UserSavedScreen extends StatelessWidget {
                                   ),
                           ),
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               print('change');
-                              userSearchController.changeEditStatus();
+                              await userSearchController.changeEditStatus();
                             },
                             child: Obx(
                               () => userSearchController.isEditing.value
@@ -184,7 +186,18 @@ class UserSavedScreen extends StatelessWidget {
                       ),
                       myAccountField(
                         myAccountText(('氏名')),
-                        myAccountText('${userInfo["kanji"]} (${userInfo["romanji"].toString()})'),
+                        myAccountText(CommonFunction.convertLongString(
+                              string: userInfo["kanji"].toString(),
+                              firstLength: 2,
+                              lastLength: 2,
+                            ) +
+                            " (" +
+                            CommonFunction.convertLongString(
+                              string: userInfo["romanji"].toString(),
+                              firstLength: 2,
+                              lastLength: 2,
+                            ) +
+                            ")"),
                       ),
                     ],
                   ),

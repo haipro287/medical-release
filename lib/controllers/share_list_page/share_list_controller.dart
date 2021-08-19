@@ -9,13 +9,9 @@ class ShareListController extends GetxController {
   TextEditingController searchInput1 = TextEditingController();
   TextEditingController searchInput2 = TextEditingController();
 
-  RxList<dynamic> contactList = [
-    {},
-  ].obs;
+  RxList<dynamic> contactList = [].obs;
 
-  RxList<dynamic> searchList = [
-    {},
-  ].obs;
+  RxList<dynamic> searchList = [].obs;
 
   var userSelected = "".obs;
   var userData = {}.obs;
