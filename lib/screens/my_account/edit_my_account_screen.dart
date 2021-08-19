@@ -53,10 +53,10 @@ class EditMyAccountScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  colorButton(0xFFD0E8FF),
-                  colorButton(0xFFFFF0D1),
-                  colorButton(0xFFDAD5FF),
-                  colorButton(0xFFF7EBE8),
+                  colorButton(MyAccountController.avatarList[1]),
+                  colorButton(MyAccountController.avatarList[2]),
+                  colorButton(MyAccountController.avatarList[3]),
+                  colorButton(MyAccountController.avatarList[4]),
                 ],
               ),
               SizedBox(
@@ -174,6 +174,7 @@ class EditMyAccountScreen extends StatelessWidget {
                               editMyAccountController.birthday),
                           pid: editMyAccountController.citizenCode.text,
                           phone: editMyAccountController.phone.text,
+                          avatar: editMyAccountController.avatar.value,
                         );
                         Get.back();
                       }

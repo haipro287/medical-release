@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class MyAccountController extends GetxController {
-  var avatar = 0xFFD0E8FF.obs;
+  static const avatarList = [0, 0xFFD0E8FF, 0xFFFFF0D1, 0xFFDAD5FF, 0xFFF7EBE8];
+
+  var avatar = avatarList[0].obs;
   String userName = "hang1234";
   RxString kanjiName = "佐藤桜".obs;
   RxString katakanaName = "Sato Sakura".obs;
@@ -45,10 +48,12 @@ class MyAccountController extends GetxController {
       required String? birthday,
       required String mail,
       required String phone,
-      required String pid}) async {
+      required String pid,
+      required int avatar}) async {
     try {
       MyAccountController myAccountController = Get.put(MyAccountController());
-      print(romanji);
+      var color = MyAccountController.avatarList.indexOf(avatar);
+      print("new:" + color.toString());
       var userID = globalController.user.value.id.toString();
       var response;
       CustomDio customDio = CustomDio();
@@ -63,19 +68,20 @@ class MyAccountController extends GetxController {
           "mail": mail,
           "phone": phone,
           "pid": pid,
+          "avatar": color,
         },
       );
       var json = jsonDecode(response.toString());
 
       var data = json["data"];
       myAccountController.kanjiName.value = data['kanji'].toString();
-      myAccountController.katakanaName.value =
-          data['romanji'].toString();
+      myAccountController.katakanaName.value = data['romanji'].toString();
       myAccountController.dob.value = DateTime.parse(data['birthday']);
       myAccountController.email.value = data['mail'].toString();
-      myAccountController.phoneNumber.value =
-          data['phone'].toString();
+      myAccountController.phoneNumber.value = data['phone'].toString();
       myAccountController.citizenCode.value = data['pid'].toString();
+      myAccountController.avatar.value =
+          MyAccountController.avatarList[data['avatar']];
       return (json["data"]);
     } catch (e, s) {
       print(e);

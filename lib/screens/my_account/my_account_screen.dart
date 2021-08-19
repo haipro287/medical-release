@@ -78,6 +78,8 @@ class MyAccountScreen extends StatelessWidget {
                         userInfo['phone'] ?? "";
                     myAccountController.citizenCode.value =
                         userInfo['pid'] ?? "";
+                    myAccountController.avatar.value =
+                        MyAccountController.avatarList[userInfo["avatar"]];
 
                     return Obx(() => Container(
                           padding: EdgeInsets.only(top: getHeight(30)),
