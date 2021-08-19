@@ -7,8 +7,8 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 class MyAccountController extends GetxController {
   var avatar = 0xFFD0E8FF.obs;
   String userName = "hang1234";
-  RxString fullName = "佐藤桜".obs;
-  RxString alphabetName = "Sato Sakura".obs;
+  RxString kanjiName = "佐藤桜".obs;
+  RxString katakanaName = "Sato Sakura".obs;
   Rx<DateTime> dob = DateTime.parse("0001-01-01T00:00:00Z").obs;
   RxString email = "hang@gmail.com".obs;
   RxString phoneNumber = "09876543".obs;
@@ -68,8 +68,8 @@ class MyAccountController extends GetxController {
       var json = jsonDecode(response.toString());
 
       var data = json["data"];
-      myAccountController.fullName.value = data['kanji'].toString();
-      myAccountController.alphabetName.value =
+      myAccountController.kanjiName.value = data['kanji'].toString();
+      myAccountController.katakanaName.value =
           data['romanji'].toString();
       myAccountController.dob.value = DateTime.parse(data['birthday']);
       myAccountController.email.value = data['mail'].toString();

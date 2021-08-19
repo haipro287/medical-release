@@ -66,8 +66,8 @@ class EditMyAccountScreen extends StatelessWidget {
                 context,
                 hintText: "山田太郎",
                 labelText: 'editName'.tr,
-                initialText: myAccountController.fullName.value,
-                textEditingController: editMyAccountController.name,
+                initialText: myAccountController.kanjiName.value,
+                textEditingController: editMyAccountController.kanjiName,
               ),
               SizedBox(
                 height: getHeight(12),
@@ -76,8 +76,8 @@ class EditMyAccountScreen extends StatelessWidget {
                 context,
                 hintText: "Yamada Taro",
                 labelText: 'editAlphabetName'.tr,
-                initialText: myAccountController.alphabetName.value,
-                textEditingController: editMyAccountController.alphabetName,
+                initialText: myAccountController.katakanaName.value,
+                textEditingController: editMyAccountController.katakanaName,
               ),
               SizedBox(
                 height: getHeight(12),
@@ -122,9 +122,9 @@ class EditMyAccountScreen extends StatelessWidget {
                 height: getHeight(12),
               ),
               Obx(() {
-                if (editMyAccountController.err.value) {
+                if (editMyAccountController.err.value != "") {
                   return Text(
-                    'マイアカウント',
+                    editMyAccountController.err.value,
                     style: TextStyle(color: Colors.red),
                   );
                 } else
@@ -166,10 +166,9 @@ class EditMyAccountScreen extends StatelessWidget {
                     ),
                     onPress: () {
                       if (editMyAccountController.isValid()) {
-                        editMyAccountController.err.value = false;
                         myAccountController.editUserInfo(
-                          kanji: editMyAccountController.name.text,
-                          romanji: editMyAccountController.alphabetName.text,
+                          kanji: editMyAccountController.kanjiName.text,
+                          romanji: editMyAccountController.katakanaName.text,
                           mail: editMyAccountController.email.text,
                           birthday: TimeService.timeToBackEnd(
                               editMyAccountController.birthday),
@@ -177,8 +176,6 @@ class EditMyAccountScreen extends StatelessWidget {
                           phone: editMyAccountController.phone.text,
                         );
                         Get.back();
-                      } else {
-                        editMyAccountController.err.value = true;
                       }
                     },
                   ),

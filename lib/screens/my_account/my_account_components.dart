@@ -8,6 +8,7 @@ import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 Text myAccountText(String text) {
   return Text(
     text,
+    overflow: TextOverflow.visible,
     style: TextStyle(
         color: Color(0xFF22262B),
         fontSize: getWidth(17),
@@ -19,7 +20,14 @@ Column myAccountField(Widget left, Widget right) {
   return Column(
     children: [
       Row(
-        children: [left, right],
+        children: [
+          left,
+          Container(
+            width: getWidth(150),
+            child: right,
+            alignment: Alignment.centerRight,
+          ),
+        ],
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
       ),
       Container(

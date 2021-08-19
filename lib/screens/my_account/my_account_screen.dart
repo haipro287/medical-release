@@ -67,9 +67,9 @@ class MyAccountScreen extends StatelessWidget {
 
                     myAccountController.userName =
                         userInfo['username'] ?? "hang1234";
-                    myAccountController.fullName.value =
+                    myAccountController.kanjiName.value =
                         userInfo['kanji'] ?? "";
-                    myAccountController.alphabetName.value =
+                    myAccountController.katakanaName.value =
                         userInfo['romanji'] ?? "";
                     myAccountController.dob.value =
                         DateTime.parse(userInfo['birthday']);
@@ -131,12 +131,12 @@ class MyAccountScreen extends StatelessWidget {
                                     myAccountField(
                                       myAccountText('name'.trParams()),
                                       myAccountText(
-                                          myAccountController.fullName.value),
+                                          myAccountController.kanjiName.value),
                                     ),
                                     myAccountField(
                                       myAccountText('alphabetName'.trParams()),
                                       myAccountText(myAccountController
-                                          .alphabetName.value),
+                                          .katakanaName.value),
                                     ),
                                     myAccountField(
                                       myAccountText('dob'.trParams()),
