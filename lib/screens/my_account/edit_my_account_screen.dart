@@ -119,7 +119,19 @@ class EditMyAccountScreen extends StatelessWidget {
                 textEditingController: editMyAccountController.citizenCode,
               ),
               SizedBox(
-                height: getHeight(24),
+                height: getHeight(12),
+              ),
+              Obx(() {
+                if (editMyAccountController.err.value) {
+                  return Text(
+                    'マイアカウント',
+                    style: TextStyle(color: Colors.red),
+                  );
+                } else
+                  return Container();
+              }),
+              SizedBox(
+                height: getHeight(12),
               ),
               Row(
                 children: [
@@ -153,16 +165,21 @@ class EditMyAccountScreen extends StatelessWidget {
                       ),
                     ),
                     onPress: () {
-                      myAccountController.editUserInfo(
-                        kanji: editMyAccountController.name.text,
-                        romanji: editMyAccountController.alphabetName.text,
-                        mail: editMyAccountController.email.text,
-                        birthday: TimeService.timeToBackEnd(editMyAccountController.birthday),
-                        pid: editMyAccountController.citizenCode.text,
-                        phone: editMyAccountController.phone.text,
-                      );
-
-                      Get.back();
+                      if (editMyAccountController.isValid()) {
+                        editMyAccountController.err.value = false;
+                        myAccountController.editUserInfo(
+                          kanji: editMyAccountController.name.text,
+                          romanji: editMyAccountController.alphabetName.text,
+                          mail: editMyAccountController.email.text,
+                          birthday: TimeService.timeToBackEnd(
+                              editMyAccountController.birthday),
+                          pid: editMyAccountController.citizenCode.text,
+                          phone: editMyAccountController.phone.text,
+                        );
+                        Get.back();
+                      } else {
+                        editMyAccountController.err.value = true;
+                      }
                     },
                   ),
                 ],

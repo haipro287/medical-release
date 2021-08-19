@@ -344,7 +344,7 @@ Container inputDate(BuildContext context,
     );
     if (picked != null) {
       Get.put(EditMyAccountController()).birthday = picked;
-      Get.put(EditMyAccountController()).dob.text = TimeService.dateTimeToString4(picked) ?? "";
+      Get.put(EditMyAccountController()).dob.text = TimeService.dateTimeToString4(picked);
       print(TimeService.timeToBackEnd(picked));
     }
   }

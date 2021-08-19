@@ -14,6 +14,7 @@ class EditMyAccountController extends GetxController {
   TextEditingController dob = TextEditingController();
   late DateTime birthday = myAccountController.dob.value;
   late RxInt avatar;
+  RxBool err = false.obs;
 
   @override
   void onInit() {
@@ -27,4 +28,13 @@ class EditMyAccountController extends GetxController {
     super.onInit();
   }
 
+  bool isValid() {
+    RegExp alphaNameReg = new RegExp(r'^[a-zA-Z0-9]+$');
+
+    return this.name.text != "" &&
+        alphaNameReg.hasMatch(this.alphabetName.text) &&
+        this.dob.text != "" &&
+        this.email.text != "" &&
+        this.citizenCode.text != "";
+  }
 }
