@@ -114,7 +114,6 @@ Container inputSearch(
         ),
         GestureDetector(
           onTap: () {
-            print('1');
             onSearch();
           },
           child: SvgPicture.asset("assets/images/search-icon.svg"),
