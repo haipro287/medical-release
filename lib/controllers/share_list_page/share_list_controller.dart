@@ -31,10 +31,7 @@ class ShareListController extends GetxController {
       var certificate =
           Get.put(GlobalController()).user.value.certificate.toString();
       customDio.dio.options.headers["Authorization"] = certificate;
-      response = await customDio.get("/user/$userID/contacts", {
-        "offset": 0,
-        "limit": 10,
-      });
+      response = await customDio.get("/user/$userID/contacts");
       var json = jsonDecode(response.toString());
 
       var responseData = json["data"];
@@ -48,7 +45,7 @@ class ShareListController extends GetxController {
         item["phone"] = responseData[i]["phone"];
         item["id"] = responseData[i]["id"];
         item["secondaryId"] = responseData[i]["secondaryId"];
-        item["secondaryName"] = responseData[i]["secondaryName"];
+        item["secondaryName"] = responseData[i]["secondaryName"] ?? "";
         item["primaryId"] = responseData[i]["primaryId"];
         item["secondaryUsername"] = responseData[i]["secondaryUsername"];
         item["romanji"] = responseData[i]["romanji"];
@@ -72,7 +69,7 @@ class ShareListController extends GetxController {
     } else {
       searchList.value = contactList.value.where((ele) {
         String pattern = searchInput1.text.toLowerCase();
-        var listCheck = ["secondaryUsername", "phone"];
+        var listCheck = ["secondaryUsername", "secondaryName", "kanji", "romanji"];
         for (int i = 0; i < listCheck.length; i++) {
           if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern))
             return true;

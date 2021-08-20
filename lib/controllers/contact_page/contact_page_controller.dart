@@ -27,10 +27,7 @@ class ContactPageController extends GetxController {
       var certificate =
           Get.put(GlobalController()).user.value.certificate.toString();
       customDio.dio.options.headers["Authorization"] = certificate;
-      response = await customDio.get("/user/$userID/contacts", {
-        "offset": 0,
-        "limit": 10,
-      });
+      response = await customDio.get("/user/$userID/contacts");
       var json = jsonDecode(response.toString());
 
       var responseData = json["data"];
@@ -44,7 +41,7 @@ class ContactPageController extends GetxController {
         item["secondaryId"] = responseData[i]["secondaryId"];
         item["secondaryName"] = responseData[i]["secondaryName"];
         item["primaryId"] = responseData[i]["primaryId"];
-        item["secondaryUsername"] = responseData[i]["secondaryUsername"];
+        item["secondaryUsername"] = responseData[i]["secondaryUsername"] ?? "";
         item["romanji"] = responseData[i]["romanji"];
         item["kanji"] = responseData[i]["kanji"];
         res.add(item);
@@ -59,22 +56,28 @@ class ContactPageController extends GetxController {
     }
   }
 
+  String getHintText(dynamic userData) {
+    if (userData["romanji"] != null && userData["kanji"] != null) {
+      return userData["romanji"] + " (" + userData["kanji"] + ")";
+    }
+    return "佐藤桜(Sato Sakura)";
+  }
+
   void search() {
     print(searchInput.text);
     if (searchInput.text == "") {
       searchList.value = contactList.value;
       searchInput.clear();
     } else {
-      searchList.value = contactList.value
-          .where((ele) {
-            String pattern = searchInput.text.toLowerCase();
-            var listCheck = ["secondaryUsername", "secondaryName"];
-            for (int i = 0; i < listCheck.length; i++) {
-              if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern)) return true;
-            }
-            return false;
-          })
-          .toList();
+      searchList.value = contactList.value.where((ele) {
+        String pattern = searchInput.text.toLowerCase();
+        var listCheck = ["secondaryUsername", "secondaryName", "kanji", "romanji"];
+        for (int i = 0; i < listCheck.length; i++) {
+          if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern))
+            return true;
+        }
+        return false;
+      }).toList();
     }
   }
 }

@@ -93,8 +93,9 @@ class ContactListPage extends StatelessWidget {
                                 (e) => GestureDetector(
                                   onTap: () {
                                     print(e.toString());
-                                    userSearchController.userData = e;
-                                    userSearchController.isEditing.value = false;
+                                    userSearchController.userData.value = e;
+                                    userSearchController.isEditing.value =
+                                        false;
                                     print("userDataOfContact: " + e.toString());
                                     Get.to(() => UserSavedScreen());
                                   },
@@ -124,8 +125,9 @@ class ContactListPage extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Text(e["secondaryName"] ??
-                                                  'Unknown'),
+                                              Text(e["secondaryName"] != ""
+                                                  ? e["secondaryName"]
+                                                  : e["kanji"]),
                                               Text(
                                                 e["secondaryUsername"] ??
                                                     'Unknown',

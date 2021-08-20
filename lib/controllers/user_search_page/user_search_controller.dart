@@ -14,7 +14,7 @@ class UserSearchController extends GetxController {
   TextEditingController searchInput = TextEditingController();
   TextEditingController nickname = TextEditingController();
 
-  dynamic userData = {}.obs;
+  var userData = {}.obs;
   var isEditing = true.obs;
 
   @override
@@ -63,6 +63,11 @@ class UserSearchController extends GetxController {
   }
 
   Future<dynamic> search() async {
+    if (searchInput.text == "") {
+      userData.value = {"id": "NullID"};
+      print(userData["id"]);
+      return null;
+    }
     var data = await searchUser(searchInput.text);
     print("searchData:" + data.toString());
     try {
@@ -70,14 +75,18 @@ class UserSearchController extends GetxController {
         var contactData =
             await createContact(secondaryId: data["id"], nickname: "");
         print('createContact: ' + contactData.toString());
-        userData = {...data, ...contactData};
+        userData.value = {...data, ...contactData};
         contactPageController.contactList.value =
             await contactPageController.getContactList();
         searchInput.clear();
         return data;
+      } else {
+        userData.value = {"id": "NullID"};
+        print(userData["id"]);
+        return null;
       }
     } catch (e, s) {
-      userData = {"id": "NullID"};
+      userData.value = {"id": "NullID"};
       print(userData["id"]);
       return null;
     }

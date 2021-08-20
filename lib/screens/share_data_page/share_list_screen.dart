@@ -134,11 +134,13 @@ class ShareListScreen extends StatelessWidget {
                                                         MainAxisAlignment
                                                             .center,
                                                     children: [
+                                                      Text(e["secondaryName"] !=
+                                                              ""
+                                                          ? e["secondaryName"]
+                                                          : e["kanji"]),
                                                       Text(
                                                           e["secondaryUsername"] ??
-                                                              ""),
-                                                      Text(e["phone"] ??
-                                                          "unknown phone number"),
+                                                              "Unknown"),
                                                     ],
                                                   ),
                                                 )
@@ -166,23 +168,25 @@ class ShareListScreen extends StatelessWidget {
                       textEditingController: userSearchController.searchInput,
                       onSearch: userSearchController.search,
                     ),
-                    userSearchController.userData["id"] == "NullID"
-                        ? Column(
-                            children: [
-                              SizedBox(
-                                height: getHeight(41.15),
-                              ),
-                              Container(
-                                child: SvgPicture.asset(
-                                    "assets/images/no-result.svg"),
-                              ),
-                              SizedBox(
-                                height: getHeight(33.3),
-                              ),
-                              Text("userNotFound".tr),
-                            ],
-                          )
-                        : Container(),
+                    Obx(
+                      () => userSearchController.userData["id"] == "NullID"
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                  height: getHeight(41.15),
+                                ),
+                                Container(
+                                  child: SvgPicture.asset(
+                                      "assets/images/no-result.svg"),
+                                ),
+                                SizedBox(
+                                  height: getHeight(33.3),
+                                ),
+                                Text("userNotFound".tr),
+                              ],
+                            )
+                          : Container(),
+                    ),
                   ],
                 ),
               ),
@@ -221,7 +225,7 @@ class ShareListScreen extends StatelessWidget {
                                 e["secondaryUsername"] ==
                                 shareListController.userSelected.value)
                             .first;
-                        userSearchController.userData = userData;
+                        userSearchController.userData.value = userData;
                         userSearchController.isEditing.value = false;
                         print("userDataOfSharing: " + userData.toString());
                         Get.to(() => UserSavedScreen());

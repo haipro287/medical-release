@@ -39,22 +39,25 @@ class SearchUserScreen extends StatelessWidget {
               textEditingController: userSearchController.searchInput,
               onSearch: userSearchController.search,
             ),
-            userSearchController.userData["id"].toString() == "NullID"
-                ? Column(
-                    children: [
-                      SizedBox(
-                        height: getHeight(41.15),
-                      ),
-                      Container(
-                        child: SvgPicture.asset("assets/images/no-result.svg"),
-                      ),
-                      SizedBox(
-                        height: getHeight(33.3),
-                      ),
-                      Text("userNotFound".tr),
-                    ],
-                  )
-                : Container(),
+            Obx(
+              () => userSearchController.userData["id"].toString() == "NullID"
+                  ? Column(
+                      children: [
+                        SizedBox(
+                          height: getHeight(41.15),
+                        ),
+                        Container(
+                          child:
+                              SvgPicture.asset("assets/images/no-result.svg"),
+                        ),
+                        SizedBox(
+                          height: getHeight(33.3),
+                        ),
+                        Text("userNotFound".tr),
+                      ],
+                    )
+                  : Container(),
+            ),
           ],
         ),
       ),
