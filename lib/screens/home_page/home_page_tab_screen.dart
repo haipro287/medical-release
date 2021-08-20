@@ -71,7 +71,8 @@ class HomePageTabScreen extends StatelessWidget {
               actionTab(
                   color: Color(0xFFD0E8FF),
                   icon: "assets/images/share1.svg",
-                  tag: "shareData"),
+                  tag: "shareData",
+                  function: () => Get.to(() => ShareListScreen())),
               actionTab(
                   color: Color(0xFFDAD4FF),
                   icon: "assets/images/data.svg",

@@ -68,7 +68,7 @@ class ContactPageController extends GetxController {
       searchList.value = contactList.value
           .where((ele) {
             String pattern = searchInput.text.toLowerCase();
-            var listCheck = ["secondaryUsername", "id", "secondaryName"];
+            var listCheck = ["secondaryUsername", "secondaryName"];
             for (int i = 0; i < listCheck.length; i++) {
               if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern)) return true;
             }

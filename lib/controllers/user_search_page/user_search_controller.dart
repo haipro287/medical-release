@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
+import 'package:medical_chain_mobile_ui/services/socket_service.dart';
 
 class UserSearchController extends GetxController {
   GlobalController globalController = Get.put(GlobalController());
@@ -76,7 +77,7 @@ class UserSearchController extends GetxController {
         return data;
       }
     } catch (e, s) {
-      userData.value = {"id": "NullID"};
+      userData = {"id": "NullID"};
       print(userData["id"]);
       return null;
     }

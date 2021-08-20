@@ -67,7 +67,7 @@ class ShareListScreen extends StatelessWidget {
                                 ),
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.black12,
+                                    color: Color(0xF2F3F7F2),
                                     borderRadius:
                                         BorderRadius.circular(getHeight(4)),
                                     border: Border.all(
@@ -106,6 +106,7 @@ class ShareListScreen extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
+                                            height: getHeight(78),
                                             child: Row(
                                               children: [
                                                 Radio(
@@ -199,11 +200,11 @@ class ShareListScreen extends StatelessWidget {
                       backgroundColor:
                           shareListController.userSelected.value != ""
                               ? Color(0xFFD0E8FF)
-                              : Colors.blueGrey.shade100,
+                              : Color(0xE3E3E3E3),
                       side: BorderSide(
                         color: shareListController.userSelected.value != ""
                             ? Color(0xFFD0E8FF)
-                            : Colors.blueGrey.shade100,
+                            : Color(0xE3E3E3E3),
                       ),
                       padding: EdgeInsets.only(
                         top: getHeight(14),

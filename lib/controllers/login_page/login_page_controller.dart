@@ -8,6 +8,7 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/models/status.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/services/response_validator.dart';
+import 'package:medical_chain_mobile_ui/services/socket_service.dart';
 
 class LoginPageController extends GetxController {
   TextEditingController username = TextEditingController();
@@ -106,7 +107,7 @@ class LoginPageController extends GetxController {
         var userName = data["username"];
         String? privateKey =
             decryptAESCryptoJS(encryptedPrivateKey, password.text);
-        
+
         print(privateKey);
         Status validatePassword = new Status();
 
@@ -149,6 +150,11 @@ class LoginPageController extends GetxController {
             print("dscds: " + userInfo.certificate.toString());
             Get.put(GlobalController()).db.put("user", userInfo);
             Get.put(GlobalController()).user.value = userInfo;
+            CustomSocket socket = CustomSocket("/token");
+            socket.sendMessage(userInfo.certificate.toString());
+            socket.listenForMessages((message) {
+              print("wsms: " + message);
+            });
             return true;
           } else {
             messValidatePassword.value = "Wrong password";

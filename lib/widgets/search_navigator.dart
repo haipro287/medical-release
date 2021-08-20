@@ -34,8 +34,8 @@ Container searchNavigator() {
                         height: getHeight(36),
                         width: getWidth(171.5),
                         color: searchUserController.currentPage.value == 0
-                            ? Colors.blue
-                            : Colors.black12,
+                            ? Colors.blue.shade200
+                            : Color(0xF2F3F7F2),
                         child: Text(
                           '連携先',
                           style: TextStyle(
@@ -57,8 +57,8 @@ Container searchNavigator() {
                           height: getHeight(36),
                           width: getWidth(171.5),
                           color: searchUserController.currentPage.value == 1
-                              ? Colors.blue
-                              : Colors.black12,
+                              ? Colors.blue.shade200
+                              : Color(0xF2F3F7F2),
                           child: Text(
                             '未連携ユーザー',
                             style: TextStyle(

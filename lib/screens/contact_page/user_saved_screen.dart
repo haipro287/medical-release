@@ -176,13 +176,13 @@ class UserSavedScreen extends StatelessWidget {
                   ),
                   alignment: Alignment.center,
                   width: getWidth(343),
-                  height: getHeight(139),
+                  height: getHeight(148),
                   child: Column(
                     children: [
                       myAccountField(
                         myAccountText(('ユーザーID')),
                         myAccountText(
-                            '${userInfo["id"].toString().substring(0, 15)}...'),
+                            '${userInfo["id"].toString().substring(0, 10)}...'),
                       ),
                       myAccountField(
                         myAccountText(('氏名')),

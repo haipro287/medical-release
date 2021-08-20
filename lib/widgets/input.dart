@@ -96,7 +96,7 @@ Container inputSearch(
   return Container(
     height: getHeight(56),
     decoration: BoxDecoration(
-      color: Colors.black12,
+      color: Color(0xF2F3F7F2),
       borderRadius: BorderRadius.circular(getHeight(4)),
       border: Border.all(
         color: Color(0xF2F3F7F2),
@@ -159,7 +159,7 @@ Container userInputSearch(
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Colors.black12,
+            color: Color(0xF2F3F7F2),
             borderRadius: BorderRadius.circular(getHeight(4)),
             border: Border.all(
               color: Color(0xF2F3F7F2),
@@ -235,7 +235,7 @@ Container inputSearchWithQrCode(
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Colors.black12,
+            color: Color(0xF2F3F7F2),
             borderRadius: BorderRadius.circular(getHeight(4)),
             border: Border.all(
               color: Color(0xF2F3F7F2),

@@ -170,10 +170,10 @@ class ShareConfirmScreen extends StatelessWidget {
 Container customBoxHeader(text) {
   return Container(
     decoration: BoxDecoration(
-      color: Colors.black12,
+      color: Color(0xF2F3F7F2),
       borderRadius: BorderRadius.circular(getHeight(4)),
       border: Border.all(
-        color: Color(0xFFECEFF1),
+        color: Color(0xF2F3F7F2),
         width: getHeight(1),
       ),
     ),
