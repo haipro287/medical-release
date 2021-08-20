@@ -102,7 +102,7 @@ class ShareListScreen extends StatelessWidget {
                                               border: Border(
                                                 bottom: BorderSide(
                                                   color: Color(0xF2F3F7F2),
-                                                  width: getHeight(3),
+                                                  width: getHeight(2),
                                                 ),
                                               ),
                                             ),

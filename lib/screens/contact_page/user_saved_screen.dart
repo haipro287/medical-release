@@ -176,7 +176,6 @@ class UserSavedScreen extends StatelessWidget {
                   ),
                   alignment: Alignment.center,
                   width: getWidth(343),
-                  height: getHeight(148),
                   child: Column(
                     children: [
                       myAccountField(
@@ -188,7 +187,7 @@ class UserSavedScreen extends StatelessWidget {
                         myAccountText(('氏名')),
                         myAccountText(CommonFunction.convertLongString(
                               string: userInfo["kanji"].toString(),
-                              firstLength: 2,
+                              firstLength: 3,
                               lastLength: 2,
                             ) +
                             " (" +
