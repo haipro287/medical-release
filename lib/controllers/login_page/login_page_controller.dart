@@ -162,6 +162,8 @@ class LoginPageController extends GetxController {
         } else {
           messValidatePassword.value = "Wrong password";
         }
+      } else if (validateUsername.status == "ERROR.SERVER") {
+        messValidateUsername.value = "Error Server";
       } else {
         messValidateUsername.value = "Username Invalid";
       }

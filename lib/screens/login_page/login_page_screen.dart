@@ -84,7 +84,10 @@ class LoginPageScreen extends StatelessWidget {
                       loginController.messValidatePassword.value != "")
                   ? InkWell(
                       child: Text(
-                        "wrongPass".tr,
+                        loginController.messValidateUsername.value ==
+                                "Error Server"
+                            ? "Server crash"
+                            : "wrongPass".tr,
                         style: TextStyle(
                           color: Colors.red,
                         ),
