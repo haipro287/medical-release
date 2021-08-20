@@ -100,6 +100,7 @@ class UserSavedScreen extends StatelessWidget {
                                     height: getHeight(36),
                                     alignment: Alignment.center,
                                     child: TextFormField(
+                                      maxLength: 60,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Color(0xFF2F3842),
@@ -109,6 +110,7 @@ class UserSavedScreen extends StatelessWidget {
                                       controller: userSearchController.nickname,
                                       autofocus: true,
                                       decoration: InputDecoration(
+                                        hintText: "ニックネーム",
                                         border: InputBorder.none,
                                         focusedBorder: InputBorder.none,
                                         enabledBorder: InputBorder.none,
@@ -193,8 +195,8 @@ class UserSavedScreen extends StatelessWidget {
                             " (" +
                             CommonFunction.convertLongString(
                               string: userInfo["romanji"].toString(),
-                              firstLength: 4,
-                              lastLength: 4,
+                              firstLength: 5,
+                              lastLength: 5,
                             ) +
                             ")"),
                       ),

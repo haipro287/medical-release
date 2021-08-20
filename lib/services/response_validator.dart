@@ -6,7 +6,7 @@ class ResponseValidator {
     if (response == null) {
       return new Status(status: "ERROR.SERVER", message: "EMPTY.SERVER");
     }
-    if (response.data["SUCCESS"] == false || response.data["code"] != 200) {
+    if (response.data["code"] != 200 && response.data["code"] != 204) {
       return new Status(
           status: "ERROR.SERVER", message: response.data["reason"].toString());
     }
