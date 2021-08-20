@@ -7,9 +7,11 @@ import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/edit_my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
+import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
+import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
 class MyAccountScreen extends StatelessWidget {
   GlobalController globalController = Get.put(GlobalController());
@@ -42,8 +44,10 @@ class MyAccountScreen extends StatelessWidget {
                 padding: EdgeInsets.only(top: 20),
                 width: getWidth(30),
                 height: getHeight(30),
-                child: InkWell(
-                  onTap: () {},
+                child: Bouncing(
+                  onPress: () {
+                    Get.to(() => ScanQRScreen());
+                  },
                   child: Container(
                     padding: EdgeInsets.all(6),
                     decoration: BoxDecoration(

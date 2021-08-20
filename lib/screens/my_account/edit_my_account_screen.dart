@@ -74,7 +74,7 @@ class EditMyAccountScreen extends StatelessWidget {
               ),
               inputWithHint(
                 context,
-                hintText: "Yamada Taro",
+                hintText: "ヤマダイチロウ",
                 labelText: 'editAlphabetName'.tr,
                 initialText: myAccountController.katakanaName.value,
                 textEditingController: editMyAccountController.katakanaName,

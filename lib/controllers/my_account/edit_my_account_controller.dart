@@ -29,7 +29,7 @@ class EditMyAccountController extends GetxController {
   }
 
   bool isValid() {
-    RegExp kanji = new RegExp(r'[^ -~｡-ﾟ\x00-\x1f\t]+$');
+    RegExp kanji = new RegExp(r'(　)*[^ -~｡-ﾟ\x00-\x1f　\t]+(　[^ -~｡-ﾟ\x00-\x1f　\t]*)*$');
     RegExp katakana = new RegExp(r'^([ァ-ン]|ー)+$');
     RegExp idNumber = new RegExp(r'^[0-9]+$');
 
@@ -44,7 +44,7 @@ class EditMyAccountController extends GetxController {
     }
 
     if (this.katakanaName.text == "") {
-      this.err.value = '氏名（カタカナを入力してください。';
+      this.err.value = '氏名（カタカナ）を入力してください。';
       return false;
     }
 

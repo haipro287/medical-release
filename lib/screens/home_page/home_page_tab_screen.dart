@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/contact_list_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/list_service/list_service_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
@@ -97,7 +98,8 @@ class HomePageTabScreen extends StatelessWidget {
               actionTab(
                   color: Color(0xFFF0F7E6),
                   icon: "assets/images/person.svg",
-                  tag: "my_account"),
+                  tag: "my_account",
+                  function: () => Get.to(() => MyAccountScreen())),
               SizedBox(
                 height: getHeight(10),
               ),
