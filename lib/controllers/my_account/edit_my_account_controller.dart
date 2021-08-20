@@ -29,7 +29,7 @@ class EditMyAccountController extends GetxController {
   }
 
   bool isValid() {
-    RegExp kanji = new RegExp(r'(　)*[^ -~｡-ﾟ\x00-\x1f　\t]+(　[^ -~｡-ﾟ\x00-\x1f　\t]*)*$');
+    RegExp kanji = new RegExp(r'(　)*([^ -~｡-ﾟ\x00-\x1f　\t])+(　[^ -~｡-ﾟ\x00-\x1f　\t]*)*$');
     RegExp katakana = new RegExp(r'^([ァ-ン]|ー)+$');
     RegExp idNumber = new RegExp(r'^[0-9]+$');
 
@@ -38,7 +38,7 @@ class EditMyAccountController extends GetxController {
       return false;
     }
 
-    if (!kanji.hasMatch(this.kanjiName.text)) {
+    if (!kanji.hasMatch(this.kanjiName.text) || this.kanjiName.text.contains(' ')) {
       this.err.value = '氏名（全角）は全角文字で入力してください。';
       return false;
     }
