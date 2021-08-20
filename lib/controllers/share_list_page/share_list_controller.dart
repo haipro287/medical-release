@@ -78,4 +78,11 @@ class ShareListController extends GetxController {
       }).toList();
     }
   }
+
+  String getHintText(dynamic userData) {
+    if (userData["romanji"] != null && userData["kanji"] != null) {
+      return userData["romanji"] + " (" + userData["kanji"] + ")";
+    }
+    return "佐藤桜(Sato Sakura)";
+  }
 }

@@ -7,18 +7,23 @@ class SignatureService {
   static getCertificateInfo(
     String? userId,
   ) {
-    print(TimeService.timeToBackEndMaster(TimeService.getTimeNow()));
+    print("debug here: " + TimeService.timeToBackEndMaster(TimeService.getTimeNow()).toString());
     var certificateInfo = jsonEncode({
       "id": userId,
-      "timestamp": TimeService.timeToBackEndMaster(TimeService.getTimeNow()),
+      "timestamp": "2021-08-20T16:19:48.1948Z",
       "exp": 2799360000000
     });
+    // debug here: 2021-08-20T16:19:48.1948Z
+    // Sig debug: mAYHCC03LtxzBD2mrY9QogMkmJX2mGHkTv4A5zAG+eLjjBEdcgVT2n6ZlpoVotRqwGQYRci4Ta2Wu1pRl4+8hA==
+    // Sig debug: tJjZ/fJA9f4Uvsb9ijzdTykgcUhzC0VxV066Ei2fw/ojMyZLwNV91zGSYSFlvOcZGwug8uiktTEgnI8jFQMZCw==
+    
     return certificateInfo;
   }
 
   static String getSignature(var certificateInfo, String privateKey) {
     var hashCertificateInfo = hashMessage(certificateInfo);
     var signature = signMessage(privateKey, hashCertificateInfo);
+    print("Signature debug: " + signature.toString());
     return signature;
   }
 

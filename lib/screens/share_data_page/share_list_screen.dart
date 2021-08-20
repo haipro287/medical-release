@@ -137,7 +137,7 @@ class ShareListScreen extends StatelessWidget {
                                                       Text(e["secondaryName"] !=
                                                               ""
                                                           ? e["secondaryName"]
-                                                          : e["kanji"]),
+                                                          : shareListController.getHintText(e)),
                                                       Text(
                                                           e["secondaryUsername"] ??
                                                               "Unknown"),

@@ -5,8 +5,10 @@ import 'dart:typed_data';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
-import 'package:secp256k1/secp256k1.dart';
+import 'package:secp256k1/secp256k1.dart' as secp;
 import 'package:tuple/tuple.dart';
+import 'package:ecdsa/ecdsa.dart';
+import 'package:elliptic/elliptic.dart';
 
 import 'package:pointycastle/api.dart' as POINTY;
 import 'package:pointycastle/ecc/api.dart';
@@ -37,18 +39,30 @@ class CertificateInfo {
   }
 }
 
-String hashMessage(String message) {
+Digest hashMessage(String message) {
   var bytes1 = utf8.encode(message);
   var digest1 = sha256.convert(bytes1);
-
-  return digest1.toString();
+  return digest1;
 }
 
 String signMessage(privateKey, message) {
+  var ec = getS256();
+  var pk = ec.generatePrivateKey();
   var privateKeyHex = convertBase64ToHex(privateKey);
-  var privateKeyDecode = PrivateKey.fromHex(privateKeyHex);
-  var a = privateKeyDecode.signature(message);
-  var base64Sign = convertHexToBase64(a.toRawHex());
+  // var pk1 = secp.PrivateKey.fromHex(privateKeyHex);
+  var privateKeyDecode = PrivateKey.fromHex(pk.curve, privateKeyHex);
+  var a = deterministicSign(privateKeyDecode, message.bytes);
+  print(message.toString());
+  // var b = pk1.signature(message.toString());
+  String c = a.R.toRadixString(16).padLeft(64, '0') + // r's hex
+      a.S.toRadixString(16).padLeft(64, '0'); // s's
+  // print('de a:' + a.toString());
+  // print('de b:' + b.toString());
+  print('de c:' + c.toString());
+  var base64Sign = convertHexToBase64(c.toString());
+  // msg 48fcb0ab2b000a747f3a631ff75004cb2f1e1d6bdc385ac6d8aecf66ad7cfbfe
+  // 527598012fbabfec08cd9ecdf2f1fdcfd16c1b5575eab49b43442abb2149cf55757f634dee8b183e9b3924a6d5ad9df2683c3d577b48957c6ed0a813e1a60f0b
+  // f530ac1d5842b6990d265241c34a9c2680a1573246d7fb9657d40359171647906ef7f8be1c90cea1f0cc6f47f0eb4212d6887255a8124c0b456bb5315eb8737d
   return base64Sign;
 }
 
@@ -164,16 +178,17 @@ POINTY.PrivateKey _secp256k1KeyPair() {
 }
 
 Map<String, dynamic> generateKeyPairAndEncrypt(String password) {
-  ECPrivateKey privateKey = _secp256k1KeyPair() as ECPrivateKey;
-  var d = privateKey.d;
-  final privateKeyDecode = PrivateKey(d as BigInt);
-  String publicKeyBase64 =
-      convertHexToBase64(privateKeyDecode.publicKey.toCompressedHex());
-  String privateKeyBase64 = convertHexToBase64(privateKeyDecode.toHex());
-  var encryptedPrivateKey = encryptAESCryptoJS(privateKeyBase64, password);
-  final Map<String, dynamic> encryptedKeyPair = {
-    "publicKey": publicKeyBase64,
-    "encryptedPrivateKey": encryptedPrivateKey
-  };
-  return encryptedKeyPair;
+  // ECPrivateKey privateKey = _secp256k1KeyPair() as ECPrivateKey;
+  // var d = privateKey.d;
+  // final privateKeyDecode = PrivateKey(d as BigInt);
+  // String publicKeyBase64 =
+  //     convertHexToBase64(privateKeyDecode.publicKey.toCompressedHex());
+  // String privateKeyBase64 = convertHexToBase64(privateKeyDecode.toHex());
+  // var encryptedPrivateKey = encryptAESCryptoJS(privateKeyBase64, password);
+  // final Map<String, dynamic> encryptedKeyPair = {
+  //   "publicKey": publicKeyBase64,
+  //   "encryptedPrivateKey": encryptedPrivateKey
+  // };
+  // return encryptedKeyPair;
+  return {"": ""};
 }

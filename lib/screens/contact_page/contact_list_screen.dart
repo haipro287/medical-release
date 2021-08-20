@@ -127,7 +127,7 @@ class ContactListPage extends StatelessWidget {
                                             children: [
                                               Text(e["secondaryName"] != ""
                                                   ? e["secondaryName"]
-                                                  : e["kanji"]),
+                                                  : contactPageController.getHintText(e)),
                                               Text(
                                                 e["secondaryUsername"] ??
                                                     'Unknown',

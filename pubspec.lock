@@ -190,6 +190,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  ecdsa:
+    dependency: "direct main"
+    description:
+      name: ecdsa
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
+  elliptic:
+    dependency: transitive
+    description:
+      name: elliptic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.5"
   encrypt:
     dependency: "direct main"
     description:
@@ -373,6 +387,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  ninja_asn1:
+    dependency: transitive
+    description:
+      name: ninja_asn1
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   package_config:
     dependency: transitive
     description:
