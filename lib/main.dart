@@ -11,6 +11,7 @@ import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
+import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");

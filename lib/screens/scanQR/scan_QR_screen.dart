@@ -12,7 +12,9 @@ import 'package:qr_flutter/qr_flutter.dart';
 class ScanQRScreen extends StatelessWidget {
   QrScanController qrScanController = Get.put(QrScanController());
   String? type;
+
   ScanQRScreen({this.type});
+
   @override
   Widget build(BuildContext context) {
     if (type.toString() != "scan") {
@@ -185,13 +187,24 @@ class ScanQRScreen extends StatelessWidget {
                                   color: qrScanController.index.value == 0
                                       ? Colors.white.withOpacity(0.2)
                                       : null),
-                              child: Text(
-                                "scan_qr".tr,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: getWidth(17),
-                                ),
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                children: [
+                                  Text(
+                                    "scan_qr".tr.substring(0, 5),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: getWidth(17),
+                                    ),
+                                  ),
+                                  Text(
+                                    "scan_qr".tr.substring(5),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: getWidth(17),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -216,13 +229,26 @@ class ScanQRScreen extends StatelessWidget {
                                   color: qrScanController.index.value == 1
                                       ? Colors.white.withOpacity(0.2)
                                       : null),
-                              child: Text(
-                                "my_qr".tr,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                ),
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                children: [
+                                  Text(
+                                    "my_qr".tr.substring(0,2),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                  Text(
+                                    "my_qr".tr.substring(2),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
