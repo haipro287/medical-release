@@ -81,7 +81,7 @@ class ShareListController extends GetxController {
 
   String getHintText(dynamic userData) {
     if (userData["romanji"] != null && userData["kanji"] != null) {
-      return userData["romanji"] + " (" + userData["kanji"] + ")";
+      return userData["kanji"] + " (" + userData["romanji"] + ")";
     }
     return "佐藤桜(Sato Sakura)";
   }

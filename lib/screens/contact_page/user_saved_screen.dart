@@ -181,20 +181,20 @@ class UserSavedScreen extends StatelessWidget {
                       myAccountField(
                         myAccountText(('ユーザーID')),
                         myAccountText(
-                            '${userInfo["id"].toString().substring(0, 10)}...'),
+                            '${userInfo["secondaryUsername"]}'),
                       ),
                       myAccountField(
                         myAccountText(('氏名')),
                         myAccountText(CommonFunction.convertLongString(
                               string: userInfo["kanji"].toString(),
-                              firstLength: 3,
-                              lastLength: 2,
+                              firstLength: 4,
+                              lastLength: 4,
                             ) +
                             " (" +
                             CommonFunction.convertLongString(
                               string: userInfo["romanji"].toString(),
-                              firstLength: 2,
-                              lastLength: 2,
+                              firstLength: 4,
+                              lastLength: 4,
                             ) +
                             ")"),
                       ),
