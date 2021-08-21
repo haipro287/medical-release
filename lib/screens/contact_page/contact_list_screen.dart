@@ -125,16 +125,23 @@ class ContactListPage extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Text(e["secondaryName"] != ""
-                                                  ? e["secondaryName"]
-                                                  : contactPageController.getHintText(e)),
+                                              Text(
+                                                e["secondaryName"] != ""
+                                                    ? e["secondaryName"]
+                                                    : contactPageController
+                                                        .getHintText(e),
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                ),
+                                              ),
                                               Text(
                                                 e["secondaryUsername"] ??
                                                     'Unknown',
                                                 style: TextStyle(
+                                                    fontSize: 13,
                                                     color: Colors
                                                         .blueGrey.shade300),
-                                              ),
+                                              )
                                             ],
                                           ),
                                         )

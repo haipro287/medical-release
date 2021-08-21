@@ -23,7 +23,7 @@ class ShareListScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: appBar(
         context,
-        "リクエスト送信先選択",
+        "データ共有先選択",
       ),
       backgroundColor: Colors.white,
       body: Column(children: [
@@ -134,13 +134,24 @@ class ShareListScreen extends StatelessWidget {
                                                         MainAxisAlignment
                                                             .center,
                                                     children: [
-                                                      Text(e["secondaryName"] !=
-                                                              ""
-                                                          ? e["secondaryName"]
-                                                          : shareListController.getHintText(e)),
                                                       Text(
-                                                          e["secondaryUsername"] ??
-                                                              "Unknown"),
+                                                        e["secondaryName"] != ""
+                                                            ? e["secondaryName"]
+                                                            : shareListController
+                                                                .getHintText(e),
+                                                        style: TextStyle(
+                                                          fontSize: 17,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        e["secondaryUsername"] ??
+                                                            "Unknown",
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            color: Colors
+                                                                .blueGrey
+                                                                .shade300),
+                                                      )
                                                     ],
                                                   ),
                                                 )
@@ -164,7 +175,7 @@ class ShareListScreen extends StatelessWidget {
                   children: [
                     userInputSearch(
                       context,
-                      hintText: "userId".tr,
+                      hintText: "searchById".tr,
                       textEditingController: userSearchController.searchInput,
                       onSearch: userSearchController.search,
                     ),

@@ -15,7 +15,7 @@ class ShareListService extends StatelessWidget {
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar(context, "share_service_list".tr),
+      appBar: appBar(context, "共有データ選択".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -129,8 +129,9 @@ class ShareListService extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    if (shareServiceListController.checkList.length > 0) {}
+                    if (shareServiceListController.checkList.length > 0) {
                       Get.to(() => ShareTimeService());
+                    }
                   },
                   child: Text(
                     'next'.tr,

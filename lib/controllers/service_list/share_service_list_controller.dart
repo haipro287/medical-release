@@ -56,4 +56,29 @@ class ShareServiceListController extends GetxController {
     if (timeList[timeSelected.value]["value"] == 2) return selectedTime;
     return selectedTime + " (" + calTime + ")";
   }
+
+  Future shareService(
+      {required String secondaryId}) async {
+    try {
+      var response;
+      CustomDio customDio = CustomDio();
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate.toString();
+
+      response = await customDio.post("/request/share", {
+        "data": {
+          "secondaryId": secondaryId,
+          "services": serviceList.value,
+        }
+      });
+
+      var json = jsonDecode(response.toString());
+      print(json.toString());
+      return (json["data"]);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return null;
+    }
+  }
 }

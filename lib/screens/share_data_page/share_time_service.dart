@@ -15,7 +15,7 @@ class ShareTimeService extends StatelessWidget {
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar(context, "share_service_list".tr),
+      appBar: appBar(context, "共有期限選択".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -37,7 +37,7 @@ class ShareTimeService extends StatelessWidget {
                 children: [
                   SizedBox(width: getWidth(15)),
                   Text(
-                    "連携したいサービスを選択してください。",
+                    "データ参考権限は有効ある期限を選択してください。",
                   ),
                 ],
               ),

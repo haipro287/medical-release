@@ -16,7 +16,7 @@ class ShareConfirmScreen extends StatelessWidget {
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar(context, "share_service_list".tr),
+      appBar: appBar(context, "データ共有確認".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -25,7 +25,7 @@ class ShareConfirmScreen extends StatelessWidget {
               height: getHeight(12),
             ),
             customBoxHeader(
-              "連携したいサービスを選択してください。",
+              "共有先",
             ),
             Container(
               margin: EdgeInsets.only(
@@ -90,6 +90,7 @@ class ShareConfirmScreen extends StatelessWidget {
                             SvgPicture.asset("assets/images/avatar.svg"),
                             SizedBox(width: getWidth(15)),
                             Container(
+                              alignment: Alignment.center,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -150,10 +151,13 @@ class ShareConfirmScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Get.to(() => ShareConfirmScreen());
+                      var result = shareServiceListController.shareService(
+                          secondaryId:
+                              userSearchController.userData["secondaryId"]);
+                      print(result);
                     },
                     child: Text(
-                      'next'.tr,
+                      '共有'.tr,
                       style: TextStyle(color: Colors.black),
                     ),
                   ),

@@ -68,7 +68,7 @@ class Messages extends Translations {
           'contact': '連携先',
           'searchInput': '氏名、ユーザーID、ニックネーム',
           'userNotFound': 'ユーザーが見つかりませんでした。',
-          'searchById': 'UserIDで検索',
+          'searchById': 'ユーザーIDで検索',
           'shareData': 'データ共有',
           'sentRequest': 'リクエスト送信',
           'username': 'ユーザーID',
