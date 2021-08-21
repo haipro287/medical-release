@@ -19,6 +19,8 @@ class UserSearchController extends GetxController {
 
   @override
   void onInit() async {
+    nickname.text = userData["secondaryName"];
+    nickname.value = userData["secondaryName"];
     super.onInit();
   }
 
@@ -35,10 +37,11 @@ class UserSearchController extends GetxController {
           nickname: nickname.text, contactID: userData["id"]);
       userData["secondaryName"] = a["secondaryName"] ?? "";
       isEditing.value = false;
-      nickname.clear();
       contactPageController.contactList.value =
           await contactPageController.getContactList();
     } else {
+      nickname.text = userData["secondaryName"];
+      nickname.value = userData["secondaryName"];
       isEditing.value = !isEditing.value;
     }
   }
