@@ -57,18 +57,22 @@ class ShareServiceListController extends GetxController {
     return selectedTime + " (" + calTime + ")";
   }
 
-  Future shareService(
-      {required String secondaryId}) async {
+  Future shareService({required String secondaryId}) async {
     try {
       var response;
       CustomDio customDio = CustomDio();
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
+      List<String> services = [];
+      for (int i = 0; i < serviceList.length; i++) {
+        var id = serviceList[i]["id"];
+        services.add(id);
+      }
 
       response = await customDio.post("/request/share", {
         "data": {
           "secondaryId": secondaryId,
-          "services": serviceList.value,
+          "services": services,
         }
       });
 

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/share_list_page/share_list_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class UserSearchController extends GetxController {
@@ -14,12 +15,11 @@ class UserSearchController extends GetxController {
   TextEditingController nickname = TextEditingController();
 
   var userData = {}.obs;
-  var isEditing = true.obs;
+  var isEditing = false.obs;
 
   @override
   void onInit() async {
     nickname.text = userData["secondaryName"];
-    // nickname.value = userData["secondaryName"];
     super.onInit();
   }
 
@@ -37,11 +37,11 @@ class UserSearchController extends GetxController {
       print("a: " + a.toString());
       userData["secondaryName"] = a["secondaryName"] ?? nickname.text;
       isEditing.value = false;
-      contactPageController.contactList.value =
-          await contactPageController.getContactList();
+      var newContactList = await contactPageController.getContactList();
+      contactPageController.contactList.value = newContactList;
+      Get.put(ShareListController()).contactList.value = newContactList;
     } else {
       nickname.text = userData["secondaryName"];
-      // nickname.value = userData["secondaryName"];
       isEditing.value = !isEditing.value;
     }
   }
@@ -79,8 +79,9 @@ class UserSearchController extends GetxController {
             await createContact(secondaryId: data["id"], nickname: "");
         print('createContact: ' + contactData.toString());
         userData.value = {...data, ...contactData};
-        contactPageController.contactList.value =
-            await contactPageController.getContactList();
+        var newContactList = await contactPageController.getContactList();
+        contactPageController.contactList.value = newContactList;
+        Get.put(ShareListController()).contactList.value = newContactList;
         searchInput.clear();
         return data;
       } else {

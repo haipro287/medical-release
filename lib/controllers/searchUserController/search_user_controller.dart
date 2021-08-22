@@ -7,12 +7,17 @@ class SearchUserController extends GetxController {
   PageController pageController =
       PageController(initialPage: 0, keepPage: false);
 
+  ShareListController shareListController = Get.put(ShareListController());
+  UserSearchController userSearchController = Get.put(UserSearchController());
+
   var currentPage = 0.obs;
 
   void onChangeTab(int value) {
     currentPage.value = value;
-    Get.put(ShareListController()).searchInput1.clear();
-    Get.put(UserSearchController()).searchInput.clear();
+    shareListController.searchInput1.clear();
+    shareListController.search();
+    userSearchController.searchInput.clear();
+    userSearchController.search();
     pageController
       ..animateToPage(
         value,
