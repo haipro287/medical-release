@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
-import 'package:medical_chain_mobile_ui/services/socket_service.dart';
 
 class UserSearchController extends GetxController {
   GlobalController globalController = Get.put(GlobalController());
@@ -20,7 +19,7 @@ class UserSearchController extends GetxController {
   @override
   void onInit() async {
     nickname.text = userData["secondaryName"];
-    nickname.value = userData["secondaryName"];
+    // nickname.value = userData["secondaryName"];
     super.onInit();
   }
 
@@ -35,13 +34,14 @@ class UserSearchController extends GetxController {
     if (isEditing.value) {
       var a = await editUserInfo(
           nickname: nickname.text, contactID: userData["id"]);
-      userData["secondaryName"] = a["secondaryName"] ?? "";
+      print("a: " + a.toString());
+      userData["secondaryName"] = a["secondaryName"] ?? nickname.text;
       isEditing.value = false;
       contactPageController.contactList.value =
           await contactPageController.getContactList();
     } else {
       nickname.text = userData["secondaryName"];
-      nickname.value = userData["secondaryName"];
+      // nickname.value = userData["secondaryName"];
       isEditing.value = !isEditing.value;
     }
   }

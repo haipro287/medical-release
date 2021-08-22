@@ -283,7 +283,7 @@ Container inputSearchWithQrCode(
         ),
         GestureDetector(
           onTap: () async {
-            Get.to(() => ScanQRScreen());
+            Get.to(() => ScanQRScreen(type: "scan"));
           },
           child: SvgPicture.asset("assets/images/qrcode-icon.svg"),
         ),

@@ -91,7 +91,7 @@ class UserSavedScreen extends StatelessWidget {
                             width: getWidth(17),
                           ),
                           Obx(
-                            () => userSearchController.isEditing.value
+                            () => userSearchController.isEditing.value == true
                                 ? Container(
                                     margin: EdgeInsets.only(
                                       bottom: getHeight(4),
@@ -111,6 +111,7 @@ class UserSavedScreen extends StatelessWidget {
                                       autofocus: true,
                                       decoration: InputDecoration(
                                         hintText: "ニックネーム",
+                                        hintStyle: TextStyle(color: Colors.blueGrey.shade300),
                                         border: InputBorder.none,
                                         focusedBorder: InputBorder.none,
                                         enabledBorder: InputBorder.none,

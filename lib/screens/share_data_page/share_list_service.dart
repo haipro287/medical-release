@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_time_service.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
@@ -12,6 +13,7 @@ class ShareListService extends StatelessWidget {
   Widget build(BuildContext context) {
     ShareServiceListController shareServiceListController =
         Get.put(ShareServiceListController());
+    UserSearchController userSearchController = Get.put(UserSearchController());
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -90,7 +92,7 @@ class ShareListService extends StatelessWidget {
                                     children: [
                                       Text(e["name"]),
                                       Text(
-                                        e["username"],
+                                        userSearchController.userData["secondaryUsername"],
                                         style: TextStyle(
                                             color: Colors.blueGrey.shade300),
                                       ),

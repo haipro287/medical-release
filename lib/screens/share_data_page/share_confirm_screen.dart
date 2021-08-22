@@ -96,11 +96,6 @@ class ShareConfirmScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(e["name"]),
-                                  Text(
-                                    e["username"],
-                                    style: TextStyle(
-                                        color: Colors.blueGrey.shade300),
-                                  ),
                                 ],
                               ),
                             )
