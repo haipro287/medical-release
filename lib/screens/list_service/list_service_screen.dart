@@ -31,56 +31,57 @@ class ListServiceScreen extends StatelessWidget {
                     listServiceController.serviceList.add(list[i]);
                   }
                   return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(
-                              left: getWidth(16),
-                              top: getHeight(24),
-                              bottom: getHeight(12),
-                            ),
-                            child: Text(
-                              'connectService'.tr,
-                            ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(
+                          left: getWidth(16),
+                          top: getHeight(24),
+                          bottom: getHeight(12),
+                        ),
+                        child: Text(
+                          'connectService'.tr,
+                        ),
+                      ),
+                      Container(
+                        height: getHeight(24),
+                        color: Colors.white,
+                      ),
+                      ...List.generate(listServiceController.serviceList.length,
+                          (index) {
+                        return Column(children: [
+                          switchService(
+                            serviceName:
+                                serviceList[index].name[0].toUpperCase() +
+                                    serviceList[index].name.substring(1),
+                            userName: serviceList[index].username,
+                            isConnected: serviceList[index].isConnected,
+                            index: index,
                           ),
-                          Container(
-                            height: getHeight(24),
-                            color: Colors.white,
-                          ),
-                          ...List.generate(
-                              listServiceController.serviceList.length,
-                              (index) {
-                            return Column(children: [
-                              switchService(
-                                serviceName: serviceList[index].name,
-                                userName: serviceList[index].username,
-                                isConnected: serviceList[index].isConnected,
-                                index: index,
-                              ),
-                              index < serviceList.length - 1
-                                  ? Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.only(
-                                        top: getHeight(12),
-                                        bottom: getHeight(12),
-                                      ),
-                                      child: Container(
-                                        width: screenWidth(),
-                                        color: Colors.white,
-                                        child: SvgPicture.asset(
-                                          'assets/images/separate_line.svg',
-                                          width: getWidth(343),
-                                        ),
-                                      ),
-                                    )
-                                  : Container(
-                                      height: getHeight(24),
-                                      color: Colors.white,
-                                    )
-                            ]);
-                          }),
-                        ],
-                      );
+                          index < serviceList.length - 1
+                              ? Container(
+                                  color: Colors.white,
+                                  padding: EdgeInsets.only(
+                                    top: getHeight(12),
+                                    bottom: getHeight(12),
+                                  ),
+                                  child: Container(
+                                    width: screenWidth(),
+                                    color: Colors.white,
+                                    child: SvgPicture.asset(
+                                      'assets/images/separate_line.svg',
+                                      width: getWidth(343),
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  height: getHeight(24),
+                                  color: Colors.white,
+                                )
+                        ]);
+                      }),
+                    ],
+                  );
                 } else
                   return Text("");
               }),
