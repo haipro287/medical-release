@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 Container customBoxHeader(text) {
   return Container(
     decoration: BoxDecoration(
-      color: Color(0xF2F3F7F2),
-      borderRadius: BorderRadius.circular(getHeight(4)),
+      color: Color(0xFFF6F7FB),
       border: Border.all(
-        color: Color(0xF2F3F7F2),
+        color: Colors.white,
         width: getHeight(1),
       ),
     ),

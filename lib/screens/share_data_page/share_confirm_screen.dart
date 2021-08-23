@@ -33,14 +33,6 @@ class ShareConfirmScreen extends StatelessWidget {
                 left: getWidth(15),
                 right: getWidth(15),
               ),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Color(0xFFECEFF1),
-                    width: getHeight(1),
-                  ),
-                ),
-              ),
               height: getHeight(78),
               child: Row(
                 children: [
@@ -79,8 +71,12 @@ class ShareConfirmScreen extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           border: Border(
-                            bottom: BorderSide(
-                              color: Color(0xFFECEFF1),
+                            top: BorderSide(
+                              color: e["id"] !=
+                                      shareServiceListController.checkList[0]
+                                          ["id"]
+                                  ? Color(0xFFECEFF1)
+                                  : Colors.white,
                               width: getHeight(1),
                             ),
                           ),
@@ -114,17 +110,14 @@ class ShareConfirmScreen extends StatelessWidget {
                 left: getWidth(15),
                 right: getWidth(15),
               ),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Color(0xFFECEFF1),
-                    width: getHeight(1),
-                  ),
-                ),
-              ),
               height: getHeight(78),
               child: Text(shareServiceListController.getFormatTimeCal()),
               alignment: Alignment.centerLeft,
+            ),
+            Expanded(
+              child: Container(
+                // color: Color(0xFFF6F7FB),
+              ),
             ),
             Expanded(
               child: Align(

@@ -7,6 +7,7 @@ import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_time_service.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
+import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ShareListService extends StatelessWidget {
   @override
@@ -25,26 +26,7 @@ class ShareListService extends StatelessWidget {
             SizedBox(
               height: getHeight(12),
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xF2F3F7F2),
-                borderRadius: BorderRadius.circular(getHeight(4)),
-                border: Border.all(
-                  color: Color(0xFFECEFF1),
-                  width: getHeight(1),
-                ),
-              ),
-              height: getHeight(56),
-              child: Row(
-                children: [
-                  SizedBox(width: getWidth(15)),
-                  Text(
-                    "chooseServiceToShare".tr,
-                  ),
-                ],
-              ),
-              alignment: Alignment.centerLeft,
-            ),
+            customBoxHeader("chooseServiceToShare".tr),
             Obx(
               () => Expanded(
                   flex: 1,

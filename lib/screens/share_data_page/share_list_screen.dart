@@ -12,6 +12,7 @@ import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
 import 'package:medical_chain_mobile_ui/widgets/search_navigator.dart';
+import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ShareListScreen extends StatelessWidget {
   @override
@@ -65,27 +66,7 @@ class ShareListScreen extends StatelessWidget {
                                 SizedBox(
                                   height: getHeight(18),
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xF2F3F7F2),
-                                    borderRadius:
-                                        BorderRadius.circular(getHeight(4)),
-                                    border: Border.all(
-                                      color: Color(0xF2F3F7F2),
-                                      width: getHeight(1),
-                                    ),
-                                  ),
-                                  height: getHeight(56),
-                                  child: Row(
-                                    children: [
-                                      SizedBox(width: getWidth(15)),
-                                      Text(
-                                        "chooseUserToShare".tr,
-                                      ),
-                                    ],
-                                  ),
-                                  alignment: Alignment.centerLeft,
-                                ),
+                                customBoxHeader("chooseUserToShare".tr),
                                 Container(
                                   height: getHeight(442),
                                   child: ListView(
@@ -101,7 +82,7 @@ class ShareListScreen extends StatelessWidget {
                                             decoration: BoxDecoration(
                                               border: Border(
                                                 bottom: BorderSide(
-                                                  color: Color(0xF2F3F7F2),
+                                                  color: Color(0xFFF2F3F7),
                                                   width: getHeight(2),
                                                 ),
                                               ),

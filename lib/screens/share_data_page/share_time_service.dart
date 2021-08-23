@@ -5,6 +5,7 @@ import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_l
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_confirm_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
+import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ShareTimeService extends StatelessWidget {
   @override
@@ -22,26 +23,7 @@ class ShareTimeService extends StatelessWidget {
             SizedBox(
               height: getHeight(12),
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xF2F3F7F2),
-                borderRadius: BorderRadius.circular(getHeight(4)),
-                border: Border.all(
-                  color: Color(0xFFECEFF1),
-                  width: getHeight(1),
-                ),
-              ),
-              height: getHeight(56),
-              child: Row(
-                children: [
-                  SizedBox(width: getWidth(15)),
-                  Text(
-                    "chooseTimeSharing".tr,
-                  ),
-                ],
-              ),
-              alignment: Alignment.centerLeft,
-            ),
+            customBoxHeader("chooseTimeSharing".tr),
             Obx(
               () => Expanded(
                   flex: 1,

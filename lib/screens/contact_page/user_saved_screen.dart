@@ -90,7 +90,7 @@ class UserSavedScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: getWidth(22),
+                            width: getWidth(24),
                           ),
                           Obx(
                             () => userSearchController.isEditing.value == true
@@ -151,6 +151,7 @@ class UserSavedScreen extends StatelessWidget {
                                         : Text(
                                             "ニックネーム",
                                             style: TextStyle(
+                                                fontSize: getWidth(20),
                                                 color:
                                                     Colors.blueGrey.shade300),
                                           ),

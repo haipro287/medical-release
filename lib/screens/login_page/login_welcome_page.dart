@@ -49,11 +49,9 @@ class LoginWelcomePage extends StatelessWidget {
                   height: getHeight(48),
                   color: Color(0xFFD0E8FF),
                   alignment: Alignment.center,
-                  child: Text('登録'.tr),
+                  child: Text('signupButton'.tr),
                 ),
-                onPress: () {
-                  Get.to(() => LoginPageScreen());
-                },
+                onPress: () {},
               ),
               SizedBox(
                 height: getHeight(18),
@@ -69,9 +67,11 @@ class LoginWelcomePage extends StatelessWidget {
                   width: getWidth(double.infinity),
                   height: getHeight(48),
                   alignment: Alignment.center,
-                  child: Text('ログイン'.tr),
+                  child: Text('login'.tr),
                 ),
-                onPress: () async {},
+                onPress: () {
+                  Get.to(() => LoginPageScreen());
+                },
               ),
             ],
           ),
