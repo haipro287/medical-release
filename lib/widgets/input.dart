@@ -355,8 +355,8 @@ Container inputDate(BuildContext context,
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
+      firstDate: DateTime(1800),
+      lastDate: DateTime.now(),
     );
     if (picked != null) {
       Get.put(EditMyAccountController()).birthday = picked;
