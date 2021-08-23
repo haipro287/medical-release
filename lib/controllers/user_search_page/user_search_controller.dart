@@ -56,7 +56,7 @@ class UserSearchController extends GetxController {
         "username": username,
       });
       var json = jsonDecode(response.toString());
-      print(json.toString());
+      print("searchUser: " + json.toString());
       return (json["data"]);
     } catch (e, s) {
       print(e);
@@ -78,7 +78,7 @@ class UserSearchController extends GetxController {
         var contactData =
             await createContact(secondaryId: data["id"], nickname: "");
         print('createContact: ' + contactData.toString());
-        userData.value = {...data, ...contactData};
+        userData.value = {...data, ...contactData, "secondaryUsername": data["username"]};
         var newContactList = await contactPageController.getContactList();
         contactPageController.contactList.value = newContactList;
         Get.put(ShareListController()).contactList.value = newContactList;

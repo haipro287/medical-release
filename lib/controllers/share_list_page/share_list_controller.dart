@@ -52,6 +52,8 @@ class ShareListController extends GetxController {
         item["kanji"] = responseData[i]["kanji"];
         res.add(item);
       }
+      res.sort(
+          (a, b) => a["secondaryUsername"].compareTo(b["secondaryUsername"]));
       contactList.value = res;
       searchList.value = res;
       return res;
@@ -69,7 +71,12 @@ class ShareListController extends GetxController {
     } else {
       searchList.value = contactList.value.where((ele) {
         String pattern = searchInput1.text.toLowerCase();
-        var listCheck = ["secondaryUsername", "secondaryName", "kanji", "romanji"];
+        var listCheck = [
+          "secondaryUsername",
+          "secondaryName",
+          "kanji",
+          "romanji"
+        ];
         for (int i = 0; i < listCheck.length; i++) {
           if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern))
             return true;

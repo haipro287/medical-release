@@ -88,7 +88,7 @@ class UserSavedScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: getWidth(17),
+                            width: getWidth(22),
                           ),
                           Obx(
                             () => userSearchController.isEditing.value == true
@@ -111,7 +111,8 @@ class UserSavedScreen extends StatelessWidget {
                                       autofocus: true,
                                       decoration: InputDecoration(
                                         hintText: "ニックネーム",
-                                        hintStyle: TextStyle(color: Colors.blueGrey.shade300),
+                                        hintStyle: TextStyle(
+                                            color: Colors.blueGrey.shade300),
                                         border: InputBorder.none,
                                         focusedBorder: InputBorder.none,
                                         enabledBorder: InputBorder.none,
@@ -144,17 +145,20 @@ class UserSavedScreen extends StatelessWidget {
                                     ),
                                   ),
                           ),
-                          GestureDetector(
-                            onTap: () async {
-                              print('change');
-                              await userSearchController.changeEditStatus();
-                            },
-                            child: Obx(
-                              () => userSearchController.isEditing.value
-                                  ? SvgPicture.asset(
-                                      "assets/images/tick-icon.svg")
-                                  : SvgPicture.asset(
-                                      "assets/images/edit-icon.svg"),
+                          Container(
+                            margin: EdgeInsets.only(right: getWidth(6)),
+                            child: GestureDetector(
+                              onTap: () async {
+                                print('change');
+                                await userSearchController.changeEditStatus();
+                              },
+                              child: Obx(
+                                () => userSearchController.isEditing.value
+                                    ? SvgPicture.asset(
+                                        "assets/images/tick-icon.svg")
+                                    : SvgPicture.asset(
+                                        "assets/images/edit-icon.svg"),
+                              ),
                             ),
                           ),
                         ],
@@ -183,10 +187,9 @@ class UserSavedScreen extends StatelessWidget {
                     children: [
                       myAccountField(
                         myAccountText(('ユーザーID')),
-                        myAccountText(
-                            '${userInfo["secondaryUsername"]}'),
+                        myAccountText('${userInfo["secondaryUsername"]}'),
                       ),
-                      myAccountField(
+                      myAccountFieldWithoutSeperateLine(
                         myAccountText(('氏名')),
                         myAccountText(CommonFunction.convertLongString(
                               string: userInfo["kanji"].toString(),
@@ -246,20 +249,24 @@ class UserSavedScreen extends StatelessWidget {
                       ),
                       OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            backgroundColor: Color(0xFFD0E8FF),
-                            side: BorderSide(
-                              color: Color(0xFFD0E8FF),
-                            ),
-                            padding: EdgeInsets.only(
-                              top: getHeight(14),
-                              bottom: getHeight(14),
-                            )),
+                          backgroundColor: Color(0xFFD0E8FF),
+                          side: BorderSide(
+                            color: Color(0xFFD0E8FF),
+                          ),
+                          padding: EdgeInsets.only(
+                            top: getHeight(14),
+                            bottom: getHeight(14),
+                          ),
+                        ),
                         onPressed: () {
                           Get.to(() => ShareListService());
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            SizedBox(
+                              width: getWidth(22),
+                            ),
                             SvgPicture.asset("assets/images/sent-icon.svg"),
                             SizedBox(
                               width: getWidth(12),

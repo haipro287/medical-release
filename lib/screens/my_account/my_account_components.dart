@@ -44,6 +44,30 @@ Column myAccountField(Widget left, Widget right) {
   );
 }
 
+Column myAccountFieldWithoutSeperateLine(Widget left, Widget right) {
+  return Column(
+    children: [
+      Row(
+        children: [
+          left,
+          Container(
+            width: getWidth(150),
+            child: right,
+            alignment: Alignment.centerRight,
+          ),
+        ],
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      ),
+      Container(
+        padding: EdgeInsets.only(
+          top: getHeight(12),
+          bottom: getHeight(12),
+        ),
+      ),
+    ],
+  );
+}
+
 Container verifiedIcon(bool isVerified) {
   return Container(
     decoration: BoxDecoration(

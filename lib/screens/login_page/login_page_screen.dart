@@ -70,6 +70,7 @@ class LoginPageScreen extends StatelessWidget {
                 child: Text('login'.tr),
               ),
               onPress: () async {
+                FocusScope.of(context).unfocus();
                 bool result = await loginController.login(context);
                 if (result) {
                   Get.to(() => HomePageScreen());
