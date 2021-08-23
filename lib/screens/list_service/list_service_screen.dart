@@ -64,9 +64,13 @@ class ListServiceScreen extends StatelessWidget {
                                         top: getHeight(12),
                                         bottom: getHeight(12),
                                       ),
-                                      child: SvgPicture.asset(
-                                        'assets/images/separate_line.svg',
-                                        width: getWidth(343),
+                                      child: Container(
+                                        width: screenWidth(),
+                                        color: Colors.white,
+                                        child: SvgPicture.asset(
+                                          'assets/images/separate_line.svg',
+                                          width: getWidth(343),
+                                        ),
                                       ),
                                     )
                                   : Container(
