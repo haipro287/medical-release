@@ -12,3 +12,14 @@ String convertLongString(
       string.length);
   return firstPattern + '...' + secondPattern;
 }
+
+String getWithoutSpaces(String s) {
+  String tmp = s.substring(0, s.length);
+  while (tmp.startsWith(' ')) {
+    tmp = tmp.substring(1);
+  }
+  while (tmp.endsWith(' ')) {
+    tmp = tmp.substring(0, tmp.length - 1);
+  }
+  return tmp;
+}

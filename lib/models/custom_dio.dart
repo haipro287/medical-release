@@ -88,6 +88,6 @@ class CustomDio {
   }
 
   Future delete(String url, [Map<String, dynamic>? params]) async {
-    return _dio.delete(url, queryParameters: params);
+    return _dio.delete(url, data: params);
   }
 }

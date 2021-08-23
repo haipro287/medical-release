@@ -123,6 +123,10 @@ Container inputSearch(
           child: TextFormField(
             controller: textEditingController,
             style: TextStyle(fontSize: getWidth(16)),
+            onEditingComplete: () {
+              FocusScope.of(context).unfocus();
+              onSearch();
+            },
             decoration: InputDecoration(
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
@@ -184,6 +188,11 @@ Container userInputSearch(
                 height: getHeight(56),
                 child: TextFormField(
                   controller: textEditingController,
+                  onEditingComplete: () async {
+                    FocusScope.of(context).unfocus();
+                    var data = await onSearch();
+                    if (data != null) Get.to(() => UserSavedScreen());
+                  },
                   style: TextStyle(fontSize: getWidth(16)),
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -260,6 +269,11 @@ Container inputSearchWithQrCode(
                 height: getHeight(56),
                 child: TextFormField(
                   controller: textEditingController,
+                  onEditingComplete: () async {
+                    FocusScope.of(context).unfocus();
+                    var data = await onSearch();
+                    if (data != null) Get.to(() => UserSavedScreen());
+                  },
                   style: TextStyle(fontSize: getWidth(16)),
                   decoration: InputDecoration(
                     border: InputBorder.none,

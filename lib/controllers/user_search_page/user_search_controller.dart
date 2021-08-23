@@ -6,6 +6,7 @@ import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_co
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_list_page/share_list_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
+import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 
 class UserSearchController extends GetxController {
   GlobalController globalController = Get.put(GlobalController());
@@ -32,14 +33,19 @@ class UserSearchController extends GetxController {
   Future changeEditStatus() async {
     print("userData:" + userData.toString());
     if (isEditing.value) {
-      var a = await editUserInfo(
-          nickname: nickname.text, contactID: userData["id"]);
-      print("a: " + a.toString());
-      userData["secondaryName"] = a["secondaryName"] ?? nickname.text;
+      nickname.text = getWithoutSpaces(nickname.text);
+      if (nickname.text.length > 0) {
+        var a = await editUserInfo(
+            nickname: nickname.text, contactID: userData["id"]);
+        print("a: " + a.toString());
+        userData["secondaryName"] = a["secondaryName"] ?? nickname.text;
+        var newContactList = await contactPageController.getContactList();
+        contactPageController.contactList.value = newContactList;
+        Get.put(ShareListController()).contactList.value = newContactList;
+      } else {
+        print('0');
+      }
       isEditing.value = false;
-      var newContactList = await contactPageController.getContactList();
-      contactPageController.contactList.value = newContactList;
-      Get.put(ShareListController()).contactList.value = newContactList;
     } else {
       nickname.text = userData["secondaryName"];
       isEditing.value = !isEditing.value;
@@ -78,7 +84,11 @@ class UserSearchController extends GetxController {
         var contactData =
             await createContact(secondaryId: data["id"], nickname: "");
         print('createContact: ' + contactData.toString());
-        userData.value = {...data, ...contactData, "secondaryUsername": data["username"]};
+        userData.value = {
+          ...data,
+          ...contactData,
+          "secondaryUsername": data["username"]
+        };
         var newContactList = await contactPageController.getContactList();
         contactPageController.contactList.value = newContactList;
         Get.put(ShareListController()).contactList.value = newContactList;
@@ -149,7 +159,37 @@ class UserSearchController extends GetxController {
         },
       );
       var json = jsonDecode(response.toString());
-      print(json["data"].toString());
+      return (json["data"]);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return {};
+    }
+  }
+
+  Future<Map> deleteContact() async {
+    try {
+      var userID = globalController.user.value.id.toString();
+      var contactID = userData["id"];
+      var response;
+      CustomDio customDio = CustomDio();
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate.toString();
+      print(contactID);
+      response = await customDio.delete(
+        "/user/$userID/contact/$contactID",
+        {
+          "data": {
+            "id": contactID,
+          }
+        },
+      );
+      var json = jsonDecode(response.toString());
+      if (json["success"] == true) {
+        var newContactList = await contactPageController.getContactList();
+        contactPageController.contactList.value = newContactList;
+        Get.put(ShareListController()).contactList.value = newContactList;
+      }
       return (json["data"]);
     } catch (e, s) {
       print(e);

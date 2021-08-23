@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_service.dart';
@@ -36,7 +35,10 @@ class UserSavedScreen extends StatelessWidget {
             context,
             "",
             GestureDetector(
-              onTap: () {},
+              onTap: () async {
+                var a = await userSearchController.deleteContact();
+                print("a: " + a.toString());
+              },
               child: Container(
                 padding: EdgeInsets.all(6),
                 child: SvgPicture.asset(
@@ -134,26 +136,25 @@ class UserSavedScreen extends StatelessWidget {
                                     width: getWidth(200),
                                     height: getHeight(36),
                                     alignment: Alignment.center,
-                                    child: Text(
-                                      userSearchController
-                                          .userData["secondaryName"],
-                                      style: TextStyle(
-                                        color: Color(0xFF2F3842),
-                                        fontSize: getWidth(20),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    )
-                                    // userSearchController
-                                    //             .userData["secondaryName"] !=
-                                    //         ""
-                                    //     ?
-                                    // : Text(
-                                    //     "ニックネーム",
-                                    //     style: TextStyle(
-                                    //         color:
-                                    //             Colors.blueGrey.shade300),
-                                    //   ),
-                                    ),
+                                    child: userSearchController
+                                                .userData["secondaryName"] !=
+                                            ""
+                                        ? Text(
+                                            userSearchController
+                                                .userData["secondaryName"],
+                                            style: TextStyle(
+                                              color: Color(0xFF2F3842),
+                                              fontSize: getWidth(20),
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
+                                        : Text(
+                                            "ニックネーム",
+                                            style: TextStyle(
+                                                color:
+                                                    Colors.blueGrey.shade300),
+                                          ),
+                                  ),
                           ),
                           Container(
                             margin: EdgeInsets.only(right: getWidth(8)),
