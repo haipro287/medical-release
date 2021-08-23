@@ -40,7 +40,7 @@ class ListServiceScreen extends StatelessWidget {
                           bottom: getHeight(12),
                         ),
                         child: Text(
-                          'connectService'.tr,
+                          'serviceList'.tr,
                         ),
                       ),
                       Container(

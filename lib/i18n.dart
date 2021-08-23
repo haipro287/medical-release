@@ -78,7 +78,8 @@ class Messages extends Translations {
           'viewSettings': '共有設定',
           'contact_address': "連絡先",
           "next": "次へ",
-          "wrongPass": "ログインID又はパスワードが一致しません。"
+          "wrongPass": "ログインID又はパスワードが一致しません。",
+          "serviceList": "サービス一覧",
         }
       };
 }
