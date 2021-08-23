@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
@@ -15,7 +14,7 @@ class ShareTimeService extends StatelessWidget {
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar(context, "共有期限選択".tr),
+      appBar: appBar(context, "timeSharingTitle".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -37,7 +36,7 @@ class ShareTimeService extends StatelessWidget {
                 children: [
                   SizedBox(width: getWidth(15)),
                   Text(
-                    "データ参考権限は有効ある期限を選択してください。",
+                    "chooseTimeSharing".tr,
                   ),
                 ],
               ),

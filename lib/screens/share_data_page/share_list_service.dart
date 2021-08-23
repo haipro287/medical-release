@@ -17,7 +17,7 @@ class ShareListService extends StatelessWidget {
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar(context, "共有データ選択".tr),
+      appBar: appBar(context, "shareListServiceTitle".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -39,7 +39,7 @@ class ShareListService extends StatelessWidget {
                 children: [
                   SizedBox(width: getWidth(15)),
                   Text(
-                    "連携したいサービスを選択してください。",
+                    "chooseServiceToShare".tr,
                   ),
                 ],
               ),
@@ -92,7 +92,8 @@ class ShareListService extends StatelessWidget {
                                     children: [
                                       Text(e["name"]),
                                       Text(
-                                        userSearchController.userData["secondaryUsername"],
+                                        userSearchController
+                                            .userData["secondaryUsername"],
                                         style: TextStyle(
                                             color: Colors.blueGrey.shade300),
                                       ),

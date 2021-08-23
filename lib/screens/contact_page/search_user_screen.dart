@@ -13,7 +13,7 @@ class SearchUserScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "ユーザー検索",
+          "searchUserTitle".tr,
           style: TextStyle(
             color: Colors.black,
             fontFamily: "SF Pro Display",

@@ -6,6 +6,7 @@ import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_l
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
+import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ShareConfirmScreen extends StatelessWidget {
   @override
@@ -16,7 +17,7 @@ class ShareConfirmScreen extends StatelessWidget {
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar(context, "データ共有確認".tr),
+      appBar: appBar(context, "confirmSentData".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -25,7 +26,7 @@ class ShareConfirmScreen extends StatelessWidget {
               height: getHeight(12),
             ),
             customBoxHeader(
-              "共有先",
+              "userReceived".tr,
             ),
             Container(
               margin: EdgeInsets.only(
@@ -66,7 +67,7 @@ class ShareConfirmScreen extends StatelessWidget {
               ),
               alignment: Alignment.centerLeft,
             ),
-            customBoxHeader("データ"),
+            customBoxHeader("data".tr),
             Obx(
               () => Column(
                 children: shareServiceListController.checkList
@@ -107,7 +108,7 @@ class ShareConfirmScreen extends StatelessWidget {
                     .toList(),
               ),
             ),
-            customBoxHeader("共有期限"),
+            customBoxHeader("timeSharing".tr),
             Container(
               margin: EdgeInsets.only(
                 left: getWidth(15),
@@ -152,7 +153,7 @@ class ShareConfirmScreen extends StatelessWidget {
                       print(result);
                     },
                     child: Text(
-                      '共有'.tr,
+                      'sentData'.tr,
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
@@ -164,27 +165,4 @@ class ShareConfirmScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-Container customBoxHeader(text) {
-  return Container(
-    decoration: BoxDecoration(
-      color: Color(0xF2F3F7F2),
-      borderRadius: BorderRadius.circular(getHeight(4)),
-      border: Border.all(
-        color: Color(0xF2F3F7F2),
-        width: getHeight(1),
-      ),
-    ),
-    height: getHeight(56),
-    child: Row(
-      children: [
-        SizedBox(width: getWidth(15)),
-        Text(
-          text,
-        ),
-      ],
-    ),
-    alignment: Alignment.centerLeft,
-  );
 }

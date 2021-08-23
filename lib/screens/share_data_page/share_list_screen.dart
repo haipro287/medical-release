@@ -23,7 +23,7 @@ class ShareListScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: appBar(
         context,
-        "データ共有先選択",
+        "shareListScreenTitle".tr,
       ),
       backgroundColor: Colors.white,
       body: Column(children: [
@@ -80,7 +80,7 @@ class ShareListScreen extends StatelessWidget {
                                     children: [
                                       SizedBox(width: getWidth(15)),
                                       Text(
-                                        "送信先を選択してください。",
+                                        "chooseUserToShare".tr,
                                       ),
                                     ],
                                   ),

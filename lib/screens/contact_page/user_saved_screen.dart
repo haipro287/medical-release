@@ -142,11 +142,21 @@ class UserSavedScreen extends StatelessWidget {
                                         fontSize: getWidth(20),
                                         fontWeight: FontWeight.w500,
                                       ),
+                                    )
+                                    // userSearchController
+                                    //             .userData["secondaryName"] !=
+                                    //         ""
+                                    //     ?
+                                    // : Text(
+                                    //     "ニックネーム",
+                                    //     style: TextStyle(
+                                    //         color:
+                                    //             Colors.blueGrey.shade300),
+                                    //   ),
                                     ),
-                                  ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(right: getWidth(6)),
+                            margin: EdgeInsets.only(right: getWidth(8)),
                             child: GestureDetector(
                               onTap: () async {
                                 print('change');
@@ -191,13 +201,13 @@ class UserSavedScreen extends StatelessWidget {
                       ),
                       myAccountFieldWithoutSeperateLine(
                         myAccountText(('氏名')),
-                        myAccountText(CommonFunction.convertLongString(
+                        myAccountText(convertLongString(
                               string: userInfo["kanji"].toString(),
                               firstLength: 4,
                               lastLength: 4,
                             ) +
                             " (" +
-                            CommonFunction.convertLongString(
+                            convertLongString(
                               string: userInfo["romanji"].toString(),
                               firstLength: 5,
                               lastLength: 5,
@@ -265,7 +275,7 @@ class UserSavedScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              width: getWidth(22),
+                              width: getWidth(24),
                             ),
                             SvgPicture.asset("assets/images/sent-icon.svg"),
                             SizedBox(
