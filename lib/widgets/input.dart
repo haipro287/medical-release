@@ -310,13 +310,14 @@ Container inputWithHint(BuildContext context,
     {required String hintText,
     required String labelText,
     required String initialText,
-    required TextEditingController textEditingController}) {
+    required TextEditingController textEditingController,
+    required bool err}) {
   return Container(
     height: getHeight(56),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
       border: Border.all(
-        color: Color(0xFFE7E8EA),
+        color: err ? Colors.red : Color(0xFFE7E8EA),
         width: getHeight(1),
       ),
     ),

@@ -62,23 +62,42 @@ class EditMyAccountScreen extends StatelessWidget {
               SizedBox(
                 height: getHeight(24),
               ),
-              inputWithHint(
-                context,
-                hintText: "山田太郎",
-                labelText: 'editName'.tr,
-                initialText: myAccountController.kanjiName.value,
-                textEditingController: editMyAccountController.kanjiName,
-              ),
+              Obx(() {
+                var err = editMyAccountController.kanjiErr.value != "";
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputWithHint(
+                      context,
+                      hintText: "山田太郎",
+                      labelText: 'editName'.tr,
+                      initialText: myAccountController.kanjiName.value,
+                      textEditingController: editMyAccountController.kanjiName,
+                      err: err,
+                    ),
+                    errText(errMess: editMyAccountController.kanjiErr.value),
+                  ],
+                );
+              }),
               SizedBox(
                 height: getHeight(12),
               ),
-              inputWithHint(
-                context,
-                hintText: "ヤマダイチロウ",
-                labelText: 'editAlphabetName'.tr,
-                initialText: myAccountController.katakanaName.value,
-                textEditingController: editMyAccountController.katakanaName,
-              ),
+              Obx(() {
+                var err = editMyAccountController.katakanaErr.value != "";
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputWithHint(context,
+                        hintText: "ヤマダイチロウ",
+                        labelText: 'editAlphabetName'.tr,
+                        initialText: myAccountController.katakanaName.value,
+                        textEditingController:
+                            editMyAccountController.katakanaName,
+                        err: err),
+                    errText(errMess: editMyAccountController.katakanaErr.value),
+                  ],
+                );
+              }),
               SizedBox(
                 height: getHeight(12),
               ),
@@ -91,47 +110,43 @@ class EditMyAccountScreen extends StatelessWidget {
               SizedBox(
                 height: getHeight(12),
               ),
-              inputWithHint(
-                context,
-                hintText: "山田太郎",
-                labelText: 'email'.tr,
-                initialText: myAccountController.email.value,
-                textEditingController: editMyAccountController.email,
-              ),
+              inputWithHint(context,
+                  hintText: "山田太郎",
+                  labelText: 'email'.tr,
+                  initialText: myAccountController.email.value,
+                  textEditingController: editMyAccountController.email,
+                  err: false),
               SizedBox(
                 height: getHeight(12),
               ),
-              inputWithHint(
-                context,
-                hintText: "山田太郎",
-                labelText: 'phoneNumber'.tr,
-                initialText: myAccountController.phoneNumber.value,
-                textEditingController: editMyAccountController.phone,
-              ),
-              SizedBox(
-                height: getHeight(12),
-              ),
-              inputWithHint(
-                context,
-                hintText: "123456789012",
-                labelText: 'citizenCode'.tr,
-                initialText: myAccountController.citizenCode.value,
-                textEditingController: editMyAccountController.citizenCode,
-              ),
+              inputWithHint(context,
+                  hintText: "山田太郎",
+                  labelText: 'phoneNumber'.tr,
+                  initialText: myAccountController.phoneNumber.value,
+                  textEditingController: editMyAccountController.phone,
+                  err: false),
               SizedBox(
                 height: getHeight(12),
               ),
               Obx(() {
-                if (editMyAccountController.err.value != "") {
-                  return Text(
-                    editMyAccountController.err.value,
-                    style: TextStyle(color: Colors.red),
-                  );
-                } else
-                  return Container();
+                var err = editMyAccountController.citizenCodeErr.value != "";
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputWithHint(context,
+                        hintText: "123456789012",
+                        labelText: 'citizenCode'.tr,
+                        initialText: myAccountController.citizenCode.value,
+                        textEditingController:
+                            editMyAccountController.citizenCode,
+                        err: err),
+                    errText(
+                        errMess: editMyAccountController.citizenCodeErr.value),
+                  ],
+                );
               }),
               SizedBox(
-                height: getHeight(12),
+                height: getHeight(24),
               ),
               Row(
                 children: [

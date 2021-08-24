@@ -14,7 +14,10 @@ class EditMyAccountController extends GetxController {
   TextEditingController dob = TextEditingController();
   late DateTime birthday = myAccountController.dob.value;
   late RxInt avatar;
-  RxString err = "".obs;
+  RxString kanjiErr = "".obs;
+  RxString katakanaErr = "".obs;
+  RxString dobErr = "".obs;
+  RxString citizenCodeErr = "".obs;
 
   @override
   void onInit() {
@@ -29,46 +32,46 @@ class EditMyAccountController extends GetxController {
   }
 
   bool isValid() {
-    RegExp kanji = new RegExp(r'(　)*([^ -~｡-ﾟ\x00-\x1f　\t])+(　[^ -~｡-ﾟ\x00-\x1f　\t]*)*$');
+    RegExp kanji =
+        new RegExp(r'(　)*([^ -~｡-ﾟ\x00-\x1f　\t])+(　[^ -~｡-ﾟ\x00-\x1f　\t]*)*$');
     RegExp katakana = new RegExp(r'^([ァ-ン]|ー)+$');
     RegExp idNumber = new RegExp(r'^[0-9]+$');
 
-    if (this.kanjiName.text == "") {
-      this.err.value = '氏名を入力してください。';
-      return false;
-    }
+    var isValid = true;
 
-    if (!kanji.hasMatch(this.kanjiName.text) || this.kanjiName.text.contains(' ')) {
-      this.err.value = '氏名（全角）は全角文字で入力してください。';
-      return false;
+    this.kanjiErr.value = "";
+    this.katakanaErr.value = "";
+
+    if (this.kanjiName.text == "") {
+      this.kanjiErr.value = '氏名を入力してください。';
+      isValid = false;
+    } else if (!kanji.hasMatch(this.kanjiName.text) ||
+        this.kanjiName.text.contains(' ')) {
+      this.kanjiErr.value = '氏名（全角）は全角文字で入力してください。';
+      isValid = false;
     }
 
     if (this.katakanaName.text == "") {
-      this.err.value = '氏名（カタカナ）を入力してください。';
-      return false;
-    }
-
-    if (!katakana.hasMatch(this.katakanaName.text)) {
-      this.err.value = '氏名（カタカナ）はカタカナで入力してください。';
-      return false;
+      this.katakanaErr.value = '氏名（カタカナ）を入力してください。';
+      isValid = false;
+    } else if (!katakana.hasMatch(this.katakanaName.text)) {
+      this.katakanaErr.value = '氏名（カタカナ）はカタカナで入力してください。';
+      isValid = false;
     }
 
     if (this.dob.text == "") {
-      this.err.value = '生年月日を入力してください。';
-      return false;
+      this.dobErr.value = '生年月日を入力してください。';
+      isValid = false;
     }
-    
+
     if (this.citizenCode.text == "") {
-      this.err.value = '住民番号を入力してください。';
-      return false;
+      this.citizenCodeErr.value = '住民番号を入力してください。';
+      isValid = false;
+    } else if (!idNumber.hasMatch(this.citizenCode.text)) {
+      this.citizenCodeErr.value = '住民番号は半角英数字で入力してください。';
+      isValid = false;
     }
 
-    if (!idNumber.hasMatch(this.citizenCode.text)) {
-      this.err.value = '住民番号は半角英数字で入力してください。';
-      return false;
-    }
-
-    this.err.value = "";
-    return true;
+    return isValid;
   }
 }

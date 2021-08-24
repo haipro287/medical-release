@@ -121,3 +121,13 @@ Bouncing colorButton(int color) {
         )),
   );
 }
+
+Container errText({required String errMess}) {
+  return errMess != "" ? Container(
+    margin: EdgeInsets.only(top: getHeight(5)),
+    child: Text(
+      errMess,
+      style: TextStyle(color: Colors.red),
+    ),
+  ) : Container();
+}
