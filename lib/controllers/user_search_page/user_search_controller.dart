@@ -106,13 +106,6 @@ class UserSearchController extends GetxController {
     }
   }
 
-  String getHintText() {
-    if (userData["romanji"] != null && userData["kanji"] != null) {
-      return userData["kanji"] + " (" + userData["romanji"] + ")";
-    }
-    return "佐藤桜(Sato Sakura)";
-  }
-
   Future<Map> editUserInfo({
     required String nickname,
     required String contactID,

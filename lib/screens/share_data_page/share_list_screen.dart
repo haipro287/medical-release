@@ -8,6 +8,7 @@ import 'package:medical_chain_mobile_ui/controllers/searchUserController/search_
 import 'package:medical_chain_mobile_ui/controllers/share_list_page/share_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/user_saved_screen.dart';
+import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
@@ -118,8 +119,7 @@ class ShareListScreen extends StatelessWidget {
                                                       Text(
                                                         e["secondaryName"] != ""
                                                             ? e["secondaryName"]
-                                                            : shareListController
-                                                                .getHintText(e),
+                                                            : getHintText(e),
                                                         style: TextStyle(
                                                           fontSize: 17,
                                                         ),

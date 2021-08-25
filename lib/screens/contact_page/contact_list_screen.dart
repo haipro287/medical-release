@@ -5,6 +5,7 @@ import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_co
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/search_user_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/user_saved_screen.dart';
+import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
@@ -110,8 +111,7 @@ class ContactListPage extends StatelessWidget {
                                               Text(
                                                 e["secondaryName"] != ""
                                                     ? e["secondaryName"]
-                                                    : contactPageController
-                                                        .getHintText(e),
+                                                    : getHintText(e),
                                                 style: TextStyle(
                                                   fontSize: 17,
                                                 ),

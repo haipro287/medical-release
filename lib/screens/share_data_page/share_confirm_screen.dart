@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
+import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
@@ -44,7 +45,7 @@ class ShareConfirmScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       // romanji kanji name
                       children: [
-                        Text(userSearchController.getHintText()),
+                        Text(getHintText(userSearchController.userData)),
                         Text(
                           userSearchController.userData["username"] ??
                               userSearchController

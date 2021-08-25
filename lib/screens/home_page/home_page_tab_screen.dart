@@ -7,6 +7,7 @@ import 'package:medical_chain_mobile_ui/screens/contact_page/contact_list_screen
 import 'package:medical_chain_mobile_ui/screens/list_service/list_service_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_page.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 class HomePageTabScreen extends StatelessWidget {
@@ -80,7 +81,8 @@ class HomePageTabScreen extends StatelessWidget {
               actionTab(
                   color: Color(0xFFFFF0D1),
                   icon: "assets/images/share2.svg",
-                  tag: "viewSettings"),
+                  tag: "viewSettings",
+                  function: () => Get.to(() => ShareHistoryPage())),
               actionTab(
                   color: Color(0xFFF7EBE8),
                   icon: "assets/images/link.svg",
