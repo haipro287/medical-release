@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_details_component.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
@@ -35,30 +36,41 @@ class ShareHistoryPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Column(
                     children: List.generate(2, (index) {
-                      return Container(
-                        margin: EdgeInsets.only(
-                          top: getHeight(20),
-                        ),
-                        child: SvgPicture.asset('assets/images/template.svg'),
-                      );
+                      return HistoryDetailComponent(status: 'sharing');
                     }),
                   ),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: Text("Sharing"),
+                  child: Column(
+                    children: List.generate(2, (index) {
+                      return HistoryDetailComponent(status: 'sharing');
+                    }),
+                  ),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: Text("Expired"),
+                  child: Column(
+                    children: List.generate(2, (index) {
+                      return HistoryDetailComponent(status: 'expired');
+                    }),
+                  ),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: Text("Pending"),
+                  child: Column(
+                    children: List.generate(2, (index) {
+                      return HistoryDetailComponent(status: 'pending');
+                    }),
+                  ),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: Text("Rejected"),
+                  child: Column(
+                    children: List.generate(2, (index) {
+                      return HistoryDetailComponent(status: 'rejected');
+                    }),
+                  ),
                 ),
               ],
             ),
