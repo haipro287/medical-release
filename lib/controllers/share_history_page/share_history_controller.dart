@@ -10,6 +10,8 @@ class ShareHistoryController extends GetxController {
 
   var userData = {}.obs;
 
+  var itemSelected = {"status": "sharing"}.obs;
+
   @override
   void onInit() async {
     super.onInit();

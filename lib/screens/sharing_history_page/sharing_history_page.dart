@@ -34,7 +34,7 @@ class ShareHistoryPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: ListView(
                     children: List.generate(4, (index) {
-                      return HistoryDetailComponent(status: 'sharing');
+                      return historyDetailComponent(status: 'sharing');
                     }),
                   ),
                 ),
@@ -42,7 +42,7 @@ class ShareHistoryPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: ListView(
                     children: List.generate(2, (index) {
-                      return HistoryDetailComponent(status: 'sharing');
+                      return historyDetailComponent(status: 'sharing');
                     }),
                   ),
                 ),
@@ -50,7 +50,7 @@ class ShareHistoryPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: ListView(
                     children: List.generate(2, (index) {
-                      return HistoryDetailComponent(status: 'expired');
+                      return historyDetailComponent(status: 'expired');
                     }),
                   ),
                 ),
@@ -58,7 +58,7 @@ class ShareHistoryPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: ListView(
                     children: List.generate(2, (index) {
-                      return HistoryDetailComponent(status: 'pending');
+                      return historyDetailComponent(status: 'pending');
                     }),
                   ),
                 ),
@@ -66,7 +66,7 @@ class ShareHistoryPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: ListView(
                     children: List.generate(2, (index) {
-                      return HistoryDetailComponent(status: 'rejected');
+                      return historyDetailComponent(status: 'rejected');
                     }),
                   ),
                 ),

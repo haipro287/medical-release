@@ -111,6 +111,10 @@ class Messages extends Translations {
           "timeSentRequestTitle": "共有期限",
           "confirmSentRequest": "リクエスト確認",
           "chooseServiceToSentRequest": "貰いたいデータを選択してください。",
+          "pending_color": "共有中",
+          "sharing_color": "期限切れ",
+          "expired_color": "検討中",
+          "rejected_color": "拒否",
         }
       };
 }
