@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_confirm_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -12,10 +13,15 @@ class ShareTimeService extends StatelessWidget {
   Widget build(BuildContext context) {
     ShareServiceListController shareServiceListController =
         Get.put(ShareServiceListController());
+    GlobalController globalController = Get.put(GlobalController());
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar(context, "timeSharingTitle".tr),
+      appBar: appBar(
+          context,
+          globalController.sharingStatus.value == "SENT_DATA"
+              ? "timeSharingTitle".tr
+              : "timeSentRequestTitle".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(

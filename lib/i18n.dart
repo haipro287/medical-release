@@ -106,6 +106,11 @@ class Messages extends Translations {
           "timeSharingTitle": "共有期限選択",
           "chooseTimeSharing": "データ参考権限は有効ある期限を選択してください。",
           "searchUserTitle": "ユーザー検索",
+          "sentRequestScreenTitle": "リクエスト送信先選択",
+          "sentRequestServiceTitle": "リクエストデータ",
+          "timeSentRequestTitle": "共有期限",
+          "confirmSentRequest": "リクエスト確認",
+          "chooseServiceToSentRequest": "貰いたいデータを選択してください。",
         }
       };
 }

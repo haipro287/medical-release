@@ -73,7 +73,11 @@ class HomePageTabScreen extends StatelessWidget {
                   color: Color(0xFFD0E8FF),
                   icon: "assets/images/share1.svg",
                   tag: "shareData",
-                  function: () => Get.to(() => ShareListScreen())),
+                  function: () => {
+                        Get.put(GlobalController()).sharingStatus.value =
+                            "SENT_DATA",
+                        Get.to(() => ShareListScreen()),
+                      }),
               actionTab(
                   color: Color(0xFFDAD4FF),
                   icon: "assets/images/data.svg",
@@ -97,7 +101,11 @@ class HomePageTabScreen extends StatelessWidget {
                   color: Color(0xFFD0E8FF),
                   icon: "assets/images/send.svg",
                   tag: "sentRequest",
-                  function: () => Get.to(() => ShareListScreen())),
+                  function: () => {
+                        Get.put(GlobalController()).sharingStatus.value =
+                            "SENT_REQUEST",
+                        Get.to(() => ShareListScreen()),
+                      }),
               actionTab(
                   color: Color(0xFFF0F7E6),
                   icon: "assets/images/person.svg",

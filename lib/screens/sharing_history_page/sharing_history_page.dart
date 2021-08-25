@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_details_component.dart';
-import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
 import 'package:medical_chain_mobile_ui/widgets/search_navigator.dart';
@@ -34,7 +32,15 @@ class ShareHistoryPage extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.center,
-                  child: Column(
+                  child: ListView(
+                    children: List.generate(4, (index) {
+                      return HistoryDetailComponent(status: 'sharing');
+                    }),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: ListView(
                     children: List.generate(2, (index) {
                       return HistoryDetailComponent(status: 'sharing');
                     }),
@@ -42,15 +48,7 @@ class ShareHistoryPage extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: Column(
-                    children: List.generate(2, (index) {
-                      return HistoryDetailComponent(status: 'sharing');
-                    }),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Column(
+                  child: ListView(
                     children: List.generate(2, (index) {
                       return HistoryDetailComponent(status: 'expired');
                     }),
@@ -58,7 +56,7 @@ class ShareHistoryPage extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: Column(
+                  child: ListView(
                     children: List.generate(2, (index) {
                       return HistoryDetailComponent(status: 'pending');
                     }),
@@ -66,7 +64,7 @@ class ShareHistoryPage extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: Column(
+                  child: ListView(
                     children: List.generate(2, (index) {
                       return HistoryDetailComponent(status: 'rejected');
                     }),

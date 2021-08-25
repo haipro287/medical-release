@@ -41,6 +41,8 @@ Container HistoryDetailComponent({required status}) {
               ),
               Text(
                 "工藤新一（クドウシンイチ）",
+                style: TextStyle(
+                    fontSize: getWidth(17), fontWeight: FontWeight.w400),
               ),
             ],
           ),
@@ -52,14 +54,18 @@ Container HistoryDetailComponent({required status}) {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('データ:'),
               SizedBox(
                 width: getWidth(8),
               ),
               Column(
-                children: [
-                  Container(
+                children: List.generate(2, (index) {
+                  return Container(
+                    margin: EdgeInsets.only(
+                      bottom: getHeight(8),
+                    ),
                     child: Row(children: [
                       SvgPicture.asset(
                         "assets/images/facebook.svg",
@@ -76,8 +82,8 @@ Container HistoryDetailComponent({required status}) {
                         ),
                       ),
                     ]),
-                  ),
-                ],
+                  );
+                }),
               ),
             ],
           ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/searchUserController/search_user_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_list_page/share_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
@@ -21,11 +22,14 @@ class ShareListScreen extends StatelessWidget {
     ShareListController shareListController = Get.put(ShareListController());
     SearchUserController searchUserController = Get.put(SearchUserController());
     UserSearchController userSearchController = Get.put(UserSearchController());
+    GlobalController globalController = Get.put(GlobalController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: appBar(
         context,
-        "shareListScreenTitle".tr,
+        globalController.sharingStatus.value == "SENT_DATA"
+            ? "shareListScreenTitle".tr
+            : "sendRequestScreenTitle".tr,
       ),
       backgroundColor: Colors.white,
       body: Column(children: [

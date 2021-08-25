@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_time_service.dart';
@@ -15,10 +16,15 @@ class ShareListService extends StatelessWidget {
     ShareServiceListController shareServiceListController =
         Get.put(ShareServiceListController());
     UserSearchController userSearchController = Get.put(UserSearchController());
+    GlobalController globalController = Get.put(GlobalController());
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar(context, "shareListServiceTitle".tr),
+      appBar: appBar(
+          context,
+          globalController.sharingStatus.value == "SENT_DATA"
+              ? "shareListServiceTitle".tr
+              : "sentRequestServiceTitle".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -26,7 +32,9 @@ class ShareListService extends StatelessWidget {
             SizedBox(
               height: getHeight(12),
             ),
-            customBoxHeader("chooseServiceToShare".tr),
+            customBoxHeader(globalController.sharingStatus.value == "SENT_DATA"
+                ? "chooseServiceToShare".tr
+                : "chooseServiceToSentRequest".tr),
             Obx(
               () => Expanded(
                   flex: 1,

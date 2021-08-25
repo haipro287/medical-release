@@ -85,5 +85,4 @@ class ShareListController extends GetxController {
       }).toList();
     }
   }
-
 }

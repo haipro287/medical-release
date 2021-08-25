@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
@@ -12,13 +13,18 @@ import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 class ShareConfirmScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    GlobalController globalController = Get.put(GlobalController());
     ShareServiceListController shareServiceListController =
         Get.put(ShareServiceListController());
     UserSearchController userSearchController = Get.put(UserSearchController());
     Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar(context, "confirmSentData".tr),
+      appBar: appBar(
+          context,
+          globalController.sharingStatus.value == "SENT_DATA"
+              ? "confirmSentData".tr
+              : "confirmSentRequest".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -116,9 +122,7 @@ class ShareConfirmScreen extends StatelessWidget {
               alignment: Alignment.centerLeft,
             ),
             Expanded(
-              child: Container(
-                // color: Color(0xFFF6F7FB),
-              ),
+              child: Container(),
             ),
             Expanded(
               child: Align(

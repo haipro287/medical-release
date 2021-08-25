@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_service.dart';
@@ -10,6 +11,7 @@ import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 
 class UserSavedScreen extends StatelessWidget {
   UserSearchController userSearchController = Get.put(UserSearchController());
+  GlobalController globalController = Get.put(GlobalController());
   @override
   Widget build(BuildContext context) {
     var userInfo = userSearchController.userData;
@@ -238,6 +240,7 @@ class UserSavedScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
+                          globalController.sharingStatus.value = "SENT_DATA";
                           Get.to(() => ShareListService());
                         },
                         child: Row(
@@ -271,6 +274,7 @@ class UserSavedScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
+                          globalController.sharingStatus.value = "SENT_REQUEST";
                           Get.to(() => ShareListService());
                         },
                         child: Row(
