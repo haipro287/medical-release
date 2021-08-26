@@ -5,12 +5,12 @@ import 'package:medical_chain_mobile_ui/screens/sharing_history_page/detail_hist
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:get/get.dart';
 
-Widget historyDetailComponent({required status}) {
+Widget historyDetailComponent({required record}) {
   ShareHistoryController shareHistoryController =
       Get.put(ShareHistoryController());
   return GestureDetector(
     onTap: () {
-      shareHistoryController.itemSelected.value["status"] = status;
+      shareHistoryController.itemSelected.value = record;
       Get.to(() => DetailHistoryItem());
     },
     child: Container(
@@ -30,7 +30,7 @@ Widget historyDetailComponent({required status}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SvgPicture.asset('assets/images/jp_${status}_tag.svg'),
+                SvgPicture.asset('assets/images/jp_${record.status}_tag.svg'),
                 Text(
                   "2021/04/13 07:53",
                 ),

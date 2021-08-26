@@ -29,48 +29,18 @@ class ShareHistoryPage extends StatelessWidget {
             child: PageView(
               controller: sharingHistoryController.pageController,
               physics: NeverScrollableScrollPhysics(),
-              children: [
-                Container(
+              children: List.generate(5, (index) {
+                return Container(
                   alignment: Alignment.center,
-                  child: ListView(
-                    children: List.generate(4, (index) {
-                      return historyDetailComponent(status: 'sharing');
-                    }),
+                  child: Obx(
+                    () => ListView(
+                      children: sharingHistoryController.historyRecords
+                          .map((e) => historyDetailComponent(record: e))
+                          .toList(),
+                    ),
                   ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: ListView(
-                    children: List.generate(2, (index) {
-                      return historyDetailComponent(status: 'sharing');
-                    }),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: ListView(
-                    children: List.generate(2, (index) {
-                      return historyDetailComponent(status: 'expired');
-                    }),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: ListView(
-                    children: List.generate(2, (index) {
-                      return historyDetailComponent(status: 'pending');
-                    }),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: ListView(
-                    children: List.generate(2, (index) {
-                      return historyDetailComponent(status: 'rejected');
-                    }),
-                  ),
-                ),
-              ],
+                );
+              }),
             ),
           ),
         ),
