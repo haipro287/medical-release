@@ -128,6 +128,7 @@ class Messages extends Translations {
           "data_reference": "データ参照",
           "data_request": "データリクエスト",
           "confirmPassword": "再入力パスワード",
+          "sender": "送信元",
         }
       };
 }

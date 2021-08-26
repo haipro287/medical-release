@@ -18,6 +18,7 @@ class DetailHistoryPage extends StatelessWidget {
     var itemSelected = shareHistoryController.itemSelected;
     var mode = globalController.historyStatus.value;
     var subMode = ["sharing", "expired"].contains(itemSelected["status"]);
+    List<dynamic> servicesList = itemSelected["services"];
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: mode == "SENDING_MODE"
@@ -44,7 +45,9 @@ class DetailHistoryPage extends StatelessWidget {
               height: getHeight(12),
             ),
             customBoxHeader(
-              "userReceived".tr,
+              mode == "SENDING_MODE"
+                  ? (subMode ? "userReceived".tr : "sender".tr)
+                  : (subMode ? "sender".tr : "userReceived".tr),
             ),
             Container(
               margin: EdgeInsets.only(
@@ -77,40 +80,47 @@ class DetailHistoryPage extends StatelessWidget {
             // Obx(
             //   () =>
             Column(
-              children: List.generate(2, (index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Color(0xFFECEFF1),
-                        width: getHeight(1),
-                      ),
-                    ),
-                  ),
-                  margin: EdgeInsets.only(
-                    left: getWidth(15),
-                    right: getWidth(15),
-                  ),
-                  height: getHeight(78),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset("assets/images/avatar.svg"),
-                      SizedBox(width: getWidth(15)),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Facebook'),
-                          ],
+              children: servicesList
+                  .map(
+                    (e) => Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Color(0xFFECEFF1),
+                            width: getHeight(1),
+                          ),
                         ),
-                      )
-                    ],
-                  ),
-                  alignment: Alignment.centerLeft,
-                );
-              }),
+                      ),
+                      margin: EdgeInsets.only(
+                        left: getWidth(15),
+                        right: getWidth(15),
+                      ),
+                      height: getHeight(78),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: getWidth(24),
+                            child: e["icon"].toString().contains('http')
+                                ? Image.network(e["icon"].toString())
+                                : SvgPicture.asset("assets/images/avatar.svg"),
+                          ),
+                          SizedBox(width: getWidth(15)),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(e["name"]),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      alignment: Alignment.centerLeft,
+                    ),
+                  )
+                  .toList(),
             ),
             // ),
             customBoxHeaderWithTag(

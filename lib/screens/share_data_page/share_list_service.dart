@@ -72,7 +72,10 @@ class ShareListService extends StatelessWidget {
                                             shareServiceListController.checkList
                                                 .remove(e)
                                         }),
-                                SvgPicture.asset("assets/images/avatar.svg"),
+                                e.icon.toString().contains('http')
+                                    ? Image.network(e.icon.toString())
+                                    : SvgPicture.asset(
+                                        "assets/images/avatar.svg"),
                                 SizedBox(width: getWidth(15)),
                                 Container(
                                   child: Column(
@@ -80,7 +83,7 @@ class ShareListService extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(e["name"]),
+                                      Text(e.name),
                                       Text(
                                         userSearchController
                                             .userData["secondaryUsername"],

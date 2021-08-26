@@ -22,7 +22,6 @@ class HomePageScreen extends StatelessWidget {
             Center(
               child: Text("share".tr),
             ),
-            // ListServiceScreen(),
             Center(
               child: Text("view".tr),
             ),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
+import 'package:medical_chain_mobile_ui/models/service.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 
 class ShareServiceListController extends GetxController {
@@ -20,32 +21,12 @@ class ShareServiceListController extends GetxController {
     {"value": 2, "name": "オフにするまで"}
   ];
 
-  RxList<Map<String, dynamic>> serviceList = [
-    {
-      "username": "",
-      "name": "Google",
-      "url": "google.com",
-      "id": "123",
-      "connected": false
-    },
-    {
-      "username": "",
-      "name": "facebook",
-      "url": "facebook.com",
-      "id": "234",
-      "connected": false
-    },
-    {
-      "username": "",
-      "name": "Twitter",
-      "url": "twitter.com",
-      "id": "345",
-      "connected": false
-    }
-  ].obs;
+  RxList<dynamic> serviceList = [].obs;
 
   @override
   void onInit() async {
+    var servicesData = await getServiceList();
+    serviceList.value = servicesData;
     super.onInit();
   }
 
@@ -73,7 +54,7 @@ class ShareServiceListController extends GetxController {
           globalController.user.value.certificate.toString();
       List<String> services = [];
       for (int i = 0; i < serviceList.length; i++) {
-        var id = serviceList[i]["id"];
+        var id = serviceList[i].id;
         services.add(id);
       }
 
@@ -98,12 +79,43 @@ class ShareServiceListController extends GetxController {
       }
 
       var json = jsonDecode(response.toString());
-      print(json.toString());
       return (json["data"]);
     } catch (e, s) {
       print(e);
       print(s);
       return null;
+    }
+  }
+
+  Future<List<Service>> getServiceList() async {
+    try {
+      var userID = globalController.user.value.id.toString();
+      var response;
+      CustomDio customDio = CustomDio();
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate.toString();
+      response = await customDio.get("/user/$userID/services");
+      var json = jsonDecode(response.toString());
+      print(json["data"]);
+      var list = json["data"];
+      List<Service> listService = [];
+
+      for (var i = 0; i < list.length; i++) {
+        print(list[i]);
+        Service service = new Service();
+        service.id = list[i]['id'];
+        service.name = list[i]['name'];
+        service.url = list[i]['url'];
+        service.username = list[i]['username'];
+        service.isConnected = list[i]["connected"];
+        listService.add(service);
+      }
+
+      return (listService);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return [];
     }
   }
 }

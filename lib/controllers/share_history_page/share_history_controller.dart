@@ -49,29 +49,32 @@ class ShareHistoryController extends GetxController {
   }
 
   void onChangeTab(int value) async {
-    currentPage.value = value;
-    searchInput.clear();
-    isHideNotiSearch.value = true;
-    var records;
-    if (value == 0) {
-      records = await getRecords("");
-    } else if (value == 1) {
-      records = await getRecords("sharing");
-    } else if (value == 2) {
-      records = await getRecords("expired");
-    } else if (value == 3) {
-      records = await getRecords("pending");
-    } else if (value == 4) {
-      records = await getRecords("rejected");
+    if (value != currentPage.value) {
+      print("valueeee: " + value.toString());
+      currentPage.value = value;
+      searchInput.clear();
+      isHideNotiSearch.value = true;
+      var records;
+      if (value == 0) {
+        records = await getRecords("");
+      } else if (value == 1) {
+        records = await getRecords("sharing");
+      } else if (value == 2) {
+        records = await getRecords("expired");
+      } else if (value == 3) {
+        records = await getRecords("pending");
+      } else if (value == 4) {
+        records = await getRecords("rejected");
+      }
+      historyRecords.value = records;
+      searchList.value = records;
+      pageController
+        ..animateToPage(
+          value,
+          duration: Duration(milliseconds: 1000),
+          curve: Curves.ease,
+        );
     }
-    historyRecords.value = records;
-    searchList.value = records;
-    pageController
-      ..animateToPage(
-        value,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.ease,
-      );
   }
 
   Future<List<Map<String, dynamic>>> getRecords(String status) async {
@@ -110,13 +113,14 @@ class ShareHistoryController extends GetxController {
         item["fromTime"] = list[i]["fromTime"];
         item["endTime"] = list[i]["endTime"];
         item["status"] = list[i]["status"];
-        item["service"] = [
-          {"id": "1232", "name": "Facebook"},
-          {"id": "232", "name": "Instagram"}
-        ];
-        // for (var j = 0; j < list[i]["service"]; j++) {
-
-        // }
+        item["services"] = [];
+        for (var j = 0; j < list[i]["services"].length; j++) {
+          var service = {};
+          service["id"] = list[i]["services"][j]["id"];
+          service["name"] = list[i]["services"][j]["name"];
+          service["icon"] = list[i]["services"][j]["icon"];
+          item["services"].add(service);
+        }
         listRecords.add(item);
       }
       calculatorTimeOption(list[0]["fromTime"], list[0]["endTime"]);

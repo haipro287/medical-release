@@ -11,7 +11,7 @@ Widget historyDetailComponent({required record}) {
   ShareHistoryController shareHistoryController =
       Get.put(ShareHistoryController());
   print(record.toString());
-  List<dynamic> serviceList = record["service"];
+  List<dynamic> serviceList = record["services"];
   return GestureDetector(
     onTap: () {
       shareHistoryController.itemSelected.value = record;
@@ -76,25 +76,24 @@ Widget historyDetailComponent({required record}) {
                   width: getWidth(8),
                 ),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: serviceList
                       .map((e) => Container(
                             margin: EdgeInsets.only(
                               bottom: getHeight(8),
                             ),
                             child: Row(children: [
-                              SvgPicture.asset(
-                                "assets/images/avatar.svg",
+                              Container(
                                 width: getWidth(16),
+                                child: e["icon"].toString().contains('http')
+                                    ? Image.network(e["icon"].toString())
+                                    : SvgPicture.asset(
+                                        "assets/images/avatar.svg"),
                               ),
                               SizedBox(width: getWidth(8)),
                               Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(e["name"]),
-                                  ],
-                                ),
+                                child: Text(e["name"]),
                               ),
                             ]),
                           ))

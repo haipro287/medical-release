@@ -12,11 +12,11 @@ import 'package:medical_chain_mobile_ui/widgets/input.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ContactListPage extends StatelessWidget {
+  ContactPageController contactPageController =
+      Get.put(ContactPageController());
+  UserSearchController userSearchController = Get.put(UserSearchController());
   @override
   Widget build(BuildContext context) {
-    ContactPageController contactPageController =
-        Get.put(ContactPageController());
-    UserSearchController userSearchController = Get.put(UserSearchController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: appBar(context, "contact".tr),

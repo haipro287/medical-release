@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_page.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
 Container bottomNavigator() {
   HomePageController homePageController = Get.put(HomePageController());
-
+  GlobalController globalController = Get.put(GlobalController());
   return Container(
     height: getHeight(80),
     width: double.infinity,
@@ -62,7 +65,9 @@ Container bottomNavigator() {
                   Obx(() {
                     return Bouncing(
                       onPress: () {
+                        globalController.sharingStatus.value = "SENT_DATA";
                         homePageController.onChangeTab(1);
+                        Get.to(() => ShareListScreen());
                       },
                       child: Container(
                         width: getWidth(60),
@@ -104,7 +109,9 @@ Container bottomNavigator() {
                   Obx(() {
                     return Bouncing(
                       onPress: () {
+                        globalController.historyStatus.value = "REQUEST_MODE";
                         homePageController.onChangeTab(2);
+                        Get.to(() => ShareHistoryPage());
                       },
                       child: Container(
                         width: getWidth(60),

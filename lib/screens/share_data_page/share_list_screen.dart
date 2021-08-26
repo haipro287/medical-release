@@ -17,12 +17,12 @@ import 'package:medical_chain_mobile_ui/widgets/search_navigator.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ShareListScreen extends StatelessWidget {
+  ShareListController shareListController = Get.put(ShareListController());
+  SearchUserController searchUserController = Get.put(SearchUserController());
+  UserSearchController userSearchController = Get.put(UserSearchController());
+  GlobalController globalController = Get.put(GlobalController());
   @override
   Widget build(BuildContext context) {
-    ShareListController shareListController = Get.put(ShareListController());
-    SearchUserController searchUserController = Get.put(SearchUserController());
-    UserSearchController userSearchController = Get.put(UserSearchController());
-    GlobalController globalController = Get.put(GlobalController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: appBar(
@@ -30,6 +30,8 @@ class ShareListScreen extends StatelessWidget {
         globalController.sharingStatus.value == "SENT_DATA"
             ? "shareListScreenTitle".tr
             : "sendRequestScreenTitle".tr,
+        null,
+        true,
       ),
       backgroundColor: Colors.white,
       body: Column(children: [

@@ -81,9 +81,8 @@ class ShareConfirmScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           border: Border(
                             top: BorderSide(
-                              color: e["id"] !=
-                                      shareServiceListController.checkList[0]
-                                          ["id"]
+                              color: e.id !=
+                                      shareServiceListController.checkList[0].id
                                   ? Color(0xFFECEFF1)
                                   : Colors.white,
                               width: getHeight(1),
@@ -101,7 +100,7 @@ class ShareConfirmScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(e["name"]),
+                                  Text(e.name),
                                 ],
                               ),
                             )
@@ -124,9 +123,6 @@ class ShareConfirmScreen extends StatelessWidget {
               alignment: Alignment.centerLeft,
             ),
             Expanded(
-              child: Container(),
-            ),
-            Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
@@ -143,29 +139,33 @@ class ShareConfirmScreen extends StatelessWidget {
                         color: Color(0xFFD0E8FF),
                       ),
                       padding: EdgeInsets.only(
-                        top: getHeight(14),
-                        bottom: getHeight(14),
+                        top: getHeight(13),
+                        bottom: getHeight(13),
                       ),
                     ),
-                    onPressed: () {
-                      var result = shareServiceListController.shareService(
+                    onPressed: () async {
+                      var result =
+                          await shareServiceListController.shareService(
                         id: userSearchController.userData["secondaryId"],
                         sharingStatus: globalController.sharingStatus.value,
                       );
-                      print(result);
+                      print("plzzz: " + result.toString());
                       if (globalController.sharingStatus.value == "SENT_DATA") {
                         globalController.historyStatus.value = "SENDING_MODE";
                       } else {
                         globalController.historyStatus.value = "REQUEST_MODE";
                       }
-                      Get.put(ShareHistoryController()).currentPage.value = 3;
-                      Get.to(() => ShareHistoryPage());
+                      if (result["id"] != null) {
+                        Get.to(() => ShareHistoryPage());
+                        Get.put(ShareHistoryController()).onChangeTab(3);
+                      }
                     },
                     child: Text(
                       globalController.sharingStatus.value == "SENT_DATA"
                           ? 'sentDataBtn'.tr
                           : 'sentRequestBtn'.tr,
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                          color: Colors.black, fontSize: getWidth(15)),
                     ),
                   ),
                 ),

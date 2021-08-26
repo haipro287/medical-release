@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
@@ -14,9 +15,10 @@ AppBar appBar(
         color: Color(0xFF454B52),
       ),
       onPressed: () {
-        if (backHome == true)
+        if (backHome == true) {
+          Get.put(HomePageController()).currentPage.value = 0;
           Get.offAll(HomePageScreen());
-        else
+        } else
           Get.back();
       },
     ),
