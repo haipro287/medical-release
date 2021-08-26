@@ -83,11 +83,13 @@ Container searchNavigator() {
 
 Container sharingHistoryNavigator({required controller}) {
   return Container(
-    height: getHeight(80),
     color: Colors.white,
     margin: EdgeInsets.only(
       right: getWidth(16),
       left: getWidth(16),
+    ),
+    padding: EdgeInsets.only(
+      top: getHeight(20),
     ),
     child: Stack(
       children: [
@@ -142,12 +144,15 @@ Obx customObx({
       },
       child: Container(
         alignment: Alignment.center,
+        padding: EdgeInsets.only(
+          bottom: getHeight(10),
+        ),
         height: getHeight(36),
         decoration: controller.currentPage.value == tabIndex ? BoxDecoration(
           border: Border(
             bottom: BorderSide(
               color: Colors.blue,
-              width: getHeight(1),
+              width: getHeight(3),
             ),
           ) ,
         ) : BoxDecoration(),

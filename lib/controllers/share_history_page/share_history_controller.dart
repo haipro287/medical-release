@@ -15,18 +15,35 @@ class ShareHistoryController extends GetxController {
   TextEditingController searchInput = TextEditingController();
 
   RxList<dynamic> historyRecords = [].obs;
+  RxList<dynamic> searchList = [].obs;
 
   var itemSelected = {}.obs;
 
   @override
   void onInit() async {
     var records = await getRecords("");
-    print(records.toString());
     historyRecords.value = records;
+    searchList.value = records;
     super.onInit();
   }
 
-  void search() async {}
+  void search() {
+    print(searchInput.text);
+    if (searchInput.text == "") {
+      searchList.value = historyRecords.value;
+      searchInput.clear();
+    } else {
+      searchList.value = historyRecords.value.where((ele) {
+        String pattern = searchInput.text.toLowerCase();
+        var listCheck = ["username", "name", "kanji", "romanji"];
+        for (int i = 0; i < listCheck.length; i++) {
+          if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern))
+            return true;
+        }
+        return false;
+      }).toList();
+    }
+  }
 
   void onChangeTab(int value) async {
     currentPage.value = value;
@@ -42,8 +59,8 @@ class ShareHistoryController extends GetxController {
     } else if (value == 4) {
       records = await getRecords("rejected");
     }
-    print(records.toString());
     historyRecords.value = records;
+    searchList.value = records;
     pageController
       ..animateToPage(
         value,
@@ -64,12 +81,10 @@ class ShareHistoryController extends GetxController {
         "status": status,
       });
       var json = jsonDecode(response.toString());
-      print(json["data"]);
       var list = json["data"];
       List<Map<String, String>> listRecords = [];
 
       for (var i = 0; i < list.length; i++) {
-        print(list[i]);
         Map<String, String> item = {};
         item["id"] = list[i]['id'];
         item["primaryId"] = list[i]['primaryId'];
@@ -84,12 +99,21 @@ class ShareHistoryController extends GetxController {
         item["service"] = list[i]["service"];
         listRecords.add(item);
       }
-
+      calculatorTimeOption(list[0]["fromTime"], list[0]["endTime"]);
       return listRecords;
     } catch (e, s) {
       print(e);
       print(s);
       return [];
     }
+  }
+
+  void calculatorTimeOption(String fromTime, String endTime) {
+    var fromTimeParsed = DateTime.parse(fromTime);
+    var endTimeParsed = DateTime.parse(endTime);
+    var diffTime = endTimeParsed.difference(fromTimeParsed);
+    var hourDiff = diffTime.inHours;
+    // TO DO: determine time options: 1 day, 1 week, 1 month or until turn off
+    // print(hourDiff.toString());
   }
 }

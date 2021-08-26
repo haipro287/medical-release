@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
+import 'package:medical_chain_mobile_ui/services/date_format.dart';
+import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
@@ -12,15 +13,25 @@ class DetailHistoryItem extends StatelessWidget {
       Get.put(ShareHistoryController());
   @override
   Widget build(BuildContext context) {
-    GlobalController globalController = Get.put(GlobalController());
+    var itemSelected = shareHistoryController.itemSelected;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar(
-          context,
-          ["sharing", "expired"]
-                  .contains(shareHistoryController.itemSelected["status"])
-              ? "共有詳細".tr
-              : "リクエスト詳細".tr),
+      appBar: itemSelected["status"] == "pending"
+          ? appBarWithButton(
+              context,
+              "リクエスト詳細".tr,
+              InkWell(
+                onTap: () {},
+                child: Text(
+                  '修正'.tr,
+                  style: TextStyle(color: Colors.blue, fontSize: getWidth(17)),
+                ),
+              ))
+          : appBar(
+              context,
+              ["sharing", "expired"].contains(itemSelected["status"])
+                  ? "共有詳細".tr
+                  : "リクエスト詳細".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -45,11 +56,10 @@ class DetailHistoryItem extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      // romanji kanji name
                       children: [
-                        Text("工藤新一（クドウシンイチ）"),
+                        Text(getHintText(itemSelected)),
                         Text(
-                          "shinichi12345",
+                          itemSelected["username"],
                           style: TextStyle(color: Colors.blueGrey.shade300),
                         ),
                       ],
@@ -112,7 +122,10 @@ class DetailHistoryItem extends StatelessWidget {
                 right: getWidth(15),
               ),
               height: getHeight(78),
-              child: Text("1週間(2021/04/13 07:53まで) "),
+              child: Text("1週間" +
+                  "(" +
+                  TimeService.getTimeFormat(itemSelected["endTime"], "まで") +
+                  ")"),
               alignment: Alignment.centerLeft,
             ),
             Expanded(

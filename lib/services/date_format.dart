@@ -62,7 +62,8 @@ class TimeService {
     DateTime a = DateTime.now();
     print({"8601": a.toIso8601String()});
     if (dateTime == null) return null;
-    var datedFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss.ms'Z'").format(dateTime);
+    var datedFormat =
+        DateFormat("yyyy-MM-dd'T'HH:mm:ss.ms'Z'").format(dateTime);
     print({"dateFormat": datedFormat});
     return datedFormat;
   }
@@ -118,5 +119,11 @@ class TimeService {
     var a = time.split(" ");
     String convertTime = a[1] + " " + a[0];
     return convertTime;
+  }
+
+  static String getTimeFormat(String time, String suffix) {
+    DateTime dateTime = DateTime.parse(time);
+    var datedFormat = DateFormat("yyyy/MM/dd HH:mm$suffix").format(dateTime);
+    return datedFormat;
   }
 }

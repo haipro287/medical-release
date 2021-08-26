@@ -34,7 +34,7 @@ class ShareHistoryPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Obx(
                     () => ListView(
-                      children: sharingHistoryController.historyRecords
+                      children: sharingHistoryController.searchList
                           .map((e) => historyDetailComponent(record: e))
                           .toList(),
                     ),

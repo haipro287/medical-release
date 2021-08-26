@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/detail_history_item.dart';
+import 'package:medical_chain_mobile_ui/services/date_format.dart';
+import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +34,7 @@ Widget historyDetailComponent({required record}) {
               children: [
                 SvgPicture.asset('assets/images/jp_${record["status"]}_tag.svg'),
                 Text(
-                  "2021/04/13 07:53",
+                  TimeService.getTimeFormat(record["endTime"], ""),
                 ),
               ],
             ),
@@ -50,7 +52,7 @@ Widget historyDetailComponent({required record}) {
                   width: getWidth(8),
                 ),
                 Text(
-                  "工藤新一（クドウシンイチ）",
+                  getHintText(record),
                   style: TextStyle(
                       fontSize: getWidth(17), fontWeight: FontWeight.w400),
                 ),
@@ -130,7 +132,7 @@ Widget historyDetailComponent({required record}) {
                   SizedBox(
                     width: getWidth(14),
                   ),
-                  Text('(2021/04/13 07:53まで)'),
+                  Text("(" + TimeService.getTimeFormat(record["endTime"], "まで") + ")"),
                 ],
               ),
             ),
