@@ -1,8 +1,9 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
-import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
+import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
@@ -277,7 +278,12 @@ class UserScreen extends StatelessWidget {
                   height: getHeight(12),
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    String? token = await FirebaseMessaging.instance.getToken();
+                    print(token.toString());
+                    var unSubcribe = await Get.put(LoginPageController())
+                        .unSubcribe(token: token.toString());
+                    print(unSubcribe);
                     Get.put(GlobalController()).db.deleteFromDisk();
                     Get.offAll(() => LoginWelcomePage());
                   },

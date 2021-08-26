@@ -1,21 +1,36 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/notification/notification_controller.dart';
 import 'package:medical_chain_mobile_ui/i18n.dart';
 import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
+import 'package:medical_chain_mobile_ui/services/local_notification_service.dart';
+
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print(message.notification!.body);
+  print(message.notification!.title);
+}
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  LocalNotificationService.init();
+  await Firebase.initializeApp();
   await dotenv.load(fileName: ".env");
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   var db = await Hive.openBox('medical-chain');
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  NotificationController notificationController =
+      Get.put(NotificationController());
 
   GlobalController globalController = Get.put(GlobalController());
   globalController.db = db;

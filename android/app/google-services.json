@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "318727211941",
+    "project_id": "medical-chain-fe54f",
+    "storage_bucket": "medical-chain-fe54f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318727211941:android:b1b34355e921577e94f64c",
+        "android_client_info": {
+          "package_name": "com.abc.medical_chain_mobile_ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318727211941-4b5m2jgn6m20e7co5luvkked9k063ap6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMrDX6CjzNQackVAEIxwReIpmn9azizws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318727211941-4b5m2jgn6m20e7co5luvkked9k063ap6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

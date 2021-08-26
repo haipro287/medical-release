@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
@@ -33,6 +36,52 @@ class LoginPageController extends GetxController {
 
   void changeHidePassword() {
     isHidePassword.value = !isHidePassword.value;
+  }
+
+  Future subcribe({required String token}) async {
+    try {
+      GlobalController globalController = Get.put(GlobalController());
+      var response;
+      var userID = globalController.user.value.id.toString();
+      CustomDio customDio = CustomDio();
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate.toString();
+
+      response = await customDio.post("/user/$userID/notification/subcribe", {
+        "data": {"token": token}
+      });
+
+      var json = jsonDecode(response.toString());
+      print(json.toString());
+      return (json["success"]);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return null;
+    }
+  }
+
+  Future unSubcribe({required String token}) async {
+    try {
+      GlobalController globalController = Get.put(GlobalController());
+      var response;
+      var userID = globalController.user.value.id.toString();
+      CustomDio customDio = CustomDio();
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate.toString();
+
+      response = await customDio.post("/user/$userID/notification/unsubcribe", {
+        "data": {"token": token}
+      });
+
+      var json = jsonDecode(response.toString());
+      print(json.toString());
+      return (json["success"]);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return null;
+    }
   }
 
   Future getPing(List<String> certificateList) async {
@@ -150,6 +199,10 @@ class LoginPageController extends GetxController {
             print("dscds: " + userInfo.certificate.toString());
             Get.put(GlobalController()).db.put("user", userInfo);
             Get.put(GlobalController()).user.value = userInfo;
+            String? token = await FirebaseMessaging.instance.getToken();
+            print(token.toString());
+            var subcribeRes = await subcribe(token: token.toString());
+            print(subcribeRes);
             CustomSocket socket = CustomSocket("/token");
             socket.sendMessage(userInfo.certificate.toString());
             socket.listenForMessages((message) {
