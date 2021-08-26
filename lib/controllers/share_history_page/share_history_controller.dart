@@ -74,7 +74,7 @@ class ShareHistoryController extends GetxController {
       );
   }
 
-  Future<List<dynamic>> getRecords(String status) async {
+  Future<List<Map<String, dynamic>>> getRecords(String status) async {
     try {
       var userID = globalController.user.value.id.toString();
       var mode = globalController.historyStatus.value;
@@ -96,10 +96,10 @@ class ShareHistoryController extends GetxController {
       }
       var json = jsonDecode(response.toString());
       var list = json["data"];
-      List<Map<String, String>> listRecords = [];
+      List<Map<String, dynamic>> listRecords = [];
 
       for (var i = 0; i < list.length; i++) {
-        Map<String, String> item = {};
+        Map<String, dynamic> item = {};
         item["id"] = list[i]['id'];
         item["primaryId"] = list[i]['primaryId'];
         item["secondaryId"] = list[i]['secondaryId'];
@@ -110,7 +110,13 @@ class ShareHistoryController extends GetxController {
         item["fromTime"] = list[i]["fromTime"];
         item["endTime"] = list[i]["endTime"];
         item["status"] = list[i]["status"];
-        item["service"] = list[i]["service"];
+        item["service"] = [
+          {"id": "1232", "name": "Facebook"},
+          {"id": "232", "name": "Instagram"}
+        ];
+        // for (var j = 0; j < list[i]["service"]; j++) {
+
+        // }
         listRecords.add(item);
       }
       calculatorTimeOption(list[0]["fromTime"], list[0]["endTime"]);

@@ -94,7 +94,7 @@ class DetailHistoryPage extends StatelessWidget {
                   height: getHeight(78),
                   child: Row(
                     children: [
-                      SvgPicture.asset("assets/images/facebook.svg"),
+                      SvgPicture.asset("assets/images/avatar.svg"),
                       SizedBox(width: getWidth(15)),
                       Container(
                         alignment: Alignment.center,
@@ -128,7 +128,7 @@ class DetailHistoryPage extends StatelessWidget {
               height: getHeight(78),
               child: Text("1週間" +
                   "(" +
-                  TimeService.getTimeFormat(itemSelected["endTime"], "まで") +
+                  TimeService.getTimeFormat(itemSelected["fromTime"], "まで") +
                   ")"),
               alignment: Alignment.centerLeft,
             ),

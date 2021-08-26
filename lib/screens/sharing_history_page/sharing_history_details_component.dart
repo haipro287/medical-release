@@ -10,6 +10,8 @@ import 'detail_history_page.dart';
 Widget historyDetailComponent({required record}) {
   ShareHistoryController shareHistoryController =
       Get.put(ShareHistoryController());
+  print(record.toString());
+  List<dynamic> serviceList = record["service"];
   return GestureDetector(
     onTap: () {
       shareHistoryController.itemSelected.value = record;
@@ -32,9 +34,10 @@ Widget historyDetailComponent({required record}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SvgPicture.asset('assets/images/jp_${record["status"]}_tag.svg'),
+                SvgPicture.asset(
+                    'assets/images/jp_${record["status"]}_tag.svg'),
                 Text(
-                  TimeService.getTimeFormat(record["endTime"], ""),
+                  TimeService.getTimeFormat(record["fromTime"], ""),
                 ),
               ],
             ),
@@ -47,7 +50,7 @@ Widget historyDetailComponent({required record}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text('userReceived'.tr+ ':'),
+                Text('userReceived'.tr + ':'),
                 SizedBox(
                   width: getWidth(8),
                 ),
@@ -73,29 +76,29 @@ Widget historyDetailComponent({required record}) {
                   width: getWidth(8),
                 ),
                 Column(
-                  children: List.generate(2, (index) {
-                    return Container(
-                      margin: EdgeInsets.only(
-                        bottom: getHeight(8),
-                      ),
-                      child: Row(children: [
-                        SvgPicture.asset(
-                          "assets/images/facebook.svg",
-                          width: getWidth(16),
-                        ),
-                        SizedBox(width: getWidth(8)),
-                        Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('Facebook'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                    );
-                  }),
+                  children: serviceList
+                      .map((e) => Container(
+                            margin: EdgeInsets.only(
+                              bottom: getHeight(8),
+                            ),
+                            child: Row(children: [
+                              SvgPicture.asset(
+                                "assets/images/avatar.svg",
+                                width: getWidth(16),
+                              ),
+                              SizedBox(width: getWidth(8)),
+                              Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(e["name"]),
+                                  ],
+                                ),
+                              ),
+                            ]),
+                          ))
+                      .toList(),
                 ),
               ],
             ),
@@ -132,7 +135,9 @@ Widget historyDetailComponent({required record}) {
                   SizedBox(
                     width: getWidth(14),
                   ),
-                  Text("(" + TimeService.getTimeFormat(record["endTime"], "まで") + ")"),
+                  Text("(" +
+                      TimeService.getTimeFormat(record["fromTime"], "まで") +
+                      ")"),
                 ],
               ),
             ),
