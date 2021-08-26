@@ -13,7 +13,7 @@ class ShareHistoryPage extends StatelessWidget {
         Get.put(ShareHistoryController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar(context, '共有設定'.tr),
+      appBar: appBar(context, '共有設定'.tr, null, true),
       backgroundColor: Colors.white,
       body: Column(children: [
         inputSearch(

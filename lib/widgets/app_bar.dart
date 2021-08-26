@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
-AppBar appBar([BuildContext? context, String? title, Widget? button]) {
+AppBar appBar(
+    [BuildContext? context, String? title, Widget? button, bool? backHome]) {
   return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,
@@ -12,7 +14,10 @@ AppBar appBar([BuildContext? context, String? title, Widget? button]) {
         color: Color(0xFF454B52),
       ),
       onPressed: () {
-        Get.back();
+        if (backHome == true)
+          Get.offAll(HomePageScreen());
+        else
+          Get.back();
       },
     ),
     title: Text(
@@ -34,7 +39,8 @@ AppBar appBar([BuildContext? context, String? title, Widget? button]) {
   );
 }
 
-AppBar appBarWithButton([BuildContext? context, String? title, Widget? button]) {
+AppBar appBarWithButton(
+    [BuildContext? context, String? title, Widget? button]) {
   return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,

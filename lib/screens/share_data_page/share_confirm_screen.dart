@@ -5,6 +5,7 @@ import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_co
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_page.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
@@ -146,9 +147,13 @@ class ShareConfirmScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       var result = shareServiceListController.shareService(
-                          secondaryId:
-                              userSearchController.userData["secondaryId"]);
+                        id: userSearchController.userData["secondaryId"],
+                        sharingStatus: globalController.sharingStatus.value,
+                      );
                       print(result);
+                      if (globalController.sharingStatus.value == "SENT_DATA") {
+                        Get.to(() => ShareHistoryPage());
+                      }
                     },
                     child: Text(
                       'sentData'.tr,

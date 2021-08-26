@@ -11,6 +11,9 @@ class ShareServiceListController extends GetxController {
   var checkList = [].obs;
   var timeSelected = 0.obs;
 
+  var fromTime;
+  var endTime;
+
   List<Map<String, dynamic>> timeList = [
     {"value": 0, "name": "1週間"},
     {"value": 1, "name": "1か月"},
@@ -53,11 +56,16 @@ class ShareServiceListController extends GetxController {
     String selectedTime = timeList[timeSelected.value]["name"];
     String calTime =
         TimeService.stringToDJP(TimeService.getTimeNow().add(expired));
+
+    fromTime = TimeService.timeToBackEnd(TimeService.getTimeNow());
+    endTime = TimeService.timeToBackEnd(TimeService.getTimeNow().add(expired));
+
     if (timeList[timeSelected.value]["value"] == 2) return selectedTime;
     return selectedTime + " (" + calTime + ")";
   }
 
-  Future shareService({required String secondaryId}) async {
+  Future shareService(
+      {required String id, required String sharingStatus}) async {
     try {
       var response;
       CustomDio customDio = CustomDio();
@@ -69,12 +77,25 @@ class ShareServiceListController extends GetxController {
         services.add(id);
       }
 
-      response = await customDio.post("/request/share", {
-        "data": {
-          "secondaryId": secondaryId,
-          "services": services,
-        }
-      });
+      if (sharingStatus == "SENT_DATA") {
+        response = await customDio.post("/request/share", {
+          "data": {
+            "secondaryId": id,
+            "services": services,
+            "fromTime": fromTime,
+            "endTime": endTime,
+          }
+        });
+      } else {
+        response = await customDio.post("/request/ask", {
+          "data": {
+            "primaryId": id,
+            "services": services,
+            "fromTime": fromTime,
+            "endTime": endTime,
+          }
+        });
+      }
 
       var json = jsonDecode(response.toString());
       print(json.toString());
