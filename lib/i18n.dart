@@ -127,6 +127,7 @@ class Messages extends Translations {
           "detail_request": "リクエスト詳細",
           "data_reference": "データ参照",
           "data_request": "データリクエスト",
+          "confirmPassword": "再入力パスワード",
         }
       };
 }

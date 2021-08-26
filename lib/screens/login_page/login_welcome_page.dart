@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
@@ -51,7 +52,9 @@ class LoginWelcomePage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text('signupButton'.tr),
                 ),
-                onPress: () {},
+                onPress: () {
+                  Get.to(() => SignupScreen());
+                },
               ),
               SizedBox(
                 height: getHeight(18),

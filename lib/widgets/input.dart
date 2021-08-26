@@ -42,7 +42,7 @@ Container inputPassword(BuildContext context, TextEditingController controller,
               changeHide();
             },
             icon: Icon(
-              isHide ? Icons.remove_red_eye_sharp : Icons.panorama_fish_eye,
+              isHide ? Icons.visibility : Icons.visibility_off,
               size: 24,
             ))
       ],
@@ -406,6 +406,102 @@ Container inputDate(BuildContext context,
             ),
           ),
         ),
+      ],
+    ),
+  );
+}
+
+Container inputSignup(BuildContext context,
+    {required String hintText,
+    required TextEditingController textEditingController,
+    required bool focus,
+    required bool err}) {
+  return Container(
+    height: getHeight(56),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(getHeight(4)),
+      border: Border.all(
+        color: err
+            ? Colors.red
+            : focus
+                ? Color(0xFF61B3FF)
+                : Color(0xFFE7E8EA),
+        width: getHeight(1),
+      ),
+    ),
+    child: Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: textEditingController,
+            style: TextStyle(fontSize: getWidth(16)),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              labelText: hintText,
+              contentPadding:
+                  EdgeInsets.only(left: getWidth(16), right: getWidth(16)),
+              labelStyle:
+                  TextStyle(color: Color(0xFF878C92), fontSize: getWidth(16)),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Container inputPasswordSignup(
+    BuildContext context,
+    TextEditingController controller,
+    String hintText,
+    bool isHide,
+    Function changeHide,
+    bool focus,
+    bool err) {
+  return Container(
+    height: getHeight(56),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(getHeight(4)),
+      border: Border.all(
+        color: err
+            ? Colors.red
+            : focus
+                ? Color(0xFF61B3FF)
+                : Color(0xFFE7E8EA),
+        width: getHeight(1),
+      ),
+    ),
+    child: Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+              style: TextStyle(fontSize: getWidth(16)),
+              controller: controller,
+              obscureText: isHide,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                labelText: hintText,
+                contentPadding: EdgeInsets.only(left: getWidth(16)),
+                labelStyle:
+                    TextStyle(color: Color(0xFF878C92), fontSize: getWidth(16)),
+              )),
+        ),
+        IconButton(
+            onPressed: () {
+              changeHide();
+            },
+            icon: Icon(
+              isHide ? Icons.visibility : Icons.visibility_off,
+              size: 24,
+            ))
       ],
     ),
   );
