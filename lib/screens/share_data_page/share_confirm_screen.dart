@@ -152,8 +152,11 @@ class ShareConfirmScreen extends StatelessWidget {
                       );
                       print(result);
                       if (globalController.sharingStatus.value == "SENT_DATA") {
-                        Get.to(() => ShareHistoryPage());
+                        globalController.historyStatus.value = "SENDING_MODE";
+                      } else {
+                        globalController.historyStatus.value = "REQUEST_MODE";
                       }
+                      Get.to(() => ShareHistoryPage());
                     },
                     child: Text(
                       'sentData'.tr,

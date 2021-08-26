@@ -81,12 +81,21 @@ class HomePageTabScreen extends StatelessWidget {
               actionTab(
                   color: Color(0xFFDAD4FF),
                   icon: "assets/images/data.svg",
-                  tag: "viewData"),
+                  tag: "viewData",
+                  function: () => {
+                        Get.put(GlobalController()).historyStatus.value =
+                            "REQUEST_MODE",
+                        Get.to(() => ShareHistoryPage()),
+                      }),
               actionTab(
                   color: Color(0xFFFFF0D1),
                   icon: "assets/images/share2.svg",
                   tag: "viewSettings",
-                  function: () => Get.to(() => ShareHistoryPage())),
+                  function: () => {
+                        Get.put(GlobalController()).historyStatus.value =
+                            "SENDING_MODE",
+                        Get.to(() => ShareHistoryPage()),
+                      }),
               actionTab(
                   color: Color(0xFFF7EBE8),
                   icon: "assets/images/link.svg",

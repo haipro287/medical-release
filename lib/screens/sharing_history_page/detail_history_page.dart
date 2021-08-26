@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
@@ -8,9 +9,10 @@ import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
-class DetailHistoryItem extends StatelessWidget {
+class DetailHistoryPage extends StatelessWidget {
   ShareHistoryController shareHistoryController =
       Get.put(ShareHistoryController());
+  GlobalController globalController = Get.put(GlobalController());
   @override
   Widget build(BuildContext context) {
     var itemSelected = shareHistoryController.itemSelected;
@@ -19,19 +21,19 @@ class DetailHistoryItem extends StatelessWidget {
       appBar: itemSelected["status"] == "pending"
           ? appBarWithButton(
               context,
-              "リクエスト詳細".tr,
+              "detail_request".tr,
               InkWell(
                 onTap: () {},
                 child: Text(
-                  '修正'.tr,
+                  'edit'.tr,
                   style: TextStyle(color: Colors.blue, fontSize: getWidth(17)),
                 ),
               ))
           : appBar(
               context,
               ["sharing", "expired"].contains(itemSelected["status"])
-                  ? "共有詳細".tr
-                  : "リクエスト詳細".tr),
+                  ? "detail_sharing".tr
+                  : "detail_request".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -134,10 +136,14 @@ class DetailHistoryItem extends StatelessWidget {
             Expanded(
               child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: buttonContainer(
-                      sharingStatus:
-                          shareHistoryController.itemSelected["status"] ??
-                              "pending")),
+                  child: globalController.historyStatus.value == "SENDING_MODE"
+                      ? sentButtonContainer(
+                          sharingStatus:
+                              shareHistoryController.itemSelected["status"] ??
+                                  "pending")
+                      : requestButtonContainer(
+                          sharingStatus:
+                              shareHistoryController.itemSelected["status"])),
             ),
           ],
         ),
@@ -146,7 +152,7 @@ class DetailHistoryItem extends StatelessWidget {
   }
 }
 
-Container buttonContainer({required String sharingStatus}) {
+Container sentButtonContainer({required String sharingStatus}) {
   Container result;
   switch (sharingStatus) {
     case "sharing":
@@ -176,7 +182,7 @@ Container buttonContainer({required String sharingStatus}) {
                 print('hahaha');
               },
               child: Text(
-                '共有やめる'.tr,
+                'stop_sharing'.tr,
                 style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
               ),
             ),
@@ -200,7 +206,7 @@ Container buttonContainer({required String sharingStatus}) {
                 print('hahaha');
               },
               child: Text(
-                '共有設定編集'.tr,
+                'edit_data_to_share'.tr,
                 style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
               ),
             ),
@@ -232,7 +238,7 @@ Container buttonContainer({required String sharingStatus}) {
             print('hahaha');
           },
           child: Text(
-            '承認'.tr,
+            'accept'.tr,
             style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
           ),
         ),
@@ -262,7 +268,7 @@ Container buttonContainer({required String sharingStatus}) {
             print('hahaha');
           },
           child: Text(
-            '共有設定編集'.tr,
+            'edit_data_to_share'.tr,
             style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
           ),
         ),
@@ -296,7 +302,7 @@ Container buttonContainer({required String sharingStatus}) {
                 print('hahaha');
               },
               child: Text(
-                '拒否'.tr,
+                'accept'.tr,
                 style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
               ),
             ),
@@ -320,7 +326,7 @@ Container buttonContainer({required String sharingStatus}) {
                 print('hahaha');
               },
               child: Text(
-                '承認'.tr,
+                'accept'.tr,
                 style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
               ),
             ),
@@ -330,6 +336,33 @@ Container buttonContainer({required String sharingStatus}) {
       break;
   }
   return result;
+}
+
+Container requestButtonContainer({required String sharingStatus}) {
+  return Container(
+    margin: EdgeInsets.only(
+      bottom: getHeight(46),
+      left: getWidth(16),
+      right: getWidth(16),
+    ),
+    width: double.infinity,
+    height: getHeight(48),
+    child: OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        backgroundColor: Color(0xFFD0E8FF),
+        side: BorderSide(
+          color: Color(0xFFD0E8FF),
+        ),
+      ),
+      onPressed: () {
+        print('hahaha');
+      },
+      child: Text(
+        '${sharingStatus}_reqModeBtn'.tr,
+        style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
+      ),
+    ),
+  );
 }
 
 Container tagBox({required String sharingStatus}) {
@@ -342,7 +375,7 @@ Container tagBox({required String sharingStatus}) {
     ),
     color: colorTag(sharingStatus),
     child: Text("${sharingStatus}_color".tr,
-        style: TextStyle(fontSize: getWidth(13))),
+        style: TextStyle(fontSize: getWidth(13), color: Colors.white)),
   );
 }
 

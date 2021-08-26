@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
-import 'package:medical_chain_mobile_ui/screens/sharing_history_page/detail_history_item.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:get/get.dart';
+import 'detail_history_page.dart';
 
 Widget historyDetailComponent({required record}) {
   ShareHistoryController shareHistoryController =
@@ -13,14 +13,14 @@ Widget historyDetailComponent({required record}) {
   return GestureDetector(
     onTap: () {
       shareHistoryController.itemSelected.value = record;
-      Get.to(() => DetailHistoryItem());
+      Get.to(() => DetailHistoryPage());
     },
     child: Container(
       color: Colors.white,
       margin: EdgeInsets.only(
         left: getWidth(16),
         right: getWidth(16),
-        top: getHeight(20),
+        bottom: getHeight(20),
       ),
       child: Column(
         children: [
@@ -47,7 +47,7 @@ Widget historyDetailComponent({required record}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text('共有先:'),
+                Text('userReceived:'),
                 SizedBox(
                   width: getWidth(8),
                 ),
@@ -68,7 +68,7 @@ Widget historyDetailComponent({required record}) {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('データ:'),
+                Text('data:'),
                 SizedBox(
                   width: getWidth(8),
                 ),

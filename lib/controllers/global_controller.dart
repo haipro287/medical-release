@@ -5,4 +5,5 @@ class GlobalController extends GetxController {
   var db;
   Rx<User> user = User().obs;
   var sharingStatus = "SENT_DATA".obs;
+  var historyStatus = "SENDING_MODE".obs;
 }

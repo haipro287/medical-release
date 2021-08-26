@@ -16,6 +16,7 @@ class ShareHistoryController extends GetxController {
 
   RxList<dynamic> historyRecords = [].obs;
   RxList<dynamic> searchList = [].obs;
+  var isHideNotiSearch = true.obs;
 
   var itemSelected = {}.obs;
 
@@ -32,7 +33,9 @@ class ShareHistoryController extends GetxController {
     if (searchInput.text == "") {
       searchList.value = historyRecords.value;
       searchInput.clear();
+      isHideNotiSearch.value = true;
     } else {
+      isHideNotiSearch.value = false;
       searchList.value = historyRecords.value.where((ele) {
         String pattern = searchInput.text.toLowerCase();
         var listCheck = ["username", "name", "kanji", "romanji"];
@@ -47,6 +50,8 @@ class ShareHistoryController extends GetxController {
 
   void onChangeTab(int value) async {
     currentPage.value = value;
+    searchInput.clear();
+    isHideNotiSearch.value = true;
     var records;
     if (value == 0) {
       records = await getRecords("");
@@ -72,14 +77,23 @@ class ShareHistoryController extends GetxController {
   Future<List<dynamic>> getRecords(String status) async {
     try {
       var userID = globalController.user.value.id.toString();
+      var mode = globalController.historyStatus.value;
       var response;
       CustomDio customDio = CustomDio();
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
-      response = await customDio.get("/requests/list?", {
-        "primary_id": userID,
-        "status": status,
-      });
+
+      if (mode == "SENDING_MODE") {
+        response = await customDio.get("/requests/list?", {
+          "primary_id": userID,
+          "status": status,
+        });
+      } else {
+        response = await customDio.get("/requests/list?", {
+          "secondary_id": userID,
+          "status": status,
+        });
+      }
       var json = jsonDecode(response.toString());
       var list = json["data"];
       List<Map<String, String>> listRecords = [];
