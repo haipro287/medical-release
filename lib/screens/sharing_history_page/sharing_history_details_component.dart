@@ -30,7 +30,7 @@ Widget historyDetailComponent({required record}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SvgPicture.asset('assets/images/jp_${record.status}_tag.svg'),
+                SvgPicture.asset('assets/images/jp_${record["status"]}_tag.svg'),
                 Text(
                   "2021/04/13 07:53",
                 ),

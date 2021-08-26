@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
-import 'package:medical_chain_mobile_ui/models/record.dart';
 
 class ShareHistoryController extends GetxController {
   PageController pageController =
@@ -17,7 +16,7 @@ class ShareHistoryController extends GetxController {
 
   RxList<dynamic> historyRecords = [].obs;
 
-  var itemSelected = {"status": "sharing"}.obs;
+  var itemSelected = {}.obs;
 
   @override
   void onInit() async {
@@ -67,26 +66,26 @@ class ShareHistoryController extends GetxController {
       var json = jsonDecode(response.toString());
       print(json["data"]);
       var list = json["data"];
-      List<Record> listRecords = [];
+      List<Map<String, String>> listRecords = [];
 
       for (var i = 0; i < list.length; i++) {
         print(list[i]);
-        Record item = new Record();
-        item.id = list[i]['id'];
-        item.primaryId = list[i]['primaryId'];
-        item.secondaryId = list[i]['secondaryId'];
-        item.name = list[i]['name'];
-        item.username = list[i]["username"];
-        item.romanji = list[i]["romanji"];
-        item.kanji = list[i]["kanji"];
-        item.fromTime = list[i]["fromTime"];
-        item.endTime = list[i]["endTime"];
-        item.status = list[i]["status"];
-        item.service = list[i]["service"];
+        Map<String, String> item = {};
+        item["id"] = list[i]['id'];
+        item["primaryId"] = list[i]['primaryId'];
+        item["secondaryId"] = list[i]['secondaryId'];
+        item["name"] = list[i]['name'];
+        item["username"] = list[i]["username"];
+        item["romanji"] = list[i]["romanji"];
+        item["kanji"] = list[i]["kanji"];
+        item["fromTime"] = list[i]["fromTime"];
+        item["endTime"] = list[i]["endTime"];
+        item["status"] = list[i]["status"];
+        item["service"] = list[i]["service"];
         listRecords.add(item);
       }
 
-      return (listRecords);
+      return listRecords;
     } catch (e, s) {
       print(e);
       print(s);

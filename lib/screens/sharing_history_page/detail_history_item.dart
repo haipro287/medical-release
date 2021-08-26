@@ -17,9 +17,10 @@ class DetailHistoryItem extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: appBar(
           context,
-          globalController.sharingStatus.value == "SENT_DATA"
-              ? "confirmSentData".tr
-              : "confirmSentRequest".tr),
+          ["sharing", "expired"]
+                  .contains(shareHistoryController.itemSelected["status"])
+              ? "共有詳細".tr
+              : "リクエスト詳細".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
