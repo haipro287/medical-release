@@ -51,7 +51,7 @@ class ShareServiceListController extends GetxController {
 
   String getFormatTimeCal() {
     Duration expired = timeList[timeSelected.value]["value"] == 0
-        ? Duration(days: 1)
+        ? Duration(days: 7)
         : Duration(days: 30);
     String selectedTime = timeList[timeSelected.value]["name"];
     String calTime =

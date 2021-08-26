@@ -237,7 +237,7 @@ class ScanQRScreen extends StatelessWidget {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 17,
+                                      fontSize: getWidth(17),
                                     ),
                                   ),
                                   Text(
@@ -245,7 +245,7 @@ class ScanQRScreen extends StatelessWidget {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 17,
+                                      fontSize: getWidth(17),
                                     ),
                                   ),
                                 ],

@@ -222,10 +222,12 @@ class UserSavedScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  width: double.infinity,
                   margin: EdgeInsets.only(
                     top: getHeight(24),
+                    left: getWidth(16),
+                    right: getWidth(16),
                   ),
-                  width: getWidth(343),
                   child: Column(
                     children: [
                       OutlinedButton(

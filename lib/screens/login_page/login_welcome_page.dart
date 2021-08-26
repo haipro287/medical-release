@@ -30,7 +30,7 @@ class LoginWelcomePage extends StatelessWidget {
                 text: "ブローオーシャンアプリ",
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 28,
+                  fontSize: getWidth(28),
                   fontWeight: FontWeight.w500,
                 )),
           ),

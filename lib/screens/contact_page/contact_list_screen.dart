@@ -113,14 +113,14 @@ class ContactListPage extends StatelessWidget {
                                                     ? e["secondaryName"]
                                                     : getHintText(e),
                                                 style: TextStyle(
-                                                  fontSize: 17,
+                                                  fontSize: getWidth(17),
                                                 ),
                                               ),
                                               Text(
                                                 e["secondaryUsername"] ??
                                                     'Unknown',
                                                 style: TextStyle(
-                                                    fontSize: 13,
+                                                    fontSize: getWidth(13),
                                                     color: Colors
                                                         .blueGrey.shade300),
                                               )

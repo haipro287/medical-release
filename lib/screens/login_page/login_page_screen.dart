@@ -36,7 +36,7 @@ class LoginPageScreen extends StatelessWidget {
               child: Text(
                 "ユーザーID、メールアドレスまたは電話番号",
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: getWidth(13),
                   fontWeight: FontWeight.w400,
                 ),
               ),

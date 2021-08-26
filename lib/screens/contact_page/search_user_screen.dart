@@ -18,7 +18,7 @@ class SearchUserScreen extends StatelessWidget {
             color: Colors.black,
             fontFamily: "SF Pro Display",
             fontWeight: FontWeight.w600,
-            fontSize: 20,
+            fontSize: getWidth(20),
           ),
         ),
         centerTitle: true,

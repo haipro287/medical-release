@@ -125,14 +125,16 @@ class ShareListScreen extends StatelessWidget {
                                                             ? e["secondaryName"]
                                                             : getHintText(e),
                                                         style: TextStyle(
-                                                          fontSize: 17,
+                                                          fontSize:
+                                                              getWidth(17),
                                                         ),
                                                       ),
                                                       Text(
                                                         e["secondaryUsername"] ??
                                                             "Unknown",
                                                         style: TextStyle(
-                                                            fontSize: 13,
+                                                            fontSize:
+                                                                getWidth(13),
                                                             color: Colors
                                                                 .blueGrey
                                                                 .shade300),
@@ -192,8 +194,11 @@ class ShareListScreen extends StatelessWidget {
         Obx(
           () => searchUserController.currentPage == 0
               ? Container(
+                  width: double.infinity,
                   margin: EdgeInsets.only(
                     bottom: getHeight(12),
+                    left: getWidth(16),
+                    right: getWidth(16),
                   ),
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
@@ -209,8 +214,6 @@ class ShareListScreen extends StatelessWidget {
                       padding: EdgeInsets.only(
                         top: getHeight(14),
                         bottom: getHeight(14),
-                        left: getHeight(170),
-                        right: getHeight(170),
                       ),
                     ),
                     onPressed: () {

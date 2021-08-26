@@ -47,7 +47,7 @@ Widget historyDetailComponent({required record}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text('userReceived:'),
+                Text('userReceived'.tr+ ':'),
                 SizedBox(
                   width: getWidth(8),
                 ),
@@ -68,7 +68,7 @@ Widget historyDetailComponent({required record}) {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('data:'),
+                Text('data'.tr + ':'),
                 SizedBox(
                   width: getWidth(8),
                 ),

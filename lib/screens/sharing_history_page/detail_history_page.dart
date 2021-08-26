@@ -16,24 +16,26 @@ class DetailHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var itemSelected = shareHistoryController.itemSelected;
+    var mode = globalController.historyStatus.value;
+    var subMode = ["sharing", "expired"].contains(itemSelected["status"]);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: itemSelected["status"] == "pending"
+      appBar: mode == "SENDING_MODE"
           ? appBarWithButton(
               context,
-              "detail_request".tr,
-              InkWell(
-                onTap: () {},
-                child: Text(
-                  'edit'.tr,
-                  style: TextStyle(color: Colors.blue, fontSize: getWidth(17)),
-                ),
-              ))
-          : appBar(
-              context,
-              ["sharing", "expired"].contains(itemSelected["status"])
-                  ? "detail_sharing".tr
-                  : "detail_request".tr),
+              subMode ? "detail_sharing".tr : "detail_request".tr,
+              subMode
+                  ? null
+                  : InkWell(
+                      onTap: () {},
+                      child: Text(
+                        'edit'.tr,
+                        style: TextStyle(
+                            color: Colors.blue, fontSize: getWidth(17)),
+                      ),
+                    ),
+            )
+          : appBar(context, subMode ? "data_reference".tr : "data_request".tr),
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
@@ -152,62 +154,65 @@ class DetailHistoryPage extends StatelessWidget {
   }
 }
 
+Container layout({required Widget child}) {
+  return Container(
+    margin: EdgeInsets.only(
+      bottom: getHeight(46),
+      left: getWidth(16),
+      right: getWidth(16),
+    ),
+    height: getHeight(48),
+    width: double.infinity,
+    child: child,
+  );
+}
+
 Container sentButtonContainer({required String sharingStatus}) {
   Container result;
   switch (sharingStatus) {
     case "sharing":
-      result = Container(
-        margin: EdgeInsets.only(
-          bottom: getHeight(46),
-          left: getWidth(16),
-          right: getWidth(16),
-        ),
+      result = layout(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                backgroundColor: Color(0xFFE9E9E9),
-                side: BorderSide(
-                  color: Color(0xFFD0E8FF),
+            Expanded(
+              flex: 1,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: Color(0xFFE9E9E9),
+                  side: BorderSide(
+                    color: Color(0xFFE9E9E9),
+                  ),
                 ),
-                padding: EdgeInsets.only(
-                  top: getHeight(14),
-                  bottom: getHeight(14),
-                  left: getWidth(17),
-                  right: getWidth(17),
+                onPressed: () {
+                  print('hahaha');
+                },
+                child: Text(
+                  'stop_sharing'.tr,
+                  style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
                 ),
-              ),
-              onPressed: () {
-                print('hahaha');
-              },
-              child: Text(
-                'stop_sharing'.tr,
-                style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
               ),
             ),
             SizedBox(
               width: getWidth(8),
             ),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                backgroundColor: Color(0xFFD0E8FF),
-                side: BorderSide(
-                  color: Color(0xFFD0E8FF),
+            Expanded(
+              flex: 2,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: Color(0xFFD0E8FF),
+                  side: BorderSide(
+                    color: Color(0xFFD0E8FF),
+                  ),
                 ),
-                padding: EdgeInsets.only(
-                  top: getHeight(14),
-                  bottom: getHeight(14),
-                  left: getWidth(56),
-                  right: getWidth(56),
+                onPressed: () {
+                  print('hahaha');
+                },
+                child: Text(
+                  'edit_data_to_share'.tr,
+                  style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
                 ),
-              ),
-              onPressed: () {
-                print('hahaha');
-              },
-              child: Text(
-                'edit_data_to_share'.tr,
-                style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
               ),
             ),
           ],
@@ -215,119 +220,101 @@ Container sentButtonContainer({required String sharingStatus}) {
       );
       break;
     case "rejected":
-      result = Container(
-        margin: EdgeInsets.only(
-          bottom: getHeight(46),
-          left: getWidth(16),
-          right: getWidth(16),
-        ),
-        child: OutlinedButton(
-          style: OutlinedButton.styleFrom(
-            backgroundColor: Color(0xFFD0E8FF),
-            side: BorderSide(
-              color: Color(0xFFD0E8FF),
+      result = layout(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: Color(0xFFD0E8FF),
+                  side: BorderSide(
+                    color: Color(0xFFD0E8FF),
+                  ),
+                ),
+                onPressed: () {
+                  print('hahaha');
+                },
+                child: Text(
+                  'accept'.tr,
+                  style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
+                ),
+              ),
             ),
-            padding: EdgeInsets.only(
-              top: getHeight(14),
-              bottom: getHeight(14),
-              left: getWidth(154),
-              right: getWidth(154),
-            ),
-          ),
-          onPressed: () {
-            print('hahaha');
-          },
-          child: Text(
-            'accept'.tr,
-            style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
-          ),
+          ],
         ),
       );
       break;
     case "expired":
-      result = Container(
-        margin: EdgeInsets.only(
-          bottom: getHeight(46),
-          left: getWidth(16),
-          right: getWidth(16),
-        ),
-        child: OutlinedButton(
-          style: OutlinedButton.styleFrom(
-            backgroundColor: Color(0xFFD0E8FF),
-            side: BorderSide(
-              color: Color(0xFFD0E8FF),
+      result = layout(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: Color(0xFFD0E8FF),
+                  side: BorderSide(
+                    color: Color(0xFFD0E8FF),
+                  ),
+                ),
+                onPressed: () {
+                  print('hahaha');
+                },
+                child: Text(
+                  'edit_data_to_share'.tr,
+                  style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
+                ),
+              ),
             ),
-            padding: EdgeInsets.only(
-              top: getHeight(14),
-              bottom: getHeight(14),
-              left: getWidth(120),
-              right: getWidth(120),
-            ),
-          ),
-          onPressed: () {
-            print('hahaha');
-          },
-          child: Text(
-            'edit_data_to_share'.tr,
-            style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
-          ),
+          ],
         ),
       );
       break;
     case "pending":
     default:
-      result = Container(
-        margin: EdgeInsets.only(
-          bottom: getHeight(46),
-          left: getWidth(16),
-          right: getWidth(16),
-        ),
+      result = layout(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                backgroundColor: Color(0xFFE9E9E9),
-                side: BorderSide(
-                  color: Color(0xFFD0E8FF),
+            Expanded(
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: Color(0xFFE9E9E9),
+                  side: BorderSide(
+                    color: Color(0xFFE9E9E9),
+                  ),
                 ),
-                padding: EdgeInsets.only(
-                  top: getHeight(14),
-                  bottom: getHeight(14),
-                  left: getWidth(62),
-                  right: getWidth(62),
+                onPressed: () {
+                  print('hahaha');
+                },
+                child: Text(
+                  'rejected_color'.tr,
+                  style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
                 ),
-              ),
-              onPressed: () {
-                print('hahaha');
-              },
-              child: Text(
-                'accept'.tr,
-                style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
               ),
             ),
             SizedBox(
               width: getWidth(19),
             ),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                backgroundColor: Color(0xFFD0E8FF),
-                side: BorderSide(
-                  color: Color(0xFFD0E8FF),
+            Expanded(
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: Color(0xFFD0E8FF),
+                  side: BorderSide(
+                    color: Color(0xFFD0E8FF),
+                  ),
                 ),
-                padding: EdgeInsets.only(
-                  top: getHeight(14),
-                  bottom: getHeight(14),
-                  left: getWidth(62),
-                  right: getWidth(62),
+                onPressed: () {
+                  print('hahaha');
+                },
+                child: Text(
+                  'accept'.tr,
+                  style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
                 ),
-              ),
-              onPressed: () {
-                print('hahaha');
-              },
-              child: Text(
-                'accept'.tr,
-                style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
               ),
             ),
           ],
@@ -339,14 +326,7 @@ Container sentButtonContainer({required String sharingStatus}) {
 }
 
 Container requestButtonContainer({required String sharingStatus}) {
-  return Container(
-    margin: EdgeInsets.only(
-      bottom: getHeight(46),
-      left: getWidth(16),
-      right: getWidth(16),
-    ),
-    width: double.infinity,
-    height: getHeight(48),
+  return layout(
     child: OutlinedButton(
       style: OutlinedButton.styleFrom(
         backgroundColor: Color(0xFFD0E8FF),
@@ -359,7 +339,7 @@ Container requestButtonContainer({required String sharingStatus}) {
       },
       child: Text(
         '${sharingStatus}_reqModeBtn'.tr,
-        style: TextStyle(color: Colors.black, fontSize: getWidth(17)),
+        style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
       ),
     ),
   );

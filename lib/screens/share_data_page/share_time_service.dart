@@ -71,8 +71,11 @@ class ShareTimeService extends StatelessWidget {
                   )),
             ),
             Container(
+              width: double.infinity,
               margin: EdgeInsets.only(
                 bottom: getHeight(46),
+                left: getWidth(16),
+                right: getWidth(16),
               ),
               child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
@@ -83,8 +86,6 @@ class ShareTimeService extends StatelessWidget {
                   padding: EdgeInsets.only(
                     top: getHeight(14),
                     bottom: getHeight(14),
-                    left: getHeight(170),
-                    right: getHeight(170),
                   ),
                 ),
                 onPressed: () {

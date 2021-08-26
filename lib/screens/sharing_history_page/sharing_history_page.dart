@@ -20,7 +20,7 @@ class ShareHistoryPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: appBar(
         context,
-        mode == "SENDING_MODE" ? '共有設定'.tr : "データビュー".tr,
+        mode == "SENDING_MODE" ? 'viewDataShare'.tr : "viewDataRequest".tr,
         null,
         true,
       ),

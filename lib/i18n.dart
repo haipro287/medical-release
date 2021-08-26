@@ -88,8 +88,8 @@ class Messages extends Translations {
           'username': 'ユーザーID',
           'nickname': '氏名',
           'longnickname': 'ニックネーム',
-          'viewData': 'データビュー',
-          'viewSettings': '共有設定',
+          'viewDataRequest': 'データビュー',
+          'viewDataShare': '共有設定',
           'contact_address': "連絡先",
           "next": "次へ",
           "wrongPass": "ログインID又はパスワードが一致しません。",
@@ -124,6 +124,8 @@ class Messages extends Translations {
           "stop_sharing": "共有やめる",
           "detail_sharing": "共有詳細",
           "detail_request": "リクエスト詳細",
+          "data_reference": "データ参照",
+          "data_request": "データリクエスト",
         }
       };
 }
