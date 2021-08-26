@@ -13,13 +13,14 @@ import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ShareConfirmScreen extends StatelessWidget {
+  GlobalController globalController = Get.put(GlobalController());
+  ShareServiceListController shareServiceListController =
+      Get.put(ShareServiceListController());
+  UserSearchController userSearchController = Get.put(UserSearchController());
+  ContactPageController contactPageController =
+      Get.put(ContactPageController());
   @override
   Widget build(BuildContext context) {
-    GlobalController globalController = Get.put(GlobalController());
-    ShareServiceListController shareServiceListController =
-        Get.put(ShareServiceListController());
-    UserSearchController userSearchController = Get.put(UserSearchController());
-    Get.put(ContactPageController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: appBar(
@@ -27,18 +28,62 @@ class ShareConfirmScreen extends StatelessWidget {
           globalController.sharingStatus.value == "SENT_DATA"
               ? "confirmSentData".tr
               : "confirmSentRequest".tr),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(top: getHeight(12)),
+        child: Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(
+            bottom: getHeight(46),
+            left: getWidth(16),
+            right: getWidth(16),
+          ),
+          child: OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              backgroundColor: Color(0xFFD0E8FF),
+              side: BorderSide(
+                color: Color(0xFFD0E8FF),
+              ),
+              padding: EdgeInsets.only(
+                top: getHeight(13),
+                bottom: getHeight(13),
+              ),
+            ),
+            onPressed: () async {
+              var result = await shareServiceListController.shareService(
+                id: userSearchController.userData["secondaryId"],
+                sharingStatus: globalController.sharingStatus.value,
+              );
+              print("plzzz: " + result.toString());
+              if (globalController.sharingStatus.value == "SENT_DATA") {
+                globalController.historyStatus.value = "SENDING_MODE";
+              } else {
+                globalController.historyStatus.value = "REQUEST_MODE";
+              }
+              if (result["id"] != null) {
+                Get.to(() => ShareHistoryPage());
+                Get.put(ShareHistoryController()).onChangeTab(3);
+              }
+            },
+            child: Text(
+              globalController.sharingStatus.value == "SENT_DATA"
+                  ? 'sentDataBtn'.tr
+                  : 'sentRequestBtn'.tr,
+              style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
+            ),
+          ),
+        ),
+      ),
       backgroundColor: Colors.white,
       body: Container(
+        color: Color(0xFFF6F7FB),
         child: Column(
           children: [
-            SizedBox(
-              height: getHeight(12),
-            ),
             customBoxHeader(
               "userReceived".tr,
             ),
             Container(
-              margin: EdgeInsets.only(
+              color: Colors.white,
+              padding: EdgeInsets.only(
                 left: getWidth(15),
                 right: getWidth(15),
               ),
@@ -74,11 +119,12 @@ class ShareConfirmScreen extends StatelessWidget {
                 children: shareServiceListController.checkList
                     .map(
                       (e) => Container(
-                        margin: EdgeInsets.only(
+                        padding: EdgeInsets.only(
                           left: getWidth(15),
                           right: getWidth(15),
                         ),
                         decoration: BoxDecoration(
+                          color: Colors.white,
                           border: Border(
                             top: BorderSide(
                               color: e.id !=
@@ -114,62 +160,14 @@ class ShareConfirmScreen extends StatelessWidget {
             ),
             customBoxHeader("timeSharing".tr),
             Container(
-              margin: EdgeInsets.only(
+              color: Colors.white,
+              padding: EdgeInsets.only(
                 left: getWidth(15),
                 right: getWidth(15),
               ),
               height: getHeight(78),
               child: Text(shareServiceListController.getFormatTimeCal()),
               alignment: Alignment.centerLeft,
-            ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: double.infinity,
-                  margin: EdgeInsets.only(
-                    bottom: getHeight(46),
-                    left: getWidth(16),
-                    right: getWidth(16),
-                  ),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: Color(0xFFD0E8FF),
-                      side: BorderSide(
-                        color: Color(0xFFD0E8FF),
-                      ),
-                      padding: EdgeInsets.only(
-                        top: getHeight(13),
-                        bottom: getHeight(13),
-                      ),
-                    ),
-                    onPressed: () async {
-                      var result =
-                          await shareServiceListController.shareService(
-                        id: userSearchController.userData["secondaryId"],
-                        sharingStatus: globalController.sharingStatus.value,
-                      );
-                      print("plzzz: " + result.toString());
-                      if (globalController.sharingStatus.value == "SENT_DATA") {
-                        globalController.historyStatus.value = "SENDING_MODE";
-                      } else {
-                        globalController.historyStatus.value = "REQUEST_MODE";
-                      }
-                      if (result["id"] != null) {
-                        Get.to(() => ShareHistoryPage());
-                        Get.put(ShareHistoryController()).onChangeTab(3);
-                      }
-                    },
-                    child: Text(
-                      globalController.sharingStatus.value == "SENT_DATA"
-                          ? 'sentDataBtn'.tr
-                          : 'sentRequestBtn'.tr,
-                      style: TextStyle(
-                          color: Colors.black, fontSize: getWidth(15)),
-                    ),
-                  ),
-                ),
-              ),
             ),
           ],
         ),

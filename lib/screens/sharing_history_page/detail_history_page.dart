@@ -21,6 +21,16 @@ class DetailHistoryPage extends StatelessWidget {
     List<dynamic> servicesList = itemSelected["services"];
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(top: getHeight(12)),
+        child: globalController.historyStatus.value == "SENDING_MODE"
+            ? sentButtonContainer(
+                sharingStatus:
+                    shareHistoryController.itemSelected["status"] ?? "pending")
+            : requestButtonContainer(
+                sharingStatus: shareHistoryController.itemSelected["status"],
+              ),
+      ),
       appBar: mode == "SENDING_MODE"
           ? appBarWithButton(
               context,
@@ -39,21 +49,17 @@ class DetailHistoryPage extends StatelessWidget {
           : appBar(context, subMode ? "data_reference".tr : "data_request".tr),
       backgroundColor: Colors.white,
       body: Container(
-        child: Column(
+        color: Color(0xFFF6F7FB),
+        child: ListView(
           children: [
-            SizedBox(
-              height: getHeight(12),
-            ),
             customBoxHeader(
               mode == "SENDING_MODE"
                   ? (subMode ? "userReceived".tr : "sender".tr)
                   : (subMode ? "sender".tr : "userReceived".tr),
             ),
             Container(
-              margin: EdgeInsets.only(
-                left: getWidth(15),
-                right: getWidth(15),
-              ),
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
               height: getHeight(78),
               child: Row(
                 children: [
@@ -79,48 +85,52 @@ class DetailHistoryPage extends StatelessWidget {
             customBoxHeader("data".tr),
             // Obx(
             //   () =>
-            Column(
-              children: servicesList
-                  .map(
-                    (e) => Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Color(0xFFECEFF1),
-                            width: getHeight(1),
+            Container(
+              color: Colors.white,
+              child: Column(
+                children: servicesList
+                    .map(
+                      (e) => Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Color(0xFFECEFF1),
+                              width: getHeight(1),
+                            ),
                           ),
                         ),
-                      ),
-                      margin: EdgeInsets.only(
-                        left: getWidth(15),
-                        right: getWidth(15),
-                      ),
-                      height: getHeight(78),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: getWidth(24),
-                            child: e["icon"].toString().contains('http')
-                                ? Image.network(e["icon"].toString())
-                                : SvgPicture.asset("assets/images/avatar.svg"),
-                          ),
-                          SizedBox(width: getWidth(15)),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(e["name"]),
-                              ],
+                        margin: EdgeInsets.only(
+                          left: getWidth(15),
+                          right: getWidth(15),
+                        ),
+                        height: getHeight(78),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: getWidth(24),
+                              child: e["icon"].toString().contains('http')
+                                  ? Image.network(e["icon"].toString())
+                                  : SvgPicture.asset(
+                                      "assets/images/avatar.svg"),
                             ),
-                          )
-                        ],
+                            SizedBox(width: getWidth(15)),
+                            Container(
+                              alignment: Alignment.center,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(e["name"]),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        alignment: Alignment.centerLeft,
                       ),
-                      alignment: Alignment.centerLeft,
-                    ),
-                  )
-                  .toList(),
+                    )
+                    .toList(),
+              ),
             ),
             // ),
             customBoxHeaderWithTag(
@@ -131,31 +141,14 @@ class DetailHistoryPage extends StatelessWidget {
                           "pending"),
             ),
             Container(
-              margin: EdgeInsets.only(
-                left: getWidth(15),
-                right: getWidth(15),
-              ),
+              color: Colors.white,
               height: getHeight(78),
+              padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
               child: Text("1週間" +
                   "(" +
                   TimeService.getTimeFormat(itemSelected["fromTime"], "まで") +
                   ")"),
               alignment: Alignment.centerLeft,
-            ),
-            Expanded(
-              child: Container(),
-            ),
-            Expanded(
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: globalController.historyStatus.value == "SENDING_MODE"
-                      ? sentButtonContainer(
-                          sharingStatus:
-                              shareHistoryController.itemSelected["status"] ??
-                                  "pending")
-                      : requestButtonContainer(
-                          sharingStatus:
-                              shareHistoryController.itemSelected["status"])),
             ),
           ],
         ),
@@ -337,20 +330,28 @@ Container sentButtonContainer({required String sharingStatus}) {
 
 Container requestButtonContainer({required String sharingStatus}) {
   return layout(
-    child: OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        backgroundColor: Color(0xFFD0E8FF),
-        side: BorderSide(
-          color: Color(0xFFD0E8FF),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              backgroundColor: Color(0xFFD0E8FF),
+              side: BorderSide(
+                color: Color(0xFFD0E8FF),
+              ),
+            ),
+            onPressed: () {
+              print('hahaha');
+            },
+            child: Text(
+              '${sharingStatus}_reqModeBtn'.tr,
+              style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
+            ),
+          ),
         ),
-      ),
-      onPressed: () {
-        print('hahaha');
-      },
-      child: Text(
-        '${sharingStatus}_reqModeBtn'.tr,
-        style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
-      ),
+      ],
     ),
   );
 }
