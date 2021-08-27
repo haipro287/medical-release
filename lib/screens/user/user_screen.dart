@@ -4,10 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/change_password_page/change_password_page.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/terms_and_conditions/terms_and_conditions.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/widgets/web_view.dart';
 
 class UserScreen extends StatelessWidget {
   @override
@@ -184,7 +187,9 @@ class UserScreen extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => ChangePasswordPageScreen());
+                        },
                         child: Container(
                           color: Colors.white,
                           child: Column(
@@ -232,7 +237,11 @@ class UserScreen extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () => {},
+                        onTap: () => {
+                          Get.to(
+                            () => TermsAndConditionPage(),
+                          )
+                        },
                         child: Container(
                           color: Colors.white,
                           child: Column(

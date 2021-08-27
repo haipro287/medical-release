@@ -10,9 +10,9 @@ import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
 
 class LoginPageScreen extends StatelessWidget {
+  LoginPageController loginController = Get.put(LoginPageController());
   @override
   Widget build(BuildContext context) {
-    LoginPageController loginController = Get.put(LoginPageController());
     return Scaffold(
       appBar: appBar(context, "ログイン"),
       backgroundColor: Colors.white,

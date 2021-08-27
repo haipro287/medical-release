@@ -50,6 +50,89 @@ Container inputPassword(BuildContext context, TextEditingController controller,
   );
 }
 
+Container inputPasswordWithBorder(
+  BuildContext context,
+  TextEditingController controller,
+  String hintText,
+  bool isHide,
+  Function changeHide,
+  RxBool isFocus,
+  String errorMsg,
+) {
+  return Container(
+    child: Column(
+      children: [
+        Focus(
+          onFocusChange: (bool value) {
+            isFocus.value = value;
+          },
+          child: Container(
+            height: getHeight(56),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(getHeight(4)),
+              border: Border.all(
+                color: errorMsg != ""
+                    ? Colors.red
+                    : isFocus.value
+                        ? Colors.blue
+                        : Color(0xFFE7E8EA),
+                width: getHeight(1),
+              ),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                      style: TextStyle(fontSize: getWidth(16)),
+                      controller: controller,
+                      obscureText: isHide,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        labelText: hintText,
+                        contentPadding: EdgeInsets.only(left: getWidth(16)),
+                        labelStyle: TextStyle(
+                            color: Color(0xFF878C92), fontSize: getWidth(16)),
+                      )),
+                ),
+                IconButton(
+                    onPressed: () {
+                      changeHide();
+                    },
+                    icon: Icon(
+                      isHide ? Icons.visibility : Icons.visibility_off,
+                      size: 24,
+                    ))
+              ],
+            ),
+          ),
+        ),
+        errorMsg != ""
+            ? Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: getHeight(12),
+                ),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  errorMsg,
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: getWidth(13),
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              )
+            : SizedBox(
+                height: getHeight(21),
+              ),
+      ],
+    ),
+  );
+}
+
 Container inputRegular(BuildContext context,
     {required String hintText,
     required TextEditingController textEditingController}) {

@@ -5,6 +5,7 @@ import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_co
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/share_data_page/share_confirm_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_time_service.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -54,7 +55,7 @@ class ShareListService extends StatelessWidget {
               ),
               onPressed: () {
                 if (shareServiceListController.checkList.length > 0) {
-                  Get.to(() => ShareTimeService());
+                  Get.to(() => ShareConfirmScreen());
                 }
               },
               child: Text(
@@ -103,16 +104,19 @@ class ShareListService extends StatelessWidget {
                                           .checkList
                                           .contains(e),
                                       onChanged: (bool? isCheck) => {
-                                            if (isCheck == true)
+                                            if (e.isConnected)
                                               {
-                                                shareServiceListController
-                                                    .checkList
-                                                    .add(e)
+                                                if (isCheck == true)
+                                                  {
+                                                    shareServiceListController
+                                                        .checkList
+                                                        .add(e)
+                                                  }
+                                                else
+                                                  shareServiceListController
+                                                      .checkList
+                                                      .remove(e)
                                               }
-                                            else
-                                              shareServiceListController
-                                                  .checkList
-                                                  .remove(e)
                                           }),
                                   e.icon.toString().contains('http')
                                       ? Image.network(e.icon.toString())
@@ -130,8 +134,10 @@ class ShareListService extends StatelessWidget {
                                       children: [
                                         Text(upperFirstString(e.name)),
                                         Text(
-                                          userSearchController
-                                              .userData["secondaryUsername"],
+                                          e.isConnected
+                                              ? userSearchController
+                                                  .userData["secondaryUsername"]
+                                              : "",
                                           style: TextStyle(
                                               color: Color(0xFF838AA2)),
                                         ),

@@ -140,7 +140,7 @@ class DetailHistoryPage extends StatelessWidget {
             ),
             // ),
             customBoxHeaderWithTag(
-              "timeSharing".tr,
+              subMode ? "timeSharing".tr : 'timeRequest',
               tagBox(
                   sharingStatus:
                       shareHistoryController.itemSelected["status"] ??

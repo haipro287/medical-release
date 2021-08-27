@@ -11,7 +11,7 @@ Widget historyDetailComponent({required record}) {
   ShareHistoryController shareHistoryController =
       Get.put(ShareHistoryController());
   List<dynamic> serviceList = record["services"];
-  print("length: " + serviceList.length.toString());
+  var subMode = ["sharing", "expired"].contains(record["status"]);
   return GestureDetector(
     onTap: () {
       shareHistoryController.itemSelected.value = record;
@@ -36,10 +36,10 @@ Widget historyDetailComponent({required record}) {
               children: [
                 SvgPicture.asset(
                     'assets/images/jp_${record["status"]}_tag.svg'),
-                Text(
-                  TimeService.getTimeFormat(record["fromTime"], ""),
-                  style: TextStyle(color: Color(0xFF838AA2)),
-                ),
+                // Text(
+                //   TimeService.getTimeFormat(record["fromTime"], ""),
+                //   style: TextStyle(color: Color(0xFF838AA2)),
+                // ),
               ],
             ),
           ),
@@ -51,7 +51,7 @@ Widget historyDetailComponent({required record}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text('userReceived'.tr + ':'),
+                Text(subMode ? 'sender'.tr : 'userReceived'.tr + ':'),
                 SizedBox(
                   width: getWidth(8),
                 ),
@@ -131,14 +131,8 @@ Widget historyDetailComponent({required record}) {
                   SizedBox(
                     width: getWidth(8),
                   ),
-                  Text(
-                    "1週間",
-                  ),
-                  SizedBox(
-                    width: getWidth(14),
-                  ),
                   Text("(" +
-                      TimeService.getTimeFormat(record["fromTime"], "まで") +
+                      TimeService.getTimeFormat(record["fromTime"], "") +
                       ")"),
                 ],
               ),
