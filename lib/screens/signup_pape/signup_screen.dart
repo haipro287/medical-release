@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
@@ -284,18 +285,23 @@ class SignupScreen extends StatelessWidget {
                   ),
                   onPress: () {
                     print(signupPageController.isValid());
+                    FocusManager.instance.primaryFocus?.unfocus();
                   },
                 ),
                 SizedBox(
                   height: getHeight(30),
                 ),
-                Text(
-                  "登録完了？ログイン",
-                  style: TextStyle(
-                    fontSize: getWidth(17),
-                    fontWeight: FontWeight.w500,
+                Bouncing(
+                  onPress: () {Get.to(() => LoginPageScreen());},
+                  child: Text(
+                    "登録完了？ログイン",
+                    style: TextStyle(
+                      fontSize: getWidth(17),
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
+                SizedBox(height: getHeight(20),)
               ],
             )),
       ),

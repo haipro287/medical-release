@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
@@ -103,7 +104,7 @@ class LoginPageScreen extends StatelessWidget {
             InkWell(
               child: Text("signup".tr),
               onTap: () {
-                print('signup');
+                Get.to(() => SignupScreen());
               },
             ),
           ],

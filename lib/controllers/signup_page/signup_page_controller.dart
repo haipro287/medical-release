@@ -23,14 +23,15 @@ class SignupPageController extends GetxController {
   RxBool passwordIsHide = true.obs;
   RxBool confirmPasswordIsHide = true.obs;
 
-  final RegExp userIdReg = new RegExp(r'[A-Za-z0-9]+$');
+  final RegExp userIdReg = new RegExp(r'^[A-Za-z0-9]+$');
+  final RegExp userIdReg1 = new RegExp(r'[!@#()*$%&/=?_.,:;-\\]+$');
   final RegExp emailReg = new RegExp(
       r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
   final RegExp phoneReg = new RegExp(r'^[0-9]+$');
-  final RegExp passwordReg0 = new RegExp(r'^[0-9a-zA-Z!@#$%&/=?_.,:;-\\]+$');
+  final RegExp passwordReg0 = new RegExp(r'^[0-9a-zA-Z!-/#{-~₫%&/_:-@\[-^]+$');
   final RegExp passwordReg1 = new RegExp(r'^[0-9]+$');
   final RegExp passwordReg2 = new RegExp(r'^[a-zA-Z]+$');
-  final RegExp passwordReg3 = new RegExp(r'^[!@#$%&/=?_.,:;-\\]+$');
+  final RegExp passwordReg3 = new RegExp(r'^[!-/#{-~₫%&/_:-@\[-^]+$');
 
   void changeHidePassword() {
     passwordIsHide.value = !passwordIsHide.value;
@@ -49,10 +50,17 @@ class SignupPageController extends GetxController {
     passwordErr.value = "";
     confirmPasswordErr.value = "";
 
+    // this.email.text = this.email.text.toString().replaceAll(' ', '');
+    this.email.text = this.email.text.toString().trimLeft();
+    this.email.text = this.email.text.toString().trimRight();
+
     if (this.userId.text == "") {
       isValid = false;
       userIdErr.value = "ユーザーIDを入力してください。";
-    } else if (!userIdReg.hasMatch(this.userId.text)) {
+    } else if(this.userId.text.contains(' ') || userIdReg1.hasMatch(this.userId.text)){
+      isValid = false;
+      userIdErr.value = "ユーザーIDは記号、スペースはご使用いただけません。";
+  }else if (!userIdReg.hasMatch(this.userId.text)) {
       isValid = false;
       userIdErr.value = "ユーザーIDは半角英数字で入力してください。";
     }
@@ -71,7 +79,7 @@ class SignupPageController extends GetxController {
     } else if (!phoneReg.hasMatch(this.phone.text)) {
       isValid = false;
       phoneErr.value = "電話番号は半角数字で入力してください。";
-    } else if (this.phone.text.length != 10) {
+    } else if (this.phone.text.length != 10 || this.phone.text.toString()[0] != '0') {
       phoneErr.value = "電話番号は正しい値を入力してください。";
     }
 

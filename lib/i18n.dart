@@ -77,7 +77,7 @@ class Messages extends Translations {
           'forgotPassword': 'パスワードをお忘れですか。',
           'signup': '新規アカウント作成',
           'signupButton': '登録',
-          'userId': 'ログインID',
+          'userId': 'ユーザーID',
           'password': 'パスワード',
           'contact': '連携先',
           'searchInput': '氏名、ユーザーID、ニックネーム',
