@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/list_service_controller.dart';
+import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 Container switchService(
@@ -41,7 +41,7 @@ Container switchService(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              serviceName ?? "",
+              upperFirstString(serviceName ?? ""),
               style: TextStyle(
                 fontSize: getWidth(17),
                 fontWeight: FontWeight.w400,

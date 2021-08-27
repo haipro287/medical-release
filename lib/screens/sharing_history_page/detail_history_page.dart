@@ -73,7 +73,7 @@ class DetailHistoryPage extends StatelessWidget {
                         Text(getHintText(itemSelected)),
                         Text(
                           itemSelected["username"],
-                          style: TextStyle(color: Colors.blueGrey.shade300),
+                          style: TextStyle(color: Color(0xFF838AA2)),
                         ),
                       ],
                     ),
@@ -95,7 +95,11 @@ class DetailHistoryPage extends StatelessWidget {
                           border: Border(
                             bottom: BorderSide(
                               color: Color(0xFFECEFF1),
-                              width: getHeight(1),
+                              width: e["id"] !=
+                                      servicesList[servicesList.length - 1]
+                                          ["id"]
+                                  ? getHeight(1)
+                                  : getHeight(0),
                             ),
                           ),
                         ),

@@ -141,9 +141,7 @@ class ShareListScreen extends StatelessWidget {
                                                         style: TextStyle(
                                                             fontSize:
                                                                 getWidth(13),
-                                                            color: Colors
-                                                                .blueGrey
-                                                                .shade300),
+                                                            color: Color(0xFF838AA2)),
                                                       )
                                                     ],
                                                   ),

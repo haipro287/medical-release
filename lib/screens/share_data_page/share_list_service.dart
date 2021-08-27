@@ -6,6 +6,7 @@ import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_time_service.dart';
+import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
@@ -127,12 +128,12 @@ class ShareListService extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(e.name),
+                                        Text(upperFirstString(e.name)),
                                         Text(
                                           userSearchController
                                               .userData["secondaryUsername"],
                                           style: TextStyle(
-                                              color: Colors.blueGrey.shade300),
+                                              color: Color(0xFF838AA2)),
                                         ),
                                       ],
                                     ),

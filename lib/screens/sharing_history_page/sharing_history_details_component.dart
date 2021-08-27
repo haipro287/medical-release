@@ -38,6 +38,7 @@ Widget historyDetailComponent({required record}) {
                     'assets/images/jp_${record["status"]}_tag.svg'),
                 Text(
                   TimeService.getTimeFormat(record["fromTime"], ""),
+                  style: TextStyle(color: Color(0xFF838AA2)),
                 ),
               ],
             ),
@@ -95,7 +96,7 @@ Widget historyDetailComponent({required record}) {
                               ),
                               SizedBox(width: getWidth(8)),
                               Container(
-                                child: Text(e["name"]),
+                                child: Text(upperFirstString(e["name"])),
                               ),
                             ]),
                           ))

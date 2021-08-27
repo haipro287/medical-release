@@ -104,7 +104,7 @@ class ShareConfirmScreen extends StatelessWidget {
                               userSearchController
                                   .userData["secondaryUsername"] ??
                               "userid1234",
-                          style: TextStyle(color: Colors.blueGrey.shade300),
+                          style: TextStyle(color: Color(0xFF838AA2)),
                         ),
                       ],
                     ),
@@ -127,11 +127,11 @@ class ShareConfirmScreen extends StatelessWidget {
                           color: Colors.white,
                           border: Border(
                             top: BorderSide(
-                              color: e.id !=
+                              color: Color(0xFFECEFF1),
+                              width: e.id !=
                                       shareServiceListController.checkList[0].id
-                                  ? Color(0xFFECEFF1)
-                                  : Colors.white,
-                              width: getHeight(1),
+                                  ? getHeight(1)
+                                  : getHeight(0),
                             ),
                           ),
                         ),

@@ -30,3 +30,10 @@ String getHintText(dynamic userData) {
   }
   return "佐藤桜(Sato Sakura)";
 }
+
+String upperFirstString(String string) {
+  if (string.length == 0) return "";
+  String lastPattern = string.substring(1, string.length);
+  String firstPattern = string[0].toUpperCase();
+  return firstPattern + lastPattern;
+}

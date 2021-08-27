@@ -116,7 +116,7 @@ class UserSavedScreen extends StatelessWidget {
                                       decoration: InputDecoration(
                                         hintText: "ニックネーム",
                                         hintStyle: TextStyle(
-                                            color: Colors.blueGrey.shade300),
+                                            color: Color(0xFF838AA2)),
                                         border: InputBorder.none,
                                         focusedBorder: InputBorder.none,
                                         enabledBorder: InputBorder.none,
@@ -155,7 +155,7 @@ class UserSavedScreen extends StatelessWidget {
                                             style: TextStyle(
                                                 fontSize: getWidth(20),
                                                 color:
-                                                    Colors.blueGrey.shade300),
+                                                    Color(0xFF838AA2)),
                                           ),
                                   ),
                           ),
