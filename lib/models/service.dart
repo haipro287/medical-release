@@ -15,7 +15,7 @@ class Service {
   @HiveField(4)
   bool? isConnected;
   @HiveField(5)
-  bool? icon;
+  String? icon;
 
   Service({this.id, this.name, this.url, this.username, this.isConnected, this.icon});
 }

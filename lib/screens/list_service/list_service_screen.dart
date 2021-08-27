@@ -57,6 +57,7 @@ class ListServiceScreen extends StatelessWidget {
                             userName: serviceList[index].username,
                             isConnected: serviceList[index].isConnected,
                             index: index,
+                            icon: serviceList[index].icon,
                           ),
                           index < serviceList.length - 1
                               ? Container(

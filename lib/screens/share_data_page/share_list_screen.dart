@@ -73,7 +73,11 @@ class ShareListScreen extends StatelessWidget {
                                 SizedBox(
                                   height: getHeight(18),
                                 ),
-                                customBoxHeader("chooseUserToShare".tr),
+                                customBoxHeader(
+                                    globalController.sharingStatus.value ==
+                                            "SENT_DATA"
+                                        ? "chooseUserToSent".tr
+                                        : "chooseUserToRequest".tr),
                                 Container(
                                   height: getHeight(442),
                                   child: ListView(

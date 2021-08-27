@@ -10,6 +10,7 @@ Container switchService(
     {required String? serviceName,
     required String? userName,
     required dynamic isConnected,
+    required dynamic icon,
     required int index}) {
   ListServiceController listServiceController =
       Get.put(ListServiceController());
@@ -26,8 +27,10 @@ Container switchService(
           padding: EdgeInsets.only(
             bottom: getHeight(10),
           ),
-          child: SvgPicture.asset(
-              'assets/images/${serviceName?.toLowerCase()}.svg'),
+          child: icon.toString().contains('http')
+              ? Image.network(icon.toString())
+              : SvgPicture.asset(
+                  'assets/images/${serviceName?.toLowerCase()}.svg'),
         ),
         SizedBox(
           width: getWidth(12),
@@ -61,27 +64,22 @@ Container switchService(
           builder: (listController) {
             if (listController.serviceList.length > 0) {
               return Switch(
-                value: listController.serviceList[index].isConnected ??
-                    true,
+                value: listController.serviceList[index].isConnected ?? true,
                 onChanged: (bool value) async {
                   if (!value) {
                     var a = await listController.disconnectService(
-                        serviceId:
-                            listController.serviceList[index].id ?? "");
+                        serviceId: listController.serviceList[index].id ?? "");
                     if (a) {
-                      listController.serviceList[index].isConnected =
-                          false;
+                      listController.serviceList[index].isConnected = false;
                     }
                   } else {
                     // listController.update();
                     // listController.serviceList[index].isConnected =
                     //     value;
                     var a = await listController.connectService(
-                        serviceId:
-                        listController.serviceList[index].id ?? "");
+                        serviceId: listController.serviceList[index].id ?? "");
                     if (a) {
-                      listController.serviceList[index].isConnected =
-                      true;
+                      listController.serviceList[index].isConnected = true;
                     }
                   }
                   listController.update();

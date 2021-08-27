@@ -72,6 +72,7 @@ class ListServiceController extends GetxController {
         service.url = list[i]['url'];
         service.username = list[i]['username'];
         service.isConnected = list[i]["connected"];
+        service.icon = list[i]['icon'];
         listService.add(service);
       }
 
