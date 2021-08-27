@@ -10,8 +10,8 @@ import 'detail_history_page.dart';
 Widget historyDetailComponent({required record}) {
   ShareHistoryController shareHistoryController =
       Get.put(ShareHistoryController());
-  print(record.toString());
   List<dynamic> serviceList = record["services"];
+  print("length: " + serviceList.length.toString());
   return GestureDetector(
     onTap: () {
       shareHistoryController.itemSelected.value = record;

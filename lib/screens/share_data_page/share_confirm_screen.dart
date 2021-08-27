@@ -60,8 +60,9 @@ class ShareConfirmScreen extends StatelessWidget {
                 globalController.historyStatus.value = "REQUEST_MODE";
               }
               if (result["id"] != null) {
+                var tabChange = globalController.historyStatus.value == "SENDING_MODE" ? 1 : 3;
                 Get.to(() => ShareHistoryPage());
-                Get.put(ShareHistoryController()).onChangeTab(3);
+                Get.put(ShareHistoryController()).onChangeTab(tabChange);
               }
             },
             child: Text(

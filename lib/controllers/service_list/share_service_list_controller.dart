@@ -53,8 +53,8 @@ class ShareServiceListController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
       List<String> services = [];
-      for (int i = 0; i < serviceList.length; i++) {
-        var id = serviceList[i].id;
+      for (int i = 0; i < checkList.length; i++) {
+        var id = checkList[i].id;
         services.add(id);
       }
 
