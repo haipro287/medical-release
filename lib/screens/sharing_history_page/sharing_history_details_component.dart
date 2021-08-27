@@ -131,9 +131,9 @@ Widget historyDetailComponent({required record}) {
                   SizedBox(
                     width: getWidth(8),
                   ),
-                  Text("(" +
-                      TimeService.getTimeFormat(record["fromTime"], "") +
-                      ")"),
+                  Text(
+                    TimeService.getTimeFormat(record["fromTime"], ""),
+                  ),
                 ],
               ),
             ),

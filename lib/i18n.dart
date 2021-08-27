@@ -65,6 +65,7 @@ class Messages extends Translations {
           'my_account': 'マイアカウント',
           'my_qr': 'マイQRコード',
           'change_password': "パスワード変更",
+          "change_password_btn": "変更",
           'tac': 'サービス利用規約',
           'log_out': 'ログアウト',
           'scan_qr': "QRコードスキャン",
@@ -100,6 +101,7 @@ class Messages extends Translations {
           "data": "データ",
           "timeSharing": "共有開始日時",
           "timeRequest": "リクエスト送信日時",
+          "timeStop": "共有中止日時",
           "sentDataBtn": "共有",
           "shareListScreenTitle": "データ共有先選択",
           "chooseUserToSent": "共有先を選択してください。",
@@ -131,6 +133,10 @@ class Messages extends Translations {
           "data_request": "データリクエスト",
           "confirmPassword": "再入力パスワード",
           "sender": "送信元",
+          "oldPassword": "元のパスワード",
+          "newPassword": "新パスワード",
+          "confirmNewPassword": "再入力パスワード",
+          "passwordChangeSuccessfully": "パスワードが変更されました。",
         }
       };
 }

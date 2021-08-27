@@ -25,7 +25,7 @@ class UserAdapter extends TypeAdapter<User> {
       ..privateKey = fields[5] as String?
       ..encryptedPrivateKey = fields[6] as String?
       ..username = fields[7] as String?
-      ..password = fields[8] as String?;
+      ..certificate = fields[8] as String?;
   }
 
   @override
@@ -49,7 +49,7 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(7)
       ..write(obj.username)
       ..writeByte(8)
-      ..write(obj.password);
+      ..write(obj.certificate);
   }
 
   @override

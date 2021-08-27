@@ -178,17 +178,16 @@ POINTY.PrivateKey _secp256k1KeyPair() {
 }
 
 Map<String, dynamic> generateKeyPairAndEncrypt(String password) {
-  // ECPrivateKey privateKey = _secp256k1KeyPair() as ECPrivateKey;
-  // var d = privateKey.d;
-  // final privateKeyDecode = PrivateKey(d as BigInt);
-  // String publicKeyBase64 =
-  //     convertHexToBase64(privateKeyDecode.publicKey.toCompressedHex());
-  // String privateKeyBase64 = convertHexToBase64(privateKeyDecode.toHex());
-  // var encryptedPrivateKey = encryptAESCryptoJS(privateKeyBase64, password);
-  // final Map<String, dynamic> encryptedKeyPair = {
-  //   "publicKey": publicKeyBase64,
-  //   "encryptedPrivateKey": encryptedPrivateKey
-  // };
-  // return encryptedKeyPair;
-  return {"": ""};
+  ECPrivateKey privateKey = _secp256k1KeyPair() as ECPrivateKey;
+  var d = privateKey.d;
+  final privateKeyDecode = secp.PrivateKey(d as BigInt);
+  String publicKeyBase64 =
+      convertHexToBase64(privateKeyDecode.publicKey.toCompressedHex());
+  String privateKeyBase64 = convertHexToBase64(privateKeyDecode.toHex());
+  var encryptedPrivateKey = encryptAESCryptoJS(privateKeyBase64, password);
+  final Map<String, dynamic> encryptedKeyPair = {
+    "publicKey": publicKeyBase64,
+    "encryptedPrivateKey": encryptedPrivateKey
+  };
+  return encryptedKeyPair;
 }

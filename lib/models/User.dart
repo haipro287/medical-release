@@ -21,7 +21,5 @@ class User {
   @HiveField(7)
   String? username;
   @HiveField(8)
-  String? password;
-  @HiveField(9)
   String? certificate;
 }

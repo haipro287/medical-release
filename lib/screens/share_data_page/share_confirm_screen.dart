@@ -60,7 +60,10 @@ class ShareConfirmScreen extends StatelessWidget {
                 globalController.historyStatus.value = "REQUEST_MODE";
               }
               if (result["id"] != null) {
-                var tabChange = globalController.historyStatus.value == "SENDING_MODE" ? 1 : 3;
+                var tabChange =
+                    globalController.historyStatus.value == "SENDING_MODE"
+                        ? 1
+                        : 3;
                 Get.to(() => ShareHistoryPage());
                 Get.put(ShareHistoryController()).onChangeTab(tabChange);
               }
@@ -159,7 +162,9 @@ class ShareConfirmScreen extends StatelessWidget {
                     .toList(),
               ),
             ),
-            customBoxHeader("timeSharing".tr),
+            customBoxHeader(globalController.sharingStatus.value == "SENT_DATA"
+                ? "timeSharing".tr
+                : "timeRequest".tr),
             Container(
               color: Colors.white,
               padding: EdgeInsets.only(

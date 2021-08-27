@@ -140,7 +140,7 @@ class DetailHistoryPage extends StatelessWidget {
             ),
             // ),
             customBoxHeaderWithTag(
-              subMode ? "timeSharing".tr : 'timeRequest',
+              subMode ? "timeSharing".tr : 'timeRequest'.tr,
               tagBox(
                   sharingStatus:
                       shareHistoryController.itemSelected["status"] ??
@@ -150,12 +150,27 @@ class DetailHistoryPage extends StatelessWidget {
               color: Colors.white,
               height: getHeight(78),
               padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
-              child: Text("1週間" +
-                  "(" +
-                  TimeService.getTimeFormat(itemSelected["fromTime"], "まで") +
-                  ")"),
+              child: Text(
+                TimeService.getTimeFormat(itemSelected["fromTime"], ""),
+              ),
               alignment: Alignment.centerLeft,
             ),
+            itemSelected["status"] == "expired"
+                ? customBoxHeader(
+                    "timeStop".tr,
+                  )
+                : Container(),
+            itemSelected["status"] == "expired"
+                ? Container(
+                    color: Colors.white,
+                    height: getHeight(78),
+                    padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
+                    child: Text(
+                      TimeService.getTimeFormat(itemSelected["endTime"], ""),
+                    ),
+                    alignment: Alignment.centerLeft,
+                  )
+                : Container(),
           ],
         ),
       ),

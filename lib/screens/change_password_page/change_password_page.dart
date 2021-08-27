@@ -12,7 +12,7 @@ class ChangePasswordPageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context, "パスワード変更"),
+      appBar: appBar(context, "change_password".tr),
       backgroundColor: Colors.white,
       body: Container(
         margin: EdgeInsets.only(
@@ -26,7 +26,7 @@ class ChangePasswordPageScreen extends StatelessWidget {
               () => inputPasswordWithBorder(
                 context,
                 changePasswordController.password,
-                "元のパスワード".tr,
+                "oldPassword".tr,
                 changePasswordController.isHidePassword.value,
                 changePasswordController.changeHidePassword,
                 changePasswordController.focusPassword,
@@ -37,7 +37,7 @@ class ChangePasswordPageScreen extends StatelessWidget {
               () => inputPasswordWithBorder(
                 context,
                 changePasswordController.newPassword,
-                "新パスワード".tr,
+                "newPassword".tr,
                 changePasswordController.isHideNewPassword.value,
                 changePasswordController.changeHideNewPassword,
                 changePasswordController.focusNewPassword,
@@ -48,7 +48,7 @@ class ChangePasswordPageScreen extends StatelessWidget {
               () => inputPasswordWithBorder(
                 context,
                 changePasswordController.confirmPassword,
-                "再入力パスワード".tr,
+                "confirmNewPassword".tr,
                 changePasswordController.isHideConfirmPassword.value,
                 changePasswordController.changeHideConfirmPassword,
                 changePasswordController.focusConfirmPassword,
@@ -64,7 +64,7 @@ class ChangePasswordPageScreen extends StatelessWidget {
                 height: getHeight(48),
                 color: Color(0xFFD0E8FF),
                 alignment: Alignment.center,
-                child: Text('変更'.tr),
+                child: Text('change_password_btn'.tr),
               ),
               onPress: () async {
                 FocusScope.of(context).unfocus();
@@ -81,7 +81,7 @@ class ChangePasswordPageScreen extends StatelessWidget {
             Obx(() => changePasswordController.isSuccess.value
                 ? Container(
                     child: Text(
-                    "パスワードが変更されました。",
+                    "passwordChangeSuccessfully".tr,
                     style: TextStyle(
                       color: Colors.green.shade800,
                     ),

@@ -136,7 +136,7 @@ class LoginPageController extends GetxController {
     }
   }
 
-  Future<bool> login(context) async {
+  Future<bool> login() async {
     User userInfo = User();
     if (username.text == "") {
       messValidateUsername.value = "Username can not be empty";
@@ -194,7 +194,6 @@ class LoginPageController extends GetxController {
             userInfo.privateKey = privateKey;
             userInfo.encryptedPrivateKey = encryptedPrivateKey;
             userInfo.username = username.text;
-            userInfo.password = password.text;
             userInfo.certificate = certificateList[0];
             print("dscds: " + userInfo.certificate.toString());
             Get.put(GlobalController()).db.put("user", userInfo);
@@ -208,6 +207,8 @@ class LoginPageController extends GetxController {
             socket.listenForMessages((message) {
               print("wsms: " + message);
             });
+            username.clear();
+            password.clear();
             return true;
           } else {
             messValidatePassword.value = "Wrong password";

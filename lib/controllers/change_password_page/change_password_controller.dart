@@ -1,7 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
+import 'package:medical_chain_mobile_ui/api/signature_service.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
+import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
+import 'package:medical_chain_mobile_ui/models/status.dart';
+import 'package:medical_chain_mobile_ui/services/date_format.dart';
+import 'package:medical_chain_mobile_ui/services/response_validator.dart';
 
 class ChangePasswordController extends GetxController {
+  GlobalController globalController = Get.put(GlobalController());
+  LoginPageController loginPageController = Get.put(LoginPageController());
   TextEditingController password = TextEditingController();
   TextEditingController newPassword = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
@@ -70,19 +82,108 @@ class ChangePasswordController extends GetxController {
     }
   }
 
-  void changePassword() {
+  Future<bool> checkPassword(String password) async {
+    var username = globalController.user.value.username;
+    var responseCredential =
+        await loginPageController.getCredential(username ?? "");
+    print(responseCredential.toString());
+    Status validateUsername = ResponseValidator.check(responseCredential);
+    if (validateUsername.status == "OK") {
+      var data = responseCredential.data["data"];
+      var userId = data["id"];
+      var publicKey = data['publicKey'];
+      var encryptedPrivateKey = data['encryptedPrivateKey'];
+      var email = data["mail"];
+      var userName = data["username"];
+      String? privateKey = decryptAESCryptoJS(encryptedPrivateKey, password);
+
+      Status validatePassword = new Status();
+
+      if (privateKey == null)
+        validatePassword =
+            new Status(status: "ERROR", message: "WRONG.PASSWORD");
+      else
+        validatePassword = new Status(status: "SUCCESS", message: "SUCCESS");
+
+      if (validatePassword.status == "SUCCESS") {
+        var certificateInfo = SignatureService.getCertificateInfo(userId);
+        String signature = SignatureService.getSignature(
+            certificateInfo, privateKey as String);
+        String times = TimeService.getTimeNow().toString();
+        List<String> certificateList = SignatureService.getCertificateLogin(
+            certificateInfo,
+            userId,
+            email,
+            userName,
+            encryptedPrivateKey,
+            signature,
+            publicKey,
+            times);
+
+        var responsePing = await loginPageController.getPing(certificateList);
+        print({"resPing": responsePing.toString()});
+        Status validateServer2 = ResponseValidator.check(responsePing);
+        if (validateServer2.status == "OK") {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  Future sendNewKeyPair({required encryptedKeyPair}) async {
+    try {
+      var response;
+      CustomDio customDio = CustomDio();
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate.toString();
+
+      response = await customDio.post("/auth/password", {
+        "data": {
+          "encryptedPrivateKey": encryptedKeyPair["encryptedPrivateKey"],
+          "publicKey": encryptedKeyPair["publicKey"],
+        }
+      });
+
+      var json = jsonDecode(response.toString());
+      print(json.toString());
+      return (json["success"]);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return null;
+    }
+  }
+
+  void changePassword() async {
     errNewPassword.value = errMsgNewPassword();
     errConfirmPassword.value = errMsgConfirmPassword();
     if (errNewPassword.value == "" && errConfirmPassword.value == "") {
       // Todo change password api
       print(password.text);
-      if (password.text == "123456") {
-        isSuccess.value = true;
-        errPassword.value = "";
-        password.clear();
-        newPassword.clear();
-        confirmPassword.clear();
+      var truePassword = await checkPassword(password.text);
+      if (truePassword) {
+        var encryptedKeyPair = generateKeyPairAndEncrypt(password.text);
+        var response = await sendNewKeyPair(encryptedKeyPair: encryptedKeyPair);
+        print(response);
+        if (response == true) {
+          print('debug1');
+          isSuccess.value = true;
+          errPassword.value = "";
+          password.clear();
+          newPassword.clear();
+          confirmPassword.clear();
+        } else {
+          print('debug2');
+          errPassword.value = "パスワードが合っていません。";
+        }
       } else {
+        print('debug3');
         errPassword.value = "パスワードが合っていません。";
       }
     }
