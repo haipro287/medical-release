@@ -8,6 +8,7 @@ import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_servi
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
+import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 
 class UserSavedScreen extends StatelessWidget {
   UserSearchController userSearchController = Get.put(UserSearchController());
@@ -38,8 +39,8 @@ class UserSavedScreen extends StatelessWidget {
             "",
             GestureDetector(
               onTap: () async {
-                var a = await userSearchController.deleteContact();
-                print("a: " + a.toString());
+                CustomDialog(context)
+                    .show();
               },
               child: Container(
                 padding: EdgeInsets.all(6),
@@ -115,8 +116,8 @@ class UserSavedScreen extends StatelessWidget {
                                       autofocus: true,
                                       decoration: InputDecoration(
                                         hintText: "ニックネーム",
-                                        hintStyle: TextStyle(
-                                            color: Color(0xFF838AA2)),
+                                        hintStyle:
+                                            TextStyle(color: Color(0xFF838AA2)),
                                         border: InputBorder.none,
                                         focusedBorder: InputBorder.none,
                                         enabledBorder: InputBorder.none,
@@ -154,8 +155,7 @@ class UserSavedScreen extends StatelessWidget {
                                             "ニックネーム",
                                             style: TextStyle(
                                                 fontSize: getWidth(20),
-                                                color:
-                                                    Color(0xFF838AA2)),
+                                                color: Color(0xFF838AA2)),
                                           ),
                                   ),
                           ),

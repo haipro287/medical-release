@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
@@ -10,7 +11,9 @@ import 'detail_history_page.dart';
 Widget historyDetailComponent({required record}) {
   ShareHistoryController shareHistoryController =
       Get.put(ShareHistoryController());
+  GlobalController globalController = Get.put(GlobalController());
   List<dynamic> serviceList = record["services"];
+  var mode = globalController.historyStatus.value == "SENDING_MODE";
   var subMode = ["sharing", "expired"].contains(record["status"]);
   return GestureDetector(
     onTap: () {
@@ -51,7 +54,9 @@ Widget historyDetailComponent({required record}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(subMode ? 'sender'.tr : 'userReceived'.tr + ':'),
+                Text(mode
+                    ? (!subMode ? 'sender'.tr : 'userReceived'.tr + ':')
+                    : (subMode ? 'sender'.tr : 'userReceived'.tr + ':')),
                 SizedBox(
                   width: getWidth(8),
                 ),
@@ -132,7 +137,9 @@ Widget historyDetailComponent({required record}) {
                     width: getWidth(8),
                   ),
                   Text(
-                    TimeService.getTimeFormat(record["fromTime"], ""),
+                    TimeService.getTimeFormat(record["fromTime"], "") +
+                        "～" +
+                        TimeService.getTimeFormat(record["endTime"], ""),
                   ),
                 ],
               ),

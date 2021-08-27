@@ -12,6 +12,8 @@ class UserSearchController extends GetxController {
   GlobalController globalController = Get.put(GlobalController());
   ContactPageController contactPageController =
       Get.put(ContactPageController());
+  ShareListController shareListController =
+      Get.put(ShareListController());
   TextEditingController searchInput = TextEditingController();
   TextEditingController nickname = TextEditingController();
 
@@ -160,7 +162,7 @@ class UserSearchController extends GetxController {
     }
   }
 
-  Future<Map> deleteContact() async {
+  Future deleteContact() async {
     try {
       var userID = globalController.user.value.id.toString();
       var contactID = userData["id"];
@@ -178,10 +180,13 @@ class UserSearchController extends GetxController {
         },
       );
       var json = jsonDecode(response.toString());
+
       if (json["success"] == true) {
         var newContactList = await contactPageController.getContactList();
         contactPageController.contactList.value = newContactList;
-        Get.put(ShareListController()).contactList.value = newContactList;
+        contactPageController.searchList.value = newContactList;
+        shareListController.contactList.value = newContactList;
+        shareListController.searchList.value = newContactList;
       }
       return (json["data"]);
     } catch (e, s) {

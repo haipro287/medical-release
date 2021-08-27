@@ -101,7 +101,7 @@ class TimeService {
   }
 
   static String stringToDJP(DateTime dateTime) {
-    var datedFormat = DateFormat("yyyy/MM/dd HH:mm'まで'").format(dateTime);
+    var datedFormat = DateFormat("yyyy/MM/dd HH:mm").format(dateTime);
     return datedFormat;
   }
 

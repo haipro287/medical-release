@@ -263,10 +263,13 @@ class UserScreen extends StatelessWidget {
                                       SizedBox(
                                         width: getWidth(12),
                                       ),
-                                      Text(
-                                        'tac'.tr,
-                                        style:
-                                            TextStyle(fontSize: getWidth(16)),
+                                      Container(
+                                        width: getWidth(200),
+                                        child: Text(
+                                          'tac'.tr,
+                                          style:
+                                              TextStyle(fontSize: getWidth(16)),
+                                        ),
                                       )
                                     ],
                                   ),

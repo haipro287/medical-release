@@ -66,7 +66,7 @@ class Messages extends Translations {
           'my_qr': 'マイQRコード',
           'change_password': "パスワード変更",
           "change_password_btn": "変更",
-          'tac': 'サービス利用規約',
+          'tac': 'サービス利用規約とプライバシーポリシー',
           'log_out': 'ログアウト',
           'scan_qr': "QRコードスキャン",
           'my_qr_guide': '友達があなたのQRコードをスキャンするとあなたを見つけることができます。',

@@ -122,7 +122,7 @@ class ShareListService extends StatelessWidget {
                                       ? Image.network(e.icon.toString())
                                       : SvgPicture.asset(
                                           "assets/images/avatar.svg",
-                                          width: getWidth(16),
+                                          width: getWidth(27),
                                         ),
                                   SizedBox(width: getWidth(15)),
                                   Container(

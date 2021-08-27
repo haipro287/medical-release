@@ -16,7 +16,7 @@ class DetailHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var itemSelected = shareHistoryController.itemSelected;
-    var mode = globalController.historyStatus.value;
+    var mode = globalController.historyStatus.value == "SENDING_MODE";
     var subMode = ["sharing", "expired"].contains(itemSelected["status"]);
     List<dynamic> servicesList = itemSelected["services"];
     return Scaffold(
@@ -31,7 +31,7 @@ class DetailHistoryPage extends StatelessWidget {
                 sharingStatus: shareHistoryController.itemSelected["status"],
               ),
       ),
-      appBar: mode == "SENDING_MODE"
+      appBar: mode
           ? appBarWithButton(
               context,
               subMode ? "detail_sharing".tr : "detail_request".tr,
@@ -53,10 +53,10 @@ class DetailHistoryPage extends StatelessWidget {
         child: ListView(
           children: [
             customBoxHeader(
-                // mode == "SENDING_MODE" ?
-                (subMode ? "userReceived".tr : "sender".tr)
-                // : (subMode ? "sender".tr : "userReceived".tr),
-                ),
+              mode
+                  ? (!subMode ? 'sender'.tr : 'userReceived'.tr)
+                  : (subMode ? 'sender'.tr : 'userReceived'.tr),
+            ),
             Container(
               color: Colors.white,
               padding: EdgeInsets.symmetric(horizontal: getWidth(15)),

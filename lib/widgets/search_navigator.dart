@@ -112,7 +112,7 @@ Container sharingHistoryNavigator({required controller}) {
                   customObx(
                       controller: controller,
                       tabIndex: 2,
-                      title: '期限切れ'),
+                      title: '共有中止'),
                   customObx(
                       controller: controller,
                       tabIndex: 3,
