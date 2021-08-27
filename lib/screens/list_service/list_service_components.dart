@@ -30,7 +30,9 @@ Container switchService(
           child: icon.toString().contains('http')
               ? Image.network(icon.toString())
               : SvgPicture.asset(
-                  'assets/images/${serviceName?.toLowerCase()}.svg'),
+                  'assets/images/avatar.svg',
+                  width: getWidth(16),
+                ),
         ),
         SizedBox(
           width: getWidth(12),

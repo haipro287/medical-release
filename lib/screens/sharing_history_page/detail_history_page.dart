@@ -53,10 +53,10 @@ class DetailHistoryPage extends StatelessWidget {
         child: ListView(
           children: [
             customBoxHeader(
-              mode == "SENDING_MODE"
-                  ? (subMode ? "userReceived".tr : "sender".tr)
-                  : (subMode ? "sender".tr : "userReceived".tr),
-            ),
+                // mode == "SENDING_MODE" ?
+                (subMode ? "userReceived".tr : "sender".tr)
+                // : (subMode ? "sender".tr : "userReceived".tr),
+                ),
             Container(
               color: Colors.white,
               padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
@@ -111,7 +111,9 @@ class DetailHistoryPage extends StatelessWidget {
                               child: e["icon"].toString().contains('http')
                                   ? Image.network(e["icon"].toString())
                                   : SvgPicture.asset(
-                                      "assets/images/avatar.svg"),
+                                      "assets/images/avatar.svg",
+                                      width: getWidth(16),
+                                    ),
                             ),
                             SizedBox(width: getWidth(15)),
                             Container(

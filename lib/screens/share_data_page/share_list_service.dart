@@ -116,7 +116,9 @@ class ShareListService extends StatelessWidget {
                                   e.icon.toString().contains('http')
                                       ? Image.network(e.icon.toString())
                                       : SvgPicture.asset(
-                                          "assets/images/avatar.svg"),
+                                          "assets/images/avatar.svg",
+                                          width: getWidth(16),
+                                        ),
                                   SizedBox(width: getWidth(15)),
                                   Container(
                                     child: Column(
