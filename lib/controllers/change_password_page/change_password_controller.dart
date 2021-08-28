@@ -56,15 +56,17 @@ class ChangePasswordController extends GetxController {
   String errMsgNewPassword() {
     var text = newPassword.text;
     if (text == "") {
-      return "パスワードを入力してください。";
+      return "新パスワードを入力してください。";
     } else if (text.length < 8 || text.length > 32) {
-      return "パスワードは8～32文字以内で入力してください。";
+      return "新パスワードは8～32文字以内で入力してください。";
+    } else if (text.contains(" ")) {
+      return "新パスワードは英字、数字、記号のうち2種類以上を混在させてください。";
     } else if (!passwordReg0.hasMatch(text)) {
-      return "パスワードは半角英数字で入力してください。";
+      return "新パスワードは半角英数字で入力してください。";
     } else if (passwordReg1.hasMatch(text) ||
         passwordReg2.hasMatch(text) ||
         passwordReg3.hasMatch(text)) {
-      return "パスワードは英字、数字、記号のうち2種類以上を混在させてください。";
+      return "新パスワードは英字、数字、記号のうち2種類以上を混在させてください。";
     } else {
       return "";
     }
@@ -74,9 +76,9 @@ class ChangePasswordController extends GetxController {
     var text = newPassword.text;
     var confirmText = confirmPassword.text;
     if (confirmText == "") {
-      return "再入力パスワードを入力してください。";
+      return "再入力新パスワードを入力してください。";
     } else if (text != confirmText) {
-      return "再入力パスワードは合っていません。";
+      return "再入力新パスワードは合っていません。";
     } else {
       return "";
     }
@@ -161,6 +163,7 @@ class ChangePasswordController extends GetxController {
   }
 
   void changePassword() async {
+    isSuccess.value = false;
     errNewPassword.value = errMsgNewPassword();
     errConfirmPassword.value = errMsgConfirmPassword();
     if (password.text == "") {
