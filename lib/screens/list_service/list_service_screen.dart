@@ -41,6 +41,7 @@ class ListServiceScreen extends StatelessWidget {
                         ),
                         child: Text(
                           'serviceList'.tr,
+                          style: TextStyle(fontSize: getWidth(17)),
                         ),
                       ),
                       Container(

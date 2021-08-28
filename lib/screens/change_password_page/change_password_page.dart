@@ -64,7 +64,10 @@ class ChangePasswordPageScreen extends StatelessWidget {
                 height: getHeight(48),
                 color: Color(0xFFD0E8FF),
                 alignment: Alignment.center,
-                child: Text('change_password_btn'.tr),
+                child: Text(
+                  'change_password_btn'.tr,
+                  style: TextStyle(fontSize: getWidth(17)),
+                ),
               ),
               onPress: () async {
                 FocusScope.of(context).unfocus();
@@ -84,6 +87,7 @@ class ChangePasswordPageScreen extends StatelessWidget {
                     "passwordChangeSuccessfully".tr,
                     style: TextStyle(
                       color: Colors.green.shade800,
+                      fontSize: getWidth(17),
                     ),
                   ))
                 : Container()),

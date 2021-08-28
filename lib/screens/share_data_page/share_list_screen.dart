@@ -43,7 +43,7 @@ class ShareListScreen extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.center,
-                child: Column(
+                child: ListView(
                   children: [
                     inputSearchWithQrCode(
                       context,
@@ -141,7 +141,8 @@ class ShareListScreen extends StatelessWidget {
                                                         style: TextStyle(
                                                             fontSize:
                                                                 getWidth(13),
-                                                            color: Color(0xFF838AA2)),
+                                                            color: Color(
+                                                                0xFF838AA2)),
                                                       )
                                                     ],
                                                   ),
@@ -236,7 +237,10 @@ class ShareListScreen extends StatelessWidget {
                     },
                     child: Text(
                       'next'.tr,
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: getWidth(13),
+                      ),
                     ),
                   ),
                 )

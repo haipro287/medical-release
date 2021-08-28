@@ -39,8 +39,7 @@ class UserSavedScreen extends StatelessWidget {
             "",
             GestureDetector(
               onTap: () async {
-                CustomDialog(context)
-                    .show();
+                CustomDialog(context).show();
               },
               child: Container(
                 padding: EdgeInsets.all(6),
@@ -293,6 +292,7 @@ class UserSavedScreen extends StatelessWidget {
                               "リクエスト送信",
                               style: TextStyle(
                                 color: Colors.black,
+                                fontSize: getWidth(17),
                               ),
                             ),
                           ],

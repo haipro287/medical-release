@@ -17,6 +17,7 @@ Container customBoxHeader(text) {
         SizedBox(width: getWidth(15)),
         Text(
           text,
+          style: TextStyle(fontSize: getWidth(13)),
         ),
       ],
     ),
@@ -39,6 +40,7 @@ Container customBoxHeaderWithTag(text, Widget widget) {
         SizedBox(width: getWidth(15)),
         Text(
           text,
+          style: TextStyle(fontSize: getWidth(13)),
         ),
         SizedBox(width: getWidth(15)),
         widget,

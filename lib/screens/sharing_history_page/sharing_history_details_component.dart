@@ -141,9 +141,11 @@ Widget historyDetailComponent({required record}) {
                           TimeService.getTimeFormat(record["fromTime"], "") +
                               "～" +
                               TimeService.getTimeFormat(record["endTime"], ""),
+                          style: TextStyle(fontSize: getWidth(13)),
                         )
                       : Text(
                           TimeService.getTimeFormat(record["fromTime"], ""),
+                          style: TextStyle(fontSize: getWidth(13)),
                         ),
                 ],
               ),

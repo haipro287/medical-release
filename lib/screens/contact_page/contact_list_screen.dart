@@ -62,7 +62,10 @@ class ContactListPage extends StatelessWidget {
                         SizedBox(
                           height: getHeight(33.3),
                         ),
-                        Text("userNotFound".tr),
+                        Text(
+                          "userNotFound".tr,
+                          style: TextStyle(fontSize: getWidth(17)),
+                        ),
                       ],
                     )
                   : Expanded(
