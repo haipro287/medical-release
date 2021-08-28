@@ -23,9 +23,9 @@ class ChangePasswordController extends GetxController {
   final RegExp passwordReg2 = new RegExp(r'^[a-zA-Z]+$');
   final RegExp passwordReg3 = new RegExp(r'^[!@#$%&/=?_.,:;-\\]+$');
 
-  var isHidePassword = false.obs;
-  var isHideNewPassword = false.obs;
-  var isHideConfirmPassword = false.obs;
+  var isHidePassword = true.obs;
+  var isHideNewPassword = true.obs;
+  var isHideConfirmPassword = true.obs;
 
   var focusPassword = false.obs;
   var focusNewPassword = false.obs;
@@ -57,14 +57,14 @@ class ChangePasswordController extends GetxController {
     var text = newPassword.text;
     if (text == "") {
       return "パスワードを入力してください。";
+    } else if (text.length < 8 || text.length > 32) {
+      return "パスワードは8～32文字以内で入力してください。";
     } else if (!passwordReg0.hasMatch(text)) {
       return "パスワードは半角英数字で入力してください。";
     } else if (passwordReg1.hasMatch(text) ||
         passwordReg2.hasMatch(text) ||
         passwordReg3.hasMatch(text)) {
       return "パスワードは英字、数字、記号のうち2種類以上を混在させてください。";
-    } else if (text.length < 8 || text.length > 32) {
-      return "パスワードは8～32文字以内で入力してください。";
     } else {
       return "";
     }
@@ -163,28 +163,34 @@ class ChangePasswordController extends GetxController {
   void changePassword() async {
     errNewPassword.value = errMsgNewPassword();
     errConfirmPassword.value = errMsgConfirmPassword();
-    if (errNewPassword.value == "" && errConfirmPassword.value == "") {
-      // Todo change password api
-      print(password.text);
-      var truePassword = await checkPassword(password.text);
-      if (truePassword) {
-        var encryptedKeyPair = generateKeyPairAndEncrypt(password.text);
-        var response = await sendNewKeyPair(encryptedKeyPair: encryptedKeyPair);
-        print(response);
-        if (response == true) {
-          print('debug1');
-          isSuccess.value = true;
-          errPassword.value = "";
-          password.clear();
-          newPassword.clear();
-          confirmPassword.clear();
+    if (password.text == "") {
+      errPassword.value = "パスワードを入力してください。";
+    } else {
+      errPassword.value = "";
+      if (errNewPassword.value == "" && errConfirmPassword.value == "") {
+        // Todo change password api
+        print(password.text);
+        var truePassword = await checkPassword(password.text);
+        if (truePassword) {
+          var encryptedKeyPair = generateKeyPairAndEncrypt(password.text);
+          var response =
+              await sendNewKeyPair(encryptedKeyPair: encryptedKeyPair);
+          print(response);
+          if (response == true) {
+            print('debug1');
+            isSuccess.value = true;
+            errPassword.value = "";
+            password.clear();
+            newPassword.clear();
+            confirmPassword.clear();
+          } else {
+            print('debug2');
+            errPassword.value = "パスワードが合っていません。";
+          }
         } else {
-          print('debug2');
+          print('debug3');
           errPassword.value = "パスワードが合っていません。";
         }
-      } else {
-        print('debug3');
-        errPassword.value = "パスワードが合っていません。";
       }
     }
   }

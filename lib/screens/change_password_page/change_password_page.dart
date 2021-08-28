@@ -12,6 +12,7 @@ class ChangePasswordPageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: appBar(context, "change_password".tr),
       backgroundColor: Colors.white,
       body: Container(

@@ -42,7 +42,7 @@ Container inputPassword(BuildContext context, TextEditingController controller,
               changeHide();
             },
             icon: Icon(
-              isHide ? Icons.visibility : Icons.visibility_off,
+              isHide ? Icons.visibility_off : Icons.visibility,
               size: 24,
             ))
       ],
@@ -103,7 +103,7 @@ Container inputPasswordWithBorder(
                       changeHide();
                     },
                     icon: Icon(
-                      isHide ? Icons.visibility : Icons.visibility_off,
+                      isHide ? Icons.visibility_off : Icons.visibility,
                       size: 24,
                     ))
               ],
@@ -582,7 +582,7 @@ Container inputPasswordSignup(
               changeHide();
             },
             icon: Icon(
-              isHide ? Icons.visibility : Icons.visibility_off,
+              isHide ? Icons.visibility_off : Icons.visibility,
               size: 24,
             ))
       ],
