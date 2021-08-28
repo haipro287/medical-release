@@ -10,6 +10,7 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/models/status.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/services/response_validator.dart';
+import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 
 class ChangePasswordController extends GetxController {
   GlobalController globalController = Get.put(GlobalController());
@@ -162,7 +163,7 @@ class ChangePasswordController extends GetxController {
     }
   }
 
-  void changePassword() async {
+  void changePassword(context) async {
     isSuccess.value = false;
     errNewPassword.value = errMsgNewPassword();
     errConfirmPassword.value = errMsgConfirmPassword();
@@ -186,6 +187,7 @@ class ChangePasswordController extends GetxController {
             password.clear();
             newPassword.clear();
             confirmPassword.clear();
+            CustomDialog(context, "CHANGE_PASSWORD").show();
           } else {
             print('debug2');
             errPassword.value = "パスワードが合っていません。";

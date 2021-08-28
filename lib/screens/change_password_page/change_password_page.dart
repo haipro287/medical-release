@@ -4,6 +4,7 @@ import 'package:medical_chain_mobile_ui/controllers/change_password_page/change_
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
+import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
 
 class ChangePasswordPageScreen extends StatelessWidget {
@@ -72,26 +73,26 @@ class ChangePasswordPageScreen extends StatelessWidget {
               ),
               onPress: () async {
                 FocusScope.of(context).unfocus();
-                changePasswordController.changePassword();
+                changePasswordController.changePassword(context);
                 // bool result = await changePasswordController.changePassword();
                 // if (result) {
                 // Get.to(() => HomePageScreen());
                 // }
               },
             ),
-            SizedBox(
-              height: getHeight(20),
-            ),
-            Obx(() => changePasswordController.isSuccess.value
-                ? Container(
-                    child: Text(
-                    "passwordChangeSuccessfully".tr,
-                    style: TextStyle(
-                      color: Colors.green.shade800,
-                      fontSize: getWidth(17),
-                    ),
-                  ))
-                : Container()),
+            // SizedBox(
+            //   height: getHeight(20),
+            // ),
+            // Obx(() => changePasswordController.isSuccess.value
+            //     ? Container(
+            //         child: Text(
+            //         "passwordChangeSuccessfully".tr,
+            //         style: TextStyle(
+            //           color: Colors.green.shade800,
+            //           fontSize: getWidth(17),
+            //         ),
+            //       ))
+            //     : Container()),
           ],
         ),
       ),
