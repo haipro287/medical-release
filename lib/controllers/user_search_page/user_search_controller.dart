@@ -12,8 +12,7 @@ class UserSearchController extends GetxController {
   GlobalController globalController = Get.put(GlobalController());
   ContactPageController contactPageController =
       Get.put(ContactPageController());
-  ShareListController shareListController =
-      Get.put(ShareListController());
+  ShareListController shareListController = Get.put(ShareListController());
   TextEditingController searchInput = TextEditingController();
   TextEditingController nickname = TextEditingController();
 
@@ -22,7 +21,7 @@ class UserSearchController extends GetxController {
 
   @override
   void onInit() async {
-    nickname.text = userData["secondaryName"];
+    nickname.text = userData["secondaryName"] ?? "";
     super.onInit();
   }
 
@@ -79,10 +78,17 @@ class UserSearchController extends GetxController {
       print(userData["id"]);
       return null;
     }
+    var userIfExist = contactPageController.contactList
+        .where((e) => e["secondaryUsername"] == searchInput.text)
+        .toList();
     var data = await searchUser(searchInput.text);
     print("searchData:" + data.toString());
     try {
-      if (data["id"] != null) {
+      if (userIfExist.length > 0) {
+        userData.value = userIfExist[0];
+        searchInput.clear();
+        return userIfExist[0];
+      } else if (data["id"] != null) {
         var contactData =
             await createContact(secondaryId: data["id"], nickname: "");
         print('createContact: ' + contactData.toString());
