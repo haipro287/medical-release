@@ -136,11 +136,15 @@ Widget historyDetailComponent({required record}) {
                   SizedBox(
                     width: getWidth(8),
                   ),
-                  Text(
-                    TimeService.getTimeFormat(record["fromTime"], "") +
-                        "～" +
-                        TimeService.getTimeFormat(record["endTime"], ""),
-                  ),
+                  record["status"] == "expired"
+                      ? Text(
+                          TimeService.getTimeFormat(record["fromTime"], "") +
+                              "～" +
+                              TimeService.getTimeFormat(record["endTime"], ""),
+                        )
+                      : Text(
+                          TimeService.getTimeFormat(record["fromTime"], ""),
+                        ),
                 ],
               ),
             ),
