@@ -93,6 +93,7 @@ class LoginPageController extends GetxController {
       var response = await customDio.post(
         "/auth/ping",
         certificateList[1],
+        sign: false,
       );
       print({"res": response});
       return response;
@@ -106,28 +107,12 @@ class LoginPageController extends GetxController {
     try {
       var response;
       CustomDio customDio = CustomDio();
-      response = await customDio.post("/auth/credential", {
-        "data": username,
-      });
-      return response;
-    } catch (e, s) {
-      print(e);
-      print(s);
-      return null;
-    }
-  }
-
-  Future signup(String username, String password) async {
-    try {
-      Map<String, dynamic> keyPair = generateKeyPairAndEncrypt(password);
-      Response response;
-      CustomDio customDio = CustomDio();
-      response = await customDio.post("/user", {
-        "publicKey": keyPair["publicKey"],
-        "encryptedPrivateKey": keyPair["encryptedPrivateKey"],
-        "displayName": username,
-        "username": username,
-      });
+      response = await customDio.post(
+          "/auth/credential",
+          {
+            "data": username,
+          },
+          sign: false);
       return response;
     } catch (e, s) {
       print(e);

@@ -40,8 +40,8 @@ Widget historyDetailComponent({required record}) {
                 SvgPicture.asset(
                     'assets/images/jp_${record["status"]}_tag.svg'),
                 // Text(
-                //   TimeService.getTimeFormat(record["fromTime"], ""),
-                //   style: TextStyle(color: Color(0xFF838AA2)),
+                //   "${record["status"]}_color".tr,
+                //   style: TextStyle(color: Colors.red, fontSize: getWidth(13)),
                 // ),
               ],
             ),
@@ -55,8 +55,8 @@ Widget historyDetailComponent({required record}) {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(mode
-                    ? (!subMode ? 'sender'.tr : 'userReceived'.tr + ':')
-                    : (subMode ? 'sender'.tr : 'userReceived'.tr + ':')),
+                    ? (subMode ? 'dataReceiver'.tr : 'requestSender'.tr + ':')
+                    : (subMode ? 'dataSender'.tr : 'requestReceived'.tr + ':')),
                 SizedBox(
                   width: getWidth(8),
                 ),

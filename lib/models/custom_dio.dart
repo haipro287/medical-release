@@ -5,8 +5,13 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/instance_manager.dart';
+import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/services/date_format.dart';
 
 class CustomDio {
+  GlobalController globalController = Get.put(GlobalController());
   static final String baseUrl = dotenv.env["SERVER_URL"] as String;
   // static String baseUrl = 'https://test.dev.nftal.io/api';
 
@@ -24,6 +29,11 @@ class CustomDio {
     if (_dio != null) return _dio;
     _dio = _initDio();
     return _dio;
+  }
+
+  String _getActionType(String method, String url) {
+    String module = url.replaceAll(RegExp('/'), '-').substring(1);
+    return (method + "_" + module).toUpperCase();
   }
 
   static Dio _initDio() {
@@ -56,19 +66,6 @@ class CustomDio {
           print({'onError': error});
           return handler.next(error); //continue
         },
-        // onRequest: (RequestOptions options) async {
-        //   print('onRequest');
-        //   print({"request": options});
-        //   return options; //continue
-        // },
-        // onResponse: (Response response) async {
-        //   print({"response": response});
-        //   return (response);
-        // },
-        // onError: (DioError error) async {
-        //   print({"error": error});
-        //   return error; //continue
-        // },
       ),
     );
     return _dio;
@@ -78,12 +75,29 @@ class CustomDio {
     return _dio.get(url, queryParameters: params);
   }
 
-  Future post(String url, dynamic params, {Options? options}) async {
-    return _dio.post(url, data: params, options: options);
+  Future post(String url, dynamic params,
+      {Options? options, bool? sign}) async {
+    if (sign == false) return _dio.post(url, data: params, options: options);
+    var finalData;
+    var data = params["data"];
+    data = {
+      ...data,
+      "_actionType": _getActionType("post", url),
+      "_timestamp": TimeService.timeToBackEndMaster(TimeService.getTimeNow()),
+    };
+    var privateKey = globalController.user.value.privateKey ?? "";
+    if (privateKey != "") {
+      var bodySignature =
+          signMessage(privateKey, hashMessage(jsonEncode(params)));
+      finalData = jsonEncode({"data": data, "_signature": bodySignature});
+    } else {
+      finalData = jsonEncode({"data": data});
+    }
+    print("final: " + finalData.toString());
+    return _dio.post(url, data: finalData, options: options);
   }
 
   Future put(String url, [Map<String, dynamic>? params]) async {
-    print(params);
     return _dio.put(url, data: jsonEncode({"data": params}));
   }
 

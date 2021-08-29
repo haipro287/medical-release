@@ -54,8 +54,8 @@ class DetailHistoryPage extends StatelessWidget {
           children: [
             customBoxHeader(
               mode
-                  ? (!subMode ? 'sender'.tr : 'userReceived'.tr)
-                  : (subMode ? 'sender'.tr : 'userReceived'.tr),
+                  ? (subMode ? 'dataReceiver'.tr : 'requestSender'.tr)
+                  : (subMode ? 'dataSender'.tr : 'requestReceived'.tr),
             ),
             Container(
               color: Colors.white,

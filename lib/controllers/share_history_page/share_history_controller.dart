@@ -22,7 +22,8 @@ class ShareHistoryController extends GetxController {
 
   @override
   void onInit() async {
-    var records = await getRecords("");
+    var records = await getRecords(getStatusFromValue(currentPage.value));
+    print("current" + currentPage.value.toString());
     historyRecords.value = records;
     searchList.value = records;
     super.onInit();
@@ -48,6 +49,21 @@ class ShareHistoryController extends GetxController {
     }
   }
 
+  String getStatusFromValue(int value) {
+    if (value == 0) {
+      return ("");
+    } else if (value == 1) {
+      return ("sharing");
+    } else if (value == 2) {
+      return ("expired");
+    } else if (value == 3) {
+      return ("pending");
+    } else if (value == 4) {
+      return ("rejected");
+    } else
+      return "";
+  }
+
   void onChangeTab(int value) async {
     if (value != currentPage.value) {
       print("valueeee: " + value.toString());
@@ -55,17 +71,8 @@ class ShareHistoryController extends GetxController {
       searchInput.clear();
       isHideNotiSearch.value = true;
       var records;
-      if (value == 0) {
-        records = await getRecords("");
-      } else if (value == 1) {
-        records = await getRecords("sharing");
-      } else if (value == 2) {
-        records = await getRecords("expired");
-      } else if (value == 3) {
-        records = await getRecords("pending");
-      } else if (value == 4) {
-        records = await getRecords("rejected");
-      }
+      var status = getStatusFromValue(value);
+      records = await getRecords(status);
       historyRecords.value = records;
       searchList.value = records;
       pageController

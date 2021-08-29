@@ -17,8 +17,11 @@ class ListServiceController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
 
-      response = await customDio
-          .post("/user/$userID/service/disconnect/$serviceId", {});
+      response = await customDio.post(
+        "/user/$userID/service/disconnect/$serviceId",
+        {},
+        sign: false,
+      );
 
       var json = jsonDecode(response.toString());
       print(json.toString());
@@ -38,8 +41,11 @@ class ListServiceController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
 
-      response =
-          await customDio.post("/user/$userID/service/connect/$serviceId", {});
+      response = await customDio.post(
+        "/user/$userID/service/connect/$serviceId",
+        {},
+        sign: false,
+      );
 
       var json = jsonDecode(response.toString());
       print(json.toString());

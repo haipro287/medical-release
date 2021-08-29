@@ -54,7 +54,6 @@ class ShareServiceListController extends GetxController {
             "secondaryId": id,
             "services": services,
             "fromTime": fromTime,
-            "endTime": endTime,
           }
         });
       } else {
@@ -63,7 +62,6 @@ class ShareServiceListController extends GetxController {
             "primaryId": id,
             "services": services,
             "fromTime": fromTime,
-            "endTime": endTime,
           }
         });
       }

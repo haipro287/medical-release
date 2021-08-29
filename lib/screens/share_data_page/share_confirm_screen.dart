@@ -65,7 +65,7 @@ class ShareConfirmScreen extends StatelessWidget {
                         ? 1
                         : 3;
                 Get.to(() => ShareHistoryPage());
-                Get.put(ShareHistoryController()).onChangeTab(tabChange);
+                Get.put(ShareHistoryController()).currentPage.value = tabChange;
               }
             },
             child: Text(

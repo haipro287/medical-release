@@ -31,6 +31,13 @@ class UserSearchController extends GetxController {
     return res.length > 0;
   }
 
+  void refetchList(var newContactList) {
+    contactPageController.contactList.value = newContactList;
+    shareListController.contactList.value = newContactList;
+    contactPageController.searchList.value = newContactList;
+    shareListController.searchList.value = newContactList;
+  }
+
   Future changeEditStatus() async {
     print("userData:" + userData.toString());
     if (isEditing.value) {
@@ -41,8 +48,7 @@ class UserSearchController extends GetxController {
         print("a: " + a.toString());
         userData["secondaryName"] = a["secondaryName"] ?? nickname.text;
         var newContactList = await contactPageController.getContactList();
-        contactPageController.contactList.value = newContactList;
-        Get.put(ShareListController()).contactList.value = newContactList;
+        refetchList(newContactList);
       } else {
         print('0');
       }
@@ -98,8 +104,8 @@ class UserSearchController extends GetxController {
           "secondaryUsername": data["username"]
         };
         var newContactList = await contactPageController.getContactList();
-        contactPageController.contactList.value = newContactList;
-        Get.put(ShareListController()).contactList.value = newContactList;
+        refetchList(newContactList);
+
         searchInput.clear();
         return data;
       } else {
@@ -189,10 +195,7 @@ class UserSearchController extends GetxController {
 
       if (json["success"] == true) {
         var newContactList = await contactPageController.getContactList();
-        contactPageController.contactList.value = newContactList;
-        contactPageController.searchList.value = newContactList;
-        shareListController.contactList.value = newContactList;
-        shareListController.searchList.value = newContactList;
+        refetchList(newContactList);
       }
       return (json["data"]);
     } catch (e, s) {
