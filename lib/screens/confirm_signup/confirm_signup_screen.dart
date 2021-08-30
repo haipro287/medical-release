@@ -123,7 +123,9 @@ class ConfirmSignupScreen extends StatelessWidget {
                   ),
                   onTap: () {
                     if (active) {
+
                       if (signupPageController.otpValidate()) {
+                        signupPageController.signup(context);
                         Get.to(() => SignupSuccessScreen());
                       }
                     }

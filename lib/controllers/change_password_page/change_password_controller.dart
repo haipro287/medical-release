@@ -187,7 +187,7 @@ class ChangePasswordController extends GetxController {
         // var truePassword = await checkPassword(password.text);
         var truePassword = checkCurrentPassword(password.text);
         if (truePassword) {
-          var encryptedKeyPair = generateKeyPairAndEncrypt(password.text);
+          var encryptedKeyPair = generateKeyPairAndEncrypt(newPassword.text);
           var response =
               await sendNewKeyPair(encryptedKeyPair: encryptedKeyPair);
           print(response);

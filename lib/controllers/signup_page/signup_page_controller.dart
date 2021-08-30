@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
+import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class SignupPageController extends GetxController {
   final String correctOtp = '777777';
@@ -128,5 +133,49 @@ class SignupPageController extends GetxController {
     }
 
     return isValid;
+  }
+
+  Future<Map> signup(context) async {
+    try {
+      var response;
+      var keyPair = generateKeyPairAndEncrypt(password.text);
+      CustomDio customDio = CustomDio();
+      response = await customDio.post(
+        "/user",
+        {
+          "data": {
+            "username": userId.text,
+            "mail": email.text,
+            "phone": phone.text,
+            "encryptedPrivateKey": keyPair["encryptedPrivateKey"],
+            "publicKey": keyPair["publicKey"],
+          },
+        },
+        sign: false
+      );
+      var json = jsonDecode(response.toString());
+      print(json);
+
+      var data = json["data"];
+
+      MyAccountController myAccountController = Get.put(MyAccountController());
+
+      myAccountController.kanjiName.value = data["kanji"];
+      myAccountController.katakanaName.value = data["romanji"];
+      myAccountController.dob.value = DateTime.parse(data["birthday"]);
+      myAccountController.userName = data["username"];
+      myAccountController.email.value = data["mail"];
+      myAccountController.phoneNumber.value = data["phone"];
+      myAccountController.citizenCode.value = data["pid"];
+      myAccountController.phoneVerified = data["isPhoneValidated"];
+      myAccountController.emailVerified = data["isMailValidated"];
+
+
+      return json;
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return {};
+    }
   }
 }
