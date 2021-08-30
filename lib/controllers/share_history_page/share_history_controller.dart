@@ -27,6 +27,15 @@ class ShareHistoryController extends GetxController {
     historyRecords.value = records;
     searchList.value = records;
     super.onInit();
+    // currentPage.listen((value) {
+    //   if (value != 0) {
+    //     var status = getStatusFromValue(value);
+    //     var filterRecords =
+    //         historyRecords.where((e) => e["status"] == status).toList();
+    //     historyRecords.value = filterRecords;
+    //     searchList.value = filterRecords;
+    //   }
+    // });
   }
 
   void search() {
@@ -75,12 +84,12 @@ class ShareHistoryController extends GetxController {
       records = await getRecords(status);
       historyRecords.value = records;
       searchList.value = records;
-      pageController
-        ..animateToPage(
-          value,
-          duration: Duration(milliseconds: 1000),
-          curve: Curves.fastLinearToSlowEaseIn,
-        );
+      pageController..jumpToPage(value);
+      // ..animateToPage(
+      //   value,
+      //   duration: Duration(milliseconds: 1000),
+      //   curve: Curves.linearToEaseOut,
+      // );
     }
   }
 

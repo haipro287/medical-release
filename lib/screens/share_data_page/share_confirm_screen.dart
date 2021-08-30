@@ -84,7 +84,7 @@ class ShareConfirmScreen extends StatelessWidget {
         child: Column(
           children: [
             customBoxHeader(
-              "userReceived".tr,
+              "dataReceiver".tr,
             ),
             Container(
               color: Colors.white,
