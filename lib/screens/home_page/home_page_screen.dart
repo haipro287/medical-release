@@ -9,24 +9,27 @@ class HomePageScreen extends StatelessWidget {
   HomePageController homePageController = Get.put(HomePageController());
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        bottomNavigationBar: bottomNavigator(),
-        body: PageView(
-          controller: homePageController.pageController,
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            HomePageTabScreen(),
-            Center(
-              child: Text("share".tr),
-            ),
-            Center(
-              child: Text("view".tr),
-            ),
-            UserScreen(),
-          ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Container(
+        color: Colors.white,
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          bottomNavigationBar: bottomNavigator(),
+          body: PageView(
+            controller: homePageController.pageController,
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              HomePageTabScreen(),
+              Center(
+                child: Text("share".tr),
+              ),
+              Center(
+                child: Text("view".tr),
+              ),
+              UserScreen(),
+            ],
+          ),
         ),
       ),
     );

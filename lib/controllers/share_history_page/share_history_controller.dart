@@ -79,7 +79,7 @@ class ShareHistoryController extends GetxController {
         ..animateToPage(
           value,
           duration: Duration(milliseconds: 1000),
-          curve: Curves.ease,
+          curve: Curves.fastLinearToSlowEaseIn,
         );
     }
   }

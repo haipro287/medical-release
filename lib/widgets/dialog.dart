@@ -88,6 +88,7 @@ AlertDialog deleteDialog(context) {
                       onPressed: () async {
                         var a = await userSearchController.deleteContact();
                         Navigator.of(context).pop();
+                        Get.back();
                       },
                       child: Text(
                         '削除',

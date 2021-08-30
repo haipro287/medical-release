@@ -126,7 +126,7 @@ class DetailHistoryPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(e["name"]),
+                                  Text(upperFirstString(e["name"])),
                                 ],
                               ),
                             )

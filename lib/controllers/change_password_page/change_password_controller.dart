@@ -139,6 +139,16 @@ class ChangePasswordController extends GetxController {
     }
   }
 
+  bool checkCurrentPassword(String password) {
+    var encryptedPrivateKey =
+        globalController.user.value.encryptedPrivateKey ?? "";
+    String? privateKey = globalController.user.value.privateKey ?? "";
+    String privateKeyGenerated =
+        decryptAESCryptoJS(encryptedPrivateKey, password) ?? "";
+    if (privateKey != "" && privateKey == privateKeyGenerated) return true;
+    return false;
+  }
+
   Future sendNewKeyPair({required encryptedKeyPair}) async {
     try {
       var response;
@@ -174,7 +184,8 @@ class ChangePasswordController extends GetxController {
       if (errNewPassword.value == "" && errConfirmPassword.value == "") {
         // Todo change password api
         print(password.text);
-        var truePassword = await checkPassword(password.text);
+        // var truePassword = await checkPassword(password.text);
+        var truePassword = checkCurrentPassword(password.text);
         if (truePassword) {
           var encryptedKeyPair = generateKeyPairAndEncrypt(password.text);
           var response =
