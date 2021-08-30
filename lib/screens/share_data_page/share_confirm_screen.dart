@@ -64,9 +64,10 @@ class ShareConfirmScreen extends StatelessWidget {
                     globalController.historyStatus.value == "SENDING_MODE"
                         ? 1
                         : 3;
+                globalController.recordsTabMode.value = tabChange;
                 Get.to(() => ShareHistoryPage());
-                Get.put(ShareHistoryController()).currentPage.value = tabChange;
-                Get.put(ShareHistoryController()).onChangeTab(tabChange);
+                // Get.put(ShareHistoryController()).currentPage.value = tabChange;
+                // Get.put(ShareHistoryController()).onChangeTab(tabChange);
               }
             },
             child: Text(
@@ -151,7 +152,7 @@ class ShareConfirmScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(e.name),
+                                  Text(upperFirstString(e.name)),
                                 ],
                               ),
                             )

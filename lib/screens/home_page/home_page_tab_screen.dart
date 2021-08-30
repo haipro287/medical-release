@@ -11,6 +11,7 @@ import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_his
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 class HomePageTabScreen extends StatelessWidget {
+  GlobalController globalController = Get.put(GlobalController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,7 +62,7 @@ class HomePageTabScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      Get.put(GlobalController()).user.value.name.toString(),
+                      globalController.user.value.name.toString(),
                       style: TextStyle(
                         fontSize: getWidth(24),
                       ),
@@ -74,8 +75,7 @@ class HomePageTabScreen extends StatelessWidget {
                   icon: "assets/images/share1.svg",
                   tag: "shareData",
                   function: () => {
-                        Get.put(GlobalController()).sharingStatus.value =
-                            "SENT_DATA",
+                        globalController.sharingStatus.value = "SENT_DATA",
                         Get.to(() => ShareListScreen()),
                       }),
               actionTab(
@@ -83,8 +83,8 @@ class HomePageTabScreen extends StatelessWidget {
                   icon: "assets/images/data.svg",
                   tag: "viewDataRequest",
                   function: () => {
-                        Get.put(GlobalController()).historyStatus.value =
-                            "REQUEST_MODE",
+                        globalController.historyStatus.value = "REQUEST_MODE",
+                        globalController.recordsTabMode.value = 0,
                         Get.to(() => ShareHistoryPage()),
                       }),
               actionTab(
@@ -92,8 +92,8 @@ class HomePageTabScreen extends StatelessWidget {
                   icon: "assets/images/share2.svg",
                   tag: "viewDataShare",
                   function: () => {
-                        Get.put(GlobalController()).historyStatus.value =
-                            "SENDING_MODE",
+                        globalController.historyStatus.value = "SENDING_MODE",
+                        globalController.recordsTabMode.value = 0,
                         Get.to(() => ShareHistoryPage()),
                       }),
               actionTab(
@@ -111,8 +111,7 @@ class HomePageTabScreen extends StatelessWidget {
                   icon: "assets/images/send.svg",
                   tag: "sentRequest",
                   function: () => {
-                        Get.put(GlobalController()).sharingStatus.value =
-                            "SENT_REQUEST",
+                        globalController.sharingStatus.value = "SENT_REQUEST",
                         Get.to(() => ShareListScreen()),
                       }),
               actionTab(

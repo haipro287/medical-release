@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/searchUserController/search_user_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -101,26 +102,11 @@ Container sharingHistoryNavigator({required controller}) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  customObx(
-                      controller: controller,
-                      tabIndex: 0,
-                      title: '全部'),
-                  customObx(
-                      controller: controller,
-                      tabIndex: 1,
-                      title: '共有中'),
-                  customObx(
-                      controller: controller,
-                      tabIndex: 2,
-                      title: '共有中止'),
-                  customObx(
-                      controller: controller,
-                      tabIndex: 3,
-                      title: '検討中 '),
-                  customObx(
-                      controller: controller,
-                      tabIndex: 4,
-                      title: '拒否'),
+                  customObx(controller: controller, tabIndex: 0, title: '全部'),
+                  customObx(controller: controller, tabIndex: 1, title: '共有中'),
+                  customObx(controller: controller, tabIndex: 2, title: '共有中止'),
+                  customObx(controller: controller, tabIndex: 3, title: '検討中 '),
+                  customObx(controller: controller, tabIndex: 4, title: '拒否'),
                 ],
               ),
             ),
@@ -136,6 +122,7 @@ Obx customObx({
   required int tabIndex,
   required String title,
 }) {
+  GlobalController globalController = Get.put(GlobalController());
   return Obx(() {
     return Bouncing(
       onPress: () {
@@ -148,19 +135,21 @@ Obx customObx({
           bottom: getHeight(10),
         ),
         height: getHeight(36),
-        decoration: controller.currentPage.value == tabIndex ? BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: Colors.blue,
-              width: getHeight(3),
-            ),
-          ) ,
-        ) : BoxDecoration(),
+        decoration: globalController.recordsTabMode.value == tabIndex
+            ? BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.blue,
+                    width: getHeight(3),
+                  ),
+                ),
+              )
+            : BoxDecoration(),
         child: Text(
           title,
           style: TextStyle(
               fontSize: getWidth(13),
-              color: controller.currentPage.value == tabIndex
+              color: globalController.recordsTabMode.value == tabIndex
                   ? Colors.blue
                   : Colors.black),
         ),

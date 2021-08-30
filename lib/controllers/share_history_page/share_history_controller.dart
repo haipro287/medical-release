@@ -11,7 +11,6 @@ class ShareHistoryController extends GetxController {
 
   GlobalController globalController = Get.put(GlobalController());
 
-  var currentPage = 0.obs;
   TextEditingController searchInput = TextEditingController();
 
   RxList<dynamic> historyRecords = [].obs;
@@ -22,8 +21,9 @@ class ShareHistoryController extends GetxController {
 
   @override
   void onInit() async {
-    var records = await getRecords(getStatusFromValue(currentPage.value));
-    print("current" + currentPage.value.toString());
+    var currentPage = globalController.recordsTabMode.value;
+    print("current" + currentPage.toString());
+    var records = await getRecords(getStatusFromValue(currentPage));
     historyRecords.value = records;
     searchList.value = records;
     super.onInit();
@@ -59,6 +59,7 @@ class ShareHistoryController extends GetxController {
   }
 
   String getStatusFromValue(int value) {
+    print("value: " + value.toString());
     if (value == 0) {
       return ("");
     } else if (value == 1) {
@@ -74,9 +75,10 @@ class ShareHistoryController extends GetxController {
   }
 
   void onChangeTab(int value) async {
-    if (value != currentPage.value) {
+    var currentPage = globalController.recordsTabMode.value;
+    if (value != currentPage) {
       print("valueeee: " + value.toString());
-      currentPage.value = value;
+      globalController.recordsTabMode.value = value;
       searchInput.clear();
       isHideNotiSearch.value = true;
       var records;

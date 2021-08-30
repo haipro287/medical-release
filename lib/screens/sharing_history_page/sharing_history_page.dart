@@ -12,9 +12,9 @@ import 'package:medical_chain_mobile_ui/widgets/search_navigator.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ShareHistoryPage extends StatelessWidget {
+  GlobalController globalController = Get.put(GlobalController());
   ShareHistoryController sharingHistoryController =
       Get.put(ShareHistoryController());
-  GlobalController globalController = Get.put(GlobalController());
   @override
   Widget build(BuildContext context) {
     var mode = globalController.historyStatus.value;
