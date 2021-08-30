@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignupPageController extends GetxController {
+  final String correctOtp = '777777';
+
   TextEditingController userId = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
+
+  TextEditingController otp = TextEditingController();
+
+  RxBool confirmActive = false.obs;
+  RxBool confirmSuccess = true.obs;
 
   RxBool userIdGuide = false.obs;
   RxBool mailGuide = false.obs;
@@ -24,7 +31,7 @@ class SignupPageController extends GetxController {
   RxBool confirmPasswordIsHide = true.obs;
 
   final RegExp userIdReg = new RegExp(r'^[A-Za-z0-9]+$');
-  final RegExp userIdReg1 = new RegExp(r'[!@#()*$%&/=?_.,:;-\\]+$');
+  final RegExp userIdReg1 = new RegExp(r'[!-/#{-~₫%&/_:-@\[-^]+$');
   final RegExp emailReg = new RegExp(
       r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
   final RegExp phoneReg = new RegExp(r'^[0-9]+$');
@@ -39,6 +46,16 @@ class SignupPageController extends GetxController {
 
   void changeHideConfirmPassword() {
     confirmPasswordIsHide.value = !confirmPasswordIsHide.value;
+  }
+
+  void confirmButtonActive() {
+    confirmActive.value = this.otp.text.length == 6;
+  }
+
+  bool otpValidate() {
+    print(this.otp.text);
+    confirmSuccess.value = this.otp.text == correctOtp;
+    return confirmSuccess.value;
   }
 
   bool isValid() {
@@ -57,10 +74,11 @@ class SignupPageController extends GetxController {
     if (this.userId.text == "") {
       isValid = false;
       userIdErr.value = "ユーザーIDを入力してください。";
-    } else if(this.userId.text.contains(' ') || userIdReg1.hasMatch(this.userId.text)){
+    } else if (this.userId.text.contains(' ') ||
+        userIdReg1.hasMatch(this.userId.text)) {
       isValid = false;
       userIdErr.value = "ユーザーIDは記号、スペースはご使用いただけません。";
-  }else if (!userIdReg.hasMatch(this.userId.text)) {
+    } else if (!userIdReg.hasMatch(this.userId.text)) {
       isValid = false;
       userIdErr.value = "ユーザーIDは半角英数字で入力してください。";
     }
@@ -79,7 +97,8 @@ class SignupPageController extends GetxController {
     } else if (!phoneReg.hasMatch(this.phone.text)) {
       isValid = false;
       phoneErr.value = "電話番号は半角数字で入力してください。";
-    } else if (this.phone.text.length != 10 || this.phone.text.toString()[0] != '0') {
+    } else if (this.phone.text.length != 10 ||
+        this.phone.text.toString()[0] != '0') {
       phoneErr.value = "電話番号は正しい値を入力してください。";
     }
 
