@@ -146,6 +146,10 @@ class Messages extends Translations {
           "confirm": "確認",
           "accountConfirm": "アカウント確認済み",
           "accountConfirmMessage": "次回からユーザーID、メールアドレス でログインできます。",
+          'alert_logout': "ログアウトしてもよろしいでしょうか。",
+          'logout_cancel': "キャンセル",
+          'logout_confirm': 'ログアウト',
+          'privacy_guide': '他人が自分を検索できないように設定'
         }
       };
 }
