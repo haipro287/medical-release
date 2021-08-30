@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
@@ -74,7 +73,7 @@ class LoginPageScreen extends StatelessWidget {
                 FocusScope.of(context).unfocus();
                 bool result = await loginController.login();
                 if (result) {
-                  Get.to(() => HomePageScreen());
+                  Get.offAll(() => HomePageScreen());
                 }
               },
             ),

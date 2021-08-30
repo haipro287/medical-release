@@ -10,6 +10,7 @@ import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/models/status.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
+import 'package:medical_chain_mobile_ui/services/db_service.dart';
 import 'package:medical_chain_mobile_ui/services/response_validator.dart';
 import 'package:medical_chain_mobile_ui/services/socket_service.dart';
 
@@ -181,6 +182,7 @@ class LoginPageController extends GetxController {
             userInfo.username = username.text;
             userInfo.certificate = certificateList[0];
             print("dscds: " + userInfo.certificate.toString());
+            await initDBLogin();
             Get.put(GlobalController()).db.put("user", userInfo);
             Get.put(GlobalController()).user.value = userInfo;
             String? token = await FirebaseMessaging.instance.getToken();

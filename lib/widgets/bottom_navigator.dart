@@ -156,14 +156,17 @@ Container bottomNavigator() {
                                   ? Color(0xFF61B3FF)
                                   : Color(0xFF878C92),
                             ),
-                            Text(
-                              "user".tr,
-                              style: TextStyle(
-                                  fontSize: getWidth(12),
-                                  color:
-                                      homePageController.currentPage.value == 3
-                                          ? Color(0xFF61B3FF)
-                                          : Color(0xFF878C92)),
+                            FittedBox(
+                              child: Text(
+                                "user".tr,
+                                style: TextStyle(
+                                    fontSize: getWidth(12),
+                                    color:
+                                        homePageController.currentPage.value ==
+                                                3
+                                            ? Color(0xFF61B3FF)
+                                            : Color(0xFF878C92)),
+                              ),
                             )
                           ],
                         ),

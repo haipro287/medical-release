@@ -1,21 +1,25 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/privacy/privacy_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/change_password_page/change_password_page.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/terms_and_conditions/terms_and_conditions.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
-import 'package:medical_chain_mobile_ui/widgets/web_view.dart';
+import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
 class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalController globalController = Get.put(GlobalController());
+    PrivacyController privacyController = Get.put(PrivacyController());
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -276,6 +280,69 @@ class UserScreen extends StatelessWidget {
                                   SvgPicture.asset("assets/images/arrow.svg"),
                                 ],
                               ),
+                              SizedBox(
+                                height: getHeight(12),
+                              ),
+                              Container(
+                                height: 1,
+                                width: double.infinity,
+                                color: Color(0xFFF8F8F9),
+                              ),
+                              SizedBox(
+                                height: getHeight(12),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => {
+                          Get.to(
+                            () => TermsAndConditionPage(),
+                          )
+                        },
+                        child: Container(
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: getWidth(24),
+                                        height: getWidth(24),
+                                        child: SvgPicture.asset(
+                                          "assets/images/privacy.svg",
+                                          height: getWidth(24),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: getWidth(12),
+                                      ),
+                                      Container(
+                                        width: getWidth(200),
+                                        child: Text(
+                                          'privacy_guide'.tr,
+                                          style:
+                                              TextStyle(fontSize: getWidth(16)),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Obx(() {
+                                    return CupertinoSwitch(
+                                      value: privacyController.privacy.value,
+                                      onChanged: (bool value) async {
+                                        await privacyController
+                                            .upPrivacy(value);
+                                      },
+                                    );
+                                  })
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -291,13 +358,134 @@ class UserScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    String? token = await FirebaseMessaging.instance.getToken();
-                    print(token.toString());
-                    var unSubcribe = await Get.put(LoginPageController())
-                        .unSubcribe(token: token.toString());
-                    print(unSubcribe);
-                    Get.put(GlobalController()).db.deleteFromDisk();
-                    Get.offAll(() => LoginWelcomePage());
+                    showDialog(
+                        // barrierDismissible: false,
+                        context: context,
+                        builder: (builder) {
+                          return Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width -
+                                  getWidth(32),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    getWidth(6),
+                                  ),
+                                  color: Colors.white),
+                              child: Material(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16.0)),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      height: getHeight(27),
+                                    ),
+                                    SvgPicture.asset(
+                                        "assets/images/logout.svg"),
+                                    SizedBox(
+                                      height: getHeight(25),
+                                    ),
+                                    Text(
+                                      'alert_logout'.tr,
+                                      style: TextStyle(
+                                        fontSize: getWidth(17),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: getHeight(40),
+                                    ),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: getWidth(17),
+                                        ),
+                                        Expanded(
+                                          child: Bouncing(
+                                            onPress: () {
+                                              Get.back();
+                                            },
+                                            child: Container(
+                                              height: getHeight(48),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  getWidth(4),
+                                                ),
+                                                color: Color(0xFFE9E9E9),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'logout_cancel'.tr,
+                                                  style: TextStyle(
+                                                      fontSize: getWidth(17),
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: getWidth(17),
+                                        ),
+                                        Expanded(
+                                          child: Bouncing(
+                                            onPress: () async {
+                                              String? token =
+                                                  await FirebaseMessaging
+                                                      .instance
+                                                      .getToken();
+                                              print(token.toString());
+                                              var unSubcribe = await Get.put(
+                                                      LoginPageController())
+                                                  .unSubcribe(
+                                                      token: token.toString());
+                                              print(unSubcribe);
+                                              Get.put(GlobalController())
+                                                  .db
+                                                  .deleteFromDisk();
+                                              Get.put(HomePageController())
+                                                  .onClose();
+                                              Get.offAll(
+                                                  () => LoginWelcomePage());
+                                            },
+                                            child: Container(
+                                              height: getHeight(48),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  getWidth(4),
+                                                ),
+                                                color: Color(0xFFE9E9E9),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'logout_confirm'.tr,
+                                                  style: TextStyle(
+                                                      color: Color(0xFFEB5757),
+                                                      fontSize: getWidth(17),
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: getWidth(17),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: getHeight(30),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        });
                   },
                   child: Container(
                     color: Colors.white,
