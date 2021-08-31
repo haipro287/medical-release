@@ -72,7 +72,7 @@ class DetailHistoryPage extends StatelessWidget {
                       children: [
                         Text(getHintText(itemSelected)),
                         Text(
-                          itemSelected["username"],
+                          itemSelected["username"] ?? "",
                           style: TextStyle(color: Color(0xFF838AA2)),
                         ),
                       ],
