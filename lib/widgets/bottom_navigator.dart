@@ -66,7 +66,6 @@ Container bottomNavigator() {
                     return Bouncing(
                       onPress: () {
                         globalController.sharingStatus.value = "SENT_DATA";
-                        homePageController.onChangeTab(1);
                         Get.to(() => ShareListScreen());
                       },
                       child: Container(
@@ -77,7 +76,7 @@ Container bottomNavigator() {
                             SvgPicture.asset(
                               "assets/images/share.svg",
                               width: getWidth(24),
-                              color: homePageController.currentPage.value == 1
+                              color: homePageController.currentPage.value == 5
                                   ? Color(0xFF61B3FF)
                                   : Color(0xFF878C92),
                             ),
@@ -86,7 +85,7 @@ Container bottomNavigator() {
                               style: TextStyle(
                                   fontSize: getWidth(12),
                                   color:
-                                      homePageController.currentPage.value == 1
+                                      homePageController.currentPage.value == 5
                                           ? Color(0xFF61B3FF)
                                           : Color(0xFF878C92)),
                             )
@@ -110,7 +109,6 @@ Container bottomNavigator() {
                     return Bouncing(
                       onPress: () {
                         globalController.historyStatus.value = "REQUEST_MODE";
-                        homePageController.onChangeTab(2);
                         Get.to(() => ShareHistoryPage());
                       },
                       child: Container(
@@ -121,7 +119,7 @@ Container bottomNavigator() {
                             SvgPicture.asset(
                               "assets/images/view.svg",
                               width: getWidth(24),
-                              color: homePageController.currentPage.value == 2
+                              color: homePageController.currentPage.value == 5
                                   ? Color(0xFF61B3FF)
                                   : Color(0xFF878C92),
                             ),
@@ -130,7 +128,7 @@ Container bottomNavigator() {
                               style: TextStyle(
                                   fontSize: getWidth(12),
                                   color:
-                                      homePageController.currentPage.value == 2
+                                      homePageController.currentPage.value == 5
                                           ? Color(0xFF61B3FF)
                                           : Color(0xFF878C92)),
                             )
@@ -142,7 +140,7 @@ Container bottomNavigator() {
                   Obx(() {
                     return Bouncing(
                       onPress: () {
-                        homePageController.onChangeTab(3);
+                        homePageController.onChangeTab(1);
                       },
                       child: Container(
                         width: getWidth(65),
@@ -152,7 +150,7 @@ Container bottomNavigator() {
                             SvgPicture.asset(
                               "assets/images/user.svg",
                               width: getWidth(24),
-                              color: homePageController.currentPage.value == 3
+                              color: homePageController.currentPage.value == 1
                                   ? Color(0xFF61B3FF)
                                   : Color(0xFF878C92),
                             ),
@@ -163,7 +161,7 @@ Container bottomNavigator() {
                                     fontSize: getWidth(12),
                                     color:
                                         homePageController.currentPage.value ==
-                                                3
+                                                1
                                             ? Color(0xFF61B3FF)
                                             : Color(0xFF878C92)),
                               ),
