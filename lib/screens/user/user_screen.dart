@@ -295,56 +295,47 @@ class UserScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () => {
-                          Get.to(
-                            () => TermsAndConditionPage(),
-                          )
-                        },
-                        child: Container(
-                          color: Colors.white,
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: getWidth(24),
+                      Container(
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: getWidth(24),
+                                      height: getWidth(24),
+                                      child: SvgPicture.asset(
+                                        "assets/images/privacy.svg",
                                         height: getWidth(24),
-                                        child: SvgPicture.asset(
-                                          "assets/images/privacy.svg",
-                                          height: getWidth(24),
-                                        ),
                                       ),
-                                      SizedBox(
-                                        width: getWidth(12),
+                                    ),
+                                    SizedBox(
+                                      width: getWidth(12),
+                                    ),
+                                    Container(
+                                      width: getWidth(200),
+                                      child: Text(
+                                        'privacy_guide'.tr,
+                                        style:
+                                            TextStyle(fontSize: getWidth(16)),
                                       ),
-                                      Container(
-                                        width: getWidth(200),
-                                        child: Text(
-                                          'privacy_guide'.tr,
-                                          style:
-                                              TextStyle(fontSize: getWidth(16)),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Obx(() {
-                                    return CupertinoSwitch(
-                                      value: privacyController.privacy.value,
-                                      onChanged: (bool value) async {
-                                        await privacyController
-                                            .upPrivacy(value);
-                                      },
-                                    );
-                                  })
-                                ],
-                              ),
-                            ],
-                          ),
+                                    )
+                                  ],
+                                ),
+                                Obx(() {
+                                  return CupertinoSwitch(
+                                    value: privacyController.privacy.value,
+                                    onChanged: (bool value) async {
+                                      await privacyController.upPrivacy(value);
+                                    },
+                                  );
+                                })
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(
@@ -420,7 +411,7 @@ class UserScreen extends StatelessWidget {
                                                   style: TextStyle(
                                                       fontSize: getWidth(17),
                                                       fontWeight:
-                                                          FontWeight.w600),
+                                                          FontWeight.w500),
                                                 ),
                                               ),
                                             ),
@@ -457,16 +448,16 @@ class UserScreen extends StatelessWidget {
                                                     BorderRadius.circular(
                                                   getWidth(4),
                                                 ),
-                                                color: Color(0xFFE9E9E9),
+                                                color: Color(0xFFEB5757),
                                               ),
                                               child: Center(
                                                 child: Text(
                                                   'logout_confirm'.tr,
                                                   style: TextStyle(
-                                                      color: Color(0xFFEB5757),
+                                                      color: Colors.white,
                                                       fontSize: getWidth(17),
                                                       fontWeight:
-                                                          FontWeight.w600),
+                                                          FontWeight.w500),
                                                 ),
                                               ),
                                             ),
