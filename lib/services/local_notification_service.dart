@@ -13,7 +13,7 @@ class LocalNotificationService {
   static void init() {
     final InitializationSettings initializationSettings =
         InitializationSettings(
-            android: AndroidInitializationSettings("app_icon"));
+            android: AndroidInitializationSettings("notification_icon"));
     notificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? route) async {
       print(route);

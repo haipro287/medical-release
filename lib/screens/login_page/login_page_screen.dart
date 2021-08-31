@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_screen.dart';
@@ -73,6 +74,7 @@ class LoginPageScreen extends StatelessWidget {
                 FocusScope.of(context).unfocus();
                 bool result = await loginController.login();
                 if (result) {
+                  Get.put(HomePageController()).currentPage.value = 0;
                   Get.offAll(() => HomePageScreen());
                 }
               },
