@@ -21,12 +21,6 @@ class HomePageScreen extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           children: [
             HomePageTabScreen(),
-            Center(
-              child: Text("share".tr),
-            ),
-            Center(
-              child: Text("view".tr),
-            ),
             UserScreen(),
           ],
         ),

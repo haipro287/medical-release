@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,6 @@ class HomePageController extends GetxController {
   @override
   Future<void> onInit() async {
     // TODO: implement onInit
-    await Firebase.initializeApp();
     FirebaseMessaging.onBackgroundMessage(backgroundHandler);
     NotificationController notificationController =
         Get.put(NotificationController());

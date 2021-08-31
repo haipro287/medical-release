@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -13,7 +11,7 @@ class LocalNotificationService {
   static void init() {
     final InitializationSettings initializationSettings =
         InitializationSettings(
-            android: AndroidInitializationSettings("notification_icon"));
+            android: AndroidInitializationSettings("notification_image"));
     notificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? route) async {
       print(route);
@@ -34,12 +32,8 @@ class LocalNotificationService {
         importance: Importance.max,
         priority: Priority.high,
       ));
-      Random rnd;
-      int min = 1;
-      int max = 100000000;
-      rnd = new Random();
-      int r = min + rnd.nextInt(max - min);
-      await notificationsPlugin.show(r, message.notification!.title,
+
+      await notificationsPlugin.show(1, message.notification!.title,
           message.notification!.body!, notificationDetails,
           payload: message.data["id"]);
     } on Exception catch (e) {
