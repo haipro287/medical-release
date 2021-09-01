@@ -28,7 +28,8 @@ Container switchService(
             bottom: getHeight(10),
           ),
           child: icon.toString().contains('http')
-              ? Image.network(icon.toString())
+              ? Container(
+                  width: getWidth(16), child: Image.network(icon.toString()))
               : SvgPicture.asset(
                   'assets/images/avatar.svg',
                   width: getWidth(16),

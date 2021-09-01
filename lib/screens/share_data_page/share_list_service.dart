@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_confirm_screen.dart';
-import 'package:medical_chain_mobile_ui/screens/share_data_page/share_time_service.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
@@ -17,8 +15,6 @@ class ShareListService extends StatelessWidget {
       Get.put(ShareServiceListController());
   UserSearchController userSearchController = Get.put(UserSearchController());
   GlobalController globalController = Get.put(GlobalController());
-  ContactPageController contactPageController =
-      Get.put(ContactPageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,10 +97,13 @@ class ShareListService extends StatelessWidget {
                                 children: [
                                   Checkbox(
                                       value: shareServiceListController
-                                          .checkList
-                                          .contains(e),
+                                              .checkList
+                                              .where((item) =>
+                                                  item["id"] == e["id"])
+                                              .length >
+                                          0,
                                       onChanged: (bool? isCheck) => {
-                                            if (e.isConnected)
+                                            if (e["isConnected"])
                                               {
                                                 if (isCheck == true)
                                                   {
@@ -118,8 +117,11 @@ class ShareListService extends StatelessWidget {
                                                       .remove(e)
                                               }
                                           }),
-                                  e.icon.toString().contains('http')
-                                      ? Image.network(e.icon.toString())
+                                  e["icon"].toString().contains('http')
+                                      ? Container(
+                                          width: getWidth(27),
+                                          child: Image.network(
+                                              e["icon"].toString()))
                                       : SvgPicture.asset(
                                           "assets/images/avatar.svg",
                                           width: getWidth(27),
@@ -132,9 +134,9 @@ class ShareListService extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(upperFirstString(e.name)),
+                                        Text(upperFirstString(e["name"])),
                                         Text(
-                                          e.isConnected
+                                          e["isConnected"]
                                               ? userSearchController
                                                   .userData["secondaryUsername"]
                                               : "",

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
-import 'package:medical_chain_mobile_ui/models/service.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 
 class ShareServiceListController extends GetxController {
@@ -27,8 +26,6 @@ class ShareServiceListController extends GetxController {
     Duration expired = Duration(days: 100000);
     String calTime =
         TimeService.stringToDJP(TimeService.getTimeNow());
-    // String calTime =
-    //     TimeService.stringToDJP(TimeService.getTimeNow().add(expired));
 
     fromTime = TimeService.timeToBackEnd(TimeService.getTimeNow());
     endTime = TimeService.timeToBackEnd(TimeService.getTimeNow().add(expired));
@@ -44,7 +41,7 @@ class ShareServiceListController extends GetxController {
           globalController.user.value.certificate.toString();
       List<String> services = [];
       for (int i = 0; i < checkList.length; i++) {
-        var id = checkList[i].id;
+        var id = checkList[i]["id"];
         services.add(id);
       }
 
@@ -75,7 +72,7 @@ class ShareServiceListController extends GetxController {
     }
   }
 
-  Future<List<Service>> getServiceList() async {
+  Future<List<Map<String, dynamic>>> getServiceList() async {
     try {
       var userID = globalController.user.value.id.toString();
       var response;
@@ -86,16 +83,17 @@ class ShareServiceListController extends GetxController {
       var json = jsonDecode(response.toString());
       print(json["data"]);
       var list = json["data"];
-      List<Service> listService = [];
+      List<Map<String, dynamic>> listService = [];
 
       for (var i = 0; i < list.length; i++) {
         print(list[i]);
-        Service service = new Service();
-        service.id = list[i]['id'];
-        service.name = list[i]['name'];
-        service.url = list[i]['url'];
-        service.username = list[i]['username'];
-        service.isConnected = list[i]["connected"];
+        Map<String, dynamic> service = {};
+        service["id"] = list[i]['id'];
+        service["name"] = list[i]['name'];
+        service["url"] = list[i]['url'];
+        service["username"] = list[i]['username'];
+        service["isConnected"] = list[i]["connected"];
+        service["icon"] = list[i]["icon"];
         listService.add(service);
       }
 

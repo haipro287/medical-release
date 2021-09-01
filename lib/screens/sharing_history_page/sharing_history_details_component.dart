@@ -141,7 +141,7 @@ Widget historyDetailComponent({required record}) {
                           TimeService.getTimeFormat(record["fromTime"], "") +
                               "～" +
                               // endTime , bao h noi api that fix sau
-                              TimeService.getTimeFormat(record["fromTime"], ""),
+                              TimeService.getTimeFormat(record["endTime"], ""),
                           style: TextStyle(fontSize: getWidth(13)),
                         )
                       : Text(

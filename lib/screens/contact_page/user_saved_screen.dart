@@ -143,7 +143,7 @@ class UserSavedScreen extends StatelessWidget {
                                             ""
                                         ? Text(
                                             userSearchController
-                                                .userData["secondaryName"],
+                                                .userData["secondaryName"] ?? "",
                                             style: TextStyle(
                                               color: Color(0xFF2F3842),
                                               fontSize: getWidth(20),

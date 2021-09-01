@@ -3,10 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/sharing_history_page/confirm_approve_record.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
+import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class DetailHistoryPage extends StatelessWidget {
@@ -26,9 +28,14 @@ class DetailHistoryPage extends StatelessWidget {
         child: globalController.historyStatus.value == "SENDING_MODE"
             ? sentButtonContainer(
                 sharingStatus:
-                    shareHistoryController.itemSelected["status"] ?? "pending")
+                    shareHistoryController.itemSelected["status"] ?? "pending",
+                shareHistoryController: shareHistoryController,
+                context: context,
+              )
             : requestButtonContainer(
                 sharingStatus: shareHistoryController.itemSelected["status"],
+                shareHistoryController: shareHistoryController,
+                context: context,
               ),
       ),
       appBar: mode
@@ -191,7 +198,11 @@ Container layout({required Widget child}) {
   );
 }
 
-Container sentButtonContainer({required String sharingStatus}) {
+Container sentButtonContainer({
+  required String sharingStatus,
+  required ShareHistoryController shareHistoryController,
+  required BuildContext context,
+}) {
   Container result;
   switch (sharingStatus) {
     case "sharing":
@@ -210,7 +221,7 @@ Container sentButtonContainer({required String sharingStatus}) {
                   ),
                 ),
                 onPressed: () {
-                  print('hahaha');
+                  CustomDialog(context, "STOP_SHARING").show();
                 },
                 child: Text(
                   'stop_sharing'.tr,
@@ -231,7 +242,8 @@ Container sentButtonContainer({required String sharingStatus}) {
                   ),
                 ),
                 onPressed: () {
-                  print('hahaha');
+                  shareHistoryController.editToShare();
+                  print('edit to share');
                 },
                 child: Text(
                   'edit_data_to_share'.tr,
@@ -258,7 +270,8 @@ Container sentButtonContainer({required String sharingStatus}) {
                   ),
                 ),
                 onPressed: () {
-                  print('hahaha');
+                  Get.to(() => ConfirmApproveRecordPage());
+                  print('approve');
                 },
                 child: Text(
                   'accept'.tr,
@@ -285,7 +298,8 @@ Container sentButtonContainer({required String sharingStatus}) {
                   ),
                 ),
                 onPressed: () {
-                  print('hahaha');
+                  shareHistoryController.editToShare();
+                  print('edit to share');
                 },
                 child: Text(
                   'edit_data_to_share'.tr,
@@ -312,8 +326,12 @@ Container sentButtonContainer({required String sharingStatus}) {
                     color: Color(0xFFE9E9E9),
                   ),
                 ),
-                onPressed: () {
-                  print('hahaha');
+                onPressed: () async {
+                  var a = await shareHistoryController.sharingService(
+                    status: "REJECTED_REQUEST",
+                  );
+                  print(a.toString());
+                  print('reject');
                 },
                 child: Text(
                   'rejected_color'.tr,
@@ -333,7 +351,8 @@ Container sentButtonContainer({required String sharingStatus}) {
                   ),
                 ),
                 onPressed: () {
-                  print('hahaha');
+                  Get.to(() => ConfirmApproveRecordPage());
+                  print('approve');
                 },
                 child: Text(
                   'accept'.tr,
@@ -349,7 +368,11 @@ Container sentButtonContainer({required String sharingStatus}) {
   return result;
 }
 
-Container requestButtonContainer({required String sharingStatus}) {
+Container requestButtonContainer({
+  required String sharingStatus,
+  required ShareHistoryController shareHistoryController,
+  required BuildContext context,
+}) {
   return layout(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,

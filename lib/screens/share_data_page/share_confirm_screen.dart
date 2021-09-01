@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
-import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_page.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
@@ -17,8 +15,6 @@ class ShareConfirmScreen extends StatelessWidget {
   ShareServiceListController shareServiceListController =
       Get.put(ShareServiceListController());
   UserSearchController userSearchController = Get.put(UserSearchController());
-  ContactPageController contactPageController =
-      Get.put(ContactPageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,9 +61,7 @@ class ShareConfirmScreen extends StatelessWidget {
                         ? 1
                         : 3;
                 globalController.recordsTabMode.value = tabChange;
-                Get.to(() => ShareHistoryPage());
-                // Get.put(ShareHistoryController()).currentPage.value = tabChange;
-                // Get.put(ShareHistoryController()).onChangeTab(tabChange);
+                Get.offAll(() => ShareHistoryPage());
               }
             },
             child: Text(
@@ -102,7 +96,6 @@ class ShareConfirmScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      // romanji kanji name
                       children: [
                         Text(getHintText(userSearchController.userData)),
                         Text(
@@ -134,8 +127,9 @@ class ShareConfirmScreen extends StatelessWidget {
                           border: Border(
                             top: BorderSide(
                               color: Color(0xFFECEFF1),
-                              width: e.id !=
-                                      shareServiceListController.checkList[0].id
+                              width: e["id"] !=
+                                      shareServiceListController.checkList[0]
+                                          ["id"]
                                   ? getHeight(1)
                                   : getHeight(0),
                             ),
@@ -144,7 +138,14 @@ class ShareConfirmScreen extends StatelessWidget {
                         height: getHeight(78),
                         child: Row(
                           children: [
-                            SvgPicture.asset("assets/images/avatar.svg"),
+                            e["icon"].toString().contains('http')
+                                ? Container(
+                                    width: getWidth(27),
+                                    child: Image.network(e["icon"].toString()))
+                                : SvgPicture.asset(
+                                    'assets/images/avatar.svg',
+                                    width: getWidth(27),
+                                  ),
                             SizedBox(width: getWidth(15)),
                             Container(
                               alignment: Alignment.center,
@@ -152,7 +153,7 @@ class ShareConfirmScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(upperFirstString(e.name)),
+                                  Text(upperFirstString(e["name"])),
                                 ],
                               ),
                             )

@@ -3,7 +3,12 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
+import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_service.dart';
+import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_page.dart';
+import 'package:medical_chain_mobile_ui/services/date_format.dart';
 
 class ShareHistoryController extends GetxController {
   PageController pageController =
@@ -22,20 +27,18 @@ class ShareHistoryController extends GetxController {
   @override
   void onInit() async {
     var currentPage = globalController.recordsTabMode.value;
-    print("current" + currentPage.toString());
     var records = await getRecords(getStatusFromValue(currentPage));
     historyRecords.value = records;
     searchList.value = records;
-    super.onInit();
-    // currentPage.listen((value) {
-    //   if (value != 0) {
-    //     var status = getStatusFromValue(value);
-    //     var filterRecords =
-    //         historyRecords.where((e) => e["status"] == status).toList();
-    //     historyRecords.value = filterRecords;
-    //     searchList.value = filterRecords;
-    //   }
+
+    // globalController.recordsTabMode.listen((value) async {
+    //   print("statuss: " + getStatusFromValue(value));
+    //   var records = await getRecords(getStatusFromValue(currentPage));
+    //   historyRecords.value = records;
+    //   searchList.value = records;
     // });
+
+    super.onInit();
   }
 
   void search() {
@@ -77,7 +80,6 @@ class ShareHistoryController extends GetxController {
   void onChangeTab(int value) async {
     var currentPage = globalController.recordsTabMode.value;
     if (value != currentPage) {
-      print("valueeee: " + value.toString());
       globalController.recordsTabMode.value = value;
       searchInput.clear();
       isHideNotiSearch.value = true;
@@ -87,11 +89,6 @@ class ShareHistoryController extends GetxController {
       historyRecords.value = records;
       searchList.value = records;
       pageController..jumpToPage(value);
-      // ..animateToPage(
-      //   value,
-      //   duration: Duration(milliseconds: 1000),
-      //   curve: Curves.linearToEaseOut,
-      // );
     }
   }
 
@@ -132,12 +129,14 @@ class ShareHistoryController extends GetxController {
         item["endTime"] = list[i]["endTime"];
         item["status"] = list[i]["status"];
         item["services"] = [];
+        item["servicesId"] = [];
         for (var j = 0; j < list[i]["services"].length; j++) {
           var service = {};
           service["id"] = list[i]["services"][j]["id"];
           service["name"] = list[i]["services"][j]["name"];
           service["icon"] = list[i]["services"][j]["icon"];
           item["services"].add(service);
+          item["servicesId"].add(service["id"]);
         }
         listRecords.add(item);
       }
@@ -157,5 +156,93 @@ class ShareHistoryController extends GetxController {
     var hourDiff = diffTime.inHours;
     // TO DO: determine time options: 1 day, 1 week, 1 month or until turn off
     // print(hourDiff.toString());
+  }
+
+  Future sharingService({
+    required String status,
+  }) async {
+    var redirectToNewTab = false;
+    var value = 0;
+    var recordID = itemSelected.value["id"];
+    try {
+      var response;
+      CustomDio customDio = CustomDio();
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate.toString();
+
+      if (status == "STOP_SHARING") {
+        value = 2;
+        response = await customDio.post(
+          '/request/stop',
+          {
+            "data": {
+              "id": recordID,
+              "endTime":
+                  TimeService.timeToBackEndMaster(TimeService.getTimeNow())
+            },
+          },
+        );
+      } else if (status == "APPROVE_REQUEST") {
+        value = 1;
+        redirectToNewTab = true;
+        response = await customDio.post(
+          '/request/accept',
+          {
+            "data": {
+              "id": recordID,
+              "services": itemSelected.value["servicesId"],
+            },
+          },
+        );
+      } else if (status == "EDIT") {
+        value = 1;
+        var url = "/request/edit";
+      } else if (status == "REJECTED_REQUEST") {
+        redirectToNewTab = true;
+        value = 4;
+        response = await customDio.post(
+          "/request/deny",
+          {
+            "data": {"id": recordID},
+          },
+        );
+      }
+
+      var json = jsonDecode(response.toString());
+      print(json.toString());
+
+      if (json["success"] == true) {
+        globalController.recordsTabMode.value = value;
+        var records = await getRecords(getStatusFromValue(value));
+        historyRecords.value = records;
+        searchList.value = records;
+        print("redirect: " + redirectToNewTab.toString());
+        if (redirectToNewTab) {
+          Get.to(() => ShareHistoryPage());
+        }
+      }
+
+      return (json["success"]);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return null;
+    }
+  }
+
+  void editToShare() {
+    Map<String, dynamic> userData = {};
+    userData["id"] = itemSelected['id'];
+    userData["primaryId"] = itemSelected['primaryId'];
+    userData["secondaryId"] = itemSelected['secondaryId'];
+    userData["name"] = itemSelected['name'];
+    userData["secondaryUsername"] = itemSelected["username"];
+    userData["romanji"] = itemSelected["romanji"];
+    userData["kanji"] = itemSelected["kanji"];
+    globalController.sharingStatus.value = "SENT_DATA";
+    Get.put(UserSearchController()).userData.value = userData;
+    Get.put(ShareServiceListController()).checkList.value =
+        itemSelected["services"];
+    Get.to(() => ShareListService());
   }
 }
