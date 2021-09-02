@@ -45,7 +45,9 @@ class DetailHistoryPage extends StatelessWidget {
               subMode
                   ? null
                   : InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        shareHistoryController.editToShare("SENT_DATA");
+                      },
                       child: Text(
                         'edit'.tr,
                         style: TextStyle(
@@ -242,7 +244,7 @@ Container sentButtonContainer({
                   ),
                 ),
                 onPressed: () {
-                  shareHistoryController.editToShare();
+                  shareHistoryController.editToShare("SENT_DATA");
                   print('edit to share');
                 },
                 child: Text(
@@ -298,7 +300,7 @@ Container sentButtonContainer({
                   ),
                 ),
                 onPressed: () {
-                  shareHistoryController.editToShare();
+                  shareHistoryController.editToShare("SENT_DATA");
                   print('edit to share');
                 },
                 child: Text(
@@ -387,7 +389,11 @@ Container requestButtonContainer({
               ),
             ),
             onPressed: () {
-              print('hahaha');
+              if (sharingStatus == "sharing") {
+                print('hahaha');
+              } else {
+                shareHistoryController.editToShare("SENT_REQUEST");
+              }
             },
             child: Text(
               '${sharingStatus}_reqModeBtn'.tr,

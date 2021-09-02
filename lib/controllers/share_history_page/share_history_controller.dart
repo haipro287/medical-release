@@ -230,16 +230,16 @@ class ShareHistoryController extends GetxController {
     }
   }
 
-  void editToShare() {
+  void editToShare(String type) {
     Map<String, dynamic> userData = {};
     userData["id"] = itemSelected['id'];
-    userData["primaryId"] = itemSelected['primaryId'];
-    userData["secondaryId"] = itemSelected['secondaryId'];
+    userData["primaryId"] = itemSelected['secondaryId'];
+    userData["secondaryId"] = itemSelected['primaryId'];
     userData["name"] = itemSelected['name'];
     userData["secondaryUsername"] = itemSelected["username"];
     userData["romanji"] = itemSelected["romanji"];
     userData["kanji"] = itemSelected["kanji"];
-    globalController.sharingStatus.value = "SENT_DATA";
+    globalController.sharingStatus.value = type;
     Get.put(UserSearchController()).userData.value = userData;
     Get.put(ShareServiceListController()).checkList.value =
         itemSelected["services"];
