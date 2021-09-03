@@ -54,8 +54,7 @@ class LoginWelcomePage extends StatelessWidget {
                   child: Text('signupButton'.tr),
                 ),
                 onPress: () {
-                  // Get.to(() => SignupScreen());
-                  Get.to(() => ConfirmSignupScreen());
+                  Get.to(() => SignupScreen());
                 },
               ),
               SizedBox(
