@@ -265,7 +265,7 @@ AlertDialog servicesNotConnectDialog(context, List<dynamic> servicesList) {
   return AlertDialog(
     content: Container(
       width: getWidth(343),
-      height: getHeight(288),
+      height: getHeight(servicesList.length > 1 ? 288 : 240),
       child: Column(
         children: [
           Text(
@@ -343,9 +343,9 @@ AlertDialog servicesNotConnectDialog(context, List<dynamic> servicesList) {
                           Expanded(
                             child: OutlinedButton(
                               style: OutlinedButton.styleFrom(
-                                backgroundColor: Color(0xD0E8FF),
+                                backgroundColor: Color(0xFFD0E8FF),
                                 side: BorderSide(
-                                  color: Color(0xD0E8FF),
+                                  color: Color(0xFFD0E8FF),
                                 ),
                                 padding: EdgeInsets.symmetric(
                                     vertical: getHeight(12)),
@@ -357,7 +357,7 @@ AlertDialog servicesNotConnectDialog(context, List<dynamic> servicesList) {
                               child: Text(
                                 '連携',
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontSize: getWidth(17),
                                     fontWeight: FontWeight.w400),
                               ),
