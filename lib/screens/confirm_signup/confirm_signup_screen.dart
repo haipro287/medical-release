@@ -44,29 +44,32 @@ class ConfirmSignupScreen extends StatelessWidget {
               ),
               Obx(() {
                 // bool success = signupPageController.confirmSuccess.value;
-                return PinCodeTextField(
-                  onTextChanged: (text) {
-                    signupPageController.confirmButtonActive();
-                  },
-                  hasError: !signupPageController.confirmSuccess.value,
-                  autofocus: false,
-                  maxLength: 6,
-                  controller: signupPageController.otp,
-                  isCupertino: true,
-                  pinBoxWidth: getWidth(46),
-                  pinBoxHeight: getHeight(67),
-                  defaultBorderColor: Color(0xFFDDDEE2),
-                  hasTextBorderColor: Color(0xFFDDDEE2),
-                  pinBoxRadius: 4,
-                  pinBoxBorderWidth: 1,
-                  errorBorderColor: Colors.red,
-                  pinTextStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: getHeight(20),
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: 0.5,
+                return Container(
+                  child: PinCodeTextField(
+                    onTextChanged: (text) {
+                      signupPageController.confirmButtonActive();
+                    },
+                    hasError: !signupPageController.confirmSuccess.value,
+                    autofocus: false,
+                    maxLength: 6,
+                    controller: signupPageController.otp,
+                    isCupertino: true,
+                    pinBoxWidth: (screenWidth() - getWidth(109)) / 6,
+                    pinBoxHeight: getHeight(67),
+                    defaultBorderColor: Color(0xFFDDDEE2),
+                    hasTextBorderColor: Color(0xFFDDDEE2),
+                    pinBoxRadius: 4,
+                    pinBoxBorderWidth: 1,
+                    errorBorderColor: Colors.red,
+                    pinTextStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: getHeight(20),
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 0.5,
+                    ),
+                    // wrapAlignment: WrapAlignment.spaceEvenly,
+                    pinBoxOuterPadding: EdgeInsets.only(left: getWidth(13)),
                   ),
-                  pinBoxOuterPadding: EdgeInsets.only(left: 13),
                 );
               }),
               Obx(() => signupPageController.confirmSuccess.value
@@ -123,9 +126,7 @@ class ConfirmSignupScreen extends StatelessWidget {
                   ),
                   onTap: () {
                     if (active) {
-
                       if (signupPageController.otpValidate()) {
-                        signupPageController.signup(context);
                         Get.to(() => SignupSuccessScreen());
                       }
                     }

@@ -284,11 +284,16 @@ class SignupScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPress: () {
+                  onPress: () async {
                     FocusManager.instance.primaryFocus?.unfocus();
 
+
                     if (signupPageController.isValid()) {
-                      Get.to(() => ConfirmSignupScreen());
+                      var res = await signupPageController.signup(context);
+
+                      if (signupPageController.signupError.value == "") {
+                        Get.to(() => ConfirmSignupScreen());
+                      }
                     }
                   },
                 ),
@@ -296,7 +301,9 @@ class SignupScreen extends StatelessWidget {
                   height: getHeight(30),
                 ),
                 Bouncing(
-                  onPress: () {Get.to(() => LoginPageScreen());},
+                  onPress: () {
+                    Get.to(() => LoginPageScreen());
+                  },
                   child: Text(
                     "登録完了？ログイン",
                     style: TextStyle(
@@ -305,7 +312,9 @@ class SignupScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: getHeight(20),)
+                SizedBox(
+                  height: getHeight(20),
+                )
               ],
             )),
       ),

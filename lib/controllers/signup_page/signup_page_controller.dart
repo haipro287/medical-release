@@ -35,6 +35,8 @@ class SignupPageController extends GetxController {
   RxBool passwordIsHide = true.obs;
   RxBool confirmPasswordIsHide = true.obs;
 
+  RxString signupError = "".obs;
+
   final RegExp userIdReg = new RegExp(r'^[A-Za-z0-9]+$');
   final RegExp userIdReg1 = new RegExp(r'[!-/#{-~₫%&/_:-@\[-^]+$');
   final RegExp emailReg = new RegExp(
@@ -135,42 +137,70 @@ class SignupPageController extends GetxController {
     return isValid;
   }
 
+  void signupErrorMessage(mess) {
+    if (mess == "invalid username or existed") {
+      userIdErr.value = "ユーザーIDは既に存在しています。";
+      return;
+    }
+
+    if (mess == "invalid mail or existed") {
+      mailErr.value = "メールアドレスは既に存在しています。";
+      return;
+    }
+
+    if (mess == "invalid phone number or existed") {
+      phoneErr.value = "電話番号は既に存在しています。";
+      return;
+    }
+  }
+
   Future<Map> signup(context) async {
     try {
       var response;
       var keyPair = generateKeyPairAndEncrypt(password.text);
       CustomDio customDio = CustomDio();
       response = await customDio.post(
-        "/user",
-        {
-          "data": {
-            "username": userId.text,
-            "mail": email.text,
-            "phone": phone.text,
-            "encryptedPrivateKey": keyPair["encryptedPrivateKey"],
-            "publicKey": keyPair["publicKey"],
+          "/user",
+          {
+            "data": {
+              "username": userId.text,
+              "mail": email.text,
+              "phone": phone.text,
+              "encryptedPrivateKey": keyPair["encryptedPrivateKey"],
+              "publicKey": keyPair["publicKey"],
+            },
           },
-        },
-        sign: false
-      );
+          sign: false);
       var json = jsonDecode(response.toString());
       print(json);
 
-      var data = json["data"];
+      if (json["success"] == true) {
+        var data = json["data"];
 
-      MyAccountController myAccountController = Get.put(MyAccountController());
+        MyAccountController myAccountController =
+            Get.put(MyAccountController());
 
-      myAccountController.kanjiName.value = data["kanji"];
-      myAccountController.katakanaName.value = data["romanji"];
-      myAccountController.dob.value = DateTime.parse(data["birthday"]);
-      myAccountController.userName = data["username"];
-      myAccountController.email.value = data["mail"];
-      myAccountController.phoneNumber.value = data["phone"];
-      myAccountController.citizenCode.value = data["pid"];
-      myAccountController.phoneVerified = data["isPhoneValidated"];
-      myAccountController.emailVerified = data["isMailValidated"];
+        myAccountController.kanjiName.value = data["kanji"];
+        myAccountController.katakanaName.value = data["romanji"];
+        myAccountController.dob.value = DateTime.parse(data["birthday"]);
+        myAccountController.userName = data["username"];
+        myAccountController.email.value = data["mail"];
+        myAccountController.phoneNumber.value = data["phone"];
+        myAccountController.citizenCode.value = data["pid"];
+        myAccountController.phoneVerified = data["isPhoneValidated"];
+        myAccountController.emailVerified = data["isMailValidated"];
 
+        signupError.value = "";
 
+        return {};
+      }
+
+      print('dsadsjaksa');
+      signupError.value = json["error"];
+
+      signupErrorMessage(signupError.value);
+
+      print(signupError);
       return json;
     } catch (e, s) {
       print(e);
