@@ -343,9 +343,9 @@ AlertDialog servicesNotConnectDialog(context, List<dynamic> servicesList) {
                           Expanded(
                             child: OutlinedButton(
                               style: OutlinedButton.styleFrom(
-                                backgroundColor: Color(0xFFEB5757),
+                                backgroundColor: Color(0xD0E8FF),
                                 side: BorderSide(
-                                  color: Color(0xFFEB5757),
+                                  color: Color(0xD0E8FF),
                                 ),
                                 padding: EdgeInsets.symmetric(
                                     vertical: getHeight(12)),
