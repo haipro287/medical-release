@@ -330,6 +330,7 @@ Container sentButtonContainer({
                 ),
                 onPressed: () async {
                   var a = await shareHistoryController.sharingService(
+                    context,
                     status: "REJECTED_REQUEST",
                   );
                   print(a.toString());

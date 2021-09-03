@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_page.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
@@ -61,6 +62,15 @@ class ShareConfirmScreen extends StatelessWidget {
                         ? 1
                         : 3;
                 globalController.recordsTabMode.value = tabChange;
+                var editMode = globalController.editToShareMode.value;
+                if (editMode == "STOP_SHARING") {
+                  var stopResult =
+                      await Get.put(ShareHistoryController()).sharingService(
+                    context,
+                    status: "STOP_SHARING",
+                  );
+                  print(stopResult.toString());
+                }
                 Get.offAll(() => ShareHistoryPage());
               }
             },

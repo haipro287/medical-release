@@ -8,6 +8,7 @@ import 'package:medical_chain_mobile_ui/screens/share_data_page/share_confirm_sc
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
+import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ShareListService extends StatelessWidget {
@@ -51,7 +52,21 @@ class ShareListService extends StatelessWidget {
               ),
               onPressed: () {
                 if (shareServiceListController.checkList.length > 0) {
-                  Get.to(() => ShareConfirmScreen());
+                  var servicesList =
+                      shareServiceListController.checkList.value.where((e) {
+                    var element = shareServiceListController.serviceList.value
+                        .where((ele) => ele["id"] == e["id"])
+                        .first;
+                    print("eleeee:" + element.toString());
+                    return element["isConnected"] == false;
+                  }).toList();
+                  print(servicesList.toString());
+                  if (servicesList.length > 0) {
+                    CustomDialog(context, "SERVICES_NOT_CONNECT")
+                        .show({"servicesList": servicesList});
+                  } else {
+                    Get.to(() => ShareConfirmScreen());
+                  }
                 }
               },
               child: Text(
@@ -103,19 +118,19 @@ class ShareListService extends StatelessWidget {
                                               .length >
                                           0,
                                       onChanged: (bool? isCheck) => {
-                                            if (e["isConnected"])
+                                            // if (e["isConnected"])
+                                            //   {
+                                            if (isCheck == true)
                                               {
-                                                if (isCheck == true)
-                                                  {
-                                                    shareServiceListController
-                                                        .checkList
-                                                        .add(e)
-                                                  }
-                                                else
-                                                  shareServiceListController
-                                                      .checkList
-                                                      .remove(e)
+                                                shareServiceListController
+                                                    .checkList
+                                                    .add(e)
                                               }
+                                            else
+                                              shareServiceListController
+                                                  .checkList
+                                                  .remove(e)
+                                            // }
                                           }),
                                   e["icon"].toString().contains('http')
                                       ? Container(

@@ -9,6 +9,7 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_service.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_page.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
+import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 
 class ShareHistoryController extends GetxController {
   PageController pageController =
@@ -23,6 +24,7 @@ class ShareHistoryController extends GetxController {
   var isHideNotiSearch = true.obs;
 
   var itemSelected = {}.obs;
+  var servicesNotConnect = [].obs;
 
   @override
   void onInit() async {
@@ -158,7 +160,8 @@ class ShareHistoryController extends GetxController {
     // print(hourDiff.toString());
   }
 
-  Future sharingService({
+  Future sharingService(
+    BuildContext? context, {
     required String status,
   }) async {
     var redirectToNewTab = false;
@@ -209,7 +212,6 @@ class ShareHistoryController extends GetxController {
       }
 
       var json = jsonDecode(response.toString());
-      print(json.toString());
 
       if (json["success"] == true) {
         globalController.recordsTabMode.value = value;
@@ -220,6 +222,8 @@ class ShareHistoryController extends GetxController {
         if (redirectToNewTab) {
           Get.to(() => ShareHistoryPage());
         }
+      } else if (json["success"] == false && status == "APPROVE_REQUEST") {
+        handleApproveRequest(json, context as BuildContext);
       }
 
       return (json["success"]);
@@ -230,19 +234,43 @@ class ShareHistoryController extends GetxController {
     }
   }
 
-  void editToShare(String type) {
+  void handleApproveRequest(json, BuildContext context) {
+    var servicesNotConnectedData = json["data"]["services"];
+    var servicesNotConnectedList = [];
+    for (var j = 0; j < servicesNotConnectedData.length; j++) {
+      var service = {};
+      service["id"] = servicesNotConnectedData[j]["id"];
+      service["name"] = servicesNotConnectedData[j]["name"];
+      service["icon"] = servicesNotConnectedData[j]["icon"];
+      servicesNotConnectedList.add(service);
+    }
+    servicesNotConnect.value = servicesNotConnectedList;
+    CustomDialog(context, "SERVICES_NOT_CONNECT")
+        .show({"servicesList": servicesNotConnect.value});
+  }
+
+  void editToShare(String type, [String? optionType]) {
     Map<String, dynamic> userData = {};
     userData["id"] = itemSelected['id'];
-    userData["primaryId"] = itemSelected['secondaryId'];
-    userData["secondaryId"] = itemSelected['primaryId'];
+    if (globalController.historyStatus.value == "SENDING_MODE") {
+      userData["primaryId"] = itemSelected['primaryId'];
+      userData["secondaryId"] = itemSelected['secondaryId'];
+    } else {
+      userData["primaryId"] = itemSelected['secondaryId'];
+      userData["secondaryId"] = itemSelected['primaryId'];
+    }
     userData["name"] = itemSelected['name'];
     userData["secondaryUsername"] = itemSelected["username"];
     userData["romanji"] = itemSelected["romanji"];
     userData["kanji"] = itemSelected["kanji"];
+    print("itemSeeee: " + itemSelected["id"]);
+    print("itemSeeee: " + itemSelected["secondaryId"]);
+    print("itemSeeee: " + itemSelected["primaryId"]);
     globalController.sharingStatus.value = type;
     Get.put(UserSearchController()).userData.value = userData;
     Get.put(ShareServiceListController()).checkList.value =
         itemSelected["services"];
+    globalController.editToShareMode.value = optionType ?? "";
     Get.to(() => ShareListService());
   }
 }

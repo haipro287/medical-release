@@ -25,6 +25,7 @@ class ConfirmApproveRecordPage extends StatelessWidget {
       bottomNavigationBar: Padding(
           padding: EdgeInsets.only(top: getHeight(12)),
           child: confirmButtonContainer(
+            context,
             shareHistoryController: shareHistoryController,
           )),
       appBar: appBar(context, "confirmSentData".tr),
@@ -145,7 +146,7 @@ Container layout({required Widget child}) {
   );
 }
 
-Container confirmButtonContainer({
+Container confirmButtonContainer(BuildContext context, {
   required ShareHistoryController shareHistoryController,
 }) {
   return layout(
@@ -163,6 +164,7 @@ Container confirmButtonContainer({
             ),
             onPressed: () async {
               var a = await shareHistoryController.sharingService(
+                context,
                 status: "APPROVE_REQUEST",
               );
               print(a.toString());
