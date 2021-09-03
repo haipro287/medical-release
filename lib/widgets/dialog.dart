@@ -213,7 +213,7 @@ AlertDialog changePasswordDialog(context) {
         children: [
           SvgPicture.asset("assets/images/success-icon.svg"),
           SizedBox(
-            height: getHeight(27),
+            height: getHeight(32),
           ),
           Text(
             "パスワード変更しました。",

@@ -193,11 +193,21 @@ class ChangePasswordController extends GetxController {
           print(response);
           if (response == true) {
             print('debug1');
+            String newEncryptedPrivateKey =
+                encryptedKeyPair["encryptedPrivateKey"];
+            String newPrivateKey = encryptedKeyPair["privateKey"];
+
+            globalController.user.value.encryptedPrivateKey =
+                newEncryptedPrivateKey;
+
+            globalController.user.value.privateKey = newPrivateKey;
+
             isSuccess.value = true;
             errPassword.value = "";
             password.clear();
             newPassword.clear();
             confirmPassword.clear();
+
             CustomDialog(context, "CHANGE_PASSWORD").show();
           } else {
             print('debug2');
@@ -210,4 +220,55 @@ class ChangePasswordController extends GetxController {
       }
     }
   }
+
+  // void changePassword2(context) async {
+  //   isSuccess.value = false;
+  //   errNewPassword.value = errMsgNewPassword();
+  //   errConfirmPassword.value = errMsgConfirmPassword();
+  //   if (password.text == "") {
+  //     errPassword.value = "パスワードを入力してください。";
+  //   } else {
+  //     errPassword.value = "";
+  //     if (errNewPassword.value == "" && errConfirmPassword.value == "") {
+  //       // Todo change password api
+  //       print(password.text);
+  //       // var truePassword = await checkPassword(password.text);
+  //       // var truePassword = checkCurrentPassword(password.text);
+  //       var truePassword = true;
+  //       if (truePassword) {
+  //         var encryptedKeyPair = generateKeyPairAndEncrypt(newPassword.text);
+  //         var response =
+  //             await sendNewKeyPair(encryptedKeyPair: encryptedKeyPair);
+  //         print(response);
+  //         response = true;
+  //         if (response == true) {
+  //           print('debug1');
+  //           var newEncryptedPrivateKey =
+  //               encryptedKeyPair["encryptedPrivateKey"];
+
+  //           globalController.user.value.encryptedPrivateKey =
+  //               newEncryptedPrivateKey;
+
+  //           var newPrivateKey =
+  //               decryptAESCryptoJS(newEncryptedPrivateKey, password.text);
+  //           globalController.user.value.privateKey = newPrivateKey;
+
+  //           isSuccess.value = true;
+  //           errPassword.value = "";
+  //           password.clear();
+  //           newPassword.clear();
+  //           confirmPassword.clear();
+
+  //           CustomDialog(context, "CHANGE_PASSWORD").show();
+  //         } else {
+  //           print('debug2');
+  //           errPassword.value = "パスワードが合っていません。";
+  //         }
+  //       } else {
+  //         print('debug3');
+  //         errPassword.value = "パスワードが合っていません。";
+  //       }
+  //     }
+  //   }
+  // }
 }

@@ -187,7 +187,8 @@ Map<String, dynamic> generateKeyPairAndEncrypt(String password) {
   var encryptedPrivateKey = encryptAESCryptoJS(privateKeyBase64, password);
   final Map<String, dynamic> encryptedKeyPair = {
     "publicKey": publicKeyBase64,
-    "encryptedPrivateKey": encryptedPrivateKey
+    "encryptedPrivateKey": encryptedPrivateKey,
+    "privateKey": privateKeyBase64,
   };
   return encryptedKeyPair;
 }
