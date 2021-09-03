@@ -205,6 +205,8 @@ class LoginPageController extends GetxController {
         }
       } else if (validateUsername.status == "ERROR.SERVER") {
         messValidateUsername.value = "Error Server";
+      } else if (validateUsername.status == "ACCOUNT.BANNED") {
+        messValidateUsername.value = "User Banned";
       } else {
         messValidateUsername.value = "Username Invalid";
       }

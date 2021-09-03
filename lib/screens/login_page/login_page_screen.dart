@@ -13,6 +13,7 @@ class LoginPageScreen extends StatelessWidget {
   LoginPageController loginController = Get.put(LoginPageController());
   @override
   Widget build(BuildContext context) {
+    var messValidate = loginController.messValidateUsername.value;
     return Scaffold(
       appBar: appBar(context, "ログイン"),
       backgroundColor: Colors.white,
@@ -87,10 +88,11 @@ class LoginPageScreen extends StatelessWidget {
                       loginController.messValidatePassword.value != "")
                   ? InkWell(
                       child: Text(
-                        loginController.messValidateUsername.value ==
-                                "Error Server"
+                        messValidate == "Error Server"
                             ? "Server crash"
-                            : "wrongPass".tr,
+                            : messValidate == "User Banned"
+                                ? "あなたのアカウントは停止されました。この連絡先でご連絡ください：0987654321"
+                                : "wrongPass".tr,
                         style: TextStyle(
                           color: Colors.red,
                         ),

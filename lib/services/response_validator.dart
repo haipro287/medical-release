@@ -6,11 +6,13 @@ class ResponseValidator {
     if (response == null) {
       return new Status(status: "ERROR.SERVER", message: "EMPTY.SERVER");
     }
+    if (response.data["code"] == 401) {
+      return new Status(status: "ACCOUNT.BANNED", message: "ACCOUNT.BANNED");
+    }
     if (response.data["code"] != 200 && response.data["code"] != 204) {
       return new Status(
           status: "ERROR.SERVER", message: response.data["reason"].toString());
     }
-
     return new Status(status: "OK", message: "");
   }
 

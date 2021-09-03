@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/screens/confirm_signup/confirm_signup_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
