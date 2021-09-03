@@ -18,7 +18,6 @@ import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    GlobalController globalController = Get.put(GlobalController());
     PrivacyController privacyController = Get.put(PrivacyController());
     return Scaffold(
       backgroundColor: Colors.white,

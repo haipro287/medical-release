@@ -3,13 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
-import 'package:medical_chain_mobile_ui/screens/sharing_history_page/detail_history_page.dart';
-import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_page.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
-import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ConfirmApproveRecordPage extends StatelessWidget {

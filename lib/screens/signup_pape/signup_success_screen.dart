@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/edit_my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';

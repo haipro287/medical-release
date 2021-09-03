@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/searchUserController/search_user_controller.dart';
-import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
@@ -39,7 +38,7 @@ Container searchNavigator() {
                             ? Color(0xFF61B3FF)
                             : Color(0xFFEFF0F4),
                         child: Text(
-                          '連携先',
+                          'contact'.tr,
                           style: TextStyle(
                               fontSize: getWidth(12),
                               color: searchUserController.currentPage.value == 0

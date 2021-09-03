@@ -88,10 +88,12 @@ class LoginPageScreen extends StatelessWidget {
                       loginController.messValidatePassword.value != "")
                   ? InkWell(
                       child: Text(
-                        loginController.messValidateUsername.value == "Error Server"
+                        loginController.messValidateUsername.value ==
+                                "Error Server"
                             ? "Server crash"
-                            : loginController.messValidateUsername.value == "User Banned"
-                                ? "あなたのアカウントは停止されました。この連絡先でご連絡ください：0987654321"
+                            : loginController.messValidateUsername.value ==
+                                    "User Banned"
+                                ? "banned_user_msg".tr
                                 : "wrongPass".tr,
                         style: TextStyle(
                           color: Colors.red,

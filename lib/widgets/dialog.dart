@@ -76,7 +76,7 @@ AlertDialog deleteDialog(context) {
                         Navigator.of(context).pop();
                       },
                       child: Text(
-                        'キャンセル',
+                        'cancel'.tr,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: getWidth(17),
@@ -159,7 +159,7 @@ AlertDialog stopSharingDialog(context) {
                         Navigator.of(context).pop();
                       },
                       child: Text(
-                        'キャンセル',
+                        'cancel'.tr,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: getWidth(17),
@@ -186,7 +186,7 @@ AlertDialog stopSharingDialog(context) {
                         Get.to(() => ShareHistoryPage());
                       },
                       child: Text(
-                        'やめる',
+                        'stop'.tr,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: getWidth(17),
@@ -276,31 +276,33 @@ AlertDialog servicesNotConnectDialog(context, List<dynamic> servicesList) {
           SizedBox(
             height: getHeight(27),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: servicesList
-                .map((e) => Container(
-                      margin: EdgeInsets.only(
-                        bottom: getHeight(8),
-                      ),
-                      child: Row(children: [
-                        Container(
-                          width: getWidth(27),
-                          child: e["icon"].toString().contains('http')
-                              ? Image.network(e["icon"].toString())
-                              : SvgPicture.asset(
-                                  "assets/images/avatar.svg",
-                                  width: getWidth(27),
-                                ),
+          Expanded(
+            child: ListView(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: servicesList
+                  .map((e) => Container(
+                        margin: EdgeInsets.only(
+                          bottom: getHeight(8),
                         ),
-                        SizedBox(width: getWidth(8)),
-                        Container(
-                          child: Text(upperFirstString(e["name"])),
-                        ),
-                      ]),
-                    ))
-                .toList(),
+                        child: Row(children: [
+                          Container(
+                            width: getWidth(27),
+                            child: e["icon"].toString().contains('http')
+                                ? Image.network(e["icon"].toString())
+                                : SvgPicture.asset(
+                                    "assets/images/avatar.svg",
+                                    width: getWidth(27),
+                                  ),
+                          ),
+                          SizedBox(width: getWidth(8)),
+                          Container(
+                            child: Text(upperFirstString(e["name"])),
+                          ),
+                        ]),
+                      ))
+                  .toList(),
+            ),
           ),
           Expanded(
             child: Container(
@@ -329,7 +331,7 @@ AlertDialog servicesNotConnectDialog(context, List<dynamic> servicesList) {
                                 Navigator.of(context).pop();
                               },
                               child: Text(
-                                'キャンセル',
+                                'cancel'.tr,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: getWidth(17),

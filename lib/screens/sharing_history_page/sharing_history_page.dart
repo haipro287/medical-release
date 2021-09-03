@@ -28,7 +28,7 @@ class ShareHistoryPage extends StatelessWidget {
       body: Column(children: [
         inputSearch(
           context,
-          hintText: "ユーザーID、氏名、ニックネームで検索",
+          hintText: "sharing_history_page".tr,
           textEditingController: sharingHistoryController.searchInput,
           onSearch: sharingHistoryController.search,
         ),
@@ -39,10 +39,14 @@ class ShareHistoryPage extends StatelessWidget {
                   color: Color(0xFFF6F7FB),
                   height: getHeight(20),
                 )
-              : customBoxHeader(sharingHistoryController.searchInput.text +
-                  " で " +
-                  sharingHistoryController.searchList.length.toString() +
-                  "結果は出ました。"),
+              : customBoxHeader(
+                  sharingHistoryController.searchInput.text +
+                      " " +
+                      "so".tr +
+                      " " +
+                      sharingHistoryController.searchList.length.toString() +
+                      "records_result".tr,
+                ),
         ),
         Expanded(
           child: Container(

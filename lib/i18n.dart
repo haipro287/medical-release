@@ -149,7 +149,13 @@ class Messages extends Translations {
           'alert_logout': "ログアウトしてもよろしいでしょうか。",
           'logout_cancel': "キャンセル",
           'logout_confirm': 'ログアウト',
-          'privacy_guide': '他人が自分を検索できないように設定'
+          'privacy_guide': '他人が自分を検索できないように設定',
+          'sharing_history_page': "ユーザーID、氏名、ニックネームで検索",
+          'so': "で",
+          "records_result": "結果は出ました。",
+          "terms_of_use": "サービス利用規約",
+          "stop": "やめる",
+          "banned_user_msg": "あなたのアカウントは停止されました。この連絡先でご連絡ください：0987654321"
         }
       };
 }
