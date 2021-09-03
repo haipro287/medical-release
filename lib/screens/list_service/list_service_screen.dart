@@ -15,7 +15,7 @@ class ListServiceScreen extends StatelessWidget {
     List serviceList = listServiceController.serviceList;
 
     return Scaffold(
-      appBar: appBar(context, 'connectService'.tr),
+      appBar: appBar(context, 'connectService'.tr, null, true),
       body: Container(
         height: double.infinity,
         width: double.infinity,

@@ -244,7 +244,7 @@ Container sentButtonContainer({
                   ),
                 ),
                 onPressed: () {
-                  shareHistoryController.editToShare("SENT_DATA");
+                  shareHistoryController.editToShare("SENT_DATA", "STOP_SHARING");
                   print('edit to share');
                 },
                 child: Text(

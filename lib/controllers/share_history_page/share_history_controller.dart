@@ -174,7 +174,7 @@ class ShareHistoryController extends GetxController {
           globalController.user.value.certificate.toString();
 
       if (status == "STOP_SHARING") {
-        value = 2;
+        value = globalController.editToShareMode.value == "STOP_SHARING" ? 1 : 2;
         response = await customDio.post(
           '/request/stop',
           {
