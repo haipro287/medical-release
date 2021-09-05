@@ -59,10 +59,7 @@ class ShareConfirmScreen extends StatelessWidget {
                 globalController.historyStatus.value = "REQUEST_MODE";
               }
 
-              if (result["services"] != null) {
-                CustomDialog(context, "ALREADY_SHARED")
-                    .show({"servicesList": result["services"]});
-              } else if (result["id"] != null) {
+              if (result["id"] != null) {
                 var tabChange =
                     globalController.historyStatus.value == "SENDING_MODE"
                         ? 1
@@ -79,6 +76,12 @@ class ShareConfirmScreen extends StatelessWidget {
                 }
                 Get.offAll(() => ShareHistoryPage());
               }
+
+              if (result["services"] != null) {
+                CustomDialog(context, "ALREADY_SHARED")
+                    .show({"servicesList": result["services"]});
+              }
+
             },
             child: Text(
               globalController.sharingStatus.value == "SENT_DATA"
