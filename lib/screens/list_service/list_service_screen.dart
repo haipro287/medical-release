@@ -33,9 +33,10 @@ class ListServiceScreen extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<Service> list = snapshot.data ?? [];
-                    for (var i = 0; i < list.length; ++i) {
-                      listServiceController.serviceList.add(list[i]);
-                    }
+                    listServiceController.serviceList.value = list;
+                    // for (var i = 0; i < list.length; ++i) {
+                    //   listServiceController.serviceList.add(list[i]);
+                    // }
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

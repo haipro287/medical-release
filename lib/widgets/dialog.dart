@@ -275,7 +275,7 @@ AlertDialog alreadyShareDialog(context, List<dynamic> servicesList) {
             Get.put(GlobalController()).sharingStatus.value == "SENT_DATA"
                 ? "このユーザーさんに以下のサービスのデータをすでに共有中です。"
                 : "このユーザーさんがあなたに以下のサービスのデータをすでに共有中です。",
-            style: TextStyle(fontSize: getWidth(17)),
+            style: TextStyle(fontSize: getWidth(14)),
             textAlign: TextAlign.center,
           ),
           SizedBox(
