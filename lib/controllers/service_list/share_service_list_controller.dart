@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
+import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 
 class ShareServiceListController extends GetxController {
   GlobalController globalController = Get.put(GlobalController());
@@ -24,8 +25,7 @@ class ShareServiceListController extends GetxController {
 
   String getFormatTimeCal() {
     Duration expired = Duration(days: 100000);
-    String calTime =
-        TimeService.stringToDJP(TimeService.getTimeNow());
+    String calTime = TimeService.stringToDJP(TimeService.getTimeNow());
 
     fromTime = TimeService.timeToBackEnd(TimeService.getTimeNow());
     endTime = TimeService.timeToBackEnd(TimeService.getTimeNow().add(expired));
@@ -64,6 +64,22 @@ class ShareServiceListController extends GetxController {
       }
 
       var json = jsonDecode(response.toString());
+      print(json["error"]);
+
+      if (json["success"] == false &&
+          json["error"] == "services have been shared before") {
+        var servicesNotConnectedData = json["data"]["services"];
+        var servicesNotConnectedList = [];
+        for (var j = 0; j < servicesNotConnectedData.length; j++) {
+          var service = {};
+          service["id"] = servicesNotConnectedData[j]["id"];
+          service["name"] = servicesNotConnectedData[j]["name"];
+          service["icon"] = servicesNotConnectedData[j]["icon"];
+          servicesNotConnectedList.add(service);
+        }
+        return {"services": servicesNotConnectedData};
+      }
+
       return (json["data"]);
     } catch (e, s) {
       print(e);

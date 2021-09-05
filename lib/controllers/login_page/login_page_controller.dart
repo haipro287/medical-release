@@ -143,7 +143,7 @@ class LoginPageController extends GetxController {
         String? privateKey =
             decryptAESCryptoJS(encryptedPrivateKey, password.text);
 
-        print(privateKey);
+        print("pK:" + privateKey.toString());
         Status validatePassword = new Status();
 
         if (privateKey == null)

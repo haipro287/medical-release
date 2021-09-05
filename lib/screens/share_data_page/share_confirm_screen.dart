@@ -9,6 +9,7 @@ import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_his
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
+import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ShareConfirmScreen extends StatelessWidget {
@@ -51,12 +52,17 @@ class ShareConfirmScreen extends StatelessWidget {
                 sharingStatus: globalController.sharingStatus.value,
               );
               print("plzzz: " + result.toString());
+
               if (globalController.sharingStatus.value == "SENT_DATA") {
                 globalController.historyStatus.value = "SENDING_MODE";
               } else {
                 globalController.historyStatus.value = "REQUEST_MODE";
               }
-              if (result["id"] != null) {
+
+              if (result["services"] != null) {
+                CustomDialog(context, "ALREADY_SHARED")
+                    .show({"servicesList": result["services"]});
+              } else if (result["id"] != null) {
                 var tabChange =
                     globalController.historyStatus.value == "SENDING_MODE"
                         ? 1

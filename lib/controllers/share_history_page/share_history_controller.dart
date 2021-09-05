@@ -174,7 +174,8 @@ class ShareHistoryController extends GetxController {
           globalController.user.value.certificate.toString();
 
       if (status == "STOP_SHARING") {
-        value = globalController.editToShareMode.value == "STOP_SHARING" ? 1 : 2;
+        value =
+            globalController.editToShareMode.value == "STOP_SHARING" ? 1 : 2;
         response = await customDio.post(
           '/request/stop',
           {
@@ -245,7 +246,10 @@ class ShareHistoryController extends GetxController {
       servicesNotConnectedList.add(service);
     }
     servicesNotConnect.value = servicesNotConnectedList;
-    CustomDialog(context, "SERVICES_NOT_CONNECT")
+    var dialogType = json["error"] == "services have been shared before"
+        ? "ALREADY_SHARED"
+        : "SERVICES_NOT_CONNECTED";
+    CustomDialog(context, dialogType)
         .show({"servicesList": servicesNotConnect.value});
   }
 
