@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
+import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 
 class ContactPageController extends GetxController {
   TextEditingController searchInput = TextEditingController();
@@ -11,6 +12,8 @@ class ContactPageController extends GetxController {
   RxList<dynamic> contactList = [].obs;
 
   RxList<dynamic> searchList = [].obs;
+
+  var category = "".obs;
 
   @override
   void onInit() async {
@@ -79,5 +82,14 @@ class ContactPageController extends GetxController {
         return false;
       }).toList();
     }
+  }
+
+  String newCategory(String character) {
+    print(character);
+    if (character != category.value) {
+      category.value = character;
+      return upperFirstString(character);
+    }
+    return "";
   }
 }

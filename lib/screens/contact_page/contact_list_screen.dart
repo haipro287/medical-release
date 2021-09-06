@@ -73,66 +73,77 @@ class ContactListPage extends StatelessWidget {
                       child: ListView(
                         scrollDirection: Axis.vertical,
                         children: [
-                          customBoxHeader('A'),
                           ...contactPageController.searchList.value
                               .map(
-                                (e) => GestureDetector(
-                                  onTap: () {
-                                    print(e.toString());
-                                    userSearchController.userData.value = e;
-                                    userSearchController.isEditing.value =
-                                        false;
-                                    print("userDataOfContact: " + e.toString());
-                                    Get.to(() => UserSavedScreen());
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(
-                                      left: getWidth(15),
-                                      right: getWidth(15),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: Color(0xFFECEFF1),
-                                          width: getHeight(1),
+                                (e) => Column(
+                                  children: [
+                                    e["secondaryUsername"].toString().substring(0,1) !=
+                                            contactPageController.category.value
+                                        ? customBoxHeader(contactPageController.newCategory(
+                                          e["secondaryUsername"].toString().substring(0,1)
+                                        ))
+                                        : Container(),
+                                    GestureDetector(
+                                      onTap: () {
+                                        print(e.toString());
+                                        userSearchController.userData.value = e;
+                                        userSearchController.isEditing.value =
+                                            false;
+                                        print("userDataOfContact: " +
+                                            e.toString());
+                                        Get.to(() => UserSavedScreen());
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                          left: getWidth(15),
+                                          right: getWidth(15),
                                         ),
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: Color(0xFFECEFF1),
+                                              width: getHeight(1),
+                                            ),
+                                          ),
+                                        ),
+                                        height: getHeight(78),
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                                "assets/images/avatar.svg"),
+                                            SizedBox(width: getWidth(15)),
+                                            Container(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    e["secondaryName"] != ""
+                                                        ? e["secondaryName"]
+                                                        : getHintText(e),
+                                                    style: TextStyle(
+                                                      fontSize: getWidth(17),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    e["secondaryUsername"] ??
+                                                        'Unknown',
+                                                    style: TextStyle(
+                                                        fontSize: getWidth(13),
+                                                        color:
+                                                            Color(0xFF838AA2)),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        alignment: Alignment.centerLeft,
                                       ),
                                     ),
-                                    height: getHeight(78),
-                                    child: Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                            "assets/images/avatar.svg"),
-                                        SizedBox(width: getWidth(15)),
-                                        Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                e["secondaryName"] != ""
-                                                    ? e["secondaryName"]
-                                                    : getHintText(e),
-                                                style: TextStyle(
-                                                  fontSize: getWidth(17),
-                                                ),
-                                              ),
-                                              Text(
-                                                e["secondaryUsername"] ??
-                                                    'Unknown',
-                                                style: TextStyle(
-                                                    fontSize: getWidth(13),
-                                                    color: Color(0xFF838AA2)),
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    alignment: Alignment.centerLeft,
-                                  ),
+                                  ],
                                 ),
                               )
                               .toList(),
