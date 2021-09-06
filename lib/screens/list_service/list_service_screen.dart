@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/list_service_controller.dart';
 import 'package:medical_chain_mobile_ui/models/service.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
@@ -17,6 +18,7 @@ class ListServiceScreen extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
+        Get.put(HomePageController()).currentPage.value = 0;
         Get.offAll(() => HomePageScreen(), transition: Transition.leftToRight);
         return true;
       },
