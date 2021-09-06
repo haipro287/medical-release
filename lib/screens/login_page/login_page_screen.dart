@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/forgot_password/forgot_password_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/my_account/edit_my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
@@ -12,6 +15,7 @@ import 'package:medical_chain_mobile_ui/widgets/input.dart';
 
 class LoginPageScreen extends StatelessWidget {
   LoginPageController loginController = Get.put(LoginPageController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,8 +81,18 @@ class LoginPageScreen extends StatelessWidget {
                 FocusScope.of(context).unfocus();
                 bool result = await loginController.login();
                 if (result) {
-                  Get.put(HomePageController()).currentPage.value = 0;
-                  Get.offAll(() => HomePageScreen());
+                  var info = await Get.put(MyAccountController()).getUserInfo();
+                  if (info != {}) {
+                    MyAccountController myAccountController =
+                        Get.put(MyAccountController());
+                    if (myAccountController.kanjiName.value == "") {
+                      Get.put(EditMyAccountController()).signup.value = true;
+                      Get.to(() => EditMyAccountScreen());
+                    } else {
+                      Get.put(HomePageController()).currentPage.value = 0;
+                      Get.offAll(() => HomePageScreen());
+                    }
+                  }
                 }
               },
             ),

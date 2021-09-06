@@ -13,11 +13,12 @@ class EditMyAccountController extends GetxController {
   TextEditingController citizenCode = TextEditingController();
   TextEditingController dob = TextEditingController();
   late DateTime birthday = myAccountController.dob.value;
-  late RxInt avatar;
+  RxInt avatar = MyAccountController.avatarList[1].obs;
   RxString kanjiErr = "".obs;
   RxString katakanaErr = "".obs;
   RxString dobErr = "".obs;
   RxString citizenCodeErr = "".obs;
+  RxBool signup = true.obs;
 
   @override
   void onInit() {

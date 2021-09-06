@@ -54,7 +54,6 @@ class CustomDio {
             (RequestOptions options, RequestInterceptorHandler handler) async {
           print({"onRequest": options.uri});
           print(1);
-          print(options.data);
           return handler.next(options); //continue
         },
         onResponse:

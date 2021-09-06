@@ -9,13 +9,13 @@ class MyAccountController extends GetxController {
   static const avatarList = [0, 0xFFD0E8FF, 0xFFFFF0D1, 0xFFDAD5FF, 0xFFF7EBE8];
 
   var avatar = avatarList[0].obs;
-  String userName = "hang1234";
-  RxString kanjiName = "佐藤桜".obs;
-  RxString katakanaName = "Sato Sakura".obs;
-  Rx<DateTime> dob = DateTime.parse("0001-01-01T00:00:00Z").obs;
-  RxString email = "hang@gmail.com".obs;
-  RxString phoneNumber = "09876543".obs;
-  RxString citizenCode = "1234567".obs;
+  String userName = "";
+  RxString kanjiName = "".obs;
+  RxString katakanaName = "".obs;
+  Rx<DateTime> dob = DateTime.parse("0000-00-00T00:00:00Z").obs;
+  RxString email = "".obs;
+  RxString phoneNumber = "".obs;
+  RxString citizenCode = "".obs;
 
   bool emailVerified = true;
   bool phoneVerified = true;
@@ -24,6 +24,8 @@ class MyAccountController extends GetxController {
 
   Future<Map> getUserInfo() async {
     try {
+      MyAccountController myAccountController = Get.put(MyAccountController());
+
       var userID = globalController.user.value.id.toString();
       var response;
       CustomDio customDio = CustomDio();
@@ -34,6 +36,20 @@ class MyAccountController extends GetxController {
       print(json.toString());
       print(userID);
       print(globalController.user.value.certificate.toString());
+      var userInfo = json["data"];
+
+      myAccountController.userName = userInfo['username'] ?? "";
+      myAccountController.kanjiName.value = userInfo['kanji'] ?? "";
+      myAccountController.katakanaName.value = userInfo['romanji'] ?? "";
+      myAccountController.dob.value = DateTime.parse(userInfo['birthday']);
+      myAccountController.email.value = userInfo['mail'] ?? "";
+      myAccountController.phoneNumber.value = userInfo['phone'] ?? "";
+      myAccountController.citizenCode.value = userInfo['pid'] ?? "";
+      myAccountController.avatar.value =
+          MyAccountController.avatarList[userInfo["avatar"]];
+
+      print(kanjiName.value);
+
       return (json["data"]);
     } catch (e, s) {
       print(e);

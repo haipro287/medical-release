@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/edit_my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
@@ -60,162 +61,123 @@ class MyAccountScreen extends StatelessWidget {
                   ),
                 ),
               )),
-          body: FutureBuilder<Map>(
-              future: myAccountController.getUserInfo(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var userInfo = snapshot.data;
-
-                  if (userInfo != null) {
-                    DateTime birthday = DateTime.parse(userInfo['birthday']);
-
-                    myAccountController.userName =
-                        userInfo['username'] ?? "hang1234";
-                    myAccountController.kanjiName.value =
-                        userInfo['kanji'] ?? "";
-                    myAccountController.katakanaName.value =
-                        userInfo['romanji'] ?? "";
-                    myAccountController.dob.value =
-                        DateTime.parse(userInfo['birthday']);
-                    myAccountController.email.value = userInfo['mail'] ?? "";
-                    myAccountController.phoneNumber.value =
-                        userInfo['phone'] ?? "";
-                    myAccountController.citizenCode.value =
-                        userInfo['pid'] ?? "";
-                    myAccountController.avatar.value =
-                        MyAccountController.avatarList[userInfo["avatar"]];
-
-                    return Obx(() => Container(
-                          padding: EdgeInsets.only(top: getHeight(30)),
-                          width: double.infinity,
-                          height: double.infinity,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+          body: Container(
+            padding: EdgeInsets.only(top: getHeight(30)),
+            width: double.infinity,
+            height: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Obx(() => Container(
+                      height: getHeight(70),
+                      width: getWidth(70),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
+                          color: Colors.white,
+                        ),
+                        shape: BoxShape.circle,
+                        color: Color(myAccountController.avatar.value),
+                      ),
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Text(myAccountController.userName,
+                      style: TextStyle(
+                        color: Color(0xFF2F3842),
+                        fontSize: getWidth(20),
+                        fontWeight: FontWeight.w500,
+                      )),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  margin: EdgeInsets.only(
+                    top: getHeight(40),
+                    left: getWidth(17),
+                    right: getWidth(17),
+                  ),
+                  padding: EdgeInsets.only(
+                    top: getHeight(30),
+                    left: getWidth(20),
+                    right: getWidth(20),
+                  ),
+                  alignment: Alignment.center,
+                  width: getWidth(343),
+                  height: getHeight(410),
+                  child: Obx(() {
+                    return Column(
+                      children: [
+                        myAccountField(
+                          myAccountText('name'.trParams()),
+                          myAccountText(myAccountController.kanjiName.value),
+                        ),
+                        myAccountField(
+                          myAccountText('alphabetName'.trParams()),
+                          myAccountText(myAccountController.katakanaName.value),
+                        ),
+                        myAccountField(
+                          myAccountText('dob'.trParams()),
+                          myAccountText(TimeService.dateTimeToString4(
+                              myAccountController.dob.value)),
+                        ),
+                        myAccountField(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Obx(() => Container(
-                                    height: getHeight(70),
-                                    width: getWidth(70),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        width: 1,
-                                        color: Colors.white,
-                                      ),
-                                      shape: BoxShape.circle,
-                                      color: Color(
-                                          myAccountController.avatar.value),
-                                    ),
-                                  )),
-                              Padding(
-                                padding: EdgeInsets.only(top: 10),
-                                child: Text(myAccountController.userName,
-                                    style: TextStyle(
-                                      color: Color(0xFF2F3842),
-                                      fontSize: getWidth(20),
-                                      fontWeight: FontWeight.w500,
-                                    )),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFFFFFFF),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                margin: EdgeInsets.only(
-                                  top: getHeight(40),
-                                  left: getWidth(17),
-                                  right: getWidth(17),
-                                ),
-                                padding: EdgeInsets.only(
-                                  top: getHeight(30),
-                                  left: getWidth(20),
-                                  right: getWidth(20),
-                                ),
-                                alignment: Alignment.center,
-                                width: getWidth(343),
-                                height: getHeight(410),
-                                child: Column(
-                                  children: [
-                                    myAccountField(
-                                      myAccountText('name'.trParams()),
-                                      myAccountText(
-                                          myAccountController.kanjiName.value),
-                                    ),
-                                    myAccountField(
-                                      myAccountText('alphabetName'.trParams()),
-                                      myAccountText(myAccountController
-                                          .katakanaName.value),
-                                    ),
-                                    myAccountField(
-                                      myAccountText('dob'.trParams()),
-                                      myAccountText(
-                                          TimeService.dateTimeToString4(
-                                              myAccountController.dob.value)),
-                                    ),
-                                    myAccountField(
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          myAccountText('email'.trParams()),
-                                          verifiedIcon(myAccountController
-                                              .emailVerified),
-                                        ],
-                                      ),
-                                      myAccountText(
-                                          myAccountController.email.value),
-                                    ),
-                                    myAccountField(
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          myAccountText(
-                                              'phoneNumber'.trParams()),
-                                          verifiedIcon(myAccountController
-                                              .phoneVerified),
-                                        ],
-                                      ),
-                                      myAccountText(myAccountController
-                                          .phoneNumber.value),
-                                    ),
-                                    Row(
-                                      children: [
-                                        myAccountText('citizenCode'.trParams()),
-                                        myAccountText(myAccountController
-                                            .citizenCode.value),
-                                      ],
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  top: getHeight(24),
-                                ),
-                                width: getWidth(343),
-                                height: getHeight(48),
-                                child: OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                    backgroundColor: Color(0xFFD0E8FF),
-                                    side: BorderSide(
-                                      color: Color(0xFFD0E8FF),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Get.to(() => EditMyAccountScreen());
-                                  },
-                                  child: myAccountText('edit'.trParams()),
-                                ),
-                              )
+                              myAccountText('email'.trParams()),
+                              verifiedIcon(myAccountController.emailVerified),
                             ],
                           ),
-                        ));
-                  } else
-                    return Text("");
-                } else
-                  return (Text(''));
-              }),
+                          myAccountText(myAccountController.email.value),
+                        ),
+                        myAccountField(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              myAccountText('phoneNumber'.trParams()),
+                              verifiedIcon(myAccountController.phoneVerified),
+                            ],
+                          ),
+                          myAccountText(myAccountController.phoneNumber.value),
+                        ),
+                        Row(
+                          children: [
+                            myAccountText('citizenCode'.trParams()),
+                            myAccountText(
+                                myAccountController.citizenCode.value),
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                      ],
+                    );
+                  }),
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                    top: getHeight(24),
+                  ),
+                  width: getWidth(343),
+                  height: getHeight(48),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Color(0xFFD0E8FF),
+                      side: BorderSide(
+                        color: Color(0xFFD0E8FF),
+                      ),
+                    ),
+                    onPressed: () {
+                      Get.put(EditMyAccountController()).signup.value = false;
+                      Get.to(() => EditMyAccountScreen());
+                    },
+                    child: myAccountText('edit'.trParams()),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ],
     );

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/privacy/privacy_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/change_password_page/change_password_page.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
@@ -41,6 +42,7 @@ class UserScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
+                          Get.put(MyAccountController()).getUserInfo();
                           Get.to(() => MyAccountScreen());
                         },
                         child: Container(
@@ -92,7 +94,10 @@ class UserScreen extends StatelessWidget {
                         height: getHeight(20),
                       ),
                       GestureDetector(
-                        onTap: () => {Get.to(() => MyAccountScreen())},
+                        onTap: () {
+                          Get.put(MyAccountController()).getUserInfo();
+                          Get.to(() => MyAccountScreen());
+                        },
                         child: Container(
                           color: Colors.white,
                           child: Column(

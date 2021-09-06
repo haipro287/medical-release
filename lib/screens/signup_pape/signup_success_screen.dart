@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/edit_my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
@@ -65,7 +67,14 @@ class SignupSuccessScreen extends StatelessWidget {
                     ),
                   ),
                   onPress: () {
-                    Get.offAll(EditMyAccountScreen());
+                    var signupController = Get.put(SignupPageController());
+                    var editMyAccountController = Get.put(EditMyAccountController());
+                    editMyAccountController.signup.value = true;
+                    editMyAccountController.email.text = signupController.email.text;
+                    editMyAccountController.phone.text = signupController.phone.text;
+                    editMyAccountController.avatar.value = 1;
+
+                    Get.to(() => EditMyAccountScreen());
                   },
                 )
               ],

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 AppBar appBar(
-    [BuildContext? context, String? title, Widget? button, bool? backHome]) {
+    [BuildContext? context, String? title, Widget? button, bool? backHome, bool? backToLogin]) {
   return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,
@@ -17,7 +18,9 @@ AppBar appBar(
       onPressed: () {
         if (backHome == true) {
           Get.put(HomePageController()).currentPage.value = 0;
-          Get.offAll(() => HomePageScreen(), transition: Transition.leftToRight);
+          Get.offAll(HomePageScreen());
+        }else if(backToLogin == true) {
+          Get.offAll(LoginWelcomePage());
         } else
           Get.back();
       },
