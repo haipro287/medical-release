@@ -355,7 +355,7 @@ AlertDialog servicesNotConnectDialog(context, List<dynamic> servicesList) {
         children: [
           Text(
             "データを共有するため、以下のサービスを連携しておいてださい。",
-            style: TextStyle(fontSize: getWidth(17)),
+            style: TextStyle(fontSize: getWidth(16)),
             textAlign: TextAlign.center,
           ),
           SizedBox(
