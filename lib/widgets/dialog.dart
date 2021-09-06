@@ -19,6 +19,8 @@ class CustomDialog {
       alert = deleteDialog(context);
     } else if (type == "CHANGE_PASSWORD") {
       alert = changePasswordDialog(context);
+    } else if (type == "RESET_PASSWORD") {
+      alert = resetPasswordDialog(context);
     } else if (type == "STOP_SHARING") {
       alert = stopSharingDialog(context);
     } else if (type == "SERVICES_NOT_CONNECT") {
@@ -449,6 +451,63 @@ AlertDialog servicesNotConnectDialog(context, List<dynamic> servicesList) {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+AlertDialog resetPasswordDialog(context) {
+  return AlertDialog(
+    content: Container(
+      width: getWidth(343),
+      height: getHeight(220),
+      child: Column(
+        children: [
+          SvgPicture.asset("assets/images/success-icon.svg"),
+          SizedBox(
+            height: getHeight(32),
+          ),
+          Text(
+            "パスワードを再設定しました。",
+            style: TextStyle(fontSize: getWidth(17)),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: getHeight(12),
+          ),
+          Expanded(
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Color(0xFFD0E8FF),
+                        side: BorderSide(
+                          color: Color(0xFFD0E8FF),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: getHeight(12)),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: getWidth(17),
+                            fontWeight: FontWeight.w400),
                       ),
                     ),
                   ),

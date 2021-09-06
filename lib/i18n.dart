@@ -155,7 +155,15 @@ class Messages extends Translations {
           "records_result": "結果は出ました。",
           "terms_of_use": "サービス利用規約",
           "stop": "やめる",
-          "banned_user_msg": "あなたのアカウントは停止されました。この連絡先でご連絡ください：0987654321"
+          "banned_user_msg": "あなたのアカウントは停止されました。この連絡先でご連絡ください：0987654321",
+          'privacy_guide': '他人が自分を検索できないように設定',
+          "resetPassword": "パスケース再設定",
+          "resetPasswordMess1": "パスワードを忘れた方は、登録されているメールアドレスを入力し、送信してください。",
+          "resetPasswordMess2": "登録されているメールアドレス宛に、パスワード再設定用コードをお送りさせていただきます。",
+          "resetEmailInvalid": "メールアドレスは不正な値です。",
+          "resetEmailNotExist":  "メールアドレスは存在していません。",
+          "resetPasswordOTP1": "にパスワード再設定用のコードを送信しました。",
+          "resetPasswordOTP2": " メールに記載されたコードの6桁の数字を入力してください。",
         }
       };
 }

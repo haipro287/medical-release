@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/forgot_password/forgot_password_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -58,6 +59,7 @@ class LoginPageScreen extends StatelessWidget {
               child: Text("forgotPassword".tr),
               onTap: () {
                 print('forgot password');
+                Get.to(() => ForgotPasswordScreen());
               },
             ),
             SizedBox(
