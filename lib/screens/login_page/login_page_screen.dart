@@ -57,7 +57,7 @@ class LoginPageScreen extends StatelessWidget {
                   loginController.changeHidePassword),
             ),
             SizedBox(
-              height: getHeight(21),
+              height: getHeight(24),
             ),
             InkWell(
               child: Text("forgotPassword".tr),
@@ -67,7 +67,7 @@ class LoginPageScreen extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: getHeight(52),
+              height: getHeight(24),
             ),
             Bouncing(
               child: Container(
@@ -96,31 +96,31 @@ class LoginPageScreen extends StatelessWidget {
                 }
               },
             ),
-            SizedBox(
-              height: getHeight(10),
-            ),
             Obx(
               () => (loginController.messValidateUsername.value != "" ||
                       loginController.messValidatePassword.value != "")
-                  ? InkWell(
-                      child: Text(
-                        loginController.messValidateUsername.value ==
-                                "Error Server"
-                            ? "Server crash"
-                            : loginController.messValidateUsername.value ==
-                                    "User Banned"
-                                ? "banned_user_msg".tr
-                                : "wrongPass".tr,
-                        style: TextStyle(
-                          color: Colors.red,
+                  ? Padding(
+                      padding: EdgeInsets.only(top: getHeight(24)),
+                      child: InkWell(
+                        child: Text(
+                          loginController.messValidateUsername.value ==
+                                  "Error Server"
+                              ? "Server crash"
+                              : loginController.messValidateUsername.value ==
+                                      "User Banned"
+                                  ? "banned_user_msg".tr
+                                  : "wrongPass".tr,
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
                         ),
+                        onTap: () {},
                       ),
-                      onTap: () {},
                     )
                   : Container(),
             ),
             SizedBox(
-              height: getHeight(20),
+              height: getHeight(24),
             ),
             InkWell(
               child: Text("signup".tr),
