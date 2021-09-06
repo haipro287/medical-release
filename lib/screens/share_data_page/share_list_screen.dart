@@ -29,7 +29,7 @@ class ShareListScreen extends StatelessWidget {
             ? "shareListScreenTitle".tr
             : "sendRequestScreenTitle".tr,
         null,
-        true,
+        // true,
       ),
       backgroundColor: Colors.white,
       body: Column(children: [

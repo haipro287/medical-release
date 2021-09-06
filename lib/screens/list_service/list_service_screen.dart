@@ -17,7 +17,7 @@ class ListServiceScreen extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        Get.offAll(() => HomePageScreen());
+        Get.offAll(() => HomePageScreen(), transition: Transition.leftToRight);
         return true;
       },
       child: Scaffold(

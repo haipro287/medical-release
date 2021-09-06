@@ -78,7 +78,8 @@ class LoginPageScreen extends StatelessWidget {
                 bool result = await loginController.login();
                 if (result) {
                   Get.put(HomePageController()).currentPage.value = 0;
-                  Get.offAll(() => HomePageScreen());
+                  Get.offAll(() => HomePageScreen(),
+                      transition: Transition.leftToRight);
                 }
               },
             ),
