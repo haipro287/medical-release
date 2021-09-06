@@ -17,7 +17,9 @@ AppBar appBar(
       onPressed: () {
         if (backHome == true) {
           Get.put(HomePageController()).currentPage.value = 0;
-          Get.offAll(HomePageScreen());
+          Get.put(HomePageController()).onChangeTab(0);
+          Get.offAll(() => HomePageScreen(),
+              transition: Transition.leftToRight);
         } else
           Get.back();
       },
