@@ -270,18 +270,18 @@ AlertDialog alreadyShareDialog(context, List<dynamic> servicesList) {
   return AlertDialog(
     content: Container(
       width: getWidth(343),
-      height: getHeight(servicesList.length > 1 ? 288 : 240),
+      height: getHeight(servicesList.length >= 3 ? 270 : 180 + servicesList.length * 20),
       child: Column(
         children: [
           Text(
             Get.put(GlobalController()).sharingStatus.value == "SENT_DATA"
                 ? "このユーザーさんに以下のサービスのデータをすでに共有中です。"
                 : "このユーザーさんがあなたに以下のサービスのデータをすでに共有中です。",
-            style: TextStyle(fontSize: getWidth(14)),
+            style: TextStyle(fontSize: getWidth(16)),
             textAlign: TextAlign.center,
           ),
           SizedBox(
-            height: getHeight(12),
+            height: getHeight(27),
           ),
           Expanded(
             child: ListView(
@@ -319,12 +319,14 @@ AlertDialog alreadyShareDialog(context, List<dynamic> servicesList) {
                   Expanded(
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        backgroundColor: Color(0xFFD0E8FF),
-                        side: BorderSide(
-                          color: Color(0xFFD0E8FF),
-                        ),
-                        padding: EdgeInsets.symmetric(vertical: getHeight(12)),
-                      ),
+                          backgroundColor: Color(0xFFD0E8FF),
+                          side: BorderSide(
+                            color: Color(0xFFD0E8FF),
+                          ),
+                          padding: EdgeInsets.only(
+                            bottom: getHeight(12),
+                            top: getHeight(6),
+                          )),
                       onPressed: () {
                         Navigator.of(context).pop();
                         Get.back();
