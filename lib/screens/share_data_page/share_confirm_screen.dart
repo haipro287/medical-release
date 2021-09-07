@@ -47,11 +47,20 @@ class ShareConfirmScreen extends StatelessWidget {
               ),
             ),
             onPressed: () async {
+              var editMode = globalController.editToShareMode.value;
+              if (editMode == "STOP_SHARING") {
+                var stopResult =
+                    await Get.put(ShareHistoryController()).sharingService(
+                  context,
+                  status: "STOP_SHARING",
+                );
+                print(stopResult.toString());
+              }
+
               var result = await shareServiceListController.shareService(
                 id: userSearchController.userData["secondaryId"],
                 sharingStatus: globalController.sharingStatus.value,
               );
-              print("plzzz: " + result.toString());
 
               if (globalController.sharingStatus.value == "SENT_DATA") {
                 globalController.historyStatus.value = "SENDING_MODE";
@@ -65,15 +74,7 @@ class ShareConfirmScreen extends StatelessWidget {
                         ? 1
                         : 3;
                 globalController.recordsTabMode.value = tabChange;
-                var editMode = globalController.editToShareMode.value;
-                if (editMode == "STOP_SHARING") {
-                  var stopResult =
-                      await Get.put(ShareHistoryController()).sharingService(
-                    context,
-                    status: "STOP_SHARING",
-                  );
-                  print(stopResult.toString());
-                }
+
                 Get.offAll(() => ShareHistoryPage());
               }
 
@@ -81,7 +82,6 @@ class ShareConfirmScreen extends StatelessWidget {
                 CustomDialog(context, "ALREADY_SHARED")
                     .show({"servicesList": result["services"]});
               }
-
             },
             child: Text(
               globalController.sharingStatus.value == "SENT_DATA"
