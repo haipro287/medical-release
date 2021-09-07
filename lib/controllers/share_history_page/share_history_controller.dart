@@ -246,9 +246,11 @@ class ShareHistoryController extends GetxController {
       servicesNotConnectedList.add(service);
     }
     servicesNotConnect.value = servicesNotConnectedList;
+    print(json);
     var dialogType = json["error"] == "services have been shared before"
         ? "ALREADY_SHARED"
         : "SERVICES_NOT_CONNECTED";
+    print(dialogType);
     CustomDialog(context, dialogType)
         .show({"servicesList": servicesNotConnect.value});
   }

@@ -79,6 +79,7 @@ class ShareConfirmScreen extends StatelessWidget {
               }
 
               if (result["services"] != null) {
+                print(result["services"]);
                 CustomDialog(context, "ALREADY_SHARED")
                     .show({"servicesList": result["services"]});
               }

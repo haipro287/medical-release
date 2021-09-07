@@ -23,7 +23,7 @@ class CustomDialog {
       alert = resetPasswordDialog(context);
     } else if (type == "STOP_SHARING") {
       alert = stopSharingDialog(context);
-    } else if (type == "SERVICES_NOT_CONNECT") {
+    } else if (type == "SERVICES_NOT_CONNECTED") {
       alert = servicesNotConnectDialog(context, optionData["servicesList"]);
     } else if (type == "ALREADY_SHARED") {
       alert = alreadyShareDialog(context, optionData["servicesList"]);

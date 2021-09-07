@@ -20,24 +20,30 @@ class DetailHistoryPage extends StatelessWidget {
     var itemSelected = shareHistoryController.itemSelected;
     var mode = globalController.historyStatus.value == "SENDING_MODE";
     var subMode = ["sharing", "expired"].contains(itemSelected["status"]);
+    var hideMode =
+        !mode && shareHistoryController.itemSelected["status"] == "sharing";
     List<dynamic> servicesList = itemSelected["services"];
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(top: getHeight(12)),
-        child: globalController.historyStatus.value == "SENDING_MODE"
-            ? sentButtonContainer(
-                sharingStatus:
-                    shareHistoryController.itemSelected["status"] ?? "pending",
-                shareHistoryController: shareHistoryController,
-                context: context,
-              )
-            : requestButtonContainer(
-                sharingStatus: shareHistoryController.itemSelected["status"],
-                shareHistoryController: shareHistoryController,
-                context: context,
-              ),
-      ),
+      bottomNavigationBar: hideMode
+          ? null
+          : Padding(
+              padding: EdgeInsets.only(top: getHeight(12)),
+              child: mode
+                  ? sentButtonContainer(
+                      sharingStatus:
+                          shareHistoryController.itemSelected["status"] ??
+                              "pending",
+                      shareHistoryController: shareHistoryController,
+                      context: context,
+                    )
+                  : requestButtonContainer(
+                      sharingStatus:
+                          shareHistoryController.itemSelected["status"],
+                      shareHistoryController: shareHistoryController,
+                      context: context,
+                    ),
+            ),
       appBar: mode
           ? appBarWithButton(
               context,
@@ -131,14 +137,22 @@ class DetailHistoryPage extends StatelessWidget {
                             SizedBox(width: getWidth(15)),
                             Container(
                               alignment: Alignment.center,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(upperFirstString(e["name"])),
-                                ],
-                              ),
-                            )
+                              child: Text(upperFirstString(e["name"])),
+                            ),
+                            hideMode
+                                ? Expanded(
+                                    child: Container(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "ビュー",
+                                        style: TextStyle(
+                                          color: Color(0xFF61B3FF),
+                                          fontSize: getWidth(17),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
                           ],
                         ),
                         alignment: Alignment.centerLeft,
@@ -244,7 +258,8 @@ Container sentButtonContainer({
                   ),
                 ),
                 onPressed: () {
-                  shareHistoryController.editToShare("SENT_DATA", "STOP_SHARING");
+                  shareHistoryController.editToShare(
+                      "SENT_DATA", "STOP_SHARING");
                   print('edit to share');
                 },
                 child: Text(
