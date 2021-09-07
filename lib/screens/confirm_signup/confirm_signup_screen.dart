@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_success_screen.dart';
+import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:get/get.dart';
@@ -12,8 +16,15 @@ class ConfirmSignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    EditMyAccountController editMyAccountController =
+        Get.put(EditMyAccountController());
+
     return Scaffold(
-        appBar: appBar(context, "confirmSignup".tr),
+        appBar: appBar(
+            context,
+            editMyAccountController.signup.value
+                ? "confirmSignup".tr
+                : "confirmEmail".tr),
         body: Container(
           height: double.infinity,
           margin: EdgeInsets.only(
@@ -27,7 +38,9 @@ class ConfirmSignupScreen extends StatelessWidget {
               ),
               RichText(
                 text: TextSpan(
-                  text: signupPageController.email.text,
+                  text: editMyAccountController.signup.value
+                      ? signupPageController.email.text
+                      : editMyAccountController.email.text,
                   style: TextStyle(
                     color: Color(0xFF2F3842),
                     fontSize: getWidth(17),
@@ -127,10 +140,28 @@ class ConfirmSignupScreen extends StatelessWidget {
                   onTap: () async {
                     if (active) {
                       if (signupPageController.otpValidate()) {
-                        var data = await signupPageController.signup(context);
-                        print(11);
-                        if (data != null) {
-                          Get.to(() => SignupSuccessScreen());
+                        if (editMyAccountController.signup.value) {
+                          var data = await signupPageController.signup(context);
+                          print(11);
+                          if (data != null) {
+                            Get.to(() => SignupSuccessScreen());
+                          }
+                        } else {
+                          print(editMyAccountController.kanjiName.text);
+                          var info =
+                              await Get.put(MyAccountController()).editUserInfo(
+                            kanji: editMyAccountController.kanjiName.text,
+                            romanji: editMyAccountController.katakanaName.text,
+                            mail: editMyAccountController.email.text,
+                            birthday: TimeService.timeToBackEnd(
+                                editMyAccountController.birthday),
+                            pid: editMyAccountController.citizenCode.text,
+                            phone: editMyAccountController.phone.text,
+                            avatar: editMyAccountController.avatar.value,
+                          );
+                          if (info != null) {
+                            Get.back();
+                          }
                         }
                       }
                     }

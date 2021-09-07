@@ -165,6 +165,7 @@ class Messages extends Translations {
           "resetPasswordOTP1": "にパスワード再設定用のコードを送信しました。",
           "resetPasswordOTP2": " メールに記載されたコードの6桁の数字を入力してください。",
           "emptyRecords": "記録はありません。",
+          "confirmEmail": "メール確認",
         }
       };
 }

@@ -3,9 +3,11 @@ import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_contro
 import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/confirm_signup/confirm_signup_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
+import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
@@ -26,13 +28,14 @@ class EditMyAccountScreen extends StatelessWidget {
         if (editMyAccountController.signup.value) {
           print("back");
           Get.offAll(() => (LoginWelcomePage()));
-        }
-        else Get.back();
+        } else
+          Get.back();
         return false;
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: appBar(context, 'myAccount'.tr, null, false, editMyAccountController.signup.value),
+        appBar: appBar(context, 'myAccount'.tr, null, false,
+            editMyAccountController.signup.value),
         body: SingleChildScrollView(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -202,17 +205,19 @@ class EditMyAccountScreen extends StatelessWidget {
                               print(myAccountController.kanjiName.value);
 
                               LoginPageController loginPageController =
-                              Get.put(LoginPageController());
+                                  Get.put(LoginPageController());
 
-                              SignupPageController signupController = Get.put(SignupPageController());
+                              SignupPageController signupController =
+                                  Get.put(SignupPageController());
 
-                              loginPageController.username.text = signupController.userId.text;
-                              loginPageController.password.text = signupController.password.text;
+                              loginPageController.username.text =
+                                  signupController.userId.text;
+                              loginPageController.password.text =
+                                  signupController.password.text;
 
                               loginPageController.login();
 
                               Get.offAll(() => HomePageScreen());
-
                             }
                           })
                       : Row(
@@ -248,21 +253,28 @@ class EditMyAccountScreen extends StatelessWidget {
                               ),
                               onPress: () {
                                 if (editMyAccountController.isValid()) {
-                                  myAccountController.editUserInfo(
-                                    kanji:
-                                        editMyAccountController.kanjiName.text,
-                                    romanji: editMyAccountController
-                                        .katakanaName.text,
-                                    mail: editMyAccountController.email.text,
-                                    birthday: TimeService.timeToBackEnd(
-                                        editMyAccountController.birthday),
-                                    pid: editMyAccountController
-                                        .citizenCode.text,
-                                    phone: editMyAccountController.phone.text,
-                                    avatar:
-                                        editMyAccountController.avatar.value,
-                                  );
-                                  Get.back();
+                                  if (myAccountController.email.value !=
+                                      editMyAccountController.email.text) {
+                                    editMyAccountController.signup.value =
+                                        false;
+                                    Get.off(() => ConfirmSignupScreen());
+                                  } else {
+                                    myAccountController.editUserInfo(
+                                      kanji: editMyAccountController
+                                          .kanjiName.text,
+                                      romanji: editMyAccountController
+                                          .katakanaName.text,
+                                      mail: editMyAccountController.email.text,
+                                      birthday: TimeService.timeToBackEnd(
+                                          editMyAccountController.birthday),
+                                      pid: editMyAccountController
+                                          .citizenCode.text,
+                                      phone: editMyAccountController.phone.text,
+                                      avatar:
+                                          editMyAccountController.avatar.value,
+                                    );
+                                    Get.back();
+                                  }
                                 }
                               },
                             ),

@@ -22,7 +22,7 @@ class EditMyAccountController extends GetxController {
 
   @override
   void onInit() {
-    avatar = myAccountController.avatar.value.obs;
+    avatar.value = myAccountController.avatar.value;
     kanjiName.text = myAccountController.kanjiName.value;
     katakanaName.text = myAccountController.katakanaName.value;
     dob.text = TimeService.dateTimeToString4(myAccountController.dob.value);
@@ -30,6 +30,18 @@ class EditMyAccountController extends GetxController {
     phone.text = myAccountController.phoneNumber.value;
     citizenCode.text = myAccountController.citizenCode.value;
     super.onInit();
+  }
+
+  @override
+  void dispose() {
+    print("dispose");
+    super.dispose();
+  }
+
+  @override
+  void onClose() {
+    print("onclose");
+    super.onClose();
   }
 
   bool isValid() {

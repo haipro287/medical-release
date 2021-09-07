@@ -22,7 +22,7 @@ class MyAccountController extends GetxController {
 
   GlobalController globalController = Get.put(GlobalController());
 
-  Future<Map> getUserInfo() async {
+  Future getUserInfo() async {
     try {
       MyAccountController myAccountController = Get.put(MyAccountController());
 
@@ -54,11 +54,11 @@ class MyAccountController extends GetxController {
     } catch (e, s) {
       print(e);
       print(s);
-      return {};
+      return null;
     }
   }
 
-  Future<Map> editUserInfo(
+  Future editUserInfo(
       {required String romanji,
       required String kanji,
       required String? birthday,
@@ -98,11 +98,11 @@ class MyAccountController extends GetxController {
       myAccountController.citizenCode.value = data['pid'].toString();
       myAccountController.avatar.value =
           MyAccountController.avatarList[data['avatar']];
-      return (json["data"]);
+      return json["data"];
     } catch (e, s) {
       print(e);
       print(s);
-      return {};
+      return null;
     }
   }
 }
