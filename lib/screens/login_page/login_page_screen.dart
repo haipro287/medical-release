@@ -21,7 +21,7 @@ class LoginPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-          Get.offAll(LoginWelcomePage());
+          Get.off(LoginWelcomePage());
           return true;
       },
       child: Scaffold(

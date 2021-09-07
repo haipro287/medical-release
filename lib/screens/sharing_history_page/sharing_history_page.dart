@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
@@ -65,13 +66,32 @@ class ShareHistoryPage extends StatelessWidget {
                 children: List.generate(5, (index) {
                   return Container(
                     alignment: Alignment.center,
-                    child: Obx(
-                      () => ListView(
-                        children: sharingHistoryController.searchList
-                            .map((e) => historyDetailComponent(record: e))
-                            .toList(),
-                      ),
-                    ),
+                    child:
+                        Obx(() => sharingHistoryController.searchList.length > 0
+                            ? ListView(
+                                children: sharingHistoryController.searchList
+                                    .map((e) =>
+                                        historyDetailComponent(record: e))
+                                    .toList(),
+                              )
+                            : Column(
+                                children: [
+                                  SizedBox(
+                                    height: getHeight(41.15),
+                                  ),
+                                  Container(
+                                    child: SvgPicture.asset(
+                                        "assets/images/empty-records.svg"),
+                                  ),
+                                  SizedBox(
+                                    height: getHeight(33.3),
+                                  ),
+                                  Text(
+                                    "emptyRecords".tr,
+                                    style: TextStyle(fontSize: getWidth(17)),
+                                  ),
+                                ],
+                              )),
                   );
                 }),
               ),
