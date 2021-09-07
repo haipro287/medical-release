@@ -157,7 +157,37 @@ class SignupPageController extends GetxController {
     }
   }
 
-  Future<Map> signup(context) async {
+  Future<bool> validateSignupInfo(context) async {
+    try {
+      var response;
+      CustomDio customDio = CustomDio();
+      response = await customDio.get("/user/check", {
+        "username": userId.text,
+        "mail": email.text,
+        "phone": phone.text,
+      });
+
+      var json = jsonDecode(response.toString());
+
+      print(json);
+
+      if (json["success"] == true) {
+        signupError.value = "";
+        return true;
+      }
+
+      signupError.value = json["error"];
+      print(signupError.value);
+
+      signupErrorMessage(signupError.value);
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future signup(context) async {
     try {
       var response;
       var keyPair = generateKeyPairAndEncrypt(password.text);
@@ -177,46 +207,25 @@ class SignupPageController extends GetxController {
       var json = jsonDecode(response.toString());
       print(json);
 
-      if (json["success"] == true) {
-        var data = json["data"];
+      var data = json["data"];
 
-        MyAccountController myAccountController =
-            Get.put(MyAccountController());
+      MyAccountController myAccountController = Get.put(MyAccountController());
 
-        myAccountController.kanjiName.value = data["kanji"];
-        myAccountController.katakanaName.value = data["romanji"];
-        myAccountController.dob.value = DateTime.parse(data["birthday"]);
-        myAccountController.userName = data["username"];
-        myAccountController.email.value = data["mail"];
-        myAccountController.phoneNumber.value = data["phone"];
-        myAccountController.citizenCode.value = data["pid"];
-        myAccountController.phoneVerified = data["isPhoneValidated"];
-        myAccountController.emailVerified = data["isMailValidated"];
+      myAccountController.kanjiName.value = data["kanji"];
+      myAccountController.katakanaName.value = data["romanji"];
+      myAccountController.dob.value = DateTime.parse(data["birthday"]);
+      myAccountController.userName = data["username"];
+      myAccountController.email.value = data["mail"];
+      myAccountController.phoneNumber.value = data["phone"];
+      myAccountController.citizenCode.value = data["pid"];
+      myAccountController.phoneVerified = data["isPhoneValidated"];
+      myAccountController.emailVerified = data["isMailValidated"];
 
-        signupError.value = "";
-
-        // LoginPageController loginPageController =
-        //     Get.put(LoginPageController());
-        //
-        // loginPageController.username.text = userId.text;
-        // loginPageController.password.text = password.text;
-        //
-        // var login = await loginPageController.login();
-
-        return {};
-      }
-
-      print('dsadsjaksa');
-      signupError.value = json["error"];
-
-      signupErrorMessage(signupError.value);
-
-      print(signupError);
-      return json;
+      return data;
     } catch (e, s) {
       print(e);
       print(s);
-      return {};
+      return null;
     }
   }
 }

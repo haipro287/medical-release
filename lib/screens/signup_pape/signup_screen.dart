@@ -289,7 +289,7 @@ class SignupScreen extends StatelessWidget {
 
 
                     if (signupPageController.isValid()) {
-                      var res = await signupPageController.signup(context);
+                      var res = await signupPageController.validateSignupInfo(context);
 
                       if (signupPageController.signupError.value == "") {
                         Get.to(() => ConfirmSignupScreen());
