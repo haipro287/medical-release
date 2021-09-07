@@ -183,6 +183,7 @@ AlertDialog stopSharingDialog(context) {
                         padding: EdgeInsets.symmetric(vertical: getHeight(12)),
                       ),
                       onPressed: () async {
+                        Get.put(GlobalController()).editToShareMode.value = "";
                         var a = await shareHistoryController.sharingService(
                           context,
                           status: "STOP_SHARING",

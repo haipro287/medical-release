@@ -194,8 +194,8 @@ class LoginPageController extends GetxController {
             socket.listenForMessages((message) {
               print("wsms: " + message);
             });
-            username.clear();
-            password.clear();
+            // username.clear();
+            // password.clear();
             return true;
           } else {
             messValidatePassword.value = "Wrong password";

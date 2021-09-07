@@ -21,8 +21,8 @@ class LoginPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-          Get.off(LoginWelcomePage());
-          return true;
+        Get.off(LoginWelcomePage());
+        return true;
       },
       child: Scaffold(
         appBar: appBar(context, "ログイン", null, false, true),
@@ -87,7 +87,8 @@ class LoginPageScreen extends StatelessWidget {
                   FocusScope.of(context).unfocus();
                   bool result = await loginController.login();
                   if (result) {
-                    var info = await Get.put(MyAccountController()).getUserInfo();
+                    var info =
+                        await Get.put(MyAccountController()).getUserInfo();
                     if (info != {}) {
                       MyAccountController myAccountController =
                           Get.put(MyAccountController());
@@ -98,6 +99,8 @@ class LoginPageScreen extends StatelessWidget {
                         Get.put(HomePageController()).currentPage.value = 0;
                         Get.offAll(() => HomePageScreen());
                       }
+                      loginController.username.clear();
+                      loginController.password.clear();
                     }
                   }
                 },
