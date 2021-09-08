@@ -14,6 +14,7 @@ class PrivacyController extends GetxController {
   Future<void> checkPrivacy() async {
     var res = await getPrivacy();
     privacy.value = res;
+    print("aaaaaa->>$res");
   }
 
   Future<void> upPrivacy(bool status) async {
