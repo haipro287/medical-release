@@ -93,7 +93,7 @@ class ShareListService extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       children: shareServiceListController.serviceList
                           .map(
-                            (e) => Container(
+                            (e) => e["isConnected"] ? Container(
                               padding: EdgeInsets.only(
                                 left: getWidth(15),
                                 right: getWidth(15),
@@ -164,7 +164,7 @@ class ShareListService extends StatelessWidget {
                                 ],
                               ),
                               alignment: Alignment.centerLeft,
-                            ),
+                            ) : Container(),
                           )
                           .toList(),
                     )),

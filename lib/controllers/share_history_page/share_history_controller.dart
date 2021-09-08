@@ -274,8 +274,8 @@ class ShareHistoryController extends GetxController {
     print("itemSeeee: " + itemSelected["primaryId"]);
     globalController.sharingStatus.value = type;
     Get.put(UserSearchController()).userData.value = userData;
-    Get.put(ShareServiceListController()).checkList.value =
-        itemSelected["services"];
+    // Get.put(ShareServiceListController()).checkList.value =
+    //     itemSelected["services"];
     globalController.editToShareMode.value = optionType ?? "";
     Get.to(() => ShareListService());
   }
