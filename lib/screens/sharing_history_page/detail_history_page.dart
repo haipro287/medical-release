@@ -292,7 +292,7 @@ Container sentButtonContainer({
                   print('approve');
                 },
                 child: Text(
-                  'accept'.tr,
+                  '変更'.tr,
                   style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
                 ),
               ),

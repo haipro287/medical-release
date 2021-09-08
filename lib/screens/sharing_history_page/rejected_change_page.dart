@@ -10,7 +10,6 @@ import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
-import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class RejectedChangePage extends StatelessWidget {
@@ -32,7 +31,7 @@ class RejectedChangePage extends StatelessWidget {
           )),
       appBar: appBarWithButton(
         context,
-        "detail_sharing".tr,
+        "detail_request".tr,
         InkWell(
           onTap: () {
             shareHistoryController.editToShare("SENT_DATA");
