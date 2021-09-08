@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/confirm_approve_record.dart';
+import 'package:medical_chain_mobile_ui/screens/sharing_history_page/rejected_change_page.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -48,7 +49,7 @@ class DetailHistoryPage extends StatelessWidget {
           ? appBarWithButton(
               context,
               subMode ? "detail_sharing".tr : "detail_request".tr,
-              subMode
+              itemSelected["status"] != "pending"
                   ? null
                   : InkWell(
                       onTap: () {
@@ -287,7 +288,7 @@ Container sentButtonContainer({
                   ),
                 ),
                 onPressed: () {
-                  Get.to(() => ConfirmApproveRecordPage());
+                  Get.to(() => RejectedChangePage());
                   print('approve');
                 },
                 child: Text(
