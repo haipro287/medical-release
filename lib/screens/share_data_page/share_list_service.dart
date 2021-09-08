@@ -62,7 +62,7 @@ class ShareListService extends StatelessWidget {
                   }).toList();
                   print(servicesList.toString());
                   if (servicesList.length > 0) {
-                    CustomDialog(context, "SERVICES_NOT_CONNECT")
+                    CustomDialog(context, "SERVICES_NOT_CONNECTED")
                         .show({"servicesList": servicesList});
                   } else {
                     Get.to(() => ShareConfirmScreen());
