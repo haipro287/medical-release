@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
 import 'package:medical_chain_mobile_ui/api/signature_service.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/privacy/privacy_controller.dart';
 import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/models/status.dart';
@@ -189,6 +190,7 @@ class LoginPageController extends GetxController {
             print(token.toString());
             var subcribeRes = await subcribe(token: token.toString());
             print(subcribeRes);
+            Get.put(PrivacyController()).checkPrivacy();
             CustomSocket socket = CustomSocket("/token");
             socket.sendMessage(userInfo.certificate.toString());
             socket.listenForMessages((message) {
