@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/scanQRController/scanQR_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 AppBar appBar(
-    [BuildContext? context, String? title, Widget? button, bool? backHome, bool? backToLogin]) {
+    [BuildContext? context,
+    String? title,
+    Widget? button,
+    bool? backHome,
+    bool? backToLogin,
+    String? scan]) {
   return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,
@@ -19,8 +25,12 @@ AppBar appBar(
         if (backHome == true) {
           Get.put(HomePageController()).currentPage.value = 0;
           Get.offAll(HomePageScreen());
-        }else if(backToLogin == true) {
+        } else if (backToLogin == true) {
           Get.offAll(LoginWelcomePage());
+        } else if (scan == "scan") {
+          Get.put(QrScanController()).controller!.resumeCamera();
+          Get.put(QrScanController()).qr = "";
+          Get.back();
         } else
           Get.back();
       },

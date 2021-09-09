@@ -5,6 +5,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 class QrScanController extends GetxController {
   Barcode? result;
   QRViewController? controller;
+  String? qr;
 
   RxInt i = 0xFFD0E8FF.obs;
   var isFlash = false.obs;

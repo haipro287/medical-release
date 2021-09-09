@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/scanQRController/scanQR_controller.dart';
-import 'package:medical_chain_mobile_ui/screens/scanQR/test_qr.dart';
+import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
+import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
+import 'package:medical_chain_mobile_ui/screens/contact_page/user_saved_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -126,7 +130,7 @@ class ScanQRScreen extends StatelessWidget {
                               data: Get.put(GlobalController())
                                   .user
                                   .value
-                                  .username
+                                  .id
                                   .toString(),
                               version: QrVersions.auto,
                               size: getWidth(180),
@@ -233,7 +237,7 @@ class ScanQRScreen extends StatelessWidget {
                                 alignment: WrapAlignment.center,
                                 children: [
                                   Text(
-                                    "my_qr".tr.substring(0,2),
+                                    "my_qr".tr.substring(0, 2),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Colors.white,
@@ -280,11 +284,38 @@ class ScanQRScreen extends StatelessWidget {
 
   void _onQRViewCreated(QRViewController controller) {
     this.qrScanController.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      controller.pauseCamera();
-      print(scanData.code);
-      Get.to(() => TestQRScreen(qr: scanData.code));
-      controller.resumeCamera();
+    UserSearchController userSearchController = Get.put(UserSearchController());
+
+    controller.scannedDataStream.listen((scanData) async {
+      if (scanData.code != qrScanController.qr.toString()) {
+        try {
+          qrScanController.qr = scanData.code;
+          var response;
+          CustomDio customDio = CustomDio();
+          var certificate =
+              Get.put(GlobalController()).user.value.certificate.toString();
+          customDio.dio.options.headers["Authorization"] = certificate;
+          response = await customDio.get("/user/${scanData.code}");
+          controller.pauseCamera();
+          var json = jsonDecode(response.toString());
+          var responseData = json["data"];
+          Map<dynamic, dynamic> item = {};
+          item["id"] = responseData["id"];
+          item["id"] = responseData["username"];
+          item["secondaryName"] = responseData["secondaryName"];
+          item["secondaryUsername"] =
+              responseData["secondaryUsername"] ?? responseData["username"];
+          item["romanji"] = responseData["romanji"];
+          item["kanji"] = responseData["kanji"];
+          userSearchController.userData.value = item;
+          userSearchController.isEditing.value = false;
+          Get.to(() => UserSavedScreen(
+                scan: "scan",
+              ));
+        } catch (e) {
+          controller.resumeCamera();
+        }
+      }
     });
   }
 }
