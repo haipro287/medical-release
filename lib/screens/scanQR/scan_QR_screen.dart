@@ -300,7 +300,6 @@ class ScanQRScreen extends StatelessWidget {
           var json = jsonDecode(response.toString());
           var responseData = json["data"];
           Map<dynamic, dynamic> item = {};
-          item["id"] = responseData["id"];
           item["id"] = responseData["username"];
           item["secondaryName"] = responseData["secondaryName"];
           item["secondaryUsername"] =
@@ -309,6 +308,8 @@ class ScanQRScreen extends StatelessWidget {
           item["kanji"] = responseData["kanji"];
           userSearchController.userData.value = item;
           userSearchController.isEditing.value = false;
+          userSearchController.searchInput.text = responseData["username"];
+          var contactData = await Get.put(UserSearchController()).search();
           Get.to(() => UserSavedScreen(
                 scan: "scan",
               ));
