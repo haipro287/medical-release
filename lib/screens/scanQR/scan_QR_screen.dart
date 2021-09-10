@@ -309,7 +309,8 @@ class ScanQRScreen extends StatelessWidget {
           userSearchController.userData.value = item;
           userSearchController.isEditing.value = false;
           userSearchController.searchInput.text = responseData["username"];
-          var contactData = await Get.put(UserSearchController()).search();
+          var contactData = await Get.put(UserSearchController())
+              .createContact(nickname: "", secondaryId: scanData.code);
           Get.to(() => UserSavedScreen(
                 scan: "scan",
               ));
