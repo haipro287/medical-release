@@ -187,23 +187,9 @@ class EditMyAccountScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          onPress: () {
+                          onPress: () async {
                             if (editMyAccountController.isValid()) {
                               print("dsadsa");
-                              myAccountController.editUserInfo(
-                                kanji: editMyAccountController.kanjiName.text,
-                                romanji:
-                                    editMyAccountController.katakanaName.text,
-                                mail: editMyAccountController.email.text,
-                                birthday: TimeService.timeToBackEnd(
-                                    editMyAccountController.birthday),
-                                pid: editMyAccountController.citizenCode.text,
-                                phone: editMyAccountController.phone.text,
-                                avatar: editMyAccountController.avatar.value,
-                              );
-
-                              print(myAccountController.kanjiName.value);
-
                               LoginPageController loginPageController =
                                   Get.put(LoginPageController());
 
@@ -215,9 +201,39 @@ class EditMyAccountScreen extends StatelessWidget {
                               loginPageController.password.text =
                                   signupController.password.text;
 
-                              loginPageController.login();
+                              var login = await loginPageController.login();
 
-                              Get.offAll(() => HomePageScreen());
+                              if (login) {
+                                var info =
+                                    await myAccountController.editUserInfo(
+                                  kanji: editMyAccountController.kanjiName.text,
+                                  romanji:
+                                      editMyAccountController.katakanaName.text,
+                                  mail: editMyAccountController.email.text,
+                                  birthday: TimeService.timeToBackEnd(
+                                      editMyAccountController.birthday),
+                                  pid: editMyAccountController.citizenCode.text,
+                                  phone: editMyAccountController.phone.text,
+                                  avatar: editMyAccountController.avatar.value,
+                                );
+
+                                if (info != null) {
+                                  // LoginPageController loginPageController =
+                                  //     Get.put(LoginPageController());
+                                  //
+                                  // SignupPageController signupController =
+                                  //     Get.put(SignupPageController());
+                                  //
+                                  // loginPageController.username.text =
+                                  //     signupController.userId.text;
+                                  // loginPageController.password.text =
+                                  //     signupController.password.text;
+                                  //
+                                  // var login = await loginPageController.login();
+
+                                    Get.offAll(() => HomePageScreen());
+                                }
+                              }
                             }
                           })
                       : Row(

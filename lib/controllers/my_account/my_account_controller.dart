@@ -9,7 +9,7 @@ class MyAccountController extends GetxController {
   static const avatarList = [0, 0xFFD0E8FF, 0xFFFFF0D1, 0xFFDAD5FF, 0xFFF7EBE8];
 
   var avatar = avatarList[0].obs;
-  String userName = "";
+  String userName = Get.put(GlobalController()).user.value.username ?? "";
   RxString kanjiName = "".obs;
   RxString katakanaName = "".obs;
   Rx<DateTime> dob = DateTime.parse("0000-00-00T00:00:00Z").obs;
@@ -90,6 +90,9 @@ class MyAccountController extends GetxController {
       var json = jsonDecode(response.toString());
 
       var data = json["data"];
+
+      print(data);
+
       myAccountController.kanjiName.value = data['kanji'].toString();
       myAccountController.katakanaName.value = data['romanji'].toString();
       myAccountController.dob.value = DateTime.parse(data['birthday']);

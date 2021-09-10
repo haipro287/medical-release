@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/edit_my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -84,7 +85,7 @@ class SignupSuccessScreen extends StatelessWidget {
                       editMyAccountController.signup.value = true;
                       editMyAccountController.email.text = signupController.email.text;
                       editMyAccountController.phone.text = signupController.phone.text;
-                      editMyAccountController.avatar.value = 1;
+                      editMyAccountController.avatar.value = MyAccountController.avatarList[1];
 
                       Get.to(() => EditMyAccountScreen());
                     },

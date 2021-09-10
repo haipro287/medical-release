@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class ForgotPasswordController extends GetxController {
   final String correctOtp = '777777';
@@ -90,5 +93,55 @@ class ForgotPasswordController extends GetxController {
     }
 
     return isValid;
+  }
+
+  Future<bool> checkEmail() async {
+    try {
+      errMess.value = "";
+      CustomDio customDio = CustomDio();
+      var response = await customDio.post(
+        "/auth/forgot",
+        {
+          "data": {
+            "mail": email.text,
+          },
+        },
+      );
+
+      print(response.toString());
+
+      var json = jsonDecode(response.toString());
+
+      if (json["success"] == false) {
+        errMess.value = "メールアドレスは存在していません。";
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future resetPassword() async {
+    try {
+      errMess.value = "";
+      CustomDio customDio = CustomDio();
+      var response = await customDio.post(
+        "/auth/password",
+        {
+        },
+      );
+
+      print(response.toString());
+
+      var json = jsonDecode(response.toString());
+
+      return {};
+    } catch (e) {
+      print(e);
+      return null;
+    }
   }
 }

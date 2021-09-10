@@ -89,10 +89,15 @@ class ForgotPasswordScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPress: () {
+                  onPress: () async {
                     if (active) {
-                      if (forgotPasswordController.isValid()){
-                        Get.to(() => ForgotPasswordOTPScreen());
+                      if (forgotPasswordController.isValid()) {
+                        var emailExisted =
+                            await forgotPasswordController.checkEmail();
+
+                        if (emailExisted) {
+                          Get.to(() => ForgotPasswordOTPScreen());
+                        }
                       }
                     }
                   },
