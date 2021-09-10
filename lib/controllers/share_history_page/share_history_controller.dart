@@ -207,7 +207,11 @@ class ShareHistoryController extends GetxController {
         response = await customDio.post(
           "/request/deny",
           {
-            "data": {"id": recordID},
+            "data": {
+              "id": recordID,
+              "endTime":
+                  TimeService.timeToBackEndMaster(TimeService.getTimeNow())
+            },
           },
         );
       }
