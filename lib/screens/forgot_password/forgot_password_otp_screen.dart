@@ -135,9 +135,10 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                onTap: () {
+                onTap: () async {
                   if (active) {
-                    if (forgotPasswordController.otpValidate()) {
+                    forgotPasswordController.resetSuccess.value = await forgotPasswordController.checkOTP();
+                    if (forgotPasswordController.resetSuccess.value) {
                       Get.to(() => NewPasswordScreen());
                     }
                   }

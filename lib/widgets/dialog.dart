@@ -5,6 +5,7 @@ import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/list_service/list_service_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_page.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -503,7 +504,7 @@ AlertDialog resetPasswordDialog(context) {
                         padding: EdgeInsets.symmetric(vertical: getHeight(12)),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Get.offAll(() => LoginPageScreen());
                       },
                       child: Text(
                         'OK',

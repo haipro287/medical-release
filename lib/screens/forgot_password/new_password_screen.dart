@@ -74,9 +74,12 @@ class NewPasswordScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              onPress: () {
+              onPress: () async {
                 if (forgotPasswordController.isPasswordValid()) {
-                  CustomDialog(context, "RESET_PASSWORD").show();
+                  var success = await forgotPasswordController.forgotPasswordChange();
+                  if (success) {
+                    CustomDialog(context, "RESET_PASSWORD").show();
+                  }
                 }
               },
             ),

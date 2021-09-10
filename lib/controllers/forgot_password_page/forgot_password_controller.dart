@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class ForgotPasswordController extends GetxController {
   final String correctOtp = '777777';
+
+  String forgotId = "";
 
   TextEditingController email = TextEditingController();
 
@@ -117,6 +120,8 @@ class ForgotPasswordController extends GetxController {
         return false;
       }
 
+      forgotId = json["data"];
+
       return true;
     } catch (e) {
       print(e);
@@ -130,8 +135,7 @@ class ForgotPasswordController extends GetxController {
       CustomDio customDio = CustomDio();
       var response = await customDio.post(
         "/auth/password",
-        {
-        },
+        {},
       );
 
       print(response.toString());
@@ -142,6 +146,55 @@ class ForgotPasswordController extends GetxController {
     } catch (e) {
       print(e);
       return null;
+    }
+  }
+
+  Future<bool> checkOTP() async {
+    try {
+      CustomDio customDio = CustomDio();
+      var response = await customDio.post("/auth/otp", {
+        "data": {
+          "id": forgotId,
+          "otp": otp.text,
+          "type": "forgot",
+        }
+      });
+
+      var json = jsonDecode(response.toString());
+
+      return json["data"];
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> forgotPasswordChange() async {
+    try {
+      var keyPair = generateKeyPairAndEncrypt(password.text);
+      CustomDio customDio = CustomDio();
+
+      var response = await customDio.post(
+        "/auth/forgot/change",
+        {
+          "data": {
+            "id": forgotId,
+            "mail": email.text,
+            "otp": otp.text,
+            "encryptedPrivateKey": keyPair["encryptedPrivateKey"],
+            "publicKey": keyPair["publicKey"],
+          }
+        },
+        sign: false,
+      );
+
+      var json = jsonDecode(response.toString());
+      print(json);
+
+      return json["success"];
+    } catch (e) {
+      print(e);
+      return false;
     }
   }
 }
