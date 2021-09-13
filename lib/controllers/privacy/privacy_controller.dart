@@ -4,6 +4,7 @@ import 'package:medical_chain_mobile_ui/api/privacy_api.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
+import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 
 class PrivacyController extends GetxController {
@@ -40,8 +41,11 @@ class PrivacyController extends GetxController {
   }
 
   logout2() {
-    Get.put(GlobalController()).db.deleteFromDisk();
-    Get.put(HomePageController()).onClose();
-    Get.offAll(() => LoginWelcomePage());
+    if (Get.put(GlobalController()).user.value.id != null) {
+      Get.put(GlobalController()).db.deleteFromDisk();
+      Get.put(GlobalController()).user.value = User();
+      Get.put(HomePageController()).onClose();
+      Get.offAll(() => LoginWelcomePage());
+    }
   }
 }
