@@ -86,6 +86,27 @@ class LoginPageController extends GetxController {
     }
   }
 
+  Future fetchNoti() async {
+    try {
+      GlobalController globalController = Get.put(GlobalController());
+      var response;
+      var userID = globalController.user.value.id.toString();
+      CustomDio customDio = CustomDio();
+      customDio.dio.options.headers["Authorization"] =
+          globalController.user.value.certificate.toString();
+
+      response = await customDio.post("/user/$userID/notification/fetch", {});
+
+      var json = jsonDecode(response.toString());
+      print(json.toString());
+      return (json["success"]);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return null;
+    }
+  }
+
   Future getPing(List<String> certificateList) async {
     try {
       CustomDio customDio = new CustomDio();
@@ -191,6 +212,7 @@ class LoginPageController extends GetxController {
             var subcribeRes = await subcribe(token: token.toString());
             print(subcribeRes);
             Get.put(PrivacyController()).checkPrivacy();
+            var fetnoti = await fetchNoti();
             CustomSocket socket = CustomSocket("/token");
             socket.sendMessage(userInfo.certificate.toString());
             socket.listenForMessages((message) {
