@@ -427,23 +427,7 @@ class UserScreen extends StatelessWidget {
                                         Expanded(
                                           child: Bouncing(
                                             onPress: () async {
-                                              String? token =
-                                                  await FirebaseMessaging
-                                                      .instance
-                                                      .getToken();
-                                              print(token.toString());
-                                              var unSubcribe = await Get.put(
-                                                      LoginPageController())
-                                                  .unSubcribe(
-                                                      token: token.toString());
-                                              print(unSubcribe);
-                                              Get.put(GlobalController())
-                                                  .db
-                                                  .deleteFromDisk();
-                                              Get.put(HomePageController())
-                                                  .onClose();
-                                              Get.offAll(
-                                                  () => LoginWelcomePage());
+                                              await privacyController.logout();
                                             },
                                             child: Container(
                                               height: getHeight(48),

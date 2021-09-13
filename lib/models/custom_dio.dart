@@ -8,6 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/instance_manager.dart';
 import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/privacy/privacy_controller.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 
 class CustomDio {
@@ -53,12 +54,15 @@ class CustomDio {
         onRequest:
             (RequestOptions options, RequestInterceptorHandler handler) async {
           print({"onRequest": options.uri});
-          print(1);
           return handler.next(options); //continue
         },
         onResponse:
             (Response response, ResponseInterceptorHandler handler) async {
           print({'onResponse': response});
+          if (response.data["error"] == "user is banned") {
+            print('banned!!!');
+            Get.put(PrivacyController()).logout2();
+          }
           return handler.next(response);
         },
         onError: (DioError error, ErrorInterceptorHandler handler) async {
