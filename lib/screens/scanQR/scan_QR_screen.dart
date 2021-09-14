@@ -300,17 +300,22 @@ class ScanQRScreen extends StatelessWidget {
           var json = jsonDecode(response.toString());
           var responseData = json["data"];
           Map<dynamic, dynamic> item = {};
-          item["id"] = responseData["username"];
           item["secondaryName"] = responseData["secondaryName"];
           item["secondaryUsername"] =
               responseData["secondaryUsername"] ?? responseData["username"];
           item["romanji"] = responseData["romanji"];
           item["kanji"] = responseData["kanji"];
+
           userSearchController.userData.value = item;
           userSearchController.isEditing.value = false;
           userSearchController.searchInput.text = responseData["username"];
-          var contactData = await Get.put(UserSearchController())
-              .createContact(nickname: "", secondaryId: scanData.code);
+          if (responseData["contactId"] == "") {
+            var contactData = await Get.put(UserSearchController())
+                .createContact(nickname: "", secondaryId: scanData.code);
+            item["id"] = contactData["id"];
+          } else {
+            item["id"] = responseData["contactId"];
+          }
           Get.to(() => UserSavedScreen(
                 scan: "scan",
               ));
