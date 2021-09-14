@@ -144,7 +144,7 @@ Widget historyDetailComponent({required record}) {
                               TimeService.getTimeFormat(record["endTime"], ""),
                           style: TextStyle(fontSize: getWidth(13)),
                         )
-                      : record["status"] == "expired"
+                      : record["status"] == "rejected"
                           ? Text(
                               TimeService.getTimeFormat(record["endTime"], ""),
                               style: TextStyle(fontSize: getWidth(13)),
