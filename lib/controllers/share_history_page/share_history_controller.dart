@@ -195,6 +195,8 @@ class ShareHistoryController extends GetxController {
             "data": {
               "id": recordID,
               "services": itemSelected.value["servicesId"],
+              "fromTime":
+                  TimeService.timeToBackEndMaster(TimeService.getTimeNow()),
             },
           },
         );
