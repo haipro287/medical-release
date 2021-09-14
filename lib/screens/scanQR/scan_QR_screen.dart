@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/contact_page/contact_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/scanQRController/scanQR_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
@@ -312,6 +313,10 @@ class ScanQRScreen extends StatelessWidget {
           if (responseData["contactId"] == "") {
             var contactData = await Get.put(UserSearchController())
                 .createContact(nickname: "", secondaryId: scanData.code);
+            var newContactList =
+                await Get.put(ContactPageController()).getContactList();
+            Get.put(UserSearchController()).refetchList(newContactList);
+
             item["id"] = contactData["id"];
           } else {
             item["id"] = responseData["contactId"];
