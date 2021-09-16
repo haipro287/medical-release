@@ -49,7 +49,7 @@ class LoginPageController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
 
-      response = await customDio.post("/user/$userID/notification/subcribe", {
+      response = await customDio.post("/user/$userID/notification/subscribe", {
         "data": {"token": token}
       });
 
@@ -161,7 +161,7 @@ class LoginPageController extends GetxController {
         var publicKey = data['publicKey'];
         var encryptedPrivateKey = data['encryptedPrivateKey'];
         var email = data["mail"];
-        var userName = data["username"];
+        var userName = username.text;
         String? privateKey =
             decryptAESCryptoJS(encryptedPrivateKey, password.text);
 
@@ -183,8 +183,7 @@ class LoginPageController extends GetxController {
           List<String> certificateList = SignatureService.getCertificateLogin(
               certificateInfo,
               userId,
-              email,
-              userName,
+              privateKey,
               encryptedPrivateKey,
               signature,
               publicKey,
@@ -213,11 +212,6 @@ class LoginPageController extends GetxController {
             print(subcribeRes);
             Get.put(PrivacyController()).checkPrivacy();
             var fetnoti = await fetchNoti();
-            CustomSocket socket = CustomSocket("/token");
-            socket.sendMessage(userInfo.certificate.toString());
-            socket.listenForMessages((message) {
-              print("wsms: " + message);
-            });
             // username.clear();
             // password.clear();
             return true;

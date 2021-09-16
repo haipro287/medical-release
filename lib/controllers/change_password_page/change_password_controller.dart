@@ -116,8 +116,7 @@ class ChangePasswordController extends GetxController {
         List<String> certificateList = SignatureService.getCertificateLogin(
             certificateInfo,
             userId,
-            email,
-            userName,
+            privateKey,
             encryptedPrivateKey,
             signature,
             publicKey,

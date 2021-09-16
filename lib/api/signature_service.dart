@@ -11,7 +11,7 @@ class SignatureService {
     var certificateInfo = jsonEncode({
       "id": userId,
       "timestamp": TimeService.timeToBackEndMaster(TimeService.getTimeNow()),
-      "exp": 2799360000000
+      "exp": 2799360000000,
     });
 
     // debug here: 2021-08-20T16:19:48.1948Z
@@ -21,6 +21,7 @@ class SignatureService {
   }
 
   static String getSignature(var certificateInfo, String privateKey) {
+    print({certificateInfo});
     var hashCertificateInfo = hashMessage(certificateInfo);
     var signature = signMessage(privateKey, hashCertificateInfo);
     return signature;
@@ -39,33 +40,37 @@ class SignatureService {
   static List<String> getCertificateLogin(
       var certificateInfo,
       String? userId,
-      String? email,
-      String? username,
+      String? privateKey,
       String? encryptedPrivateKey,
       String signature,
       String publicKey,
       String time) {
-    print({"cf": certificateInfo});
+    // print({"cf": certificateInfo});
     var certificate = jsonEncode({
       "signature": signature,
       "certificateInfo": jsonDecode(certificateInfo),
       "publicKey": publicKey,
     });
 
+    var bodySignature = signMessage(
+        privateKey,
+        hashMessage(jsonEncode({
+          "certificateInfo": jsonDecode(certificateInfo),
+          "_actionType": "POST_API-AUTH-PING",
+          "_timestamp": time,
+        })));
+
     var body = jsonEncode({
       "data": {
-        "email": email,
-        "username": username,
-        "encryptedPrivateKey": encryptedPrivateKey,
-        "publicKey": publicKey,
-        "_actionType": "POST_V1-USER-BWIT-QVZVCZHYJ4FPCPPT-CONTACTS",
+        "certificateInfo": jsonDecode(certificateInfo),
+        "_actionType": "POST_API-AUTH-PING",
         "_timestamp": time,
       },
-      "_signature": signature,
+      "_signature": bodySignature,
     });
 
-    print(body);
-    print(certificate);
+    print({body});
+    // print(certificate);
 
     List<String> result = [];
     result.add(certificate);
