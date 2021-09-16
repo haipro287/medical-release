@@ -70,7 +70,7 @@ class UserSearchController extends GetxController {
       });
       var json = jsonDecode(response.toString());
       print("searchUser: " + json.toString());
-      return (json["data"]);
+      return (json["data"]["results"])[0];
     } catch (e, s) {
       print(e);
       print(s);

@@ -115,7 +115,7 @@ class ShareHistoryController extends GetxController {
         });
       }
       var json = jsonDecode(response.toString());
-      var list = json["data"];
+      var list = json["data"]["results"];
       List<Map<String, dynamic>> listRecords = [];
 
       for (var i = 0; i < list.length; i++) {

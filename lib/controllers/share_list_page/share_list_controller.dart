@@ -32,28 +32,30 @@ class ShareListController extends GetxController {
           Get.put(GlobalController()).user.value.certificate.toString();
       customDio.dio.options.headers["Authorization"] = certificate;
       response = await customDio.get("/user/$userID/contacts");
+
       var json = jsonDecode(response.toString());
 
-      var responseData = json["data"];
-
-      print(responseData[0]["phone"]);
+      var responseData = json['data']['contacts'];
 
       List<Map<dynamic, dynamic>> res = [];
 
       for (int i = 0; i < responseData.length; i++) {
         Map<dynamic, dynamic> item = {};
-        item["phone"] = responseData[i]["phone"];
-        item["id"] = responseData[i]["id"];
-        item["secondaryId"] = responseData[i]["secondaryId"];
-        item["secondaryName"] = responseData[i]["secondaryName"] ?? "";
-        item["primaryId"] = responseData[i]["primaryId"];
-        item["secondaryUsername"] = responseData[i]["secondaryUsername"];
-        item["romanji"] = responseData[i]["romanji"];
-        item["kanji"] = responseData[i]["kanji"];
+        print({'item': responseData[i]});
+        item['phone'] = responseData[i]['phone'] ?? '';
+        item['id'] = responseData[i]['id'] ?? '';
+        item['secondaryId'] = responseData[i]['secondaryId'] ?? '';
+        item['secondaryName'] = responseData[i]['secondaryName'] ?? '';
+        item['primaryId'] = responseData[i]['primaryId'] ?? '';
+        item['secondaryUsername'] = responseData[i]['secondaryUsername'] ?? '';
+        item['romanji'] = responseData[i]['romanji'] ?? '';
+        item['kanji'] = responseData[i]['kanji'] ?? '';
         res.add(item);
       }
       res.sort(
           (a, b) => a["secondaryUsername"].compareTo(b["secondaryUsername"]));
+
+      print({"aaaaaa": res});
       contactList.value = res;
       searchList.value = res;
       return res;

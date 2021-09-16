@@ -13,12 +13,12 @@ class ContactPageController extends GetxController {
 
   RxList<dynamic> searchList = [].obs;
 
-  var category = "".obs;
+  var category = ''.obs;
 
   @override
   void onInit() async {
     var response = await getContactList();
-    print("response: " + response.toString());
+    print('response: ' + response.toString());
     super.onInit();
   }
 
@@ -29,28 +29,31 @@ class ContactPageController extends GetxController {
       CustomDio customDio = CustomDio();
       var certificate =
           Get.put(GlobalController()).user.value.certificate.toString();
-      customDio.dio.options.headers["Authorization"] = certificate;
-      response = await customDio.get("/user/$userID/contacts");
+      customDio.dio.options.headers['Authorization'] = certificate;
+      response = await customDio.get('/user/$userID/contacts');
       var json = jsonDecode(response.toString());
 
-      var responseData = json["data"];
+      var responseData = json['data']['contacts'];
+
+      print({'responseData': responseData});
 
       List<Map<dynamic, dynamic>> res = [];
 
       for (int i = 0; i < responseData.length; i++) {
         Map<dynamic, dynamic> item = {};
-        item["phone"] = responseData[i]["phone"];
-        item["id"] = responseData[i]["id"];
-        item["secondaryId"] = responseData[i]["secondaryId"];
-        item["secondaryName"] = responseData[i]["secondaryName"];
-        item["primaryId"] = responseData[i]["primaryId"];
-        item["secondaryUsername"] = responseData[i]["secondaryUsername"] ?? "";
-        item["romanji"] = responseData[i]["romanji"];
-        item["kanji"] = responseData[i]["kanji"];
+        print({'item': responseData[i]});
+        item['phone'] = responseData[i]['phone'] ?? '';
+        item['id'] = responseData[i]['id'] ?? '';
+        item['secondaryId'] = responseData[i]['secondaryId'] ?? '';
+        item['secondaryName'] = responseData[i]['secondaryName'] ?? '';
+        item['primaryId'] = responseData[i]['primaryId'] ?? '';
+        item['secondaryUsername'] = responseData[i]['secondaryUsername'] ?? '';
+        item['romanji'] = responseData[i]['romanji'] ?? '';
+        item['kanji'] = responseData[i]['kanji'] ?? '';
         res.add(item);
       }
       res.sort(
-          (a, b) => a["secondaryUsername"].compareTo(b["secondaryUsername"]));
+          (a, b) => a['secondaryUsername'].compareTo(b['secondaryUsername']));
       contactList.value = res;
       searchList.value = res;
       return res;
@@ -63,17 +66,17 @@ class ContactPageController extends GetxController {
 
   void search() {
     print(searchInput.text);
-    if (searchInput.text == "") {
+    if (searchInput.text == '') {
       searchList.value = contactList.value;
       searchInput.clear();
     } else {
       searchList.value = contactList.value.where((ele) {
         String pattern = searchInput.text.toLowerCase();
         var listCheck = [
-          "secondaryUsername",
-          "secondaryName",
-          "kanji",
-          "romanji"
+          'secondaryUsername',
+          'secondaryName',
+          'kanji',
+          'romanji'
         ];
         for (int i = 0; i < listCheck.length; i++) {
           if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern))
@@ -90,6 +93,6 @@ class ContactPageController extends GetxController {
       category.value = character;
       return upperFirstString(character);
     }
-    return "";
+    return '';
   }
 }

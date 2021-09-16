@@ -34,7 +34,9 @@ class CustomDio {
 
   String _getActionType(String method, String url) {
     String module = url.replaceAll(RegExp('/'), '-').substring(1);
-    return (method + "_" + module).toUpperCase();
+    String actionType = method + "_" + module;
+    print({'actionType': actionType.toUpperCase()});
+    return actionType.toUpperCase();
   }
 
   static Dio _initDio() {
@@ -91,7 +93,7 @@ class CustomDio {
     var privateKey = globalController.user.value.privateKey ?? "";
     if (privateKey != "") {
       var bodySignature =
-          signMessage(privateKey, hashMessage(jsonEncode(params)));
+          signMessage(privateKey, hashMessage(jsonEncode(data)));
       finalData = jsonEncode({"data": data, "_signature": bodySignature});
     } else {
       finalData = jsonEncode({"data": data});

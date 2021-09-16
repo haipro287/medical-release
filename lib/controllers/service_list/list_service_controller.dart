@@ -20,7 +20,6 @@ class ListServiceController extends GetxController {
       response = await customDio.post(
         "/user/$userID/service/disconnect/$serviceId",
         {},
-        sign: false,
       );
 
       var json = jsonDecode(response.toString());
@@ -44,7 +43,6 @@ class ListServiceController extends GetxController {
       response = await customDio.post(
         "/user/$userID/service/connect/$serviceId",
         {},
-        sign: false,
       );
 
       var json = jsonDecode(response.toString());
@@ -67,7 +65,7 @@ class ListServiceController extends GetxController {
       response = await customDio.get("/user/$userID/services");
       var json = jsonDecode(response.toString());
       print(json["data"]);
-      var list = json["data"];
+      var list = json["data"]["results"] ?? json["data"] ?? [];
       List<Service> listService = [];
 
       for (var i = 0; i < list.length; i++) {
@@ -81,6 +79,8 @@ class ListServiceController extends GetxController {
         service.icon = list[i]['icon'];
         listService.add(service);
       }
+
+      serviceList.value = listService;
 
       return (listService);
     } catch (e, s) {
