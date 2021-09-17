@@ -102,7 +102,8 @@ AlertDialog deleteDialog(context) {
                       ),
                       onPressed: () async {
                         var a = await userSearchController.deleteContact();
-                        Navigator.of(context).pop();
+                        // Navigator.of(context).pop();
+                        Get.back();
                         Get.back();
                       },
                       child: Text(
@@ -272,7 +273,8 @@ AlertDialog alreadyShareDialog(context, List<dynamic> servicesList) {
   return AlertDialog(
     content: Container(
       width: getWidth(343),
-      height: getHeight(servicesList.length >= 3 ? 270 : 180 + servicesList.length * 20),
+      height: getHeight(
+          servicesList.length >= 3 ? 270 : 180 + servicesList.length * 20),
       child: Column(
         children: [
           Text(
