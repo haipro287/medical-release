@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -128,6 +126,9 @@ class MyAccountScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               myAccountText('email'.trParams()),
+                              SizedBox(
+                                height: getHeight(5),
+                              ),
                               verifiedIcon(myAccountController.emailVerified),
                             ],
                           ),
@@ -138,6 +139,9 @@ class MyAccountScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               myAccountText('phoneNumber'.trParams()),
+                              SizedBox(
+                                height: getHeight(5),
+                              ),
                               verifiedIcon(myAccountController.phoneVerified),
                             ],
                           ),

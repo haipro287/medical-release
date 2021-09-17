@@ -77,11 +77,14 @@ class ContactListPage extends StatelessWidget {
                               .map(
                                 (e) => Column(
                                   children: [
-                                    e["secondaryUsername"].toString().substring(0,1) !=
+                                    e["secondaryUsername"]
+                                                .toString()
+                                                .substring(0, 1) !=
                                             contactPageController.category.value
-                                        ? customBoxHeader(contactPageController.newCategory(
-                                          e["secondaryUsername"].toString().substring(0,1)
-                                        ))
+                                        ? customBoxHeader(contactPageController
+                                            .newCategory(e["secondaryUsername"]
+                                                .toString()
+                                                .substring(0, 1)))
                                         : Container(),
                                     GestureDetector(
                                       onTap: () {

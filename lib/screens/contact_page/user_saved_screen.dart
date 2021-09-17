@@ -228,7 +228,7 @@ class UserSavedScreen extends StatelessWidget {
                               ) +
                               " (" +
                               convertLongString(
-                                string: userInfo["romanji"].toString(),
+                                string: userInfo["katakana"].toString(),
                                 firstLength: 5,
                                 lastLength: 5,
                               ) +
@@ -262,16 +262,19 @@ class UserSavedScreen extends StatelessWidget {
                             Get.to(() => ShareListService());
                           },
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.28,
+                              ),
                               SvgPicture.asset("assets/images/share-icon.svg"),
                               SizedBox(
-                                width: getWidth(12),
+                                width: getWidth(10),
                               ),
                               Text(
                                 "データ共有",
                                 style: TextStyle(
                                   color: Colors.black,
+                                  fontSize: getWidth(17),
                                 ),
                               ),
                             ],
@@ -297,14 +300,13 @@ class UserSavedScreen extends StatelessWidget {
                             Get.to(() => ShareListService());
                           },
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                width: getWidth(24),
+                                width: MediaQuery.of(context).size.width * 0.28,
                               ),
                               SvgPicture.asset("assets/images/sent-icon.svg"),
                               SizedBox(
-                                width: getWidth(12),
+                                width: getWidth(10),
                               ),
                               Text(
                                 "リクエスト送信",

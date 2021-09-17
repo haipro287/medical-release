@@ -60,7 +60,7 @@ class EditMyAccountController extends GetxController {
       isValid = false;
     } else if (!kanji.hasMatch(this.kanjiName.text) ||
         this.kanjiName.text.contains(' ')) {
-      this.kanjiErr.value = '氏名（全角）は全角文字で入力してください。';
+      this.kanjiErr.value = '氏名（漢字）は全角文字で入力してください。';
       isValid = false;
     }
 

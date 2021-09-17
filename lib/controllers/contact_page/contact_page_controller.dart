@@ -48,7 +48,7 @@ class ContactPageController extends GetxController {
         item['secondaryName'] = responseData[i]['secondaryName'] ?? '';
         item['primaryId'] = responseData[i]['primaryId'] ?? '';
         item['secondaryUsername'] = responseData[i]['secondaryUsername'] ?? '';
-        item['romanji'] = responseData[i]['romanji'] ?? '';
+        item['katakana'] = responseData[i]['katakana'] ?? '';
         item['kanji'] = responseData[i]['kanji'] ?? '';
         res.add(item);
       }

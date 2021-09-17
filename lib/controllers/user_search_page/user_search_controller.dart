@@ -101,7 +101,8 @@ class UserSearchController extends GetxController {
         userData.value = {
           ...data,
           ...contactData,
-          "secondaryUsername": data["username"]
+          "secondaryUsername": data["username"],
+          "secondaryName": data["secondaryName"] ?? ""
         };
         var newContactList = await contactPageController.getContactList();
         refetchList(newContactList);
