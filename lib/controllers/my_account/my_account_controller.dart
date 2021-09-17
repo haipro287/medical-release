@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
-import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class MyAccountController extends GetxController {
@@ -78,13 +77,15 @@ class MyAccountController extends GetxController {
       response = await customDio.put(
         "/user/$userID/my-account",
         {
-          "romanji": romanji,
-          "kanji": kanji,
-          "birthday": birthday,
-          "mail": mail,
-          "phone": phone,
-          "pid": pid,
-          "avatar": color,
+          "data": {
+            "romanji": romanji,
+            "kanji": kanji,
+            "birthday": birthday,
+            "mail": mail,
+            "phone": phone,
+            "pid": pid,
+            "avatar": color,
+          }
         },
       );
       var json = jsonDecode(response.toString());

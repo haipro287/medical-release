@@ -13,7 +13,6 @@ import 'package:medical_chain_mobile_ui/models/status.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/services/db_service.dart';
 import 'package:medical_chain_mobile_ui/services/response_validator.dart';
-import 'package:medical_chain_mobile_ui/services/socket_service.dart';
 
 class LoginPageController extends GetxController {
   TextEditingController username = TextEditingController();
@@ -40,7 +39,7 @@ class LoginPageController extends GetxController {
     isHidePassword.value = !isHidePassword.value;
   }
 
-  Future subcribe({required String token}) async {
+  Future subscribe({required String token}) async {
     try {
       GlobalController globalController = Get.put(GlobalController());
       var response;
@@ -208,7 +207,7 @@ class LoginPageController extends GetxController {
             Get.put(GlobalController()).user.value = userInfo;
             String? token = await FirebaseMessaging.instance.getToken();
             print(token.toString());
-            var subcribeRes = await subcribe(token: token.toString());
+            var subcribeRes = await subscribe(token: token.toString());
             print(subcribeRes);
             Get.put(PrivacyController()).checkPrivacy();
             var fetnoti = await fetchNoti();

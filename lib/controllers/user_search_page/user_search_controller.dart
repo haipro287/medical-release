@@ -133,7 +133,9 @@ class UserSearchController extends GetxController {
       response = await customDio.put(
         "/user/$userID/contact/$contactID",
         {
-          "secondaryName": nickname,
+          "data": {
+            "secondaryName": nickname,
+          }
         },
       );
       var json = jsonDecode(response.toString());
