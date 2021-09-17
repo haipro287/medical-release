@@ -84,7 +84,7 @@ class CustomDio {
       {Options? options, bool? sign}) async {
     if (sign == false) return _dio.post(url, data: params, options: options);
     var finalData;
-    var data = params["data"];
+    var data = params["data"] ?? {};
     data = {
       ...data,
       "_actionType": _getActionType("post", url),
