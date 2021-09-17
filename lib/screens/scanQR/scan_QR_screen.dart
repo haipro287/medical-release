@@ -288,7 +288,8 @@ class ScanQRScreen extends StatelessWidget {
     UserSearchController userSearchController = Get.put(UserSearchController());
 
     controller.scannedDataStream.listen((scanData) async {
-      if (scanData.code != qrScanController.qr.toString()) {
+      if (scanData.code != qrScanController.qr.toString() &&
+          scanData.code != Get.put(GlobalController()).user.value.id) {
         try {
           qrScanController.qr = scanData.code;
           var response;

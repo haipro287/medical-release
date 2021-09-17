@@ -45,8 +45,7 @@ class EditMyAccountController extends GetxController {
   }
 
   bool isValid() {
-    RegExp kanji =
-        new RegExp(r'(　)*([^ -~｡-ﾟ\x00-\x1f　\t])+(　[^ -~｡-ﾟ\x00-\x1f　\t]*)*$');
+    RegExp kanji = new RegExp(r'^([一-龥])+$');
     RegExp katakana = new RegExp(r'^([ァ-ン]|ー)+$');
     RegExp idNumber = new RegExp(r'^[0-9]+$');
 

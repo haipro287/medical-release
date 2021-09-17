@@ -78,7 +78,7 @@ class MyAccountController extends GetxController {
         "/user/$userID/my-account",
         {
           "data": {
-            "romanji": romanji,
+            "katakana": romanji,
             "kanji": kanji,
             "birthday": birthday,
             "mail": mail,
@@ -95,7 +95,7 @@ class MyAccountController extends GetxController {
       print(data);
 
       myAccountController.kanjiName.value = data['kanji'].toString();
-      myAccountController.katakanaName.value = data['romanji'].toString();
+      myAccountController.katakanaName.value = data['katakana'].toString();
       myAccountController.dob.value = DateTime.parse(data['birthday']);
       myAccountController.email.value = data['mail'].toString();
       myAccountController.phoneNumber.value = data['phone'].toString();

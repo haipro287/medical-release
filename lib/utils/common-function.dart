@@ -25,8 +25,8 @@ String getWithoutSpaces(String s) {
 }
 
 String getHintText(dynamic userData) {
-  if (userData["romanji"] != null && userData["kanji"] != null) {
-    return userData["kanji"] + " (" + userData["romanji"] + ")";
+  if (userData["katakana"] != null && userData["kanji"] != null) {
+    return userData["kanji"] + " (" + userData["katakana"] + ")";
   }
   return "佐藤桜(Sato Sakura)";
 }
