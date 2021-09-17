@@ -112,7 +112,7 @@ class ConfirmApproveRecordPage extends StatelessWidget {
               ),
             ),
             customBoxHeader(
-              "timeSentRequestTitle".tr,
+              shareHistoryController.itemSelected.value["status"] != "rejected" ? "timeSentRequestTitle".tr : 'timeSharing'.tr,
             ),
             Container(
               color: Colors.white,
