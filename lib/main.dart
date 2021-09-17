@@ -23,6 +23,7 @@ Future<void> main() async {
   await initDB();
 
   GlobalController globalController = Get.put(GlobalController());
+  await globalController.initActivity();
   if (globalController.db.get("user") != null)
     globalController.user.value = globalController.db.get("user");
   runApp(MyApp());
@@ -47,11 +48,19 @@ class MyApp extends StatelessWidget {
       transitionDuration: Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "SFPro"),
-      home: globalController.user.value.username != null
-          ? globalController.connectivityResult == ConnectivityResult.none
-              ? NoInternetScreen()
-              : HomePageScreen()
-          : LoginWelcomePage(),
+      home: home(),
     );
+  }
+
+  Widget home() {
+    if (globalController.user.value.username == null)
+      return LoginWelcomePage();
+    else if (globalController.user.value.username != null) {
+      if (globalController.connectivityResult == ConnectivityResult.none) {
+        return NoInternetScreen();
+      } else
+        return HomePageScreen();
+    } else
+      return Scaffold();
   }
 }
