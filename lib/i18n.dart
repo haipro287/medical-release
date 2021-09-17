@@ -161,11 +161,12 @@ class Messages extends Translations {
           "resetPasswordMess1": "パスワードを忘れた方は、登録されているメールアドレスを入力し、送信してください。",
           "resetPasswordMess2": "登録されているメールアドレス宛に、パスワード再設定用コードをお送りさせていただきます。",
           "resetEmailInvalid": "メールアドレスは不正な値です。",
-          "resetEmailNotExist":  "メールアドレスは存在していません。",
+          "resetEmailNotExist": "メールアドレスは存在していません。",
           "resetPasswordOTP1": "にパスワード再設定用のコードを送信しました。",
           "resetPasswordOTP2": " メールに記載されたコードの6桁の数字を入力してください。",
           "emptyRecords": "記録はありません。",
           "confirmEmail": "メール確認",
+          "check_internet_connection": "インターネット接続をチェックしてください。"
         }
       };
 }

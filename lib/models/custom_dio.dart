@@ -102,11 +102,43 @@ class CustomDio {
     return _dio.post(url, data: finalData, options: options);
   }
 
-  Future put(String url, [Map<String, dynamic>? params]) async {
-    return _dio.put(url, data: jsonEncode({"data": params}));
+  Future put(String url, dynamic params) async {
+    var finalData;
+    var data = params!["data"];
+    data = {
+      ...data,
+      "_actionType": _getActionType("put", url),
+      "_timestamp": TimeService.timeToBackEndMaster(TimeService.getTimeNow()),
+    };
+    var privateKey = globalController.user.value.privateKey ?? "";
+    if (privateKey != "") {
+      var bodySignature =
+          signMessage(privateKey, hashMessage(jsonEncode(data)));
+      finalData = jsonEncode({"data": data, "_signature": bodySignature});
+    } else {
+      finalData = jsonEncode({"data": data});
+    }
+    print("final: " + finalData.toString());
+    return _dio.put(url, data: finalData);
   }
 
-  Future delete(String url, [Map<String, dynamic>? params]) async {
-    return _dio.delete(url, data: params);
+  Future delete(String url, dynamic params) async {
+    var finalData;
+    var data = params!["data"];
+    data = {
+      ...data,
+      "_actionType": _getActionType("delete", url),
+      "_timestamp": TimeService.timeToBackEndMaster(TimeService.getTimeNow()),
+    };
+    var privateKey = globalController.user.value.privateKey ?? "";
+    if (privateKey != "") {
+      var bodySignature =
+          signMessage(privateKey, hashMessage(jsonEncode(data)));
+      finalData = jsonEncode({"data": data, "_signature": bodySignature});
+    } else {
+      finalData = jsonEncode({"data": data});
+    }
+    print("final: " + finalData.toString());
+    return _dio.delete(url, data: finalData);
   }
 }

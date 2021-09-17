@@ -19,14 +19,17 @@ class PrivacyController extends GetxController {
 
   Future<void> checkPrivacy() async {
     var res = await getPrivacy();
-    privacy.value = res;
+    if (res.length == 0) {
+      privacy.value = false;
+    } else
+      privacy.value = true;
     print("aaaaaa->>$res");
   }
 
   Future<void> upPrivacy(bool status) async {
     var res = await updatePrivacy(status: status);
     print(res);
-    if (res == "ok") privacy.value = status;
+    if (res == true) privacy.value = status;
   }
 
   logout() async {

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/i18n.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/internet/no_internet_screeen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 import 'package:medical_chain_mobile_ui/services/db_service.dart';
 import 'package:medical_chain_mobile_ui/services/local_notification_service.dart';
@@ -46,7 +48,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "SFPro"),
       home: globalController.user.value.username != null
-          ? HomePageScreen()
+          ? globalController.connectivityResult == ConnectivityResult.none
+              ? NoInternetScreen()
+              : HomePageScreen()
           : LoginWelcomePage(),
     );
   }
