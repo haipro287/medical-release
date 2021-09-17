@@ -36,6 +36,7 @@ class UserSearchController extends GetxController {
     shareListController.contactList.value = newContactList;
     contactPageController.searchList.value = newContactList;
     shareListController.searchList.value = newContactList;
+    contactPageController.category.value = "";
   }
 
   Future changeEditStatus() async {
