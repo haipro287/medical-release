@@ -191,7 +191,8 @@ AlertDialog stopSharingDialog(context) {
                           status: "STOP_SHARING",
                         );
                         Navigator.of(context).pop();
-                        Get.to(() => ShareHistoryPage());
+                        Get.to(() => ShareHistoryPage(),
+                            transition: Transition.leftToRight);
                       },
                       child: Text(
                         'stop'.tr,

@@ -11,6 +11,7 @@ class GlobalController extends GetxController {
   var sharingStatus = "SENT_DATA".obs;
   var historyStatus = "SENDING_MODE".obs;
   var recordsTabMode = 0.obs;
+  var itemSelected = {}.obs;
   var editToShareMode = "".obs;
   var subscription;
   bool isPopup = false;

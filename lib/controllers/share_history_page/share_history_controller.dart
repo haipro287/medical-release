@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
-import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_service.dart';
@@ -32,15 +31,23 @@ class ShareHistoryController extends GetxController {
     var records = await getRecords(getStatusFromValue(currentPage));
     historyRecords.value = records;
     searchList.value = records;
-
+    print('shareHistoryController init !!!');
     // globalController.recordsTabMode.listen((value) async {
     //   print("statuss: " + getStatusFromValue(value));
     //   var records = await getRecords(getStatusFromValue(currentPage));
     //   historyRecords.value = records;
     //   searchList.value = records;
     // });
+    var itemSelectedCache = globalController.itemSelected.value;
+    itemSelected.value = itemSelectedCache;
 
     super.onInit();
+  }
+
+  @override
+  void dispose() {
+    print('shareHistoryController dispose');
+    super.dispose();
   }
 
   void search() {
@@ -253,7 +260,7 @@ class ShareHistoryController extends GetxController {
     }
     servicesNotConnect.value = servicesNotConnectedList;
     print(json);
-    var dialogType = json["error"] == "services have been shared before"
+    var dialogType = json["error"] == "ERROR.API.SERVICES_ALREADY_SHARED"
         ? "ALREADY_SHARED"
         : "SERVICES_NOT_CONNECTED";
     print(dialogType);

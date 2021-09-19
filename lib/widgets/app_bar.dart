@@ -24,7 +24,7 @@ AppBar appBar(
       onPressed: () {
         if (backHome == true) {
           Get.put(HomePageController()).currentPage.value = 0;
-          Get.offAll(HomePageScreen());
+          Get.offAll(HomePageScreen(), transition: Transition.leftToRight);
         } else if (backToLogin == true) {
           Get.offAll(LoginWelcomePage());
         } else if (scan == "scan") {

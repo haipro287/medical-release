@@ -67,7 +67,8 @@ class ShareServiceListController extends GetxController {
       print(json["error"]);
 
       if (json["success"] == false &&
-          json["error"] == "services have been shared before") {
+          json["error"] == "ERROR.API.SERVICES_ALREADY_SHARED") {
+        print('debug di vao day');
         var servicesNotConnectedData = json["data"]["services"];
         var servicesNotConnectedList = [];
         for (var j = 0; j < servicesNotConnectedData.length; j++) {
@@ -77,7 +78,7 @@ class ShareServiceListController extends GetxController {
           service["icon"] = servicesNotConnectedData[j]["icon"];
           servicesNotConnectedList.add(service);
         }
-        return {"services": servicesNotConnectedData};
+        return {"services": servicesNotConnectedList, "success": false};
       }
 
       return (json["data"]);
@@ -98,7 +99,7 @@ class ShareServiceListController extends GetxController {
       response = await customDio.get("/user/$userID/services");
       var json = jsonDecode(response.toString());
       print(json["data"]);
-      var list = json["data"];
+      var list = json["data"]["results"];
       List<Map<String, dynamic>> listService = [];
 
       for (var i = 0; i < list.length; i++) {
