@@ -18,23 +18,18 @@ steps:
   - task: CmdLine@2
     inputs:
       script: 'printf "SERVER_URL=%s\n" $SERVER_URL > .env'
-  - task: FlutterInstall@0
+  - task: CmdLine@2
+    displayName: Prebuild
     inputs:
-      mode: 'auto'
-      channel: 'stable'
-      version: 'latest'
-  # - task: CmdLine@2
-  #   inputs:
-  #     script: '$(FlutterToolPath)/flutter.bat build apk --profile "--target-platform=android-arm" "--build-number=1"'
-  - task: FlutterBuild@0
+      script: |
+        docker build -t supermedicalchain/build-flutter .
+      workingDirectory: $(System.DefaultWorkingDirectory)
+  - task: CmdLine@2
+    displayName: Copy from Container
     inputs:
-      target: 'apk'
-      projectDirectory: '.'
-      splitPerAbi: true
-      apkTargetPlatform: 'android-arm64'
-      extraArgs: '--release'
-      buildName: 
-      buildNumber: 
+      script: |
+        docker run --rm -v $(pwd)/build:/src/build2 supermedicalchain/build-flutter sh -c 'rm -Rf /src/build2/*  && cp -a /src/build/. /src/build2 && chmod -R 777 /src/build2'
+      workingDirectory: $(System.DefaultWorkingDirectory)
   - task: mirror-git-repository-vsts-task@1
     inputs:
       sourceGitRepositoryUri: '$(Build.Repository.Uri)'
