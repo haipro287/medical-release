@@ -24,6 +24,7 @@ Future<void> main() async {
 
   GlobalController globalController = Get.put(GlobalController());
   await globalController.initActivity();
+  await globalController.getInfoDevice();
   if (globalController.db.get("user") != null)
     globalController.user.value = globalController.db.get("user");
   runApp(MyApp());

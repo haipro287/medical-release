@@ -71,7 +71,8 @@ class LoginPageController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
 
-      response = await customDio.post("/user/$userID/notification/unsubcribe", {
+      response =
+          await customDio.post("/user/$userID/notification/unsubscribe", {
         "data": {"token": token}
       });
 

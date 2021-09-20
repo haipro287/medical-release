@@ -49,14 +49,16 @@ class UserScreen extends StatelessWidget {
                           color: Colors.white,
                           child: Row(
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(56),
-                                child: Container(
-                                  width: getWidth(56),
-                                  height: getWidth(56),
-                                  color: Color(0xFFD0E8FF),
-                                ),
-                              ),
+                              Obx((){
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(56),
+                                  child: Container(
+                                    width: getWidth(56),
+                                    height: getWidth(56),
+                                    color: Color(Get.put(MyAccountController()).avatar.value),
+                                  ),
+                                );
+                              }),
                               SizedBox(
                                 width: getWidth(18),
                               ),

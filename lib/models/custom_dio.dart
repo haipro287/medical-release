@@ -51,6 +51,8 @@ class CustomDio {
           (X509Certificate cert, String host, int port) => true;
       return client;
     };
+    _dio.options.headers["User-Agent"] =
+        Get.put(GlobalController()).userAgent.toString();
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest:

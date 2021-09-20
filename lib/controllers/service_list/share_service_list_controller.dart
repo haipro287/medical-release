@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
-import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 
 class ShareServiceListController extends GetxController {
   GlobalController globalController = Get.put(GlobalController());
@@ -109,7 +108,7 @@ class ShareServiceListController extends GetxController {
         service["name"] = list[i]['name'];
         service["url"] = list[i]['url'];
         service["username"] = list[i]['username'];
-        service["isConnected"] = list[i]["connected"];
+        service["isConnected"] = list[i]["connected"] ?? false;
         service["icon"] = list[i]["icon"];
         listService.add(service);
       }
