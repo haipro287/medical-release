@@ -150,14 +150,14 @@ class ShareListService extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(upperFirstString(e["name"])),
-                                        Text(
-                                          e["isConnected"]
-                                              ? userSearchController
-                                                  .userData["secondaryUsername"]
-                                              : "",
-                                          style: TextStyle(
-                                              color: Color(0xFF838AA2)),
-                                        ),
+                                        globalController.sharingStatus.value ==
+                                                "SENT_DATA"
+                                            ? Text(
+                                                e["username"] ?? "",
+                                                style: TextStyle(
+                                                    color: Color(0xFF838AA2)),
+                                              )
+                                            : Container(),
                                       ],
                                     ),
                                   )
