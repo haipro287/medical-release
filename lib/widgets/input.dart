@@ -10,7 +10,7 @@ import 'package:medical_chain_mobile_ui/utils/config.dart';
 Container inputPassword(BuildContext context, TextEditingController controller,
     String hintText, bool isHide, Function changeHide) {
   return Container(
-    height: getHeight(56),
+    height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
@@ -68,8 +68,8 @@ Container inputPasswordWithBorder(
             isFocus.value = value;
           },
           child: Container(
-            height: getHeight(56),
-            padding: EdgeInsets.symmetric(vertical: getHeight(5)),
+            height: getWidth(56),
+            padding: EdgeInsets.only(top: getHeight(5)),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(getHeight(4)),
               border: Border.all(
@@ -139,7 +139,7 @@ Container inputRegular(BuildContext context,
     {required String hintText,
     required TextEditingController textEditingController}) {
   return Container(
-    height: getHeight(56),
+    height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
@@ -180,7 +180,7 @@ Container inputSearch(
   required dynamic onSearch,
 }) {
   return Container(
-    height: getHeight(56),
+    height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       color: Color(0xFFF2F3F7),
@@ -240,7 +240,7 @@ Container userInputSearch(
   required dynamic onSearch,
 }) {
   return Container(
-    height: getHeight(56),
+    height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     margin: EdgeInsets.only(
       right: getWidth(16),
@@ -273,7 +273,7 @@ Container userInputSearch(
               ),
               SizedBox(
                 width: getWidth(240),
-                height: getHeight(56),
+                height: getWidth(56),
                 child: TextFormField(
                   controller: textEditingController,
                   onEditingComplete: () async {
@@ -322,7 +322,7 @@ Container inputSearchWithQrCode(
   required dynamic onSearch,
 }) {
   return Container(
-    height: getHeight(56),
+    height: getWidth(56),
     margin: EdgeInsets.only(
       right: getWidth(16),
       left: getWidth(16),
@@ -355,7 +355,7 @@ Container inputSearchWithQrCode(
               ),
               SizedBox(
                 width: getWidth(240),
-                height: getHeight(56),
+                height: getWidth(56),
                 child: TextFormField(
                   controller: textEditingController,
                   onEditingComplete: () async {
@@ -402,7 +402,7 @@ Container inputWithHint(BuildContext context,
     required TextEditingController textEditingController,
     required bool err}) {
   return Container(
-    height: getHeight(56),
+    height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
@@ -458,7 +458,7 @@ Container inputDate(BuildContext context,
   }
 
   return Container(
-    height: getHeight(56),
+    height: getWidth(56),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
       border: Border.all(
@@ -507,7 +507,7 @@ Container inputSignup(BuildContext context,
     required bool focus,
     required bool err}) {
   return Container(
-    height: getHeight(56),
+    height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
@@ -554,7 +554,7 @@ Container inputPasswordSignup(
     bool focus,
     bool err) {
   return Container(
-    height: getHeight(56),
+    height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
@@ -604,7 +604,7 @@ Container inputOnChange(BuildContext context,
     required TextEditingController textEditingController,
     required Function function}) {
   return Container(
-    height: getHeight(56),
+    height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),

@@ -17,10 +17,7 @@ class NotificationController extends GetxController {
     //background but kill
     FirebaseMessaging.instance.getInitialMessage().then((message) async {
       if (message != null) {
-        var item = await Get.put(NotificationController())
-            .getRequest(id: message.data["id"]);
-        Get.put(ShareHistoryController()).itemSelected.value = item;
-        Get.to(() => DetailHistoryPage());
+        await notiAction(message.data["id"]);
       }
     });
 
@@ -33,10 +30,7 @@ class NotificationController extends GetxController {
 
     //background but opened
     FirebaseMessaging.onMessageOpenedApp.listen((message) async {
-      var item = await Get.put(NotificationController())
-          .getRequest(id: message.data["id"]);
-      Get.put(ShareHistoryController()).itemSelected.value = item;
-      Get.to(() => DetailHistoryPage());
+      await notiAction(message.data["id"]);
     });
 
     super.onInit();
@@ -71,5 +65,17 @@ class NotificationController extends GetxController {
       item["services"].add(service);
     }
     return item;
+  }
+
+  Future<void> notiAction(String id) async {
+    GlobalController globalController = Get.put(GlobalController());
+    var item = await Get.put(NotificationController()).getRequest(id: id);
+    if (globalController.user.value.id == item["primaryId"]) {
+      globalController.historyStatus.value = "SENDING_MODE";
+    } else if (globalController.user.value.id == item["secondaryId"]) {
+      globalController.historyStatus.value = "REQUEST_MODE";
+    }
+    Get.put(ShareHistoryController()).itemSelected.value = item;
+    Get.to(() => DetailHistoryPage());
   }
 }

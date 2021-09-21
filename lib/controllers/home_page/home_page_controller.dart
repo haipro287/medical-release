@@ -2,10 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/notification/notification_controller.dart';
-import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
-import 'package:medical_chain_mobile_ui/screens/sharing_history_page/detail_history_page.dart';
 
 class HomePageController extends GetxController {
   PageController pageController =
@@ -32,9 +29,6 @@ class HomePageController extends GetxController {
   }
 
   Future<void> backgroundHandler(RemoteMessage message) async {
-    var item = await Get.put(NotificationController())
-        .getRequest(id: message.data["id"]);
-    Get.put(GlobalController()).itemSelected.value = item;
-    Get.to(() => DetailHistoryPage());
+    await Get.put(NotificationController()).notiAction(message.data["id"]);
   }
 }

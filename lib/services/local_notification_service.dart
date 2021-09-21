@@ -2,8 +2,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/notification/notification_controller.dart';
-import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
-import 'package:medical_chain_mobile_ui/screens/sharing_history_page/detail_history_page.dart';
 
 class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin notificationsPlugin =
@@ -15,10 +13,7 @@ class LocalNotificationService {
     notificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? route) async {
       print(route);
-      var item = await Get.put(NotificationController())
-          .getRequest(id: route.toString());
-      Get.put(ShareHistoryController()).itemSelected.value = item;
-      Get.to(() => DetailHistoryPage());
+      await Get.put(NotificationController()).notiAction(route.toString());
     });
   }
 
