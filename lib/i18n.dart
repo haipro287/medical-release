@@ -167,7 +167,8 @@ class Messages extends Translations {
           "emptyRecords": "記録はありません。",
           "confirmEmail": "メール確認",
           "check_internet_connection1": "インターネット接続を",
-          "check_internet_connection2": "チェックしてください。"
+          "check_internet_connection2": "チェックしてください。",
+          "scanQR": "QRコード"
         }
       };
 }

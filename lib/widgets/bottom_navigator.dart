@@ -100,9 +100,23 @@ Container bottomNavigator() {
                             type: "scan",
                           ));
                     },
-                    child: SvgPicture.asset(
-                      "assets/images/qr.svg",
-                      width: getWidth(45),
+                    child: Container(
+                      width: getWidth(60),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/images/qr.svg",
+                            width: getWidth(24),
+                          ),
+                          Text(
+                            "scanQR".tr,
+                            style: TextStyle(
+                                fontSize: getWidth(12),
+                                color: Color(0xFF878C92)),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Obx(() {

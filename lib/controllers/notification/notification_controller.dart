@@ -52,11 +52,12 @@ class NotificationController extends GetxController {
     var list = json["data"];
     Map<String, dynamic> item = {};
     item["id"] = list['id'];
+    item["ownerId"] = list['ownerId'];
     item["primaryId"] = list['primaryId'];
     item["secondaryId"] = list['secondaryId'];
     item["name"] = list['name'];
     item["username"] = list["username"];
-    item["romanji"] = list["romanji"];
+    item["katakana"] = list["katakana"];
     item["kanji"] = list["kanji"];
     item["fromTime"] = list["fromTime"];
     item["endTime"] = list["endTime"];
