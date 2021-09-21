@@ -76,7 +76,7 @@ class ContactPageController extends GetxController {
           'secondaryUsername',
           'secondaryName',
           'kanji',
-          'romanji'
+          'katakana'
         ];
         for (int i = 0; i < listCheck.length; i++) {
           if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern))
