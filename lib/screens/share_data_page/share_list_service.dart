@@ -93,78 +93,163 @@ class ShareListService extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       children: shareServiceListController.serviceList
                           .map(
-                            (e) => Container(
-                              padding: EdgeInsets.only(
-                                left: getWidth(15),
-                                right: getWidth(15),
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: Color(0xFFECEFF1),
-                                    width: getHeight(1),
-                                  ),
-                                ),
-                              ),
-                              height: getHeight(78),
-                              child: Row(
-                                children: [
-                                  Checkbox(
-                                      value: shareServiceListController
-                                              .checkList
-                                              .where((item) =>
-                                                  item["id"] == e["id"])
-                                              .length >
-                                          0,
-                                      onChanged: (bool? isCheck) => {
-                                            // if (e["isConnected"])
-                                            //   {
-                                            if (isCheck == true)
-                                              {
-                                                shareServiceListController
-                                                    .checkList
-                                                    .add(e)
-                                              }
-                                            else
-                                              shareServiceListController
-                                                  .checkList
-                                                  .remove(e)
-                                            // }
-                                          }),
-                                  e["icon"].toString().contains('http')
-                                      ? Container(
-                                          width: getWidth(27),
-                                          child: Image.network(
-                                              e["icon"].toString()))
-                                      : SvgPicture.asset(
-                                          "assets/images/avatar.svg",
-                                          width: getWidth(27),
+                            (e) => (globalController.sharingStatus.value ==
+                                    "SENT_DATA")
+                                ? (e["isConnected"] == true)
+                                    ? Container(
+                                        padding: EdgeInsets.only(
+                                          left: getWidth(15),
+                                          right: getWidth(15),
                                         ),
-                                  SizedBox(width: getWidth(15)),
-                                  Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: Color(0xFFECEFF1),
+                                              width: getHeight(1),
+                                            ),
+                                          ),
+                                        ),
+                                        height: getHeight(78),
+                                        child: Row(
+                                          children: [
+                                            Checkbox(
+                                                value:
+                                                    shareServiceListController
+                                                            .checkList
+                                                            .where((item) =>
+                                                                item["id"] ==
+                                                                e["id"])
+                                                            .length >
+                                                        0,
+                                                onChanged: (bool? isCheck) => {
+                                                      // if (e["isConnected"])
+                                                      //   {
+                                                      if (isCheck == true)
+                                                        {
+                                                          shareServiceListController
+                                                              .checkList
+                                                              .add(e)
+                                                        }
+                                                      else
+                                                        shareServiceListController
+                                                            .checkList
+                                                            .remove(e)
+                                                      // }
+                                                    }),
+                                            e["icon"]
+                                                    .toString()
+                                                    .contains('http')
+                                                ? Container(
+                                                    width: getWidth(27),
+                                                    child: Image.network(
+                                                        e["icon"].toString()))
+                                                : SvgPicture.asset(
+                                                    "assets/images/avatar.svg",
+                                                    width: getWidth(27),
+                                                  ),
+                                            SizedBox(width: getWidth(15)),
+                                            Container(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(upperFirstString(
+                                                      e["name"])),
+                                                  globalController.sharingStatus
+                                                              .value ==
+                                                          "SENT_DATA"
+                                                      ? Text(
+                                                          e["username"] ?? "",
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF838AA2)),
+                                                        )
+                                                      : Container(),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        alignment: Alignment.centerLeft,
+                                      )
+                                    : Container()
+                                : Container(
+                                    padding: EdgeInsets.only(
+                                      left: getWidth(15),
+                                      right: getWidth(15),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border(
+                                        bottom: BorderSide(
+                                          color: Color(0xFFECEFF1),
+                                          width: getHeight(1),
+                                        ),
+                                      ),
+                                    ),
+                                    height: getHeight(78),
+                                    child: Row(
                                       children: [
-                                        Text(upperFirstString(e["name"])),
-                                        globalController.sharingStatus.value ==
-                                                "SENT_DATA"
-                                            ? Text(
-                                                e["username"] ?? "",
-                                                style: TextStyle(
-                                                    color: Color(0xFF838AA2)),
-                                              )
-                                            : Container(),
+                                        Checkbox(
+                                            value: shareServiceListController
+                                                    .checkList
+                                                    .where((item) =>
+                                                        item["id"] == e["id"])
+                                                    .length >
+                                                0,
+                                            onChanged: (bool? isCheck) => {
+                                                  // if (e["isConnected"])
+                                                  //   {
+                                                  if (isCheck == true)
+                                                    {
+                                                      shareServiceListController
+                                                          .checkList
+                                                          .add(e)
+                                                    }
+                                                  else
+                                                    shareServiceListController
+                                                        .checkList
+                                                        .remove(e)
+                                                  // }
+                                                }),
+                                        e["icon"].toString().contains('http')
+                                            ? Container(
+                                                width: getWidth(27),
+                                                child: Image.network(
+                                                    e["icon"].toString()))
+                                            : SvgPicture.asset(
+                                                "assets/images/avatar.svg",
+                                                width: getWidth(27),
+                                              ),
+                                        SizedBox(width: getWidth(15)),
+                                        Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(upperFirstString(e["name"])),
+                                              globalController.sharingStatus
+                                                          .value ==
+                                                      "SENT_DATA"
+                                                  ? Text(
+                                                      e["username"] ?? "",
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF838AA2)),
+                                                    )
+                                                  : Container(),
+                                            ],
+                                          ),
+                                        )
                                       ],
                                     ),
-                                  )
-                                ],
-                              ),
-                              alignment: Alignment.centerLeft,
-                            ),
+                                    alignment: Alignment.centerLeft,
+                                  ),
                           )
                           .toList(),
                     )),
