@@ -6,10 +6,14 @@ class ResponseValidator {
     if (response == null) {
       return new Status(status: "ERROR.SERVER", message: "EMPTY.SERVER");
     }
+    if (response.data["error"] == "ERROR.AUTH.USER_BANNED")
+      return new Status(status: "ACCOUNT.BANNED", message: "ACCOUNT.BANNED");
+
     if (response.data["code"] == 401) {
       if (response.data["error"] == "user is banned")
         return new Status(status: "ACCOUNT.BANNED", message: "ACCOUNT.BANNED");
-        else return new Status(status: "WRONG.USERNAME", message: "WRONG.USERNAME");
+      else
+        return new Status(status: "WRONG.USERNAME", message: "WRONG.USERNAME");
     }
     if (response.data["code"] != 200 && response.data["code"] != 204) {
       return new Status(

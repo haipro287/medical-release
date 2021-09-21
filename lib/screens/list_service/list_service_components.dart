@@ -15,7 +15,7 @@ Container switchService(
   ListServiceController listServiceController =
       Get.put(ListServiceController());
   return Container(
-    height: getHeight(42),
+    height: getHeight(50),
     color: Colors.white,
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,

@@ -175,7 +175,7 @@ class DetailHistoryPage extends StatelessWidget {
               height: getHeight(78),
               padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
               child: Text(
-                TimeService.getTimeFormat(itemSelected["fromTime"], ""),
+                TimeService.getTimeFormat(itemSelected["endTime"], ""),
               ),
               alignment: Alignment.centerLeft,
             ),

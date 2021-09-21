@@ -220,7 +220,7 @@ Container inputSearch(
               enabledBorder: InputBorder.none,
               errorBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
-              labelText: hintText,
+              hintText: hintText,
               contentPadding:
                   EdgeInsets.only(left: getWidth(16), right: getWidth(16)),
               labelStyle:
@@ -334,7 +334,7 @@ Container inputSearchWithQrCode(
           padding: EdgeInsets.symmetric(vertical: getHeight(5)),
           decoration: BoxDecoration(
             color: Color(0xFFF2F3F7),
-            borderRadius: BorderRadius.circular(getHeight(4)),
+            borderRadius: BorderRadius.circular(getWidth(4)),
             border: Border.all(
               color: Color(0xFFF2F3F7),
               width: getHeight(1),
@@ -370,9 +370,11 @@ Container inputSearchWithQrCode(
                     enabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
-                    labelText: hintText,
+                    hintText: hintText,
+                    hintStyle: TextStyle(fontSize: getWidth(14)),
                     contentPadding: EdgeInsets.only(
-                        left: getWidth(16), right: getWidth(16)),
+                      left: getWidth(16),
+                    ),
                     labelStyle: TextStyle(
                         color: Color(0xFF878C92), fontSize: getWidth(16)),
                   ),

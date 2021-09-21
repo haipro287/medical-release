@@ -112,14 +112,17 @@ class ConfirmApproveRecordPage extends StatelessWidget {
               ),
             ),
             customBoxHeader(
-              shareHistoryController.itemSelected.value["status"] != "rejected" ? "timeSentRequestTitle".tr : 'timeSharing'.tr,
+              shareHistoryController.itemSelected.value["status"] != "rejected"
+                  ? "timeSentRequestTitle".tr
+                  : 'timeSharing'.tr,
             ),
             Container(
               color: Colors.white,
               height: getHeight(78),
               padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
               child: Text(
-                TimeService.getTimeFormat(TimeService.getTimeNow().toString(), ""),
+                TimeService.getTimeFormat(
+                    TimeService.getTimeNow().toString(), ""),
               ),
               alignment: Alignment.centerLeft,
             ),
@@ -143,7 +146,8 @@ Container layout({required Widget child}) {
   );
 }
 
-Container confirmButtonContainer(BuildContext context, {
+Container confirmButtonContainer(
+  BuildContext context, {
   required ShareHistoryController shareHistoryController,
 }) {
   return layout(

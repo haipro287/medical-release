@@ -216,7 +216,10 @@ class LoginPageController extends GetxController {
             // password.clear();
             return true;
           } else {
-            messValidatePassword.value = "Wrong password";
+            if (validateServer2.status == "ACCOUNT.BANNED")
+              messValidateUsername.value = "User Banned";
+            else
+              messValidatePassword.value = "Wrong password";
           }
         } else {
           messValidatePassword.value = "Wrong password";

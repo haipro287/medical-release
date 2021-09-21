@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -28,8 +30,14 @@ class LocalNotificationService {
         priority: Priority.high,
       ));
 
-      await notificationsPlugin.show(1, message.notification!.title,
-          message.notification!.body!, notificationDetails,
+      Random random = new Random();
+      int randomNumber = random.nextInt(100000);
+
+      await notificationsPlugin.show(
+          randomNumber + 1,
+          message.notification!.title,
+          message.notification!.body!,
+          notificationDetails,
           payload: message.data["id"]);
     } on Exception catch (e) {
       print(e);
