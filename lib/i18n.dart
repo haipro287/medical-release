@@ -166,7 +166,8 @@ class Messages extends Translations {
           "resetPasswordOTP2": " メールに記載されたコードの6桁の数字を入力してください。",
           "emptyRecords": "記録はありません。",
           "confirmEmail": "メール確認",
-          "check_internet_connection": "インターネット接続をチェックしてください。"
+          "check_internet_connection1": "インターネット接続を",
+          "check_internet_connection2": "チェックしてください。"
         }
       };
 }

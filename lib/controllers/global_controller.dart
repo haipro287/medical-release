@@ -1,7 +1,5 @@
-import 'dart:io';
-
 import 'package:connectivity/connectivity.dart';
-import 'package:device_info_plus/device_info_plus.dart';
+import 'package:fk_user_agent/fk_user_agent.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/models/User.dart';
@@ -82,24 +80,8 @@ class GlobalController extends GetxController {
   }
 
   Future<void> getInfoDevice() async {
-    if (Platform.isAndroid) {
-      var androidInfo = await DeviceInfoPlugin().androidInfo;
-      var release = androidInfo.version.release;
-      var sdkInt = androidInfo.version.sdkInt;
-      var manufacturer = androidInfo.manufacturer;
-      var model = androidInfo.model;
-      userAgent = '$manufacturer $model;Android;Android $release';
-      print(userAgent);
-    }
-
-    if (Platform.isIOS) {
-      var iosInfo = await DeviceInfoPlugin().iosInfo;
-      var systemName = iosInfo.systemName;
-      var version = iosInfo.systemVersion;
-      var name = iosInfo.name;
-      var model = iosInfo.model;
-      userAgent = '$name $model;$systemName;$systemName $version';
-      print(userAgent);
-    }
+    await FkUserAgent.init();
+    userAgent = FkUserAgent.webViewUserAgent;
+    print(userAgent);
   }
 }

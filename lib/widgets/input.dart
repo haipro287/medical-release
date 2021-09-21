@@ -11,6 +11,7 @@ Container inputPassword(BuildContext context, TextEditingController controller,
     String hintText, bool isHide, Function changeHide) {
   return Container(
     height: getHeight(56),
+    padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
       border: Border.all(
@@ -68,6 +69,7 @@ Container inputPasswordWithBorder(
           },
           child: Container(
             height: getHeight(56),
+            padding: EdgeInsets.symmetric(vertical: getHeight(5)),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(getHeight(4)),
               border: Border.all(
@@ -138,6 +140,7 @@ Container inputRegular(BuildContext context,
     required TextEditingController textEditingController}) {
   return Container(
     height: getHeight(56),
+    padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
       border: Border.all(
@@ -178,6 +181,7 @@ Container inputSearch(
 }) {
   return Container(
     height: getHeight(56),
+    padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       color: Color(0xFFF2F3F7),
       borderRadius: BorderRadius.circular(getHeight(4)),
@@ -237,6 +241,7 @@ Container userInputSearch(
 }) {
   return Container(
     height: getHeight(56),
+    padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     margin: EdgeInsets.only(
       right: getWidth(16),
       left: getWidth(16),
@@ -326,6 +331,7 @@ Container inputSearchWithQrCode(
       textDirection: TextDirection.ltr,
       children: [
         Container(
+          padding: EdgeInsets.symmetric(vertical: getHeight(5)),
           decoration: BoxDecoration(
             color: Color(0xFFF2F3F7),
             borderRadius: BorderRadius.circular(getHeight(4)),
@@ -397,6 +403,7 @@ Container inputWithHint(BuildContext context,
     required bool err}) {
   return Container(
     height: getHeight(56),
+    padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
       border: Border.all(
@@ -501,6 +508,7 @@ Container inputSignup(BuildContext context,
     required bool err}) {
   return Container(
     height: getHeight(56),
+    padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
       border: Border.all(
@@ -547,6 +555,7 @@ Container inputPasswordSignup(
     bool err) {
   return Container(
     height: getHeight(56),
+    padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
       border: Border.all(
@@ -596,6 +605,7 @@ Container inputOnChange(BuildContext context,
     required Function function}) {
   return Container(
     height: getHeight(56),
+    padding: EdgeInsets.symmetric(vertical: getHeight(5)),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(getHeight(4)),
       border: Border.all(

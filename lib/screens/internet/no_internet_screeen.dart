@@ -13,18 +13,21 @@ class NoInternetScreen extends StatelessWidget {
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset("assets/images/no_internet.svg"),
                 SizedBox(
                   height: getHeight(30),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: getWidth(95)),
-                  child: Text(
-                    "check_internet_connection".tr,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: getWidth(17)),
-                  ),
+                Text(
+                  "check_internet_connection1".tr,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: getWidth(17)),
+                ),
+                Text(
+                  "check_internet_connection2".tr,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: getWidth(17)),
                 )
               ],
             ),

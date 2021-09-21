@@ -50,7 +50,7 @@ dependencies:
   webview_flutter: ^2.0.12
   pin_code_text_field: ^1.8.0
   connectivity: ^3.0.6
-  device_info_plus: ^2.1.0
+  fk_user_agent: ^2.0.1
 
 dev_dependencies:
   flutter_test:

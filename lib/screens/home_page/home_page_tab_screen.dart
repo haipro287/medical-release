@@ -16,6 +16,7 @@ class HomePageTabScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(MyAccountController()).getUserInfo();
     return Container(
       width: double.infinity,
       height: double.infinity,
