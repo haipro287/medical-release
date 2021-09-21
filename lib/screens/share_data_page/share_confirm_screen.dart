@@ -94,115 +94,114 @@ class ShareConfirmScreen extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Container(
-          color: Color(0xFFF6F7FB),
-          child: Column(
-            children: [
-              customBoxHeader(
-                "dataReceiver".tr,
+      body: Container(
+        color: Color(0xFFF6F7FB),
+        child: ListView(
+          children: [
+            customBoxHeader(
+              "dataReceiver".tr,
+            ),
+            Container(
+              color: Colors.white,
+              padding: EdgeInsets.only(
+                left: getWidth(15),
+                right: getWidth(15),
               ),
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.only(
-                  left: getWidth(15),
-                  right: getWidth(15),
-                ),
-                height: getHeight(78),
-                child: Row(
-                  children: [
-                    SvgPicture.asset("assets/images/avatar.svg"),
-                    SizedBox(width: getWidth(15)),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(getHintText(userSearchController.userData)),
-                          Text(
-                            userSearchController.userData["username"] ??
-                                userSearchController
-                                    .userData["secondaryUsername"] ??
-                                "userid1234",
-                            style: TextStyle(color: Color(0xFF838AA2)),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                alignment: Alignment.centerLeft,
+              height: getHeight(78),
+              child: Row(
+                children: [
+                  SvgPicture.asset("assets/images/avatar.svg"),
+                  SizedBox(width: getWidth(15)),
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(getHintText(userSearchController.userData)),
+                        Text(
+                          userSearchController.userData["username"] ??
+                              userSearchController
+                                  .userData["secondaryUsername"] ??
+                              "userid1234",
+                          style: TextStyle(color: Color(0xFF838AA2)),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
-              customBoxHeader("data".tr),
-              Obx(
-                () => Column(
-                  children: shareServiceListController.checkList
-                      .map(
-                        (e) => Container(
-                          padding: EdgeInsets.only(
-                            left: getWidth(15),
-                            right: getWidth(15),
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border(
-                              top: BorderSide(
-                                color: Color(0xFFECEFF1),
-                                width: e["id"] !=
-                                        shareServiceListController.checkList[0]
-                                            ["id"]
-                                    ? getHeight(1)
-                                    : getHeight(0),
-                              ),
+              alignment: Alignment.centerLeft,
+            ),
+            customBoxHeader("data".tr),
+            Obx(
+              () => Column(
+                children: shareServiceListController.checkList
+                    .map(
+                      (e) => Container(
+                        padding: EdgeInsets.only(
+                          left: getWidth(15),
+                          right: getWidth(15),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                            top: BorderSide(
+                              color: Color(0xFFECEFF1),
+                              width: e["id"] !=
+                                      shareServiceListController.checkList[0]
+                                          ["id"]
+                                  ? getHeight(1)
+                                  : getHeight(0),
                             ),
                           ),
-                          height: getHeight(78),
-                          child: Row(
-                            children: [
-                              e["icon"].toString().contains('http')
-                                  ? Container(
-                                      width: getWidth(27),
-                                      child:
-                                          Image.network(e["icon"].toString()))
-                                  : SvgPicture.asset(
-                                      'assets/images/avatar.svg',
-                                      width: getWidth(27),
-                                    ),
-                              SizedBox(width: getWidth(15)),
-                              Container(
-                                alignment: Alignment.center,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(upperFirstString(e["name"])),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          alignment: Alignment.centerLeft,
                         ),
-                      )
-                      .toList(),
-                ),
+                        height: getHeight(78),
+                        child: Row(
+                          children: [
+                            e["icon"].toString().contains('http')
+                                ? Container(
+                                    width: getWidth(27),
+                                    child: Image.network(e["icon"].toString()))
+                                : SvgPicture.asset(
+                                    'assets/images/avatar.svg',
+                                    width: getWidth(27),
+                                  ),
+                            SizedBox(width: getWidth(15)),
+                            Container(
+                              alignment: Alignment.center,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(upperFirstString(e["name"])),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        alignment: Alignment.centerLeft,
+                      ),
+                    )
+                    .toList(),
               ),
-              customBoxHeader(
-                  globalController.sharingStatus.value == "SENT_DATA"
-                      ? "timeSharing".tr
-                      : "timeRequest".tr),
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.only(
-                  left: getWidth(15),
-                  right: getWidth(15),
-                ),
-                height: getHeight(78),
-                child: Text(shareServiceListController.getFormatTimeCal()),
-                alignment: Alignment.centerLeft,
+            ),
+            customBoxHeader(globalController.sharingStatus.value == "SENT_DATA"
+                ? "timeSharing".tr
+                : "timeRequest".tr),
+            Container(
+              color: Colors.white,
+              padding: EdgeInsets.only(
+                left: getWidth(15),
+                right: getWidth(15),
               ),
-            ],
-          ),
+              height: getHeight(78),
+              child: Text(shareServiceListController.getFormatTimeCal()),
+              alignment: Alignment.centerLeft,
+            ),
+            SizedBox(
+              height: 30,
+            )
+          ],
         ),
       ),
     );

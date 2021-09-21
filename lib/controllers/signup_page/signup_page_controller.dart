@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
-import 'package:medical_chain_mobile_ui/api/signature_service.dart';
-import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
-import 'package:medical_chain_mobile_ui/services/date_format.dart';
 
 class SignupPageController extends GetxController {
   final String correctOtp = '777777';
@@ -21,7 +19,7 @@ class SignupPageController extends GetxController {
   TextEditingController otp = TextEditingController();
 
   RxBool confirmActive = false.obs;
-  RxBool confirmSuccess = true.obs;
+  RxBool confirmSuccess = false.obs;
 
   RxBool userIdGuide = false.obs;
   RxBool mailGuide = false.obs;
@@ -64,7 +62,7 @@ class SignupPageController extends GetxController {
 
   bool otpValidate() {
     print(this.otp.text);
-    confirmSuccess.value = this.otp.text == correctOtp;
+
     return confirmSuccess.value;
   }
 
@@ -180,6 +178,31 @@ class SignupPageController extends GetxController {
       print(signupError.value);
 
       signupErrorMessage(signupError.value);
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> validateOTP(String otp) async {
+    try {
+      var response;
+      CustomDio customDio = CustomDio();
+      response = await customDio.post("/auth/otp", {
+        "data": {
+          "otpId": Get.put(EditMyAccountController()).otp.toString(),
+          "otp": otp
+        }
+      });
+
+      var json = jsonDecode(response.toString());
+
+      print(json);
+
+      if (json["success"] == true) {
+        return true;
+      }
       return false;
     } catch (e) {
       print(e);

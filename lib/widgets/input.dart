@@ -288,7 +288,7 @@ Container userInputSearch(
                     enabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
-                    labelText: hintText,
+                    hintText: hintText,
                     contentPadding: EdgeInsets.only(
                         left: getWidth(16), right: getWidth(16)),
                     labelStyle: TextStyle(

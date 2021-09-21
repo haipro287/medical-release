@@ -57,6 +57,27 @@ class MyAccountController extends GetxController {
     }
   }
 
+  Future<dynamic> requestMailOTP(String mail) async {
+    var response;
+    CustomDio customDio = CustomDio();
+    customDio.dio.options.headers["Authorization"] =
+        globalController.user.value.certificate.toString();
+    response = await customDio.post(
+      "/auth/mail",
+      {
+        "data": {
+          "mail": mail,
+        }
+      },
+    );
+    var json = jsonDecode(response.toString());
+
+    var data = json["data"];
+
+    print(data);
+    return data["otpId"];
+  }
+
   Future editUserInfo(
       {required String romanji,
       required String kanji,

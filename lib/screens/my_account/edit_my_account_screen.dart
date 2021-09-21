@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
@@ -7,11 +8,9 @@ import 'package:medical_chain_mobile_ui/screens/confirm_signup/confirm_signup_sc
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_components.dart';
-import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
-import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
 
@@ -231,7 +230,7 @@ class EditMyAccountScreen extends StatelessWidget {
                                   //
                                   // var login = await loginPageController.login();
 
-                                    Get.offAll(() => HomePageScreen());
+                                  Get.offAll(() => HomePageScreen());
                                 }
                               }
                             }
@@ -273,6 +272,12 @@ class EditMyAccountScreen extends StatelessWidget {
                                       editMyAccountController.email.text) {
                                     editMyAccountController.signup.value =
                                         false;
+                                    // editMyAccountController.otp =
+                                    //     myAccountController
+                                    //         .requestMailOTP(
+                                    //             editMyAccountController
+                                    //                 .email.text)
+                                    //         .toString();
                                     Get.off(() => ConfirmSignupScreen());
                                   } else {
                                     myAccountController.editUserInfo(

@@ -20,6 +20,8 @@ class EditMyAccountController extends GetxController {
   RxString citizenCodeErr = "".obs;
   RxBool signup = true.obs;
 
+  String? otp;
+
   @override
   void onInit() {
     avatar.value = myAccountController.avatar.value;
