@@ -38,31 +38,38 @@ Container switchService(
         SizedBox(
           width: getWidth(12),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              upperFirstString(serviceName ?? ""),
-              style: TextStyle(
-                fontSize: getWidth(17),
-                fontWeight: FontWeight.w400,
-                color: Color(0xFF22262B),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                upperFirstString(serviceName ?? ""),
+                style: TextStyle(
+                  fontSize: getWidth(17),
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF22262B),
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
-            ),
-            SizedBox(
-              height: getHeight(3),
-            ),
-            Text(
-              userName ?? "",
-              style: TextStyle(
-                fontSize: getWidth(13),
-                fontWeight: FontWeight.w400,
-                color: Color(0xFF878C92),
+              SizedBox(
+                height: getHeight(3),
               ),
-            ),
-          ],
+              Text(
+                userName ?? "",
+                style: TextStyle(
+                  fontSize: getWidth(13),
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF878C92),
+                ),
+              ),
+            ],
+          ),
         ),
-        Spacer(),
+        // Spacer(),
+        SizedBox(
+          width: getWidth(18),
+        ),
         GetBuilder<ListServiceController>(
           builder: (listController) {
             if (listController.serviceList.length > 0) {
