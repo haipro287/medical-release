@@ -1,11 +1,12 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/forgot_password_page/forgot_password_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/forgot_password/forgot_password_otp_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   Text errText(String text) {
@@ -96,6 +97,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                             await forgotPasswordController.checkEmail();
 
                         if (emailExisted) {
+                          forgotPasswordController.otpController =
+                              CountdownController(autoStart: true);
                           Get.to(() => ForgotPasswordOTPScreen());
                         }
                       }

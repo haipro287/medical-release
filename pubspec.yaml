@@ -51,6 +51,8 @@ dependencies:
   pin_code_text_field: ^1.8.0
   connectivity: ^3.0.6
   fk_user_agent: ^2.0.1
+  timer_count_down: ^2.2.0
+  package_info_plus: ^1.0.6
 
 dev_dependencies:
   flutter_test:

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/update_application/update_application_controller.dart';
 import 'package:medical_chain_mobile_ui/i18n.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/internet/no_internet_screeen.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
 
   await initDB();
 
+  UpdateAppController updateAppController = Get.put(UpdateAppController());
   GlobalController globalController = Get.put(GlobalController());
   await globalController.initActivity();
   await globalController.getInfoDevice();

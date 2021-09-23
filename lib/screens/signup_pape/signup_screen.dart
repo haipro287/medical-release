@@ -291,7 +291,7 @@ class SignupScreen extends StatelessWidget {
                       var res = await signupPageController.signup();
 
                       if (signupPageController.signupError.value == "") {
-                        Get.to(() => ConfirmSignupScreen());
+                        Get.to(() => ConfirmSignupScreen(type: "signup"));
                       }
                     }
                   },

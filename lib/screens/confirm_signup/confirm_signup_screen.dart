@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/otp_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_success_screen.dart';
@@ -11,9 +12,13 @@ import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 
 class ConfirmSignupScreen extends StatelessWidget {
+  String? type;
   SignupPageController signupPageController = Get.put(SignupPageController());
+  OTPController otpController = Get.put(OTPController());
+  ConfirmSignupScreen({this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -105,16 +110,49 @@ class ConfirmSignupScreen extends StatelessWidget {
               SizedBox(
                 height: getHeight(26),
               ),
-              Bouncing(
-                child: Text(
-                  "emailResend".tr,
-                  style: TextStyle(
-                    color: Color(0xFF2F3842),
-                    fontSize: getWidth(17),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                onPress: () {},
+              Countdown(
+                controller: otpController.countdownController,
+                seconds: 10,
+                build: (BuildContext context, double time) {
+                  if (time > 0)
+                    return Text(
+                      "emailResendParam"
+                          .trParams({'time': time.toInt().toString()}),
+                      style: TextStyle(
+                        color: Color(0xFF878C92),
+                        fontSize: getWidth(17),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    );
+                  else
+                    return Bouncing(
+                      child: Text(
+                        "emailResend".tr,
+                        style: TextStyle(
+                          color: Color(0xFF2F3842),
+                          fontSize: getWidth(17),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      onPress: () async {
+                        if (type == "signup") {
+                          var isRequest =
+                              await signupPageController.getOTPAgain();
+                          if (isRequest) {
+                            otpController.countdownController.restart();
+                          }
+                        } else if (type == "signup_edit_mail") {
+                          Get.put(SignupPageController()).otpId =
+                              Get.put(MyAccountController())
+                                  .requestMailOTP(
+                                      editMyAccountController.email.text)
+                                  .toString();
+                          otpController.countdownController.restart();
+                        }
+                      },
+                    );
+                },
+                interval: Duration(seconds: 1),
               ),
               SizedBox(
                 height: getHeight(106),

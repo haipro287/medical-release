@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/forgot_password_page/forgot_password_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/forgot_password/new_password_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
-import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 
 class ForgotPasswordOTPScreen extends StatelessWidget {
   ForgotPasswordController forgotPasswordController =
@@ -13,6 +14,7 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // forgotPasswordController.otpController.;
     return Scaffold(
       appBar: appBar(context, "resetPassword".tr),
       body: Container(
@@ -101,17 +103,41 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
             SizedBox(
               height: getHeight(26),
             ),
-            Bouncing(
-              child: Text(
-                "emailResend".tr,
-                style: TextStyle(
-                  color: Color(0xFF2F3842),
-                  fontSize: getWidth(17),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              onPress: () {},
-            ),
+            GetBuilder<ForgotPasswordController>(
+                id: "validateOTP",
+                builder: (builder) {
+                  return Countdown(
+                    controller: forgotPasswordController.otpController,
+                    seconds: 60,
+                    build: (BuildContext context, double time) {
+                      if (time > 0)
+                        return Text(
+                          "emailResendParam"
+                              .trParams({'time': time.toInt().toString()}),
+                          style: TextStyle(
+                            color: Color(0xFF878C92),
+                            fontSize: getWidth(17),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        );
+                      else
+                        return Bouncing(
+                          child: Text(
+                            "emailResend".tr,
+                            style: TextStyle(
+                              color: Color(0xFF2F3842),
+                              fontSize: getWidth(17),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          onPress: () {
+                            forgotPasswordController.resetOTP();
+                          },
+                        );
+                    },
+                    interval: Duration(seconds: 1),
+                  );
+                }),
             SizedBox(
               height: getHeight(106),
             ),
@@ -137,7 +163,8 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
                 ),
                 onTap: () async {
                   if (active) {
-                    forgotPasswordController.resetSuccess.value = await forgotPasswordController.checkOTP();
+                    forgotPasswordController.resetSuccess.value =
+                        await forgotPasswordController.checkOTP();
                     if (forgotPasswordController.resetSuccess.value) {
                       Get.to(() => NewPasswordScreen());
                     }

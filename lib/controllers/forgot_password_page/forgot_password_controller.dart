@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 class ForgotPasswordController extends GetxController {
   final String correctOtp = '777777';
@@ -27,12 +28,18 @@ class ForgotPasswordController extends GetxController {
   RxBool resetActive = false.obs;
   RxBool resetSuccess = true.obs;
 
+  late CountdownController otpController;
+
   final RegExp passwordReg0 = new RegExp(r'^[0-9a-zA-Z!-/#{-~₫%&/_:-@\[-^]+$');
   final RegExp passwordReg1 = new RegExp(r'^[0-9]+$');
   final RegExp passwordReg2 = new RegExp(r'^[a-zA-Z]+$');
   final RegExp passwordReg3 = new RegExp(r'^[!-/#{-~₫%&/_:-@\[-^]+$');
   final RegExp emailReg = new RegExp(
       r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
+
+  void updateTime() {
+    update(["validateOTP"]);
+  }
 
   void changeHidePassword() {
     passwordIsHide.value = !passwordIsHide.value;
@@ -126,6 +133,14 @@ class ForgotPasswordController extends GetxController {
     } catch (e) {
       print(e);
       return false;
+    }
+  }
+
+  Future<void> resetOTP() async {
+    var emailExisted = await checkEmail();
+    if (emailExisted) {
+      otpController.restart();
+      update(["validateOTP"]);
     }
   }
 

@@ -211,7 +211,8 @@ class EditMyAccountScreen extends StatelessWidget {
                                         .requestMailOTP(
                                             editMyAccountController.email.text)
                                         .toString();
-                                Get.off(() => ConfirmSignupScreen());
+                                Get.off(() => ConfirmSignupScreen(
+                                    type: "signup_edit_mail"));
                               } else {
                                 print("dsadsa");
                                 LoginPageController loginPageController =
@@ -308,7 +309,8 @@ class EditMyAccountScreen extends StatelessWidget {
                                                 editMyAccountController
                                                     .email.text)
                                             .toString();
-                                    Get.off(() => ConfirmSignupScreen());
+                                    Get.off(() => ConfirmSignupScreen(
+                                        type: "signup_edit_mail"));
                                   } else {
                                     myAccountController.editUserInfo(
                                       kanji: editMyAccountController

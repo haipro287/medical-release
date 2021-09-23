@@ -108,6 +108,7 @@ class SignupPageController extends GetxController {
       phoneErr.value = "電話番号は半角数字で入力してください。";
     } else if (this.phone.text.length != 10 ||
         this.phone.text.toString()[0] != '0') {
+      isValid = false;
       phoneErr.value = "電話番号は正しい値を入力してください。";
     }
 
@@ -199,6 +200,30 @@ class SignupPageController extends GetxController {
       print(json);
 
       if (json["success"] == true) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> getOTPAgain() async {
+    try {
+      var response;
+      CustomDio customDio = CustomDio();
+      response = await customDio.post("/auth/otp/resend", {
+        "data": {"id": otpId.toString()}
+      });
+
+      var json = jsonDecode(response.toString());
+
+      print(json);
+      var data = json["data"];
+
+      if (json["success"] == true) {
+        otpId = data["id"];
         return true;
       }
       return false;
