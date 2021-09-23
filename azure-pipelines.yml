@@ -17,11 +17,12 @@ name: 1.0.$(Rev:r)
 steps:
   - task: CmdLine@2
     inputs:
-      script: 'printf "SERVER_URL=%s\n" $SERVER_URL > .env'
+      script: 'printf "SERVER_URL=%s\UPDATE_VERSION_URL=%s\CURRENT_VERSION=%s\n" "$SERVER_URL" "$UPDATE_VERSION_URL" "$(Build.BuildNumber)" > .env'
   - task: CmdLine@2
     displayName: Prebuild
     inputs:
       script: |
+        cat .env
         docker build -t supermedicalchain/build-flutter .
       workingDirectory: $(System.DefaultWorkingDirectory)
   - task: CmdLine@2
