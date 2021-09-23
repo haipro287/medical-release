@@ -168,7 +168,9 @@ class Messages extends Translations {
           "confirmEmail": "メール確認",
           "check_internet_connection1": "インターネット接続を",
           "check_internet_connection2": "チェックしてください。",
-          "scanQR": "QRコード"
+          "scanQR": "QRコード",
+          "status_account": "状態",
+          "unActive": "非アクティブ"
         }
       };
 }

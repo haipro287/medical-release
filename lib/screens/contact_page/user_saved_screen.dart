@@ -219,108 +219,140 @@ class UserSavedScreen extends StatelessWidget {
                           myAccountText(('ユーザーID')),
                           myAccountText('${userInfo["secondaryUsername"]}'),
                         ),
-                        myAccountFieldWithoutSeperateLine(
-                          myAccountText(('氏名')),
-                          myAccountText(convertLongString(
-                                string: userInfo["kanji"].toString(),
-                                firstLength: 4,
-                                lastLength: 4,
-                              ) +
-                              " (" +
-                              convertLongString(
-                                string: userInfo["katakana"].toString(),
-                                firstLength: 5,
-                                lastLength: 5,
-                              ) +
-                              ")"),
-                        ),
+                        (userInfo["isBanned"] == false)
+                            ? myAccountFieldWithoutSeperateLine(
+                                myAccountText(('氏名')),
+                                myAccountText(convertLongString(
+                                      string: userInfo["kanji"].toString(),
+                                      firstLength: 4,
+                                      lastLength: 4,
+                                    ) +
+                                    " (" +
+                                    convertLongString(
+                                      string: userInfo["katakana"].toString(),
+                                      firstLength: 5,
+                                      lastLength: 5,
+                                    ) +
+                                    ")"),
+                              )
+                            : Column(
+                                children: [
+                                  myAccountField(
+                                    myAccountText(('氏名')),
+                                    myAccountText(convertLongString(
+                                          string: userInfo["kanji"].toString(),
+                                          firstLength: 4,
+                                          lastLength: 4,
+                                        ) +
+                                        " (" +
+                                        convertLongString(
+                                          string:
+                                              userInfo["katakana"].toString(),
+                                          firstLength: 5,
+                                          lastLength: 5,
+                                        ) +
+                                        ")"),
+                                  ),
+                                  myAccountFieldWithoutSeperateLine(
+                                    myAccountText(('status_account'.tr)),
+                                    myAccountText('unActive'.tr),
+                                  ),
+                                ],
+                              ),
                       ],
                     ),
                   ),
-                  Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.only(
-                      top: getHeight(24),
-                      left: getWidth(16),
-                      right: getWidth(16),
-                    ),
-                    child: Column(
-                      children: [
-                        OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Color(0xFFD0E8FF),
-                            side: BorderSide(
-                              color: Color(0xFFD0E8FF),
-                            ),
-                            padding: EdgeInsets.only(
-                              top: getHeight(14),
-                              bottom: getHeight(14),
-                            ),
+                  (userInfo["isBanned"] == false)
+                      ? Container(
+                          width: double.infinity,
+                          margin: EdgeInsets.only(
+                            top: getHeight(24),
+                            left: getWidth(16),
+                            right: getWidth(16),
                           ),
-                          onPressed: () {
-                            globalController.sharingStatus.value = "SENT_DATA";
-                            Get.to(() => ShareListService());
-                          },
-                          child: Row(
+                          child: Column(
                             children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.28,
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  backgroundColor: Color(0xFFD0E8FF),
+                                  side: BorderSide(
+                                    color: Color(0xFFD0E8FF),
+                                  ),
+                                  padding: EdgeInsets.only(
+                                    top: getHeight(14),
+                                    bottom: getHeight(14),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  globalController.sharingStatus.value =
+                                      "SENT_DATA";
+                                  Get.to(() => ShareListService());
+                                },
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.28,
+                                    ),
+                                    SvgPicture.asset(
+                                        "assets/images/share-icon.svg"),
+                                    SizedBox(
+                                      width: getWidth(10),
+                                    ),
+                                    Text(
+                                      "データ共有",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: getWidth(17),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              SvgPicture.asset("assets/images/share-icon.svg"),
                               SizedBox(
-                                width: getWidth(10),
+                                height: getHeight(14),
                               ),
-                              Text(
-                                "データ共有",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: getWidth(17),
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  backgroundColor: Color(0xFFD0E8FF),
+                                  side: BorderSide(
+                                    color: Color(0xFFD0E8FF),
+                                  ),
+                                  padding: EdgeInsets.only(
+                                    top: getHeight(14),
+                                    bottom: getHeight(14),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  globalController.sharingStatus.value =
+                                      "SENT_REQUEST";
+                                  Get.to(() => ShareListService());
+                                },
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.28,
+                                    ),
+                                    SvgPicture.asset(
+                                        "assets/images/sent-icon.svg"),
+                                    SizedBox(
+                                      width: getWidth(10),
+                                    ),
+                                    Text(
+                                      "リクエスト送信",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: getWidth(17),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                        SizedBox(
-                          height: getHeight(14),
-                        ),
-                        OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Color(0xFFD0E8FF),
-                            side: BorderSide(
-                              color: Color(0xFFD0E8FF),
-                            ),
-                            padding: EdgeInsets.only(
-                              top: getHeight(14),
-                              bottom: getHeight(14),
-                            ),
-                          ),
-                          onPressed: () {
-                            globalController.sharingStatus.value =
-                                "SENT_REQUEST";
-                            Get.to(() => ShareListService());
-                          },
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.28,
-                              ),
-                              SvgPicture.asset("assets/images/sent-icon.svg"),
-                              SizedBox(
-                                width: getWidth(10),
-                              ),
-                              Text(
-                                "リクエスト送信",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: getWidth(17),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        )
+                      : Container(),
                 ],
               ),
             ),

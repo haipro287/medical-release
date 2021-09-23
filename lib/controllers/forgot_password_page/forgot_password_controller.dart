@@ -103,7 +103,7 @@ class ForgotPasswordController extends GetxController {
       errMess.value = "";
       CustomDio customDio = CustomDio();
       var response = await customDio.post(
-        "/auth/forgot",
+        "/auth/password/forgot",
         {
           "data": {
             "mail": email.text,
@@ -120,7 +120,7 @@ class ForgotPasswordController extends GetxController {
         return false;
       }
 
-      forgotId = json["data"];
+      forgotId = json["data"]["otpId"];
 
       return true;
     } catch (e) {
@@ -154,15 +154,14 @@ class ForgotPasswordController extends GetxController {
       CustomDio customDio = CustomDio();
       var response = await customDio.post("/auth/otp", {
         "data": {
-          "id": forgotId,
+          "otpId": forgotId,
           "otp": otp.text,
-          "type": "forgot",
         }
       });
 
       var json = jsonDecode(response.toString());
 
-      return json["data"];
+      return json["success"];
     } catch (e) {
       print(e);
       return false;
@@ -175,17 +174,15 @@ class ForgotPasswordController extends GetxController {
       CustomDio customDio = CustomDio();
 
       var response = await customDio.post(
-        "/auth/forgot/change",
+        "/auth/otp/forgot",
         {
           "data": {
-            "id": forgotId,
-            "mail": email.text,
+            "otpId": forgotId,
             "otp": otp.text,
             "encryptedPrivateKey": keyPair["encryptedPrivateKey"],
             "publicKey": keyPair["publicKey"],
           }
         },
-        sign: false,
       );
 
       var json = jsonDecode(response.toString());

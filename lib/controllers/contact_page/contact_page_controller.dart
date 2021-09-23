@@ -50,6 +50,7 @@ class ContactPageController extends GetxController {
         item['secondaryUsername'] = responseData[i]['secondaryUsername'] ?? '';
         item['katakana'] = responseData[i]['katakana'] ?? '';
         item['kanji'] = responseData[i]['kanji'] ?? '';
+        item['isBanned'] = responseData[i]['isBanned'] ?? false;
         res.add(item);
       }
       res.sort(
