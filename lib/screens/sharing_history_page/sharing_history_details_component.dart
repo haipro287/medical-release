@@ -18,8 +18,9 @@ Widget historyDetailComponent({required record}) {
   var subMode = ["sharing", "expired"].contains(record["status"]);
   return GestureDetector(
     onTap: () {
+      if(record["status"]!="invalid"){
       shareHistoryController.itemSelected.value = record;
-      Get.to(() => DetailHistoryPage());
+      Get.to(() => DetailHistoryPage());}
     },
     child: Container(
       color: Colors.white,
