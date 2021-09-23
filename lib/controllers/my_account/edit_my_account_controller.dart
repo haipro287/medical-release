@@ -19,6 +19,7 @@ class EditMyAccountController extends GetxController {
   RxString dobErr = "".obs;
   RxString citizenCodeErr = "".obs;
   RxBool signup = true.obs;
+  bool changeEmailNotSignUp = false;
 
   String? otp;
 

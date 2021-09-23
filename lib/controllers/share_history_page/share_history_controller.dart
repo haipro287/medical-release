@@ -38,8 +38,8 @@ class ShareHistoryController extends GetxController {
     //   historyRecords.value = records;
     //   searchList.value = records;
     // });
-    var itemSelectedCache = globalController.itemSelected.value;
-    itemSelected.value = itemSelectedCache;
+    // var itemSelectedCache = globalController.itemSelected.value;
+    // itemSelected.value = itemSelectedCache;
 
     super.onInit();
   }

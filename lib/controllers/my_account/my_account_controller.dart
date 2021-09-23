@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class MyAccountController extends GetxController {
@@ -75,6 +76,7 @@ class MyAccountController extends GetxController {
     var data = json["data"];
 
     print(data);
+    Get.put(SignupPageController()).otpId = data["otpId"];
     return data["otpId"];
   }
 

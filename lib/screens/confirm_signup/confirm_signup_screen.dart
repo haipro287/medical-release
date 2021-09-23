@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
-import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_success_screen.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
-import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 
@@ -18,6 +19,7 @@ class ConfirmSignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     EditMyAccountController editMyAccountController =
         Get.put(EditMyAccountController());
+    signupPageController.otp.text = "";
 
     return Scaffold(
         appBar: appBar(
@@ -139,28 +141,44 @@ class ConfirmSignupScreen extends StatelessWidget {
                   ),
                   onTap: () async {
                     if (active) {
-                      if (signupPageController.otpValidate()) {
+                      if (await signupPageController.otpValidate()) {
                         if (editMyAccountController.signup.value) {
-                          var data = await signupPageController.signup(context);
-                          print(11);
-                          if (data != null) {
-                            Get.to(() => SignupSuccessScreen());
-                          }
+                          Get.to(() => SignupSuccessScreen());
                         } else {
                           print(editMyAccountController.kanjiName.text);
-                          var info =
-                              await Get.put(MyAccountController()).editUserInfo(
-                            kanji: editMyAccountController.kanjiName.text,
-                            romanji: editMyAccountController.katakanaName.text,
-                            mail: editMyAccountController.email.text,
-                            birthday: TimeService.timeToBackEnd(
-                                editMyAccountController.birthday),
-                            pid: editMyAccountController.citizenCode.text,
-                            phone: editMyAccountController.phone.text,
-                            avatar: editMyAccountController.avatar.value,
-                          );
-                          if (info != null) {
-                            Get.back();
+                          if (editMyAccountController.changeEmailNotSignUp) {
+                            editMyAccountController.changeEmailNotSignUp =
+                                false;
+                            var info = await Get.put(MyAccountController())
+                                .editUserInfo(
+                              kanji: editMyAccountController.kanjiName.text,
+                              romanji:
+                                  editMyAccountController.katakanaName.text,
+                              mail: editMyAccountController.email.text,
+                              birthday: TimeService.timeToBackEnd(
+                                  editMyAccountController.birthday),
+                              pid: editMyAccountController.citizenCode.text,
+                              phone: editMyAccountController.phone.text,
+                              avatar: editMyAccountController.avatar.value,
+                            );
+                            Get.put(HomePageController()).onChangeTab(0);
+                            Get.offAll(() => HomePageScreen());
+                          } else {
+                            var info = await Get.put(MyAccountController())
+                                .editUserInfo(
+                              kanji: editMyAccountController.kanjiName.text,
+                              romanji:
+                                  editMyAccountController.katakanaName.text,
+                              mail: editMyAccountController.email.text,
+                              birthday: TimeService.timeToBackEnd(
+                                  editMyAccountController.birthday),
+                              pid: editMyAccountController.citizenCode.text,
+                              phone: editMyAccountController.phone.text,
+                              avatar: editMyAccountController.avatar.value,
+                            );
+                            if (info != null) {
+                              Get.back();
+                            }
                           }
                         }
                       }

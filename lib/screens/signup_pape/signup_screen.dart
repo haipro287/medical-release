@@ -288,8 +288,7 @@ class SignupScreen extends StatelessWidget {
                     FocusManager.instance.primaryFocus?.unfocus();
 
                     if (signupPageController.isValid()) {
-                      var res = await signupPageController
-                          .validateSignupInfo(context);
+                      var res = await signupPageController.signup();
 
                       if (signupPageController.signupError.value == "") {
                         Get.to(() => ConfirmSignupScreen());

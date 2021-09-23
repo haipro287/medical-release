@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
@@ -188,49 +189,78 @@ class EditMyAccountScreen extends StatelessWidget {
                           ),
                           onPress: () async {
                             if (editMyAccountController.isValid()) {
-                              print("dsadsa");
-                              LoginPageController loginPageController =
-                                  Get.put(LoginPageController());
+                              if (myAccountController.email.value !=
+                                  editMyAccountController.email.text) {
+                                editMyAccountController.signup.value = false;
+                                editMyAccountController.changeEmailNotSignUp =
+                                    true;
+                                LoginPageController loginPageController =
+                                    Get.put(LoginPageController());
 
-                              SignupPageController signupController =
-                                  Get.put(SignupPageController());
+                                SignupPageController signupController =
+                                    Get.put(SignupPageController());
 
-                              loginPageController.username.text =
-                                  signupController.userId.text;
-                              loginPageController.password.text =
-                                  signupController.password.text;
+                                loginPageController.username.text =
+                                    signupController.userId.text;
+                                loginPageController.password.text =
+                                    signupController.password.text;
 
-                              var login = await loginPageController.login();
+                                var login = await loginPageController.login();
+                                Get.put(SignupPageController()).otpId =
+                                    myAccountController
+                                        .requestMailOTP(
+                                            editMyAccountController.email.text)
+                                        .toString();
+                                Get.off(() => ConfirmSignupScreen());
+                              } else {
+                                print("dsadsa");
+                                LoginPageController loginPageController =
+                                    Get.put(LoginPageController());
 
-                              if (login) {
-                                var info =
-                                    await myAccountController.editUserInfo(
-                                  kanji: editMyAccountController.kanjiName.text,
-                                  romanji:
-                                      editMyAccountController.katakanaName.text,
-                                  mail: editMyAccountController.email.text,
-                                  birthday: TimeService.timeToBackEnd(
-                                      editMyAccountController.birthday),
-                                  pid: editMyAccountController.citizenCode.text,
-                                  phone: editMyAccountController.phone.text,
-                                  avatar: editMyAccountController.avatar.value,
-                                );
+                                SignupPageController signupController =
+                                    Get.put(SignupPageController());
 
-                                if (info != null) {
-                                  // LoginPageController loginPageController =
-                                  //     Get.put(LoginPageController());
-                                  //
-                                  // SignupPageController signupController =
-                                  //     Get.put(SignupPageController());
-                                  //
-                                  // loginPageController.username.text =
-                                  //     signupController.userId.text;
-                                  // loginPageController.password.text =
-                                  //     signupController.password.text;
-                                  //
-                                  // var login = await loginPageController.login();
+                                loginPageController.username.text =
+                                    signupController.userId.text;
+                                loginPageController.password.text =
+                                    signupController.password.text;
 
-                                  Get.offAll(() => HomePageScreen());
+                                var login = await loginPageController.login();
+
+                                if (login) {
+                                  var info =
+                                      await myAccountController.editUserInfo(
+                                    kanji:
+                                        editMyAccountController.kanjiName.text,
+                                    romanji: editMyAccountController
+                                        .katakanaName.text,
+                                    mail: editMyAccountController.email.text,
+                                    birthday: TimeService.timeToBackEnd(
+                                        editMyAccountController.birthday),
+                                    pid: editMyAccountController
+                                        .citizenCode.text,
+                                    phone: editMyAccountController.phone.text,
+                                    avatar:
+                                        editMyAccountController.avatar.value,
+                                  );
+
+                                  if (info != null) {
+                                    // LoginPageController loginPageController =
+                                    //     Get.put(LoginPageController());
+                                    //
+                                    // SignupPageController signupController =
+                                    //     Get.put(SignupPageController());
+                                    //
+                                    // loginPageController.username.text =
+                                    //     signupController.userId.text;
+                                    // loginPageController.password.text =
+                                    //     signupController.password.text;
+                                    //
+                                    // var login = await loginPageController.login();
+                                    Get.put(HomePageController())
+                                        .onChangeTab(0);
+                                    Get.offAll(() => HomePageScreen());
+                                  }
                                 }
                               }
                             }
@@ -272,12 +302,12 @@ class EditMyAccountScreen extends StatelessWidget {
                                       editMyAccountController.email.text) {
                                     editMyAccountController.signup.value =
                                         false;
-                                    // editMyAccountController.otp =
-                                    //     myAccountController
-                                    //         .requestMailOTP(
-                                    //             editMyAccountController
-                                    //                 .email.text)
-                                    //         .toString();
+                                    Get.put(SignupPageController()).otpId =
+                                        myAccountController
+                                            .requestMailOTP(
+                                                editMyAccountController
+                                                    .email.text)
+                                            .toString();
                                     Get.off(() => ConfirmSignupScreen());
                                   } else {
                                     myAccountController.editUserInfo(

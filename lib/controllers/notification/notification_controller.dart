@@ -75,7 +75,9 @@ class NotificationController extends GetxController {
     } else if (globalController.user.value.id == item["secondaryId"]) {
       globalController.historyStatus.value = "REQUEST_MODE";
     }
-    Get.put(ShareHistoryController()).itemSelected.value = item;
+    ShareHistoryController shareHistoryController =
+        Get.put(ShareHistoryController());
+    shareHistoryController.itemSelected.value = item;
     Get.to(() => DetailHistoryPage());
   }
 }

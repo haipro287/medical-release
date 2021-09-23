@@ -9,7 +9,8 @@ import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
 class SignupSuccessScreen extends StatelessWidget {
-  const SignupSuccessScreen({Key? key}) : super(key: key);
+  bool? isLogin;
+  SignupSuccessScreen({this.isLogin});
 
   @override
   Widget build(BuildContext context) {
@@ -81,11 +82,15 @@ class SignupSuccessScreen extends StatelessWidget {
                     ),
                     onPress: () {
                       var signupController = Get.put(SignupPageController());
-                      var editMyAccountController = Get.put(EditMyAccountController());
+                      var editMyAccountController =
+                          Get.put(EditMyAccountController());
                       editMyAccountController.signup.value = true;
-                      editMyAccountController.email.text = signupController.email.text;
-                      editMyAccountController.phone.text = signupController.phone.text;
-                      editMyAccountController.avatar.value = MyAccountController.avatarList[1];
+                      editMyAccountController.email.text =
+                          signupController.email.text;
+                      editMyAccountController.phone.text =
+                          signupController.phone.text;
+                      editMyAccountController.avatar.value =
+                          MyAccountController.avatarList[1];
 
                       Get.to(() => EditMyAccountScreen());
                     },

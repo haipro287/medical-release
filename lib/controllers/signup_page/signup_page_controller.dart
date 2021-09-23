@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
-import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
@@ -19,7 +18,7 @@ class SignupPageController extends GetxController {
   TextEditingController otp = TextEditingController();
 
   RxBool confirmActive = false.obs;
-  RxBool confirmSuccess = false.obs;
+  RxBool confirmSuccess = true.obs;
 
   RxBool userIdGuide = false.obs;
   RxBool mailGuide = false.obs;
@@ -48,6 +47,8 @@ class SignupPageController extends GetxController {
   final RegExp passwordReg2 = new RegExp(r'^[a-zA-Z]+$');
   final RegExp passwordReg3 = new RegExp(r'^[!-/#{-~₫%&/_:-@\[-^]+$');
 
+  String? otpId;
+
   void changeHidePassword() {
     passwordIsHide.value = !passwordIsHide.value;
   }
@@ -60,9 +61,9 @@ class SignupPageController extends GetxController {
     confirmActive.value = this.otp.text.length == 6;
   }
 
-  bool otpValidate() {
+  Future<bool> otpValidate() async {
     print(this.otp.text);
-
+    confirmSuccess.value = await validateOTP(this.otp.text);
     return confirmSuccess.value;
   }
 
@@ -190,10 +191,7 @@ class SignupPageController extends GetxController {
       var response;
       CustomDio customDio = CustomDio();
       response = await customDio.post("/auth/otp", {
-        "data": {
-          "otpId": Get.put(EditMyAccountController()).otp.toString(),
-          "otp": otp
-        }
+        "data": {"otpId": otpId.toString(), "otp": otp}
       });
 
       var json = jsonDecode(response.toString());
@@ -210,7 +208,7 @@ class SignupPageController extends GetxController {
     }
   }
 
-  Future signup(context) async {
+  Future signup() async {
     try {
       var response;
       var keyPair = generateKeyPairAndEncrypt(password.text);
@@ -232,17 +230,28 @@ class SignupPageController extends GetxController {
 
       var data = json["data"];
 
-      MyAccountController myAccountController = Get.put(MyAccountController());
+      if (json["success"] == true) {
+        signupError.value = "";
+        otpId = data["otpId"];
+        MyAccountController myAccountController =
+            Get.put(MyAccountController());
 
-      myAccountController.kanjiName.value = data["kanji"];
-      myAccountController.katakanaName.value = data["romanji"];
-      myAccountController.dob.value = DateTime.parse(data["birthday"]);
-      myAccountController.userName = data["username"];
-      myAccountController.email.value = data["mail"];
-      myAccountController.phoneNumber.value = data["phone"];
-      myAccountController.citizenCode.value = data["pid"];
-      myAccountController.phoneVerified = data["isPhoneValidated"];
-      myAccountController.emailVerified = data["isMailValidated"];
+        myAccountController.kanjiName.value = data["kanji"];
+        myAccountController.katakanaName.value = data["romanji"];
+        myAccountController.dob.value = DateTime.parse(data["birthday"]);
+        myAccountController.userName = data["username"];
+        myAccountController.email.value = data["mail"];
+        myAccountController.phoneNumber.value = data["phone"];
+        myAccountController.citizenCode.value = data["pid"];
+        myAccountController.phoneVerified = data["isPhoneValidated"];
+        myAccountController.emailVerified = data["isMailValidated"];
+        return true;
+      }
+
+      signupError.value = json["error"];
+      print(signupError.value);
+
+      signupErrorMessage(signupError.value);
 
       return data;
     } catch (e, s) {
