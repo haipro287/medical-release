@@ -63,7 +63,7 @@ class CustomDio {
         onResponse:
             (Response response, ResponseInterceptorHandler handler) async {
           print({'onResponse': response});
-          if (response.data["error"] == "user is banned") {
+          if (response.data["error"] == "ERROR.AUTH.USER_BANNED") {
             print('banned!!!');
             Get.put(PrivacyController()).logout2();
           }
