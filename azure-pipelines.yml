@@ -23,13 +23,13 @@ steps:
     inputs:
       script: |
         cat .env
-        docker build -t supermedicalchain/build-flutter --build-arg BUILD_NAME=$(BUILD_NAME) .
+        docker build -t supermedicalchain/build-flutter:new-build --build-arg BUILD_NAME=$(BUILD_NAME) .
       workingDirectory: $(System.DefaultWorkingDirectory)
   - task: CmdLine@2
     displayName: Copy from Container
     inputs:
       script: |
-        docker run --rm -v $(pwd)/build:/src/build2 supermedicalchain/build-flutter sh -c 'rm -Rf /src/build2/*  && cp -a /src/build/. /src/build2 && chmod -R 777 /src/build2'
+        docker run --rm -v $(pwd)/build:/src/build2 supermedicalchain/build-flutter:new-build sh -c 'rm -Rf /src/build2/*  && cp -a /src/build/. /src/build2 && chmod -R 777 /src/build2'
       workingDirectory: $(System.DefaultWorkingDirectory)
   - task: mirror-git-repository-vsts-task@1
     inputs:
