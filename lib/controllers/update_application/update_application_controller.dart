@@ -10,7 +10,7 @@ class UpdateAppController extends GetxController {
   String? version;
   Future<dynamic> getVersion() async {
     Dio dio = Dio();
-    var response = await dio.get(dotenv.env['UPDATE_LINK_API']! + "tags");
+    var response = await dio.get(dotenv.env['UPDATE_VERSION_API']! + "tags");
     print(response);
     return response.data[0]["name"];
   }
@@ -52,7 +52,7 @@ class UpdateAppController extends GetxController {
                               style: TextStyle(fontSize: 20)),
                           TextButton(
                             onPressed: () async {
-                              launchURL(dotenv.env['UPDATE_LINK']! +
+                              launchURL(dotenv.env['UPDATE_VERSION_URL']! +
                                   "/releases/download/$version/app.apk");
                             },
                             child: Text(

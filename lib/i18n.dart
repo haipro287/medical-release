@@ -143,7 +143,7 @@ class Messages extends Translations {
           "confirmEmailMessage": "にEメールを送信しました。コードの6桁の数字を入力してください。",
           "emailResend": "Eメール再送信",
           "emailResendParam": "Eメール再送信（@time秒）",
-          "emailCodeNotMatch": "Eメール確認コードは合っていません。",
+          "emailCodeNotMatch": "確認コードが不正です。",
           "confirm": "確認",
           "accountConfirm": "アカウント確認済み",
           "accountConfirmMessage": "次回からユーザーID、メールアドレス でログインできます。",

@@ -58,7 +58,7 @@ class EditMyAccountController extends GetxController {
     this.katakanaErr.value = "";
 
     if (this.kanjiName.text == "") {
-      this.kanjiErr.value = '氏名を入力してください。';
+      this.kanjiErr.value = '氏名（漢字）を入力してください。';
       isValid = false;
     } else if (!kanji.hasMatch(this.kanjiName.text) ||
         this.kanjiName.text.contains(' ')) {

@@ -74,10 +74,10 @@ class SignupScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   guideText(
-                                    "※ユーザーIDは登録後、変更できません。",
+                                    "※ユーザーIDは、一旦登録してしまうと変更できません。",
                                   ),
-                                  guideText("※半角英数字"),
-                                  guideText("※記号、スペースはご使用いただけません。"),
+                                  guideText(
+                                      "※ユーザーIDには、半角英数字のみを使用する事ができます。 （記号、スペースは使用する事ができません） "),
                                 ],
                               )
                             : Container(),
@@ -111,7 +111,7 @@ class SignupScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   guideText(
-                                    "※半角英数字",
+                                    "※メールアドレスには、半角英数字のみ登録できます。",
                                   ),
                                 ],
                               )
@@ -146,10 +146,10 @@ class SignupScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   guideText(
-                                    "※半角数字",
+                                    "※電話番号は、半角数字のみ登録できます。",
                                   ),
                                   guideText(
-                                    "※ハイフンは入れません。",
+                                    "※ハイフン、スペース等を入れずに、数字のみ入力して下さい。",
                                   ),
                                 ],
                               )
@@ -186,10 +186,7 @@ class SignupScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   guideText(
-                                    "※半角英数記号で8～32文字以内",
-                                  ),
-                                  guideText(
-                                    "※英字、数字、記号のうち2種類以上を混在させてください。",
+                                    "※半角英数字、記号を混在させて、8文字以上、32文字以内で登録を実施して下さい。",
                                   ),
                                 ],
                               )

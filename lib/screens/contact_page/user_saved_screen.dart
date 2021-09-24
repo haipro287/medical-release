@@ -219,7 +219,8 @@ class UserSavedScreen extends StatelessWidget {
                           myAccountText(('ユーザーID')),
                           myAccountText('${userInfo["secondaryUsername"]}'),
                         ),
-                        (userInfo["isBanned"] == false)
+                        (userInfo["isBanned"] == null ||
+                                userInfo["isBanned"] == false)
                             ? myAccountFieldWithoutSeperateLine(
                                 myAccountText(('氏名')),
                                 myAccountText(convertLongString(

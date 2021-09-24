@@ -82,59 +82,59 @@ class SignupPageController extends GetxController {
 
     if (this.userId.text == "") {
       isValid = false;
-      userIdErr.value = "ユーザーIDを入力してください。";
+      userIdErr.value = "ユーザーIDが入力されていません。";
     } else if (this.userId.text.contains(' ') ||
         userIdReg1.hasMatch(this.userId.text)) {
       isValid = false;
-      userIdErr.value = "ユーザーIDは記号、スペースはご使用いただけません。";
+      userIdErr.value = "ユーザーIDに、記号、スペースは使用できません。";
     } else if (!userIdReg.hasMatch(this.userId.text)) {
       isValid = false;
-      userIdErr.value = "ユーザーIDは半角英数字で入力してください。";
+      userIdErr.value = "ユーザーIDには、半角英数字のみ使用する事ができます。 ";
     }
 
     if (this.email.text == "") {
       isValid = false;
-      mailErr.value = "メールアドレスを入力してください。";
+      mailErr.value = "メールアドレスが入力されていません。";
     } else if (!emailReg.hasMatch(this.email.text)) {
       isValid = false;
-      mailErr.value = "メールアドレスは正しい形式で入力してください。";
+      mailErr.value = "登録したメールアドレスの形式に誤りがあります。 正しい形式で入力して下さい。";
     }
 
     if (this.phone.text == "") {
       isValid = false;
-      phoneErr.value = "電話番号を入力してください。";
+      phoneErr.value = "電話番号が入力されていません。 ";
     } else if (!phoneReg.hasMatch(this.phone.text)) {
       isValid = false;
-      phoneErr.value = "電話番号は半角数字で入力してください。";
+      phoneErr.value = "電話番号は半角数字のみで、入力して下さい。";
     } else if (this.phone.text.length != 10 ||
         this.phone.text.toString()[0] != '0') {
       isValid = false;
-      phoneErr.value = "電話番号は正しい値を入力してください。";
+      phoneErr.value = "電話番号の値が不正です。正しい電話番号を入力して下さい。";
     }
 
     if (this.password.text == "") {
       isValid = false;
-      passwordErr.value = "パスワードを入力してください。";
+      passwordErr.value = "パスワードが入力されていません。 ";
     } else if (!passwordReg0.hasMatch(this.password.text)) {
       isValid = false;
-      passwordErr.value = "パスワードは半角英数字で入力してください。";
+      passwordErr.value = "パスワードは、半角英数字、記号で入力して下さい。 ";
     } else if (passwordReg1.hasMatch(this.password.text) ||
         passwordReg2.hasMatch(this.password.text) ||
         passwordReg3.hasMatch(this.password.text)) {
       isValid = false;
-      passwordErr.value = "パスワードは英字、数字、記号のうち2種類以上を混在させてください。";
+      passwordErr.value = "パスワードは英数字、記号を混在させて下さい。";
     } else if (this.password.text.length < 8 ||
         this.password.text.length > 32) {
       isValid = false;
-      passwordErr.value = "パスワードは8～32文字以内で入力してください。";
+      passwordErr.value = "パスワードは、8文字以上32文字以内で、入力して下さい。 ";
     }
 
     if (this.confirmPassword.text == "") {
       isValid = false;
-      confirmPasswordErr.value = "再入力パスワードを入力してください。";
+      confirmPasswordErr.value = "再入力パスワードが入力されていません。 ";
     } else if (this.confirmPassword.text != this.password.text) {
       isValid = false;
-      confirmPasswordErr.value = "再入力パスワードは合っていません。";
+      confirmPasswordErr.value = "パスワードと、再入力パスワードが一致しません。";
     }
 
     return isValid;
@@ -261,15 +261,15 @@ class SignupPageController extends GetxController {
         MyAccountController myAccountController =
             Get.put(MyAccountController());
 
-        myAccountController.kanjiName.value = data["kanji"];
-        myAccountController.katakanaName.value = data["romanji"];
-        myAccountController.dob.value = DateTime.parse(data["birthday"]);
-        myAccountController.userName = data["username"];
-        myAccountController.email.value = data["mail"];
-        myAccountController.phoneNumber.value = data["phone"];
-        myAccountController.citizenCode.value = data["pid"];
-        myAccountController.phoneVerified = data["isPhoneValidated"];
-        myAccountController.emailVerified = data["isMailValidated"];
+        myAccountController.kanjiName.value = data["kanji"] ?? "";
+        myAccountController.katakanaName.value = data["romanji"] ?? "";
+        // myAccountController.dob.value = DateTime.parse(data["birthday"]);
+        myAccountController.userName = data["username"] ?? "";
+        myAccountController.email.value = data["mail"] ?? "";
+        myAccountController.phoneNumber.value = data["phone"] ?? "";
+        myAccountController.citizenCode.value = data["pid"] ?? "";
+        myAccountController.phoneVerified = data["isPhoneValidated"] ?? true;
+        myAccountController.emailVerified = data["isMailValidated"] ?? true;
         return true;
       }
 
