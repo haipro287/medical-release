@@ -402,7 +402,8 @@ Container inputWithHint(BuildContext context,
     required String labelText,
     required String initialText,
     required TextEditingController textEditingController,
-    required bool err}) {
+    required bool err,
+    Function? onchange}) {
   return Container(
     height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
@@ -417,6 +418,9 @@ Container inputWithHint(BuildContext context,
       children: [
         Expanded(
           child: TextFormField(
+            onChanged: (e) {
+              onchange == null ? null : onchange();
+            },
             controller: textEditingController,
             style: TextStyle(fontSize: getWidth(16)),
             decoration: InputDecoration(

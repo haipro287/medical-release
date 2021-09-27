@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
+import 'package:medical_chain_mobile_ui/services/date_format.dart';
 
 class MyAccountController extends GetxController {
   static const avatarList = [0, 0xFFD0E8FF, 0xFFFFF0D1, 0xFFDAD5FF, 0xFFF7EBE8];
@@ -16,6 +18,9 @@ class MyAccountController extends GetxController {
   RxString email = "".obs;
   RxString phoneNumber = "".obs;
   RxString citizenCode = "".obs;
+  RxString editError = "".obs;
+  RxString mailErr = "".obs;
+  RxString phoneErr = "".obs;
 
   bool emailVerified = true;
   bool phoneVerified = true;
@@ -41,12 +46,19 @@ class MyAccountController extends GetxController {
       myAccountController.userName = userInfo['username'] ?? "";
       myAccountController.kanjiName.value = userInfo['kanji'] ?? "";
       myAccountController.katakanaName.value = userInfo['katakana'] ?? "";
-      myAccountController.dob.value = DateTime.parse(userInfo['birthday']);
+      myAccountController.dob.value =
+          TimeService.stringToDateTime(userInfo["birthday"])!;
       myAccountController.email.value = userInfo['mail'] ?? "";
       myAccountController.phoneNumber.value = userInfo['phone'] ?? "";
       myAccountController.citizenCode.value = userInfo['pid'] ?? "";
       myAccountController.avatar.value =
           MyAccountController.avatarList[userInfo["avatar"]];
+
+      Get.put(GlobalController()).user.value.username =
+          myAccountController.userName;
+      Get.put(GlobalController())
+          .db
+          .put("user", Get.put(GlobalController()).user.value);
 
       print(kanjiName.value);
 
@@ -58,7 +70,7 @@ class MyAccountController extends GetxController {
     }
   }
 
-  Future<dynamic> requestMailOTP(String mail) async {
+  Future requestMailOTP(String mail) async {
     var response;
     CustomDio customDio = CustomDio();
     customDio.dio.options.headers["Authorization"] =
@@ -72,12 +84,31 @@ class MyAccountController extends GetxController {
       },
     );
     var json = jsonDecode(response.toString());
+    if (json["success"] == true) {
+      var data = json["data"];
+      editError.value = "";
+      print(data);
+      Get.put(SignupPageController()).otpId = data["otpId"];
+      return data["otpId"];
+    } else {
+      editError.value = json["error"];
+      signupErrorMessage(editError.value);
+      return "";
+    }
+  }
 
-    var data = json["data"];
+  void signupErrorMessage(mess) {
+    if (mess == "ERROR.API.MAIL_EXISTED") {
+      Get.put(EditMyAccountController()).mailErr.value =
+          "登録されたメールアドレスは、既に登録されています。";
+      return;
+    }
 
-    print(data);
-    Get.put(SignupPageController()).otpId = data["otpId"];
-    return data["otpId"];
+    if (mess == "ERROR.AUTH.USER_CREDENTIAL.PHONE_EXISTED") {
+      Get.put(EditMyAccountController()).phoneErr.value =
+          "登録された電話番号は、既に登録されています。";
+      return;
+    }
   }
 
   Future editUserInfo(

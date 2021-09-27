@@ -128,21 +128,43 @@ class EditMyAccountScreen extends StatelessWidget {
                 SizedBox(
                   height: getHeight(12),
                 ),
-                inputWithHint(context,
-                    hintText: "山田太郎",
-                    labelText: 'email'.tr,
-                    initialText: myAccountController.email.value,
-                    textEditingController: editMyAccountController.email,
-                    err: false),
+                Obx(() {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      inputWithHint(context,
+                          hintText: "山田太郎",
+                          labelText: 'email'.tr,
+                          initialText: myAccountController.email.value,
+                          textEditingController: editMyAccountController.email,
+                          err: editMyAccountController.mailErr.value != "",
+                          onchange: () {
+                        editMyAccountController.mailErr.value = "";
+                      }),
+                      errText(errMess: editMyAccountController.mailErr.value),
+                    ],
+                  );
+                }),
                 SizedBox(
                   height: getHeight(12),
                 ),
-                inputWithHint(context,
-                    hintText: "山田太郎",
-                    labelText: 'phoneNumber'.tr,
-                    initialText: myAccountController.phoneNumber.value,
-                    textEditingController: editMyAccountController.phone,
-                    err: false),
+                Obx(() {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      inputWithHint(context,
+                          hintText: "山田太郎",
+                          labelText: 'phoneNumber'.tr,
+                          initialText: myAccountController.phoneNumber.value,
+                          textEditingController: editMyAccountController.phone,
+                          err: editMyAccountController.phoneErr.value != "",
+                          onchange: () {
+                        editMyAccountController.phoneErr.value = "";
+                      }),
+                      errText(errMess: editMyAccountController.phoneErr.value),
+                    ],
+                  );
+                }),
                 SizedBox(
                   height: getHeight(12),
                 ),
@@ -157,7 +179,7 @@ class EditMyAccountScreen extends StatelessWidget {
                           initialText: myAccountController.citizenCode.value,
                           textEditingController:
                               editMyAccountController.citizenCode,
-                          err: err),
+                          err: err,onchange: (){editMyAccountController.citizenCodeErr.value="";}),
                       errText(
                           errMess:
                               editMyAccountController.citizenCodeErr.value),
@@ -205,13 +227,13 @@ class EditMyAccountScreen extends StatelessWidget {
                                     signupController.password.text;
 
                                 var login = await loginPageController.login();
-                                Get.put(SignupPageController()).otpId =
-                                    myAccountController
-                                        .requestMailOTP(
-                                            editMyAccountController.email.text)
-                                        .toString();
-                                Get.off(() => ConfirmSignupScreen(
-                                    type: "signup_edit_mail"));
+                                var otp =
+                                    await myAccountController.requestMailOTP(
+                                        editMyAccountController.email.text);
+                                Get.put(SignupPageController()).otpId = otp;
+                                if (myAccountController.editError.value == "")
+                                  Get.off(() => ConfirmSignupScreen(
+                                      type: "signup_edit_mail"));
                               } else {
                                 print("dsadsa");
                                 LoginPageController loginPageController =
@@ -296,20 +318,20 @@ class EditMyAccountScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                               ),
-                              onPress: () {
+                              onPress: () async {
                                 if (editMyAccountController.isValid()) {
                                   if (myAccountController.email.value !=
                                       editMyAccountController.email.text) {
                                     editMyAccountController.signup.value =
                                         false;
-                                    Get.put(SignupPageController()).otpId =
-                                        myAccountController
-                                            .requestMailOTP(
-                                                editMyAccountController
-                                                    .email.text)
-                                            .toString();
-                                    Get.off(() => ConfirmSignupScreen(
-                                        type: "signup_edit_mail"));
+                                    var otp = await myAccountController
+                                        .requestMailOTP(
+                                            editMyAccountController.email.text);
+                                    Get.put(SignupPageController()).otpId = otp;
+                                    if (myAccountController.editError.value ==
+                                        "")
+                                      Get.off(() => ConfirmSignupScreen(
+                                          type: "signup_edit_mail"));
                                   } else {
                                     myAccountController.editUserInfo(
                                       kanji: editMyAccountController

@@ -20,6 +20,8 @@ class EditMyAccountController extends GetxController {
   RxString citizenCodeErr = "".obs;
   RxBool signup = true.obs;
   bool changeEmailNotSignUp = false;
+  RxString mailErr = "".obs;
+  RxString phoneErr = "".obs;
 
   String? otp;
 
@@ -51,6 +53,9 @@ class EditMyAccountController extends GetxController {
     RegExp kanji = new RegExp(r'^([ぁ-んァ-ン一-龥a-zA-Z])+$');
     RegExp katakana = new RegExp(r'^([ァ-ン]|ー)+$');
     RegExp idNumber = new RegExp(r'^[0-9]+$');
+    final RegExp phoneReg = new RegExp(r'^[0-9]+$');
+    final RegExp emailReg = new RegExp(
+        r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
 
     var isValid = true;
 
@@ -72,6 +77,26 @@ class EditMyAccountController extends GetxController {
     } else if (!katakana.hasMatch(this.katakanaName.text)) {
       this.katakanaErr.value = '氏名（カタカナ）はカタカナで入力してください。';
       isValid = false;
+    }
+
+    if (this.email.text == "") {
+      isValid = false;
+      mailErr.value = "メールアドレスが入力されていません。";
+    } else if (!emailReg.hasMatch(this.email.text)) {
+      isValid = false;
+      mailErr.value = "登録したメールアドレスの形式に誤りがあります。 正しい形式で入力して下さい。";
+    }
+
+    if (this.phone.text == "") {
+      isValid = false;
+      phoneErr.value = "電話番号が入力されていません。 ";
+    } else if (!phoneReg.hasMatch(this.phone.text)) {
+      isValid = false;
+      phoneErr.value = "電話番号は半角数字のみで、入力して下さい。";
+    } else if (this.phone.text.length != 10 ||
+        this.phone.text.toString()[0] != '0') {
+      isValid = false;
+      phoneErr.value = "電話番号の値が不正です。正しい電話番号を入力して下さい。";
     }
 
     if (this.dob.text == "") {

@@ -64,12 +64,14 @@ class HomePageTabScreen extends StatelessWidget {
                         color: Color(0xFF838AA2),
                       ),
                     ),
-                    Text(
-                      globalController.user.value.name.toString(),
-                      style: TextStyle(
-                        fontSize: getWidth(24),
-                      ),
-                    ),
+                    Obx(() {
+                      return Text(
+                        globalController.user.value.username.toString(),
+                        style: TextStyle(
+                          fontSize: getWidth(24),
+                        ),
+                      );
+                    }),
                   ],
                 ),
               ),
