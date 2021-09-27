@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/confirm_signup/confirm_signup_screen.dart';
@@ -284,13 +285,128 @@ class SignupScreen extends StatelessWidget {
                   onPress: () async {
                     FocusManager.instance.primaryFocus?.unfocus();
 
-                    if (signupPageController.isValid()) {
-                      var res = await signupPageController.signup();
+                    showDialog(
+                        context: Get.context!,
+                        barrierColor: Colors.black38,
+                        builder: (builder) {
+                          return Container(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(
+                                    getWidth(5),
+                                  ),
+                                ),
+                                child: Material(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(16.0)),
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.95,
+                                    padding: EdgeInsets.all(getWidth(18)),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SvgPicture.asset(
+                                          "assets/images/question-icon.svg",
+                                          width: getWidth(56),
+                                          height: getWidth(56),
+                                        ),
+                                        SizedBox(
+                                          height: getHeight(26),
+                                        ),
+                                        Text(
+                                          "email_alert".tr,
+                                          textAlign: TextAlign.center,
+                                          style:
+                                              TextStyle(fontSize: getWidth(17)),
+                                        ),
+                                        SizedBox(
+                                          height: getHeight(40),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Bouncing(
+                                                child: Container(
+                                                  width: getWidth(145),
+                                                  height: getHeight(50),
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFFE9E9E9),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                      getWidth(4),
+                                                    ),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      "back".tr,
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              getWidth(17),
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  ),
+                                                ),
+                                                onPress: () {
+                                                  Get.back();
+                                                }),
+                                            Bouncing(
+                                                child: Container(
+                                                  width: getWidth(145),
+                                                  height: getHeight(50),
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFFD0E8FF),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                      getWidth(4),
+                                                    ),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      "next".tr,
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              getWidth(17),
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  ),
+                                                ),
+                                                onPress: () async {
+                                                  if (signupPageController
+                                                      .isValid()) {
+                                                    var res =
+                                                        await signupPageController
+                                                            .signup();
 
-                      if (signupPageController.signupError.value == "") {
-                        Get.to(() => ConfirmSignupScreen(type: "signup"));
-                      }
-                    }
+                                                    if (signupPageController
+                                                            .signupError
+                                                            .value ==
+                                                        "") {
+                                                      Get.to(() =>
+                                                          ConfirmSignupScreen(
+                                                              type: "signup"));
+                                                    }
+                                                  } else
+                                                    Get.back();
+                                                }),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        });
                   },
                 ),
                 SizedBox(

@@ -24,7 +24,7 @@ class UpdateAppController extends GetxController {
     // TODO: implement onInit
     version = await getVersion();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    if (packageInfo.version != version.toString()) {
+    if (true) {
       showDialog(
           context: Get.context!,
           barrierColor: Colors.black38,
@@ -50,10 +50,14 @@ class UpdateAppController extends GetxController {
                         children: [
                           Text("Có version mới rồi tải lại đê".toUpperCase(),
                               style: TextStyle(fontSize: 20)),
+                          Text(dotenv.env['UPDATE_VERSION_URL']!),
+                          Text(dotenv.env['UPDATE_VERSION_API']!),
+                          Text(packageInfo.version),
+                          Text(version.toString()),
                           TextButton(
                             onPressed: () async {
                               launchURL(dotenv.env['UPDATE_VERSION_URL']! +
-                                  "/releases/download/$version/app.apk");
+                                  "/releases/download/${version.toString()}/app.apk");
                             },
                             child: Text(
                               "Bấm để tải",

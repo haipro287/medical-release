@@ -171,7 +171,10 @@ class Messages extends Translations {
           "check_internet_connection2": "チェックしてください。",
           "scanQR": "QRコード",
           "status_account": "状態",
-          "unActive": "非アクティブ"
+          "unActive": "非アクティブ",
+          "email_alert":
+              "登録されたメールアドレスに確認コー ドを送信しました。送信されたコードを利用して、 登録作業を継続して下さい",
+          "back": "戻る"
         }
       };
 }
