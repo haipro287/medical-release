@@ -141,18 +141,18 @@ class SignupPageController extends GetxController {
   }
 
   void signupErrorMessage(mess) {
-    if (mess == "invalid username or existed") {
-      userIdErr.value = "ユーザーIDは既に存在しています。";
+    if (mess == "ERROR.AUTH.USER_CREDENTIAL.USERNAME_EXISTED") {
+      userIdErr.value = "登録されたユーザーIDは、既に登録されています。";
       return;
     }
 
-    if (mess == "invalid mail or existed") {
-      mailErr.value = "メールアドレスは既に存在しています。";
+    if (mess == "ERROR.AUTH.USER_CREDENTIAL.MAIL_EXISTED") {
+      mailErr.value = "登録されたメールアドレスは、既に登録されています。";
       return;
     }
 
-    if (mess == "invalid phone number or existed") {
-      phoneErr.value = "電話番号は既に存在しています。";
+    if (mess == "ERROR.AUTH.USER_CREDENTIAL.PHONE_EXISTED") {
+      phoneErr.value = "登録された電話番号は、既に登録されています。";
       return;
     }
   }

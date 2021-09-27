@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
@@ -258,8 +257,8 @@ class EditMyAccountScreen extends StatelessWidget {
                                     //     signupController.password.text;
                                     //
                                     // var login = await loginPageController.login();
-                                    Get.put(HomePageController())
-                                        .onChangeTab(0);
+                                    // Get.put(HomePageController())
+                                    //     .onChangeTab(0);
                                     Get.offAll(() => HomePageScreen());
                                   }
                                 }

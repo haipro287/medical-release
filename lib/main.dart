@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/update_application/update_application_controller.dart';
 import 'package:medical_chain_mobile_ui/i18n.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
@@ -29,6 +31,7 @@ Future<void> main() async {
   await globalController.getInfoDevice();
   if (globalController.db.get("user") != null)
     globalController.user.value = globalController.db.get("user");
+  var info = await Get.put(MyAccountController()).getUserInfo();
   runApp(MyApp());
 }
 
@@ -56,6 +59,13 @@ class MyApp extends StatelessWidget {
   }
 
   Widget home() {
+    MyAccountController myAccountController = Get.put(MyAccountController());
+    if (myAccountController.kanjiName.value == "") {
+      // Get.put(EditMyAccountController()).signup.value = true;
+      // // Get.to(() => EditMyAccountScreen());
+      return LoginWelcomePage();
+    }
+
     if (globalController.user.value.username == null)
       return LoginWelcomePage();
     else if (globalController.user.value.username != null) {
