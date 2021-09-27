@@ -263,7 +263,8 @@ class UserSavedScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  (userInfo["isBanned"] == false)
+                  (userInfo["isBanned"] == null ||
+                          userInfo["isBanned"] == false)
                       ? Container(
                           width: double.infinity,
                           margin: EdgeInsets.only(

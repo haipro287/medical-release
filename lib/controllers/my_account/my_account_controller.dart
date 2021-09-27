@@ -143,20 +143,25 @@ class MyAccountController extends GetxController {
         },
       );
       var json = jsonDecode(response.toString());
+      if (json["success"] == true) {
+        var data = json["data"];
+        editError.value = "";
+        print(data);
 
-      var data = json["data"];
-
-      print(data);
-
-      myAccountController.kanjiName.value = data['kanji'].toString();
-      myAccountController.katakanaName.value = data['katakana'].toString();
-      myAccountController.dob.value = DateTime.parse(data['birthday']);
-      myAccountController.email.value = data['mail'].toString();
-      myAccountController.phoneNumber.value = data['phone'].toString();
-      myAccountController.citizenCode.value = data['pid'].toString();
-      myAccountController.avatar.value =
-          MyAccountController.avatarList[data['avatar']];
-      return json["data"];
+        myAccountController.kanjiName.value = data['kanji'].toString();
+        myAccountController.katakanaName.value = data['katakana'].toString();
+        myAccountController.dob.value = DateTime.parse(data['birthday']);
+        myAccountController.email.value = data['mail'].toString();
+        myAccountController.phoneNumber.value = data['phone'].toString();
+        myAccountController.citizenCode.value = data['pid'].toString();
+        myAccountController.avatar.value =
+            MyAccountController.avatarList[data['avatar']];
+        return json["data"];
+      } else {
+        editError.value = json["error"];
+        signupErrorMessage(editError.value);
+        return "";
+      }
     } catch (e, s) {
       print(e);
       print(s);

@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/list_service_controller.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
@@ -27,13 +28,25 @@ Container switchService(
           padding: EdgeInsets.only(
             bottom: getHeight(10),
           ),
-          child: icon.toString().contains('http')
-              ? Container(
-                  width: getWidth(16), child: Image.network(icon.toString()))
-              : SvgPicture.asset(
-                  'assets/images/avatar.svg',
-                  width: getWidth(16),
-                ),
+          child:
+              // icon.toString().contains('http')
+              //     ? Container(
+              //         width: getWidth(16), child: Image.network(icon.toString()))
+              //     : SvgPicture.asset(
+              //         'assets/images/avatar.svg',
+              //         width: getWidth(16),
+              //       ),
+              ClipRRect(
+            borderRadius: BorderRadius.circular(27),
+            child: Container(
+              width: getWidth(27),
+              height: getWidth(27),
+              child: Image.memory(
+                base64Decode(icon.toString().split(",")[1]),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
         ),
         SizedBox(
           width: getWidth(12),

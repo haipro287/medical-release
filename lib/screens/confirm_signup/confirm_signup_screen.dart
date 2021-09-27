@@ -214,9 +214,10 @@ class ConfirmSignupScreen extends StatelessWidget {
                               phone: editMyAccountController.phone.text,
                               avatar: editMyAccountController.avatar.value,
                             );
-                            if (info != null) {
-                              Get.back();
-                            }
+                            if (Get.put(MyAccountController())
+                                    .editError
+                                    .value ==
+                                "") Get.back();
                           }
                         }
                       }

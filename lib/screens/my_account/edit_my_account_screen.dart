@@ -179,7 +179,9 @@ class EditMyAccountScreen extends StatelessWidget {
                           initialText: myAccountController.citizenCode.value,
                           textEditingController:
                               editMyAccountController.citizenCode,
-                          err: err,onchange: (){editMyAccountController.citizenCodeErr.value="";}),
+                          err: err, onchange: () {
+                        editMyAccountController.citizenCodeErr.value = "";
+                      }),
                       errText(
                           errMess:
                               editMyAccountController.citizenCodeErr.value),
@@ -227,13 +229,26 @@ class EditMyAccountScreen extends StatelessWidget {
                                     signupController.password.text;
 
                                 var login = await loginPageController.login();
-                                var otp =
-                                    await myAccountController.requestMailOTP(
-                                        editMyAccountController.email.text);
-                                Get.put(SignupPageController()).otpId = otp;
-                                if (myAccountController.editError.value == "")
-                                  Get.off(() => ConfirmSignupScreen(
-                                      type: "signup_edit_mail"));
+                                var a = await myAccountController.editUserInfo(
+                                  kanji: editMyAccountController.kanjiName.text,
+                                  romanji:
+                                      editMyAccountController.katakanaName.text,
+                                  mail: editMyAccountController.email.text,
+                                  birthday: TimeService.timeToBackEnd(
+                                      editMyAccountController.birthday),
+                                  pid: editMyAccountController.citizenCode.text,
+                                  phone: editMyAccountController.phone.text,
+                                  avatar: editMyAccountController.avatar.value,
+                                );
+                                if (myAccountController.phoneErr.value == "") {
+                                  var otp =
+                                      await myAccountController.requestMailOTP(
+                                          editMyAccountController.email.text);
+                                  Get.put(SignupPageController()).otpId = otp;
+                                  if (myAccountController.editError.value == "")
+                                    Get.off(() => ConfirmSignupScreen(
+                                        type: "signup_edit_mail"));
+                                }
                               } else {
                                 print("dsadsa");
                                 LoginPageController loginPageController =
@@ -322,18 +337,8 @@ class EditMyAccountScreen extends StatelessWidget {
                                 if (editMyAccountController.isValid()) {
                                   if (myAccountController.email.value !=
                                       editMyAccountController.email.text) {
-                                    editMyAccountController.signup.value =
-                                        false;
-                                    var otp = await myAccountController
-                                        .requestMailOTP(
-                                            editMyAccountController.email.text);
-                                    Get.put(SignupPageController()).otpId = otp;
-                                    if (myAccountController.editError.value ==
-                                        "")
-                                      Get.off(() => ConfirmSignupScreen(
-                                          type: "signup_edit_mail"));
-                                  } else {
-                                    myAccountController.editUserInfo(
+                                    var a =
+                                        await myAccountController.editUserInfo(
                                       kanji: editMyAccountController
                                           .kanjiName.text,
                                       romanji: editMyAccountController
@@ -347,7 +352,39 @@ class EditMyAccountScreen extends StatelessWidget {
                                       avatar:
                                           editMyAccountController.avatar.value,
                                     );
-                                    Get.back();
+                                    if (myAccountController.phoneErr.value ==
+                                        "") {
+                                      editMyAccountController.signup.value =
+                                          false;
+                                      var otp = await myAccountController
+                                          .requestMailOTP(
+                                              editMyAccountController
+                                                  .email.text);
+                                      Get.put(SignupPageController()).otpId =
+                                          otp;
+                                      if (myAccountController.editError.value ==
+                                          "")
+                                        Get.off(() => ConfirmSignupScreen(
+                                            type: "signup_edit_mail"));
+                                    }
+                                  } else {
+                                    var a =
+                                        await myAccountController.editUserInfo(
+                                      kanji: editMyAccountController
+                                          .kanjiName.text,
+                                      romanji: editMyAccountController
+                                          .katakanaName.text,
+                                      mail: editMyAccountController.email.text,
+                                      birthday: TimeService.timeToBackEnd(
+                                          editMyAccountController.birthday),
+                                      pid: editMyAccountController
+                                          .citizenCode.text,
+                                      phone: editMyAccountController.phone.text,
+                                      avatar:
+                                          editMyAccountController.avatar.value,
+                                    );
+                                    if (myAccountController.editError.value ==
+                                        "") Get.back();
                                   }
                                 }
                               },

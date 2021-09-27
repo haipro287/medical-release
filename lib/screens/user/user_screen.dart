@@ -1,15 +1,11 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
-import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
-import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/privacy/privacy_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/change_password_page/change_password_page.dart';
-import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/terms_and_conditions/terms_and_conditions.dart';
@@ -49,13 +45,15 @@ class UserScreen extends StatelessWidget {
                           color: Colors.white,
                           child: Row(
                             children: [
-                              Obx((){
+                              Obx(() {
                                 return ClipRRect(
                                   borderRadius: BorderRadius.circular(56),
                                   child: Container(
                                     width: getWidth(56),
                                     height: getWidth(56),
-                                    color: Color(Get.put(MyAccountController()).avatar.value),
+                                    color: Color(Get.put(MyAccountController())
+                                        .avatar
+                                        .value),
                                   ),
                                 );
                               }),
@@ -66,7 +64,7 @@ class UserScreen extends StatelessWidget {
                                 Get.put(GlobalController())
                                     .user
                                     .value
-                                    .name
+                                    .username
                                     .toString(),
                                 style: TextStyle(
                                     fontSize: getWidth(20),
