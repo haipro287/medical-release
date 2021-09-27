@@ -115,6 +115,10 @@ class SignupPageController extends GetxController {
     if (this.password.text == "") {
       isValid = false;
       passwordErr.value = "パスワードが入力されていません。 ";
+    } else if (this.password.text.length < 8 ||
+        this.password.text.length > 32) {
+      isValid = false;
+      passwordErr.value = "パスワードは、8文字以上32文字以内で、入力して下さい。 ";
     } else if (!passwordReg0.hasMatch(this.password.text)) {
       isValid = false;
       passwordErr.value = "パスワードは、半角英数字、記号で入力して下さい。 ";
@@ -123,10 +127,6 @@ class SignupPageController extends GetxController {
         passwordReg3.hasMatch(this.password.text)) {
       isValid = false;
       passwordErr.value = "パスワードは英数字、記号を混在させて下さい。";
-    } else if (this.password.text.length < 8 ||
-        this.password.text.length > 32) {
-      isValid = false;
-      passwordErr.value = "パスワードは、8文字以上32文字以内で、入力して下さい。 ";
     }
 
     if (this.confirmPassword.text == "") {

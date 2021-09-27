@@ -22,7 +22,9 @@ class UpdateAppController extends GetxController {
   @override
   Future<void> onInit() async {
     // TODO: implement onInit
-    version = await getVersion();
+    try {
+      version = await getVersion();
+    } catch (E) {}
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     if (true) {
       showDialog(
