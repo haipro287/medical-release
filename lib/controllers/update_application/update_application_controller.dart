@@ -26,7 +26,7 @@ class UpdateAppController extends GetxController {
       version = await getVersion();
     } catch (E) {}
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    if (true) {
+    if (packageInfo.version != version.toString()) {
       showDialog(
           context: Get.context!,
           barrierColor: Colors.black38,

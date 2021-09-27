@@ -80,7 +80,8 @@ class UserSavedScreen extends StatelessWidget {
                         color: Colors.white,
                       ),
                       shape: BoxShape.circle,
-                      color: Color(0xFFD0E8FF),
+                      color: Color(userSearchController.userData["avatar"] ??
+                          0xFFD0E8FF),
                     ),
                   ),
                   SafeArea(

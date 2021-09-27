@@ -112,7 +112,7 @@ class ConfirmSignupScreen extends StatelessWidget {
               ),
               Countdown(
                 controller: otpController.countdownController,
-                seconds: 10,
+                seconds: 60,
                 build: (BuildContext context, double time) {
                   if (time > 0)
                     return Text(

@@ -61,14 +61,14 @@ class ListServiceScreen extends StatelessWidget {
                             listServiceController.serviceList.length, (index) {
                           return Column(children: [
                             switchService(
-                              serviceName:
-                                  serviceList[index].name[0].toUpperCase() +
-                                      serviceList[index].name.substring(1),
-                              userName: serviceList[index].username,
-                              isConnected: serviceList[index].isConnected,
-                              index: index,
-                              icon: serviceList[index].icon,
-                            ),
+                                serviceName:
+                                    serviceList[index].name[0].toUpperCase() +
+                                        serviceList[index].name.substring(1),
+                                userName: serviceList[index].username,
+                                isConnected: serviceList[index].isConnected,
+                                index: index,
+                                icon: serviceList[index].icon,
+                                description: serviceList[index].description),
                             index < serviceList.length - 1
                                 ? Container(
                                     color: Colors.white,

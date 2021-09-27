@@ -7,6 +7,7 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 
 class ContactPageController extends GetxController {
+  static const avatarList = [0, 0xFFD0E8FF, 0xFFFFF0D1, 0xFFDAD5FF, 0xFFF7EBE8];
   TextEditingController searchInput = TextEditingController();
 
   RxList<dynamic> contactList = [].obs;
@@ -51,6 +52,7 @@ class ContactPageController extends GetxController {
         item['katakana'] = responseData[i]['katakana'] ?? '';
         item['kanji'] = responseData[i]['kanji'] ?? '';
         item['isBanned'] = responseData[i]['isBanned'] ?? false;
+        item['avatar'] = avatarList[responseData[i]['avatar']];
         res.add(item);
       }
       res.sort(
