@@ -41,110 +41,165 @@ class ListServiceScreen extends StatelessWidget {
                   // for (var i = 0; i < list.length; ++i) {
                   //   listServiceController.serviceList.add(list[i]);
                   // }
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        color: Colors.white,
-                        child: Column(
-                          children: [
-                            inputSearch(
-                              context,
-                              hintText: "searchInput".tr,
-                              textEditingController:
-                                  listServiceController.searchService,
-                              onSearch: () async {
-                                await listServiceController.getServiceList();
-                              },
-                            ),
-                            SizedBox(
-                              height: getHeight(12),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        color: Color(0xFFf6f7fb),
-                        padding: EdgeInsets.only(
-                          left: getWidth(16),
-                          top: getHeight(16),
-                          bottom: getHeight(12),
-                        ),
-                        width: double.infinity,
-                        child: Text(
-                          'serviceList'.tr,
-                          style: TextStyle(fontSize: getWidth(17)),
-                        ),
-                      ),
-                      Container(
-                        height: getHeight(24),
-                        color: Colors.white,
-                      ),
-                      Obx(() {
-                        return Expanded(
-                          child: RefreshIndicator(
-                            onRefresh: () async {
-                              await listServiceController.getServiceList();
-                            },
-                            child: LazyLoadScrollView(
-                              onEndOfPage: () async {
-                                if (listServiceController.offset <
-                                    listServiceController.totalPage)
-                                  await listServiceController
-                                      .getMoreServiceList();
-                              },
-                              child: ListView(
-                                physics: BouncingScrollPhysics(),
-                                children: [
-                                  ...listServiceController.serviceList
-                                      .map((service) {
-                                    return Column(children: [
-                                      switchService(
-                                          redirectURL:
-                                              service.redirectURL.toString(),
-                                          url: service.url.toString(),
-                                          serviceName:
-                                              service.name![0].toUpperCase() +
-                                                  service.name!.substring(1),
-                                          userName: service.username,
-                                          isConnected: service.isConnected,
-                                          index: listServiceController
-                                              .serviceList
-                                              .indexOf(service),
-                                          icon: service.icon,
-                                          description: service.description),
-                                      listServiceController.serviceList
-                                                  .indexOf(service) <
-                                              serviceList.length - 1
-                                          ? Container(
-                                              color: Colors.white,
-                                              padding: EdgeInsets.only(
-                                                top: getHeight(12),
-                                                bottom: getHeight(12),
-                                              ),
-                                              child: Container(
-                                                width: screenWidth(),
-                                                color: Colors.white,
-                                                child: SvgPicture.asset(
-                                                  'assets/images/separate_line.svg',
-                                                  width: getWidth(343),
-                                                ),
-                                              ),
-                                            )
-                                          : Container(
-                                              height: getHeight(24),
-                                              color: Colors.white,
-                                            )
-                                    ]);
-                                  })
-                                ],
+                  return Obx(() {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              inputSearch(
+                                context,
+                                hintText: "サービス検索".tr,
+                                textEditingController:
+                                    listServiceController.searchService,
+                                onSearch: () async {
+                                  await listServiceController.getServiceList();
+                                },
                               ),
-                            ),
+                              SizedBox(
+                                height: getHeight(12),
+                              ),
+                            ],
                           ),
-                        );
-                      })
-                    ],
-                  );
+                        ),
+                        Expanded(
+                          child: listServiceController.serviceList.length > 0
+                              ? Column(
+                                  children: [
+                                    Container(
+                                      color: Color(0xFFf6f7fb),
+                                      padding: EdgeInsets.only(
+                                        left: getWidth(16),
+                                        top: getHeight(16),
+                                        bottom: getHeight(12),
+                                      ),
+                                      width: double.infinity,
+                                      child: Text(
+                                        'serviceList'.trParams({
+                                          'count': listServiceController
+                                              .serviceList.length
+                                              .toString()
+                                        }),
+                                        style:
+                                            TextStyle(fontSize: getWidth(17)),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: getHeight(24),
+                                      color: Colors.white,
+                                    ),
+                                    Expanded(
+                                      child: RefreshIndicator(
+                                        onRefresh: () async {
+                                          await listServiceController
+                                              .getServiceList();
+                                        },
+                                        child: LazyLoadScrollView(
+                                          onEndOfPage: () async {
+                                            if (listServiceController.offset <
+                                                listServiceController.totalPage)
+                                              await listServiceController
+                                                  .getMoreServiceList();
+                                          },
+                                          child: ListView(
+                                            physics: BouncingScrollPhysics(),
+                                            children: [
+                                              ...listServiceController
+                                                  .serviceList
+                                                  .map((service) {
+                                                return Column(children: [
+                                                  switchService(
+                                                      redirectURL: service
+                                                          .redirectURL
+                                                          .toString(),
+                                                      url: service.url
+                                                          .toString(),
+                                                      serviceName: service
+                                                              .name![0]
+                                                              .toUpperCase() +
+                                                          service.name!
+                                                              .substring(1),
+                                                      userName:
+                                                          service.username,
+                                                      isConnected:
+                                                          service.isConnected,
+                                                      index:
+                                                          listServiceController
+                                                              .serviceList
+                                                              .indexOf(service),
+                                                      icon: service.icon,
+                                                      description:
+                                                          service.description),
+                                                  listServiceController
+                                                              .serviceList
+                                                              .indexOf(
+                                                                  service) <
+                                                          serviceList.length - 1
+                                                      ? Container(
+                                                          color: Colors.white,
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                            top: getHeight(12),
+                                                            bottom:
+                                                                getHeight(12),
+                                                          ),
+                                                          child: Container(
+                                                            width:
+                                                                screenWidth(),
+                                                            color: Colors.white,
+                                                            child: SvgPicture
+                                                                .asset(
+                                                              'assets/images/separate_line.svg',
+                                                              width:
+                                                                  getWidth(343),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      : Container(
+                                                          height: getHeight(24),
+                                                          color: Colors.white,
+                                                        )
+                                                ]);
+                                              })
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : Container(
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: getHeight(110),
+                                      ),
+                                      SvgPicture.asset(
+                                        "assets/images/no-result.svg",
+                                        width: getWidth(143),
+                                        height: getWidth(143),
+                                      ),
+                                      SizedBox(
+                                        height: getHeight(33),
+                                      ),
+                                      Text(
+                                        "検索結果が見つかりませんでした。",
+                                        style: TextStyle(
+                                          fontSize: getWidth(17),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                        )
+                      ],
+                    );
+                  });
                 } else
                   return Text("");
               }),

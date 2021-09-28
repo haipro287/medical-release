@@ -74,7 +74,7 @@ class ListServiceController extends GetxController {
       print(json["data"]);
       var list = json["data"]["results"] ?? json["data"] ?? [];
       List<Service> listService = [];
-      totalPage = (json["data"]["total"] / 10).toInt();
+      totalPage = (json["data"]["total"] ?? 0 / 10).toInt();
       for (var i = 0; i < list.length; i++) {
         print(list[i]);
         Service service = new Service();
