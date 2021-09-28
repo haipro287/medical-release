@@ -89,8 +89,8 @@ Widget switchService(
               ],
             ),
           ),
-          Bouncing(
-              onPress: () {
+          GestureDetector(
+              onTap: () {
                 if (description != null)
                   Get.bottomSheet(
                     Container(
