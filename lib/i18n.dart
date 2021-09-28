@@ -95,7 +95,7 @@ class Messages extends Translations {
           'contact_address': "連絡先",
           "next": "次へ",
           "wrongPass": "ログインID又はパスワードが一致しません。",
-          "serviceList": "検索結果@count件見つかりました",
+          "serviceList": "サービス一覧",
           "confirmSentData": "データ共有確認",
           "data": "データ",
           "timeSharing": "共有開始日時",

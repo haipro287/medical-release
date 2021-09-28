@@ -77,11 +77,7 @@ class ListServiceScreen extends StatelessWidget {
                                       ),
                                       width: double.infinity,
                                       child: Text(
-                                        'serviceList'.trParams({
-                                          'count': listServiceController
-                                              .serviceList.length
-                                              .toString()
-                                        }),
+                                        'serviceList'.tr,
                                         style:
                                             TextStyle(fontSize: getWidth(17)),
                                       ),
