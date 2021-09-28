@@ -21,6 +21,7 @@ class ForgotPasswordController extends GetxController {
   RxBool passwordIsHide = true.obs;
   RxBool confirmPasswordIsHide = true.obs;
   RxString passwordErr = "".obs;
+  RxString passwordConfirmErr = "".obs;
 
   RxString errMess = "".obs;
   RxBool buttonActive = false.obs;
@@ -78,6 +79,7 @@ class ForgotPasswordController extends GetxController {
     var isValid = true;
 
     passwordErr.value = "";
+    passwordConfirmErr.value = "";
 
     if (this.password.text == "") {
       isValid = false;
@@ -85,21 +87,23 @@ class ForgotPasswordController extends GetxController {
     } else if (!passwordReg0.hasMatch(this.password.text)) {
       isValid = false;
       passwordErr.value = "パスワードは半角英数字で入力してください。";
+    } else if (this.password.text.length < 8 ||
+        this.password.text.length > 32) {
+      isValid = false;
+      passwordErr.value = "パスワードは8～32文字以内で入力してください。";
     } else if (passwordReg1.hasMatch(this.password.text) ||
         passwordReg2.hasMatch(this.password.text) ||
         passwordReg3.hasMatch(this.password.text)) {
       isValid = false;
       passwordErr.value = "パスワードは英字、数字、記号のうち2種類以上を混在させてください。";
-    } else if (this.password.text.length < 8 ||
-        this.password.text.length > 32) {
+    }
+
+    if (this.confirmPassword.text == "") {
       isValid = false;
-      passwordErr.value = "パスワードは8～32文字以内で入力してください。";
-    } else if (this.confirmPassword.text == "") {
-      isValid = false;
-      passwordErr.value = "再入力パスワードを入力してください。";
+      passwordConfirmErr.value = "再入力パスワードを入力してください。";
     } else if (this.confirmPassword.text != this.password.text) {
       isValid = false;
-      passwordErr.value = "再入力パスワードは合っていません。";
+      passwordConfirmErr.value = "再入力パスワードは合っていません。";
     }
 
     return isValid;

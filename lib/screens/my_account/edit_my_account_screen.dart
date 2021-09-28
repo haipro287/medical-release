@@ -343,7 +343,7 @@ class EditMyAccountScreen extends StatelessWidget {
                                           .kanjiName.text,
                                       romanji: editMyAccountController
                                           .katakanaName.text,
-                                      mail: editMyAccountController.email.text,
+                                      mail: myAccountController.email.value,
                                       birthday: TimeService.timeToBackEnd(
                                           editMyAccountController.birthday),
                                       pid: editMyAccountController

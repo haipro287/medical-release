@@ -393,9 +393,9 @@ class SignupScreen extends StatelessWidget {
                                                       Get.to(() =>
                                                           ConfirmSignupScreen(
                                                               type: "signup"));
-                                                    }
-                                                  } else
-                                                    Get.back();
+                                                    } else
+                                                      Get.back();
+                                                  }
                                                 }),
                                           ],
                                         )

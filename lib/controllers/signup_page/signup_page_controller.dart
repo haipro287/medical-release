@@ -7,8 +7,6 @@ import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_contro
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 class SignupPageController extends GetxController {
-  final String correctOtp = '777777';
-
   TextEditingController userId = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController phone = TextEditingController();

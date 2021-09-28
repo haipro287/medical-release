@@ -109,6 +109,11 @@ class MyAccountController extends GetxController {
           "登録された電話番号は、既に登録されています。";
       return;
     }
+    if (mess == "ERROR.USER.PID_EXISTED") {
+      Get.put(EditMyAccountController()).citizenCodeErr.value =
+          "入力された住民番号は、既に登録されています。";
+      return;
+    }
   }
 
   Future editUserInfo(

@@ -510,7 +510,7 @@ AlertDialog resetPasswordDialog(context) {
                         Get.offAll(() => LoginPageScreen());
                       },
                       child: Text(
-                        'OK',
+                        'ログイン',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: getWidth(17),

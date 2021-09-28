@@ -558,7 +558,8 @@ Container inputPasswordSignup(
     bool isHide,
     Function changeHide,
     bool focus,
-    bool err) {
+    bool err,
+    {Function? onchange}) {
   return Container(
     height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
@@ -577,6 +578,9 @@ Container inputPasswordSignup(
       children: [
         Expanded(
           child: TextFormField(
+              onChanged: (e) {
+                onchange != null ? onchange() : null;
+              },
               style: TextStyle(fontSize: getWidth(16)),
               controller: controller,
               obscureText: isHide,

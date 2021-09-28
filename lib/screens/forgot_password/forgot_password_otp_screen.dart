@@ -15,6 +15,8 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // forgotPasswordController.otpController.;
+    forgotPasswordController.otp.text = "";
+
     return Scaffold(
       appBar: appBar(context, "resetPassword".tr),
       body: Container(
@@ -108,7 +110,7 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
                 builder: (builder) {
                   return Countdown(
                     controller: forgotPasswordController.otpController,
-                    seconds: 60,
+                    seconds: 5,
                     build: (BuildContext context, double time) {
                       if (time > 0)
                         return Text(

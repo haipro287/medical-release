@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
-import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/update_application/update_application_controller.dart';
 import 'package:medical_chain_mobile_ui/i18n.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
@@ -27,6 +27,7 @@ Future<void> main() async {
 
   UpdateAppController updateAppController = Get.put(UpdateAppController());
   GlobalController globalController = Get.put(GlobalController());
+  SignupPageController signupPageController = Get.put(SignupPageController());
   await globalController.initActivity();
   await globalController.getInfoDevice();
   if (globalController.db.get("user") != null)

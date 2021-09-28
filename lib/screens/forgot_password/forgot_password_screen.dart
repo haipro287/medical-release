@@ -40,6 +40,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               Text(
                 "resetPasswordMess1".tr,
                 style: TextStyle(
+                  height: 1.5,
                   fontSize: getWidth(17),
                 ),
               ),
@@ -50,6 +51,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 "resetPasswordMess2".tr,
                 style: TextStyle(
                   fontSize: getWidth(17),
+                  height: 1.5,
                 ),
               ),
               SizedBox(
