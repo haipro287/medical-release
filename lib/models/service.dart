@@ -18,6 +18,8 @@ class Service {
   String? icon;
   @HiveField(5)
   String? description;
+  @HiveField(6)
+  String? redirectURL;
 
   Service(
       {this.id,
@@ -26,5 +28,6 @@ class Service {
       this.username,
       this.isConnected,
       this.icon,
-      this.description});
+      this.description,
+      this.redirectURL});
 }

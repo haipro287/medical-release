@@ -114,17 +114,15 @@ class ContactListPage extends StatelessWidget {
                                       height: getHeight(78),
                                       child: Row(
                                         children: [
-                                          Obx(() {
-                                            return ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(56),
-                                              child: Container(
-                                                width: getWidth(36),
-                                                height: getWidth(36),
-                                                color: Color(e["avatar"]),
-                                              ),
-                                            );
-                                          }),
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(56),
+                                            child: Container(
+                                              width: getWidth(36),
+                                              height: getWidth(36),
+                                              color: Color(e["avatar"]),
+                                            ),
+                                          ),
                                           SizedBox(width: getWidth(15)),
                                           Container(
                                             child: Column(
