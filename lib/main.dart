@@ -32,7 +32,8 @@ Future<void> main() async {
   await globalController.getInfoDevice();
   if (globalController.db.get("user") != null)
     globalController.user.value = globalController.db.get("user");
-  var info = await Get.put(MyAccountController()).getUserInfo();
+  if (globalController.user.value.id != null)
+    var info = await Get.put(MyAccountController()).getUserInfo();
   runApp(MyApp());
 }
 
@@ -62,8 +63,6 @@ class MyApp extends StatelessWidget {
   Widget home() {
     MyAccountController myAccountController = Get.put(MyAccountController());
     if (myAccountController.kanjiName.value == "") {
-      // Get.put(EditMyAccountController()).signup.value = true;
-      // // Get.to(() => EditMyAccountScreen());
       return LoginWelcomePage();
     }
 
@@ -75,6 +74,6 @@ class MyApp extends StatelessWidget {
       } else
         return HomePageScreen();
     } else
-      return Scaffold();
+      return LoginWelcomePage();
   }
 }
