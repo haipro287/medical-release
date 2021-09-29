@@ -67,23 +67,27 @@ class ContactListPage extends StatelessWidget {
                   ),
             Obx(
               () => contactPageController.searchList.length == 0
-                  ? Column(
-                      children: [
-                        SizedBox(
-                          height: getHeight(41.15),
-                        ),
-                        Container(
-                          child:
-                              SvgPicture.asset("assets/images/no-result.svg"),
-                        ),
-                        SizedBox(
-                          height: getHeight(33.3),
-                        ),
-                        Text(
-                          "userNotFound".tr,
-                          style: TextStyle(fontSize: getWidth(17)),
-                        ),
-                      ],
+                  ? Container(
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: getHeight(41.15),
+                          ),
+                          Container(
+                            child:
+                                SvgPicture.asset("assets/images/no-result.svg"),
+                          ),
+                          SizedBox(
+                            height: getHeight(33.3),
+                          ),
+                          Text(
+                            "userNotFound".tr,
+                            style: TextStyle(fontSize: getWidth(17)),
+                          ),
+                        ],
+                      ),
                     )
                   : Expanded(
                       flex: 1,

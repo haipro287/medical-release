@@ -90,8 +90,11 @@ class ContactPageController extends GetxController {
         }
         return false;
       }).toList();
-      title.value =
-          "count_contact".trParams({'count': searchList.length.toString()});
+      if (searchList.length > 0)
+        title.value =
+            "count_contact".trParams({'count': searchList.length.toString()});
+      else
+        title.value = "";
     }
   }
 
