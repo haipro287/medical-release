@@ -74,7 +74,7 @@ class ListServiceController extends GetxController {
       print(json["data"]);
       var list = json["data"]["results"] ?? json["data"] ?? [];
       List<Service> listService = [];
-      totalPage = (json["data"]["total"] ?? 0 / 10).toInt();
+      totalPage = json["data"]["total"] ?? 0;
       for (var i = 0; i < list.length; i++) {
         print(list[i]);
         Service service = new Service();
@@ -90,6 +90,7 @@ class ListServiceController extends GetxController {
       }
       serviceList.clear();
       serviceList.value = listService;
+      offset = serviceList.length;
 
       return (listService);
     } catch (e, s) {
@@ -101,7 +102,6 @@ class ListServiceController extends GetxController {
 
   Future<List<Service>> getMoreServiceList() async {
     try {
-      offset++;
       var userID = globalController.user.value.id.toString();
       var response;
       CustomDio customDio = CustomDio();
@@ -129,6 +129,7 @@ class ListServiceController extends GetxController {
       }
 
       serviceList.addAll(listService);
+      offset = serviceList.length;
 
       return (listService);
     } catch (e, s) {

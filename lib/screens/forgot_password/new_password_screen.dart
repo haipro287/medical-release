@@ -61,7 +61,7 @@ class NewPasswordScreen extends StatelessWidget {
               return inputPasswordSignup(
                   context,
                   forgotPasswordController.confirmPassword,
-                  "newPassword".tr,
+                  "再入力パスワード".tr,
                   forgotPasswordController.confirmPasswordIsHide.value,
                   forgotPasswordController.changeHideConfirmPassword,
                   false,

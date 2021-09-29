@@ -110,14 +110,12 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
                 builder: (builder) {
                   return Countdown(
                     controller: forgotPasswordController.otpController,
-                    seconds: 5 * 60,
+                    seconds: 60,
                     build: (BuildContext context, double time) {
                       if (time > 0) {
-                        double minute = time / 60;
-                        if (minute.toInt() == 0) minute = 1;
                         return Text(
                           "emailResendParam"
-                              .trParams({'time': minute.toInt().toString()}),
+                              .trParams({'time': time.toInt().toString()}),
                           style: TextStyle(
                             color: Color(0xFF878C92),
                             fontSize: getWidth(17),
