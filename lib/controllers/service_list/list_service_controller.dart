@@ -12,6 +12,7 @@ class ListServiceController extends GetxController {
   TextEditingController searchService = TextEditingController();
   int offset = 0;
   int totalPage = 0;
+  RxString title = 'serviceList'.tr.obs;
 
   Future disconnectService({required String serviceId}) async {
     try {
@@ -88,6 +89,11 @@ class ListServiceController extends GetxController {
         service.redirectURL = list[i]["callbackUrl"] ?? null;
         listService.add(service);
       }
+      if (searchService.text != "")
+        title.value =
+            "serviceListSearch".trParams({'total': totalPage.toString()});
+      else
+        title.value = 'serviceList'.tr;
       serviceList.clear();
       serviceList.value = listService;
       offset = serviceList.length;

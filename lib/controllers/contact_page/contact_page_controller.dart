@@ -14,6 +14,8 @@ class ContactPageController extends GetxController {
 
   RxList<dynamic> searchList = [].obs;
 
+  RxString title = "".obs;
+
   var category = ''.obs;
 
   @override
@@ -70,6 +72,7 @@ class ContactPageController extends GetxController {
   void search() {
     print(searchInput.text);
     if (searchInput.text == '') {
+      title.value = "";
       searchList.value = contactList.value;
       searchInput.clear();
     } else {
@@ -87,6 +90,8 @@ class ContactPageController extends GetxController {
         }
         return false;
       }).toList();
+      title.value =
+          "count_contact".trParams({'count': searchList.length.toString()});
     }
   }
 

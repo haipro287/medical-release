@@ -96,6 +96,7 @@ class Messages extends Translations {
           "next": "次へ",
           "wrongPass": "ログインID又はパスワードが一致しません。",
           "serviceList": "サービス一覧",
+          "serviceListSearch": "検索結果@total件見つかりました",
           "confirmSentData": "データ共有確認",
           "data": "データ",
           "timeSharing": "共有開始日時",
@@ -175,7 +176,8 @@ class Messages extends Translations {
           "unActive": "非アクティブ",
           "email_alert":
               "登録されたメールアドレスに確認コー ドを送信しました。送信されたコードを利用して、 登録作業を継続して下さい",
-          "back": "戻る"
+          "back": "戻る",
+          "count_contact": "@count結果は見つかりました。"
         }
       };
 }

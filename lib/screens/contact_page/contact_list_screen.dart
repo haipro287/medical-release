@@ -38,6 +38,7 @@ class ContactListPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             inputSearch(
               context,
@@ -48,6 +49,22 @@ class ContactListPage extends StatelessWidget {
             SizedBox(
               height: getHeight(12),
             ),
+            contactPageController.title.value == ""
+                ? Container()
+                : Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: getWidth(16),
+                          bottom: getHeight(12),
+                        ),
+                        child: Text(
+                          contactPageController.title.value,
+                          style: TextStyle(fontSize: getWidth(17)),
+                        ),
+                      ),
+                    ],
+                  ),
             Obx(
               () => contactPageController.searchList.length == 0
                   ? Column(

@@ -77,7 +77,7 @@ class ListServiceScreen extends StatelessWidget {
                                       ),
                                       width: double.infinity,
                                       child: Text(
-                                        'serviceList'.tr,
+                                        listServiceController.title.value,
                                         style:
                                             TextStyle(fontSize: getWidth(17)),
                                       ),
