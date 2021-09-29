@@ -139,49 +139,19 @@ class SignupPageController extends GetxController {
   }
 
   void signupErrorMessage(mess) {
-    if (mess == "ERROR.AUTH.USER_CREDENTIAL.USERNAME_EXISTED") {
+    if (mess == "ERROR.USER.USERNAME_EXISTED") {
       userIdErr.value = "登録されたユーザーIDは、既に登録されています。";
       return;
     }
 
-    if (mess == "ERROR.AUTH.USER_CREDENTIAL.MAIL_EXISTED") {
+    if (mess == "ERROR.USER.MAIL_EXISTED") {
       mailErr.value = "登録されたメールアドレスは、既に登録されています。";
       return;
     }
 
-    if (mess == "ERROR.AUTH.USER_CREDENTIAL.PHONE_EXISTED") {
+    if (mess == "ERROR.USER.PHONE_EXISTED") {
       phoneErr.value = "登録された電話番号は、既に登録されています。";
       return;
-    }
-  }
-
-  Future<bool> validateSignupInfo(context) async {
-    try {
-      var response;
-      CustomDio customDio = CustomDio();
-      response = await customDio.get("/user/check", {
-        "username": userId.text,
-        "mail": email.text,
-        "phone": phone.text,
-      });
-
-      var json = jsonDecode(response.toString());
-
-      print(json);
-
-      if (json["success"] == true) {
-        signupError.value = "";
-        return true;
-      }
-
-      signupError.value = json["error"];
-      print(signupError.value);
-
-      signupErrorMessage(signupError.value);
-      return false;
-    } catch (e) {
-      print(e);
-      return false;
     }
   }
 
@@ -225,6 +195,33 @@ class SignupPageController extends GetxController {
         return true;
       }
       return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future checkAccount() async {
+    try {
+      var response;
+      CustomDio customDio = CustomDio();
+      response = await customDio.get(
+          "/auth/check?username=${userId.text}&mail=${email.text}&phone=${phone.text}");
+
+      var json = jsonDecode(response.toString());
+
+      print(json);
+      var data = json["data"];
+
+      if (json["success"] == true) {
+        signupError.value = "";
+        return true;
+      } else {
+        signupError.value = json["error"];
+        print(signupError.value);
+        signupErrorMessage(signupError.value);
+        return false;
+      }
     } catch (e) {
       print(e);
       return false;
