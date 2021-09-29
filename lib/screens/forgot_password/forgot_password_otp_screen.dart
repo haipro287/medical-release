@@ -16,6 +16,7 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // forgotPasswordController.otpController.;
     forgotPasswordController.otp.text = "";
+    forgotPasswordController.resetSuccess.value = true;
 
     return Scaffold(
       appBar: appBar(context, "resetPassword".tr),

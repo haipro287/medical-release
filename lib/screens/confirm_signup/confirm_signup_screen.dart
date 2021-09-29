@@ -25,6 +25,7 @@ class ConfirmSignupScreen extends StatelessWidget {
     EditMyAccountController editMyAccountController =
         Get.put(EditMyAccountController());
     signupPageController.otp.text = "";
+    signupPageController.confirmSuccess.value = true;
 
     return Scaffold(
         appBar: appBar(
