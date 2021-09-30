@@ -81,6 +81,8 @@ class UserSearchController extends GetxController {
   }
 
   Future<dynamic> search() async {
+    contactPageController.searchInput.text = "";
+    await contactPageController.getContactList();
     if (searchInput.text == "") {
       userData.value = {"id": "NullID"};
       print(userData["id"]);

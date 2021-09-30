@@ -61,6 +61,8 @@ class ContactPageController extends GetxController {
           (a, b) => a['secondaryUsername'].compareTo(b['secondaryUsername']));
       contactList.value = res;
       searchList.value = res;
+
+      title.value = "";
       return res;
     } catch (e, s) {
       print(e);

@@ -21,7 +21,7 @@ class ShareHistoryPage extends StatelessWidget {
     var mode = globalController.historyStatus.value;
     return WillPopScope(
       onWillPop: () async {
-        Get.put(HomePageController()).currentPage.value = 0;
+        Get.put(HomePageController()).onChangeTab(0);
         Get.offAll(() => HomePageScreen(), transition: Transition.leftToRight);
         return true;
       },
