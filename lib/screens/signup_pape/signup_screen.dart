@@ -309,8 +309,8 @@ class SignupScreen extends StatelessWidget {
                                               BorderRadius.circular(16.0)),
                                       child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                0.85,
+                                            MediaQuery.of(context).size.width -
+                                                getWidth(16) * 2,
                                         padding: EdgeInsets.all(getWidth(18)),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -327,7 +327,8 @@ class SignupScreen extends StatelessWidget {
                                               "email_alert".tr,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                  fontSize: getWidth(15)),
+                                                  fontSize: getWidth(17),
+                                                  height: 1.5),
                                             ),
                                             SizedBox(
                                               height: getHeight(40),
