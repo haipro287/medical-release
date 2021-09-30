@@ -310,7 +310,7 @@ class SignupScreen extends StatelessWidget {
                                       child: Container(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.95,
+                                                0.85,
                                         padding: EdgeInsets.all(getWidth(18)),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -353,11 +353,9 @@ class SignupScreen extends StatelessWidget {
                                                         child: Text(
                                                           "back".tr,
                                                           style: TextStyle(
-                                                              fontSize:
-                                                                  getWidth(17),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                            fontSize:
+                                                                getWidth(17),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -381,11 +379,9 @@ class SignupScreen extends StatelessWidget {
                                                         child: Text(
                                                           "next".tr,
                                                           style: TextStyle(
-                                                              fontSize:
-                                                                  getWidth(17),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
+                                                            fontSize:
+                                                                getWidth(17),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
