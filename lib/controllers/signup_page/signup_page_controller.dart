@@ -144,13 +144,25 @@ class SignupPageController extends GetxController {
       userIdErr.value = "登録されたユーザーIDは、既に登録されています。";
       return;
     }
+    if (mess == "ERROR.AUTH.USER_CREDENTIAL.USERNAME_EXISTED") {
+      userIdErr.value = "登録されたユーザーIDは、既に登録されています。";
+      return;
+    }
 
     if (mess == "ERROR.USER.MAIL_EXISTED") {
       mailErr.value = "登録されたメールアドレスは、既に登録されています。";
       return;
     }
+    if (mess == "ERROR.AUTH.USER_CREDENTIAL.MAIL_EXISTED") {
+      mailErr.value = "登録されたメールアドレスは、既に登録されています。";
+      return;
+    }
 
     if (mess == "ERROR.USER.PHONE_EXISTED") {
+      phoneErr.value = "登録された電話番号は、既に登録されています。";
+      return;
+    }
+    if (mess == "ERROR.AUTH.USER_CREDENTIAL.PHONE_EXISTED") {
       phoneErr.value = "登録された電話番号は、既に登録されています。";
       return;
     }
