@@ -37,6 +37,18 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SignupPageController signupPageController = Get.put(SignupPageController());
 
+    signupPageController.userId.text = "";
+    signupPageController.email.text = "";
+    signupPageController.phone.text = "";
+    signupPageController.password.text = "";
+    signupPageController.confirmPassword.text = "";
+
+    signupPageController.userIdErr.value = "";
+    signupPageController.mailErr.value = "";
+    signupPageController.phoneErr.value = "";
+    signupPageController.passwordErr.value = "";
+    signupPageController.confirmPasswordErr.value = "";
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: appBar(context, "新規アカウント作成"),

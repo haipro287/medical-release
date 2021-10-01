@@ -19,6 +19,8 @@ class LoginPageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    loginController.username.text = "";
+    loginController.password.text = "";
     return WillPopScope(
       onWillPop: () async {
         Get.off(LoginWelcomePage());
@@ -84,7 +86,7 @@ class LoginPageScreen extends StatelessWidget {
                   child: Text('login'.tr),
                 ),
                 onPress: () async {
-                  FocusScope.of(context).unfocus();
+                  // FocusScope.of(context).unfocus();
                   bool result = await loginController.login();
                   if (result) {
                     var info =
