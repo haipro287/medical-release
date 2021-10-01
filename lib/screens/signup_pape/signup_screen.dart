@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/confirm_signup/confirm_signup_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
+import 'package:medical_chain_mobile_ui/screens/terms_and_conditions/terms_and_conditions.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
@@ -241,6 +242,7 @@ class SignupScreen extends StatelessWidget {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             print("term of service");
+                            Get.to(() => TermsAndConditionPage());
                           },
                       ),
                       TextSpan(
@@ -254,6 +256,7 @@ class SignupScreen extends StatelessWidget {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             print("privacy policy");
+                            Get.to(() => TermsAndConditionPage());
                           },
                       ),
                       TextSpan(

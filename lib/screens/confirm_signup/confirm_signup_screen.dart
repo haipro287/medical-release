@@ -101,7 +101,7 @@ class ConfirmSignupScreen extends StatelessWidget {
                       ),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "emailCodeNotMatch".tr,
+                        signupPageController.errMessOTP.value,
                         style: TextStyle(
                           color: Colors.red,
                           fontSize: getWidth(13),

@@ -24,6 +24,7 @@ class ForgotPasswordController extends GetxController {
   RxString passwordConfirmErr = "".obs;
 
   RxString errMess = "".obs;
+  RxString errMessOTP = "".obs;
   RxBool buttonActive = false.obs;
 
   RxBool resetActive = false.obs;
@@ -182,7 +183,15 @@ class ForgotPasswordController extends GetxController {
       });
 
       var json = jsonDecode(response.toString());
-
+      if (json["success"] == false) {
+        if (json["error"] == "ERROR.AUTH.OTP.EXPIRED") {
+          errMessOTP.value = "コードの有効期限が切れました。";
+        } else if (json["error"] == "ERROR.AUTH.OTP.SPAM") {
+          errMessOTP.value = "コードの有効期限が切れました。";
+        } else {
+          errMessOTP.value = "確認コードが不正です。";
+        }
+      }
       return json["success"];
     } catch (e) {
       print(e);

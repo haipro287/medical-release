@@ -29,6 +29,7 @@ class SignupPageController extends GetxController {
   RxString phoneErr = "".obs;
   RxString passwordErr = "".obs;
   RxString confirmPasswordErr = "".obs;
+  RxString errMessOTP = "".obs;
 
   RxBool passwordIsHide = true.obs;
   RxBool confirmPasswordIsHide = true.obs;
@@ -169,6 +170,14 @@ class SignupPageController extends GetxController {
 
       if (json["success"] == true) {
         return true;
+      } else {
+        if (json["error"] == "ERROR.AUTH.OTP.EXPIRED") {
+          errMessOTP.value = "コードの有効期限が切れました。";
+        } else if (json["error"] == "ERROR.AUTH.OTP.SPAM") {
+          errMessOTP.value = "コードの有効期限が切れました。";
+        } else {
+          errMessOTP.value = "確認コードが不正です。";
+        }
       }
       return false;
     } catch (e) {

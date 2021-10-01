@@ -96,7 +96,7 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
                     ),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "emailCodeNotMatch".tr,
+                      forgotPasswordController.errMessOTP.value,
                       style: TextStyle(
                         color: Colors.red,
                         fontSize: getWidth(13),
