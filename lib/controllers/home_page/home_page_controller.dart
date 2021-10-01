@@ -6,8 +6,8 @@ import 'package:medical_chain_mobile_ui/controllers/notification/notification_co
 
 class HomePageController extends GetxController {
   PageController pageController =
-      PageController(initialPage: 0, keepPage: false);
-  var currentPage = 0.obs;
+      PageController(initialPage: 0, keepPage: true);
+  RxInt currentPage = 0.obs;
 
   @override
   Future<void> onInit() async {
