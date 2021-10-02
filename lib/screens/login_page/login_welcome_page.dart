@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -53,6 +54,20 @@ class LoginWelcomePage extends StatelessWidget {
                   child: Text('signupButton'.tr),
                 ),
                 onPress: () {
+                  SignupPageController signupPageController =
+                      Get.put(SignupPageController());
+
+                  signupPageController.userId.text = "";
+                  signupPageController.email.text = "";
+                  signupPageController.phone.text = "";
+                  signupPageController.password.text = "";
+                  signupPageController.confirmPassword.text = "";
+
+                  signupPageController.userIdErr.value = "";
+                  signupPageController.mailErr.value = "";
+                  signupPageController.phoneErr.value = "";
+                  signupPageController.passwordErr.value = "";
+                  signupPageController.confirmPasswordErr.value = "";
                   Get.to(() => SignupScreen());
                 },
               ),

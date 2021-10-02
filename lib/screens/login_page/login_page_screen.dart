@@ -4,6 +4,7 @@ import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controll
 import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/forgot_password/forgot_password_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
@@ -136,6 +137,20 @@ class LoginPageScreen extends StatelessWidget {
               InkWell(
                 child: Text("signup".tr),
                 onTap: () {
+                  SignupPageController signupPageController =
+                      Get.put(SignupPageController());
+
+                  signupPageController.userId.text = "";
+                  signupPageController.email.text = "";
+                  signupPageController.phone.text = "";
+                  signupPageController.password.text = "";
+                  signupPageController.confirmPassword.text = "";
+
+                  signupPageController.userIdErr.value = "";
+                  signupPageController.mailErr.value = "";
+                  signupPageController.phoneErr.value = "";
+                  signupPageController.passwordErr.value = "";
+                  signupPageController.confirmPasswordErr.value = "";
                   Get.to(() => SignupScreen());
                 },
               ),
