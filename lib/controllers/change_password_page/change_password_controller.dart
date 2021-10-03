@@ -200,6 +200,20 @@ class ChangePasswordController extends GetxController {
                 newEncryptedPrivateKey;
 
             globalController.user.value.privateKey = newPrivateKey;
+            var certificateInfo = SignatureService.getCertificateInfo(
+                globalController.user.value.id);
+            String signature =
+                SignatureService.getSignature(certificateInfo, newPrivateKey);
+            String times = TimeService.getTimeNow().toString();
+            List<String> certificateList = SignatureService.getCertificateLogin(
+                certificateInfo,
+                globalController.user.value.id,
+                newPrivateKey,
+                newEncryptedPrivateKey,
+                signature,
+                encryptedKeyPair["publicKey"],
+                times);
+            globalController.user.value.certificate = certificateList[0];
 
             isSuccess.value = true;
             errPassword.value = "";
