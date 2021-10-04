@@ -8,12 +8,12 @@ String getMessage() {
   String messageSign = "this is request of mobile app";
   String signature = SignatureService.getSignature(messageSign,
       Get.put(GlobalController()).user.value.privateKey.toString());
-  var a = {
+
+  var jsonMessage = jsonEncode({
     "message": messageSign,
     "signature": signature,
-  };
-  var bytes = utf8.encode(a.toString());
-  var message = base64.encode(bytes);
+  });
+  var message = base64.encode(jsonMessage);
 
   return message;
 }
