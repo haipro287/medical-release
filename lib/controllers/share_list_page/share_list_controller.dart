@@ -8,6 +8,7 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 class ShareListController extends GetxController {
   TextEditingController searchInput1 = TextEditingController();
   TextEditingController searchInput2 = TextEditingController();
+  static const avatarList = [0, 0xFFD0E8FF, 0xFFFFF0D1, 0xFFDAD5FF, 0xFFF7EBE8];
 
   RxList<dynamic> contactList = [].obs;
 
@@ -50,6 +51,8 @@ class ShareListController extends GetxController {
         item['secondaryUsername'] = responseData[i]['secondaryUsername'] ?? '';
         item['katakana'] = responseData[i]['katakana'] ?? '';
         item['kanji'] = responseData[i]['kanji'] ?? '';
+        item['avatar'] = avatarList[responseData[i]['avatar']];
+
         res.add(item);
       }
       res.sort(
