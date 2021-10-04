@@ -13,7 +13,8 @@ String getMessage() {
     "message": messageSign,
     "signature": signature,
   });
-  var message = base64.encode(jsonMessage);
+  var bytes = utf8.encode(jsonMessage);
+  var message = base64.encode(bytes);
 
   return message;
 }
