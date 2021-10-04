@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
 import 'package:medical_chain_mobile_ui/api/signature_service.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/privacy/privacy_controller.dart';
 import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
@@ -212,6 +213,7 @@ class LoginPageController extends GetxController {
             print(token.toString());
             var subcribeRes = await subscribe(token: token.toString());
             print(subcribeRes);
+            var info = await Get.put(MyAccountController()).getUserInfo();
             Get.put(PrivacyController()).checkPrivacy();
             var fetnoti = await fetchNoti();
             // username.clear();

@@ -22,4 +22,6 @@ class User {
   String? username;
   @HiveField(8)
   String? certificate;
+  @HiveField(9)
+  String? kanji;
 }

@@ -60,8 +60,7 @@ class MyApp extends StatelessWidget {
   }
 
   Widget home() {
-    if (globalController.user.value.phone == null ||
-        globalController.user.value.mail == null) {
+    if (globalController.user.value.kanji == "") {
       return LoginWelcomePage();
     } else if (globalController.user.value.username == null)
       return LoginWelcomePage();

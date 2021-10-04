@@ -25,7 +25,7 @@ class GlobalController extends GetxController {
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       if (user.value.username == null) {
-      } else {
+      } else if (user.value.username != null && user.value.kanji != "") {
         if (result == ConnectivityResult.none) {
           if (isPopup == false) {
             isPopup = true;

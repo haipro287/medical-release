@@ -56,6 +56,8 @@ class MyAccountController extends GetxController {
 
       Get.put(GlobalController()).user.value.username =
           myAccountController.userName;
+      Get.put(GlobalController()).user.value.kanji =
+          myAccountController.kanjiName.value;
       Get.put(GlobalController())
           .db
           .put("user", Get.put(GlobalController()).user.value);

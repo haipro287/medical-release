@@ -24,57 +24,58 @@ class UpdateAppController extends GetxController {
     // TODO: implement onInit
     try {
       version = await getVersion();
-    } catch (E) {}
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    if (packageInfo.version != version.toString()) {
-      showDialog(
-          context: Get.context!,
-          barrierColor: Colors.black38,
-          builder: (builder) {
-            return Container(
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      getWidth(5),
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      if (packageInfo.version != version.toString()) {
+        showDialog(
+            context: Get.context!,
+            barrierColor: Colors.black38,
+            builder: (builder) {
+              return Container(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(
+                        getWidth(5),
+                      ),
                     ),
-                  ),
-                  child: Material(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0)),
-                    child: Padding(
-                      padding: EdgeInsets.all(getWidth(10)),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("Có version mới rồi tải lại đê".toUpperCase(),
-                              style: TextStyle(fontSize: 20)),
-                          Text(dotenv.env['UPDATE_VERSION_URL']!),
-                          Text(dotenv.env['UPDATE_VERSION_API']!),
-                          Text(packageInfo.version),
-                          Text(version.toString()),
-                          TextButton(
-                            onPressed: () async {
-                              launchURL(dotenv.env['UPDATE_VERSION_URL']! +
-                                  "/releases/download/${version.toString()}/app.apk");
-                            },
-                            child: Text(
-                              "Bấm để tải",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          )
-                        ],
+                    child: Material(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0)),
+                      child: Padding(
+                        padding: EdgeInsets.all(getWidth(10)),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text("Có version mới rồi tải lại đê".toUpperCase(),
+                                style: TextStyle(fontSize: 20)),
+                            Text(dotenv.env['UPDATE_VERSION_URL']!),
+                            Text(dotenv.env['UPDATE_VERSION_API']!),
+                            Text(packageInfo.version),
+                            Text(version.toString()),
+                            TextButton(
+                              onPressed: () async {
+                                launchURL(dotenv.env['UPDATE_VERSION_URL']! +
+                                    "/releases/download/${version.toString()}/app.apk");
+                              },
+                              child: Text(
+                                "Bấm để tải",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            );
-          });
-    }
+              );
+            });
+      }
+    } catch (E) {}
+
     super.onInit();
   }
 }

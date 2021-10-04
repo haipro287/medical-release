@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 
-
 // part 'service.g.dart';
 
 @HiveType(typeId: 2)
@@ -17,9 +16,9 @@ class Service {
   bool? isConnected;
   @HiveField(5)
   String? icon;
-  @HiveField(5)
-  String? description;
   @HiveField(6)
+  String? description;
+  @HiveField(7)
   String? redirectURL;
 
   Service(
