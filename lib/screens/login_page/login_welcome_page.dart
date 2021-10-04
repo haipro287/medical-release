@@ -15,6 +15,7 @@ class LoginWelcomePage extends StatelessWidget {
       body: Column(children: [
         Container(
           width: double.infinity,
+          height: MediaQuery.of(context).size.height * 0.55,
           child: Image.asset(
             "assets/images/logowelcome.png",
             fit: BoxFit.cover,

@@ -286,143 +286,160 @@ class SignupScreen extends StatelessWidget {
                     ),
                   ),
                   onPress: () async {
-                    FocusManager.instance.primaryFocus?.unfocus();
-                    if (signupPageController.isValid()) {
-                      var checkAccount =
-                          await signupPageController.checkAccount();
-                      if (checkAccount) {
-                        showDialog(
-                            context: Get.context!,
-                            barrierColor: Colors.black38,
-                            builder: (builder) {
-                              return Container(
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(
-                                        getWidth(5),
-                                      ),
-                                    ),
-                                    child: Material(
-                                      color: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16.0)),
+                    if (signupPageController.isCheck == false) {
+                      signupPageController.isCheck = true;
+                      try {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        if (signupPageController.isValid()) {
+                          var checkAccount =
+                              await signupPageController.checkAccount();
+                          if (checkAccount) {
+                            showDialog(
+                                context: Get.context!,
+                                barrierColor: Colors.black38,
+                                builder: (builder) {
+                                  return Container(
+                                    child: Align(
+                                      alignment: Alignment.center,
                                       child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width -
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(
+                                            getWidth(5),
+                                          ),
+                                        ),
+                                        child: Material(
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0)),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width -
                                                 getWidth(16) * 2,
-                                        padding: EdgeInsets.all(getWidth(18)),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            SvgPicture.asset(
-                                              "assets/images/question-icon.svg",
-                                              width: getWidth(56),
-                                              height: getWidth(56),
-                                            ),
-                                            SizedBox(
-                                              height: getHeight(26),
-                                            ),
-                                            Text(
-                                              "email_alert".tr,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: getWidth(17),
-                                                  height: 1.5),
-                                            ),
-                                            SizedBox(
-                                              height: getHeight(40),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
+                                            padding:
+                                                EdgeInsets.all(getWidth(18)),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Expanded(
-                                                  child: Bouncing(
-                                                      child: Container(
-                                                        height: getHeight(50),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0xFFE9E9E9),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                            getWidth(4),
-                                                          ),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "back".tr,
-                                                            style: TextStyle(
-                                                              fontSize:
-                                                                  getWidth(17),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      onPress: () {
-                                                        Get.back();
-                                                      }),
+                                                SvgPicture.asset(
+                                                  "assets/images/question-icon.svg",
+                                                  width: getWidth(56),
+                                                  height: getWidth(56),
                                                 ),
                                                 SizedBox(
-                                                  width: getWidth(16),
+                                                  height: getHeight(26),
                                                 ),
-                                                Expanded(
-                                                  child: Bouncing(
-                                                      child: Container(
-                                                        height: getHeight(50),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0xFFD0E8FF),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                            getWidth(4),
-                                                          ),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "next".tr,
-                                                            style: TextStyle(
-                                                              fontSize:
-                                                                  getWidth(17),
+                                                Text(
+                                                  "email_alert".tr,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: getWidth(17),
+                                                      height: 1.5),
+                                                ),
+                                                SizedBox(
+                                                  height: getHeight(40),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Bouncing(
+                                                          child: Container(
+                                                            height:
+                                                                getHeight(50),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xFFE9E9E9),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                getWidth(4),
+                                                              ),
+                                                            ),
+                                                            child: Center(
+                                                              child: Text(
+                                                                "back".tr,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      getWidth(
+                                                                          17),
+                                                                ),
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      onPress: () async {
-                                                        var res =
-                                                            await signupPageController
-                                                                .signup();
+                                                          onPress: () {
+                                                            Get.back();
+                                                          }),
+                                                    ),
+                                                    SizedBox(
+                                                      width: getWidth(16),
+                                                    ),
+                                                    Expanded(
+                                                      child: Bouncing(
+                                                          child: Container(
+                                                            height:
+                                                                getHeight(50),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xFFD0E8FF),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                getWidth(4),
+                                                              ),
+                                                            ),
+                                                            child: Center(
+                                                              child: Text(
+                                                                "next".tr,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      getWidth(
+                                                                          17),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          onPress: () async {
+                                                            var res =
+                                                                await signupPageController
+                                                                    .signup();
 
-                                                        if (signupPageController
-                                                                .signupError
-                                                                .value ==
-                                                            "") {
-                                                          Get.back();
-                                                          Get.to(() =>
-                                                              ConfirmSignupScreen(
-                                                                  type:
-                                                                      "signup"));
-                                                        } else
-                                                          Get.back();
-                                                      }),
-                                                ),
+                                                            if (signupPageController
+                                                                    .signupError
+                                                                    .value ==
+                                                                "") {
+                                                              Get.back();
+                                                              Get.to(() =>
+                                                                  ConfirmSignupScreen(
+                                                                      type:
+                                                                          "signup"));
+                                                            } else
+                                                              Get.back();
+                                                          }),
+                                                    ),
+                                                  ],
+                                                )
                                               ],
-                                            )
-                                          ],
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            });
+                                  );
+                                });
+                          }
+                          signupPageController.isCheck = false;
+                        }
+                      } catch (e) {
+                        signupPageController.isCheck = false;
                       }
                     }
                   },

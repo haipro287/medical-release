@@ -88,23 +88,32 @@ class LoginPageScreen extends StatelessWidget {
                 ),
                 onPress: () async {
                   // FocusScope.of(context).unfocus();
-                  bool result = await loginController.login();
-                  if (result) {
-                    var info =
-                        await Get.put(MyAccountController()).getUserInfo();
-                    if (info != {}) {
-                      MyAccountController myAccountController =
-                          Get.put(MyAccountController());
-                      if (myAccountController.kanjiName.value == "") {
-                        Get.put(EditMyAccountController()).signup.value = true;
-                        Get.to(() => EditMyAccountScreen());
-                      } else {
-                        Get.put(HomePageController()).currentPage.value = 0;
-                        Get.offAll(() => HomePageScreen());
+                  try {
+                    if (loginController.isClick == false) {
+                      loginController.isClick = true;
+                      bool result = await loginController.login();
+                      if (result) {
+                        var info =
+                            await Get.put(MyAccountController()).getUserInfo();
+                        if (info != {}) {
+                          MyAccountController myAccountController =
+                              Get.put(MyAccountController());
+                          if (myAccountController.kanjiName.value == "") {
+                            Get.put(EditMyAccountController()).signup.value =
+                                true;
+                            Get.to(() => EditMyAccountScreen());
+                          } else {
+                            Get.put(HomePageController()).currentPage.value = 0;
+                            Get.offAll(() => HomePageScreen());
+                          }
+                          loginController.username.clear();
+                          loginController.password.clear();
+                        }
                       }
-                      loginController.username.clear();
-                      loginController.password.clear();
+                      loginController.isClick = false;
                     }
+                  } catch (E) {
+                    loginController.isClick = false;
                   }
                 },
               ),

@@ -158,7 +158,6 @@ class Messages extends Translations {
           "terms_of_use": "サービス利用規約",
           "stop": "停止",
           "banned_user_msg": "あなたのアカウントは停止されました。この連絡先でご連絡ください：0987654321",
-          'privacy_guide': '他人が自分を検索できないように設定',
           "resetPassword": "パスワード再設定",
           "resetPasswordMess1":
               "パスワード再設定のために、ユーザー登録時に登録したメールアドレスを入力し、送信ボタンを押して下さい。",

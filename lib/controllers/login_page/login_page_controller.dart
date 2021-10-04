@@ -24,6 +24,8 @@ class LoginPageController extends GetxController {
   var messValidateUsername = "".obs;
   var messValidatePassword = "".obs;
 
+  bool isClick = false;
+
   @override
   void onInit() {
     password.addListener(() {
