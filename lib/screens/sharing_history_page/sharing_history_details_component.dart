@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -18,9 +20,10 @@ Widget historyDetailComponent({required record}) {
   var subMode = ["sharing", "expired"].contains(record["status"]);
   return GestureDetector(
     onTap: () {
-      if(record["status"]!="invalid"){
-      shareHistoryController.itemSelected.value = record;
-      Get.to(() => DetailHistoryPage());}
+      if (record["status"] != "invalid") {
+        shareHistoryController.itemSelected.value = record;
+        Get.to(() => DetailHistoryPage());
+      }
     },
     child: Container(
       color: Colors.white,
@@ -92,15 +95,33 @@ Widget historyDetailComponent({required record}) {
                               bottom: getHeight(8),
                             ),
                             child: Row(children: [
-                              Container(
-                                width: getWidth(16),
-                                child: e["icon"].toString().contains('http')
-                                    ? Image.network(e["icon"].toString())
-                                    : SvgPicture.asset(
-                                        "assets/images/avatar.svg",
-                                        width: getWidth(16),
-                                      ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(27),
+                                child: Container(
+                                  width: getWidth(16),
+                                  height: getWidth(16),
+                                  child: e["icon"].toString().contains("http")
+                                      ? Image.asset(
+                                          e["icon"].toString(),
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.memory(
+                                          base64Decode(e["icon"]
+                                              .toString()
+                                              .split(",")[1]),
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
                               ),
+                              // Container(
+                              //   width: getWidth(16),
+                              //   child: e["icon"].toString().contains('http')
+                              //       ? Image.network(e["icon"].toString())
+                              //       : SvgPicture.asset(
+                              //           "assets/images/avatar.svg",
+                              //           width: getWidth(16),
+                              //         ),
+                              // ),
                               SizedBox(width: getWidth(8)),
                               Container(
                                 child: Text(upperFirstString(e["name"])),

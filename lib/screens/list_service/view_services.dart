@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/service_list/list_service_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/view_services_controller.dart';
 import 'package:metadata_fetch/metadata_fetch.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatelessWidget {
   String url;
-  dynamic callbackURL;
-  dynamic isConnected;
-  WebViewPage(
-      {required this.url,
-      required this.callbackURL,
-      required this.isConnected});
+  String? callbackURL;
+  String? isConnected;
+  WebViewPage({required this.url, this.callbackURL, this.isConnected});
   @override
   Widget build(BuildContext context) {
     ViewServicesController viewServicesController =
@@ -131,10 +129,12 @@ class WebViewPage extends StatelessWidget {
         onProgress: (percent) {
           viewServicesController.setLoading(percent);
         },
-        onPageFinished: (e) {
-          if (e.toString() == callbackURL.toString()) {
-            isConnected = true;
-            Get.back();
+        onPageFinished: (e) async {
+          if (callbackURL != null) {
+            if (e.toString() == callbackURL.toString()) {
+              await Get.put(ListServiceController()).getServiceList();
+              Get.back();
+            }
           }
         },
         javascriptMode: JavascriptMode.unrestricted,

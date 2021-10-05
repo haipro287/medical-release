@@ -1,13 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
+import 'package:medical_chain_mobile_ui/screens/list_service/view_services.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/confirm_approve_record.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/rejected_change_page.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
@@ -126,14 +130,22 @@ class DetailHistoryPage extends StatelessWidget {
                         height: getHeight(78),
                         child: Row(
                           children: [
-                            Container(
-                              width: getWidth(24),
-                              child: e["icon"].toString().contains('http')
-                                  ? Image.network(e["icon"].toString())
-                                  : SvgPicture.asset(
-                                      "assets/images/avatar.svg",
-                                      width: getWidth(16),
-                                    ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(27),
+                              child: Container(
+                                width: getWidth(16),
+                                height: getWidth(16),
+                                child: e["icon"].toString().contains("http")
+                                    ? Image.asset(
+                                        e["icon"].toString(),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.memory(
+                                        base64Decode(
+                                            e["icon"].toString().split(",")[1]),
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
                             ),
                             SizedBox(width: getWidth(15)),
                             Container(
@@ -142,13 +154,30 @@ class DetailHistoryPage extends StatelessWidget {
                             ),
                             hideMode
                                 ? Expanded(
-                                    child: Container(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "ビュー",
-                                        style: TextStyle(
-                                          color: Color(0xFF61B3FF),
-                                          fontSize: getWidth(17),
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        print(e["id"]);
+                                        print(itemSelected["primaryId"]);
+                                        var ownerId =
+                                            await shareHistoryController
+                                                .getData(
+                                                    primaryId: itemSelected[
+                                                        "primaryId"],
+                                                    serviceId: e["id"]);
+                                        var base64 = getMessage1(ownerId);
+                                        Get.to(() => WebViewPage(
+                                              url: e["viewUrl"] +
+                                                  "?message=$base64",
+                                            ));
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "ビュー",
+                                          style: TextStyle(
+                                            color: Color(0xFF61B3FF),
+                                            fontSize: getWidth(17),
+                                          ),
                                         ),
                                       ),
                                     ),

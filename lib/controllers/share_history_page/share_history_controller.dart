@@ -144,6 +144,7 @@ class ShareHistoryController extends GetxController {
           service["id"] = list[i]["services"][j]["id"];
           service["name"] = list[i]["services"][j]["name"];
           service["icon"] = list[i]["services"][j]["icon"];
+          service["viewUrl"] = list[i]["services"][j]["viewUrl"];
           item["services"].add(service);
           item["servicesId"].add(service["id"]);
         }
@@ -291,5 +292,20 @@ class ShareHistoryController extends GetxController {
     //     itemSelected["services"];
     globalController.editToShareMode.value = optionType ?? "";
     Get.to(() => ShareListService());
+  }
+
+  Future<dynamic> getData(
+      {required String primaryId, required String serviceId}) async {
+    var response;
+    CustomDio customDio = CustomDio();
+    customDio.dio.options.headers["Authorization"] =
+        globalController.user.value.certificate.toString();
+
+    response = await customDio
+        .get("/request/view?primaryId=$primaryId&serviceId=$serviceId");
+
+    var json = jsonDecode(response.toString());
+    print(json["data"]["ownerId"]);
+    return json["data"]["ownerId"];
   }
 }
