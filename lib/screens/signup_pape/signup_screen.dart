@@ -436,8 +436,8 @@ class SignupScreen extends StatelessWidget {
                                   );
                                 });
                           }
-                          signupPageController.isCheck = false;
                         }
+                        signupPageController.isCheck = false;
                       } catch (e) {
                         signupPageController.isCheck = false;
                       }
