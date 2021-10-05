@@ -87,6 +87,7 @@ class ListServiceController extends GetxController {
         service.icon = list[i]['icon'];
         service.description = list[i]["description"] ?? null;
         service.redirectURL = list[i]["callbackUrl"] ?? null;
+        service.serviceBlockchainId = list[i]["blockchainIndex"] ?? null;
         listService.add(service);
       }
       if (searchService.text != "")

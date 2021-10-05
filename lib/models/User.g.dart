@@ -26,13 +26,14 @@ class UserAdapter extends TypeAdapter<User> {
       ..encryptedPrivateKey = fields[6] as String?
       ..username = fields[7] as String?
       ..certificate = fields[8] as String?
-      ..kanji = fields[9] as String?;
+      ..kanji = fields[9] as String?
+      ..blockchainUserId = fields[10] as String?;
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -52,7 +53,9 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(8)
       ..write(obj.certificate)
       ..writeByte(9)
-      ..write(obj.kanji);
+      ..write(obj.kanji)
+      ..writeByte(10)
+      ..write(obj.blockchainUserId);
   }
 
   @override

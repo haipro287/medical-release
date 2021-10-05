@@ -257,10 +257,12 @@ class EditMyAccountScreen extends StatelessWidget {
                                 SignupPageController signupController =
                                     Get.put(SignupPageController());
 
-                                loginPageController.username.text =
-                                    signupController.userId.text;
-                                loginPageController.password.text =
-                                    signupController.password.text;
+                                if (signupController.userId.text != "")
+                                  loginPageController.username.text =
+                                      signupController.userId.text;
+                                if (signupController.password.text != "")
+                                  loginPageController.password.text =
+                                      signupController.password.text;
 
                                 var login = await loginPageController.login();
 

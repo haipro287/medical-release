@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/signature_service.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 
-String getMessage() {
-  String messageSign = "this is request of mobile app";
+String getMessage(String serviceId) {
+  String messageSign =
+      "{\"Creator\": \"\",\"ServiceId\": \"$serviceId\",\"UserId\": \"${Get.put(GlobalController()).user.value.blockchainUserId}\",\"ServiceUserId\": \"\",\"IsActive\": }";
   String signature = SignatureService.getSignature(messageSign,
       Get.put(GlobalController()).user.value.privateKey.toString());
 
@@ -15,6 +16,7 @@ String getMessage() {
   });
   var bytes = utf8.encode(jsonMessage);
   var message = base64Url.encode(bytes);
+  message = message.replaceAll("=", "");
 
-  return message;
+  return "eyJtZXNzYWdlIjogIntcIkNyZWF0b3JcIjogXCJhc2Fkc2RhXCIsXCJTZXJ2aWNlSWRcIjogXCJzdHJpbmdcIixcIlVzZXJJZFwiOiBcInN0cmluZ1wiLFwiU2VydmljZVVzZXJJZFwiOiBcInN0cmluZ1wiLFwiSXNBY3RpdmVcIjogdHJ1ZX0iLCJzaWduYXR1cmUiOiAic3VpZGhmc2hqa2ZoaiIsInB1YktleSI6ICJkZnNkZiJ9";
 }

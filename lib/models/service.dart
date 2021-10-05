@@ -20,6 +20,8 @@ class Service {
   String? description;
   @HiveField(7)
   String? redirectURL;
+  @HiveField(8)
+  String? serviceBlockchainId;
 
   Service(
       {this.id,

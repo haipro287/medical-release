@@ -14,7 +14,7 @@ class MyAccountController extends GetxController {
   String userName = Get.put(GlobalController()).user.value.username ?? "";
   RxString kanjiName = "".obs;
   RxString katakanaName = "".obs;
-  Rx<DateTime> dob = DateTime.parse("0000-00-00T00:00:00Z").obs;
+  Rx<DateTime> dob = DateTime.now().obs;
   RxString email = "".obs;
   RxString phoneNumber = "".obs;
   RxString citizenCode = "".obs;

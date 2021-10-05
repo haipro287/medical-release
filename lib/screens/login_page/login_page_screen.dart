@@ -106,8 +106,8 @@ class LoginPageScreen extends StatelessWidget {
                             Get.put(HomePageController()).currentPage.value = 0;
                             Get.offAll(() => HomePageScreen());
                           }
-                          loginController.username.clear();
-                          loginController.password.clear();
+                          // loginController.username.clear();
+                          // loginController.password.clear();
                         }
                       }
                       loginController.isClick = false;

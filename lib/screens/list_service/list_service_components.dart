@@ -212,10 +212,14 @@ Widget switchService(
                     // listController.update();
                     // listController.serviceList[index].isConnected =
                     //     value;
-                    String message = getMessage();
+                    String message = getMessage(listController
+                        .serviceList[index].serviceBlockchainId
+                        .toString());
                     Get.to(() => WebViewPage(
                           url: url +
-                              "?callbackURL=$redirectURL&message=$message",
+                              "?message=$message&redirectURL=$redirectURL",
+                          callbackURL: redirectURL.toString(),
+                          isConnected: isConnected,
                         ));
                     var a = await listController.connectService(
                         serviceId: listController.serviceList[index].id ?? "");

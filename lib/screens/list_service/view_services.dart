@@ -7,7 +7,12 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatelessWidget {
   String url;
-  WebViewPage({required this.url});
+  dynamic callbackURL;
+  dynamic isConnected;
+  WebViewPage(
+      {required this.url,
+      required this.callbackURL,
+      required this.isConnected});
   @override
   Widget build(BuildContext context) {
     ViewServicesController viewServicesController =
@@ -125,6 +130,12 @@ class WebViewPage extends StatelessWidget {
         },
         onProgress: (percent) {
           viewServicesController.setLoading(percent);
+        },
+        onPageFinished: (e) {
+          if (e.toString() == callbackURL.toString()) {
+            isConnected = true;
+            Get.back();
+          }
         },
         javascriptMode: JavascriptMode.unrestricted,
         initialUrl: url,

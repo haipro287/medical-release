@@ -205,6 +205,8 @@ class LoginPageController extends GetxController {
             userInfo.encryptedPrivateKey = encryptedPrivateKey;
             userInfo.username = username.text;
             userInfo.certificate = certificateList[0];
+            userInfo.blockchainUserId =
+                responsePing.data["data"]["blockchainIndex"];
             print("dscds: " + userInfo.certificate.toString());
             await initDBLogin();
             Get.put(GlobalController()).db.put("user", userInfo);

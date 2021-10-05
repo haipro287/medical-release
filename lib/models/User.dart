@@ -24,4 +24,6 @@ class User {
   String? certificate;
   @HiveField(9)
   String? kanji;
+  @HiveField(10)
+  String? blockchainUserId;
 }
