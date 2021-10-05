@@ -408,21 +408,38 @@ class SignupScreen extends StatelessWidget {
                                                             ),
                                                           ),
                                                           onPress: () async {
-                                                            var res =
-                                                                await signupPageController
-                                                                    .signup();
-
                                                             if (signupPageController
-                                                                    .signupError
-                                                                    .value ==
-                                                                "") {
-                                                              Get.back();
-                                                              Get.to(() =>
-                                                                  ConfirmSignupScreen(
-                                                                      type:
-                                                                          "signup"));
-                                                            } else
-                                                              Get.back();
+                                                                    .isCheck1 ==
+                                                                false) {
+                                                              signupPageController
+                                                                      .isCheck1 =
+                                                                  true;
+                                                              try {
+                                                                var res =
+                                                                    await signupPageController
+                                                                        .signup();
+
+                                                                if (signupPageController
+                                                                        .signupError
+                                                                        .value ==
+                                                                    "") {
+                                                                  Get.back();
+                                                                  Get.to(() =>
+                                                                      ConfirmSignupScreen(
+                                                                          type:
+                                                                              "signup"));
+                                                                } else {
+                                                                  Get.back();
+                                                                }
+                                                                signupPageController
+                                                                        .isCheck1 =
+                                                                    false;
+                                                              } catch (E) {
+                                                                signupPageController
+                                                                        .isCheck1 =
+                                                                    false;
+                                                              }
+                                                            }
                                                           }),
                                                     ),
                                                   ],

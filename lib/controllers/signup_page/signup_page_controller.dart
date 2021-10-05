@@ -37,6 +37,7 @@ class SignupPageController extends GetxController {
   RxString signupError = "".obs;
 
   bool isCheck = false;
+  bool isCheck1 = false;
 
   final RegExp userIdReg = new RegExp(r'^[A-Za-z0-9]+$');
   final RegExp userIdReg1 = new RegExp(r'[!-/#{-~₫%&/_:-@\[-^]+$');
