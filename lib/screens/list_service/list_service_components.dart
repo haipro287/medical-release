@@ -219,13 +219,12 @@ Widget switchService(
                           url: url +
                               "?message=$message&redirectURL=$redirectURL",
                           callbackURL: redirectURL.toString(),
-                          isConnected: isConnected,
                         ));
-                    var a = await listController.connectService(
-                        serviceId: listController.serviceList[index].id ?? "");
-                    if (a) {
-                      listController.serviceList[index].isConnected = true;
-                    }
+                    // var a = await listController.connectService(
+                    //     serviceId: listController.serviceList[index].id ?? "");
+                    // if (a) {
+                    //   listController.serviceList[index].isConnected = true;
+                    // }
                   }
                   listController.update();
                 },

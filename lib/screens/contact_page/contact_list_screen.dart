@@ -49,23 +49,23 @@ class ContactListPage extends StatelessWidget {
             SizedBox(
               height: getHeight(12),
             ),
-            Obx((){
+            Obx(() {
               return contactPageController.title.value == ""
                   ? Container()
                   : Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: getWidth(16),
-                      bottom: getHeight(12),
-                    ),
-                    child: Text(
-                      contactPageController.title.value,
-                      style: TextStyle(fontSize: getWidth(17)),
-                    ),
-                  ),
-                ],
-              );
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: getWidth(16),
+                            bottom: getHeight(12),
+                          ),
+                          child: Text(
+                            contactPageController.title.value,
+                            style: TextStyle(fontSize: getWidth(17)),
+                          ),
+                        ),
+                      ],
+                    );
             }),
             Obx(
               () => contactPageController.searchList.length == 0
@@ -156,7 +156,13 @@ class ContactListPage extends StatelessWidget {
                                               children: [
                                                 Text(
                                                   e["secondaryName"] != ""
-                                                      ? e["secondaryName"]
+                                                      ? convertLongString(
+                                                          string:
+                                                              e["secondaryName"]
+                                                                  .toString(),
+                                                          firstLength: 7,
+                                                          lastLength: 5,
+                                                        )
                                                       : getHintText(e),
                                                   style: TextStyle(
                                                     fontSize: getWidth(17),

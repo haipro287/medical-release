@@ -9,8 +9,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 class WebViewPage extends StatelessWidget {
   String url;
   String? callbackURL;
-  String? isConnected;
-  WebViewPage({required this.url, this.callbackURL, this.isConnected});
+
+  WebViewPage({required this.url, this.callbackURL});
   @override
   Widget build(BuildContext context) {
     ViewServicesController viewServicesController =
