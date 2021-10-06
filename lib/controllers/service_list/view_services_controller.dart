@@ -1,10 +1,20 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class ViewServicesController extends GetxController {
   String title = "";
   String url = "";
   int percent = 0;
   late String urlNotSplit;
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  }
 
   void setTitle(String _title) {
     title = _title;
