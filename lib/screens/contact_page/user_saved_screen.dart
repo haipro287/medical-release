@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
@@ -130,6 +131,9 @@ class UserSavedScreen extends StatelessWidget {
                                         controller:
                                             userSearchController.nickname,
                                         autofocus: true,
+                                        inputFormatters: [
+                                          LengthLimitingTextInputFormatter(60),
+                                        ],
                                         decoration: InputDecoration(
                                           hintText: "ニックネーム",
                                           hintStyle: TextStyle(

@@ -123,33 +123,38 @@ class ShareListScreen extends StatelessWidget {
                                                 ),
                                                 SizedBox(width: getWidth(15)),
                                                 Container(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        e["secondaryName"] != ""
-                                                            ? e["secondaryName"]
-                                                            : getHintText(e),
-                                                        style: TextStyle(
-                                                          fontSize:
-                                                              getWidth(17),
+                                                  child: Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          e["secondaryName"] !=
+                                                                  ""
+                                                              ? e["secondaryName"]
+                                                              : getHintText(e),
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  getWidth(17),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis),
                                                         ),
-                                                      ),
-                                                      Text(
-                                                        e["secondaryUsername"] ??
-                                                            "Unknown",
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                getWidth(13),
-                                                            color: Color(
-                                                                0xFF838AA2)),
-                                                      )
-                                                    ],
+                                                        Text(
+                                                          e["secondaryUsername"] ??
+                                                              "Unknown",
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  getWidth(13),
+                                                              color: Color(
+                                                                  0xFF838AA2)),
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
                                                 )
                                               ],
