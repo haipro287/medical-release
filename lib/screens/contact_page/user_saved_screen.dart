@@ -117,10 +117,10 @@ class UserSavedScreen extends StatelessWidget {
                                         bottom: getHeight(4),
                                       ),
                                       width: getWidth(200),
-                                      height: getHeight(36),
+                                      // height: getHeight(36),
                                       alignment: Alignment.center,
                                       child: TextFormField(
-                                        maxLength: 60,
+                                        // maxLength: 60,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: Color(0xFF2F3842),
@@ -149,11 +149,11 @@ class UserSavedScreen extends StatelessWidget {
                                       ),
                                     )
                                   : Container(
-                                      margin: EdgeInsets.only(
-                                        bottom: getHeight(4),
-                                      ),
+                                      // margin: EdgeInsets.only(
+                                      //   bottom: getHeight(4),
+                                      // ),
                                       width: getWidth(200),
-                                      height: getHeight(36),
+                                      // height: getHeight(36),
                                       alignment: Alignment.center,
                                       child: userSearchController
                                                   .userData["secondaryName"] !=
@@ -167,6 +167,7 @@ class UserSavedScreen extends StatelessWidget {
                                                 fontSize: getWidth(20),
                                                 fontWeight: FontWeight.w500,
                                               ),
+                                              overflow: TextOverflow.ellipsis,
                                             )
                                           : Text(
                                               "ニックネーム",

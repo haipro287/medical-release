@@ -62,6 +62,8 @@ class NotificationController extends GetxController {
       service["id"] = list["services"][j]["id"];
       service["name"] = list["services"][j]["name"];
       service["icon"] = list["services"][j]["icon"];
+      service["viewUrl"] = list["services"][j]["viewUrl"];
+      item["servicesId"].add(service["id"]);
       item["services"].add(service);
     }
     return item;
