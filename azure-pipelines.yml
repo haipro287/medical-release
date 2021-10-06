@@ -35,7 +35,7 @@ steps:
     inputs:
       sourceGitRepositoryUri: '$(Build.Repository.Uri)'
       sourceVerifySSLCertificate: false
-      destinationGitRepositoryUri: 'https://github.com/sonntuet1997/medical-release'
+      destinationGitRepositoryUri: '$(DES_REPO)'
       sourceGitRepositoryPersonalAccessToken: $(AZURE_PAT)
       destinationGitRepositoryPersonalAccessToken: $(GIT_PAT)
 
