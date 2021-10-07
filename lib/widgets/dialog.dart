@@ -25,7 +25,7 @@ class CustomDialog {
     } else if (type == "RESET_PASSWORD") {
       alert = resetPasswordDialog(context);
     } else if (type == "STOP_SHARING") {
-      alert = stopSharingDialog(context);
+      alert = stopSharingDialog(context, optionData["name"]);
     } else if (type == "SERVICES_NOT_CONNECTED") {
       alert = servicesNotConnectDialog(context, optionData["servicesList"]);
     } else if (type == "ALREADY_SHARED") {
@@ -127,7 +127,7 @@ AlertDialog deleteDialog(context) {
   );
 }
 
-AlertDialog stopSharingDialog(context) {
+AlertDialog stopSharingDialog(context, String name) {
   ShareHistoryController shareHistoryController =
       Get.put(ShareHistoryController());
   return AlertDialog(
@@ -141,7 +141,7 @@ AlertDialog stopSharingDialog(context) {
             height: getHeight(27),
           ),
           Text(
-            "佐藤桜  (サトウサクラ)さん はあなたのデータを見ることができなくなります。",
+            "$nameさん はあなたのデータを見ることができなくなります。",
             style: TextStyle(fontSize: getWidth(17)),
             textAlign: TextAlign.center,
           ),

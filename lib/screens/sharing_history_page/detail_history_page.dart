@@ -41,7 +41,7 @@ class DetailHistoryPage extends StatelessWidget {
                               "pending",
                       shareHistoryController: shareHistoryController,
                       context: context,
-                    )
+                      itemSelected: itemSelected)
                   : requestButtonContainer(
                       sharingStatus:
                           shareHistoryController.itemSelected["status"],
@@ -204,7 +204,7 @@ class DetailHistoryPage extends StatelessWidget {
               height: getHeight(78),
               padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
               child: Text(
-                TimeService.getTimeFormat(itemSelected["endTime"], ""),
+                TimeService.getTimeFormat(itemSelected["fromTime"], ""),
               ),
               alignment: Alignment.centerLeft,
             ),
@@ -244,11 +244,11 @@ Container layout({required Widget child}) {
   );
 }
 
-Container sentButtonContainer({
-  required String sharingStatus,
-  required ShareHistoryController shareHistoryController,
-  required BuildContext context,
-}) {
+Container sentButtonContainer(
+    {required String sharingStatus,
+    required ShareHistoryController shareHistoryController,
+    required BuildContext context,
+    dynamic itemSelected}) {
   Container result;
   switch (sharingStatus) {
     case "sharing":
@@ -267,7 +267,8 @@ Container sentButtonContainer({
                   ),
                 ),
                 onPressed: () {
-                  CustomDialog(context, "STOP_SHARING").show();
+                  CustomDialog(context, "STOP_SHARING")
+                      .show({"name": getHintText(itemSelected)});
                 },
                 child: Text(
                   'stop_sharing'.tr,
