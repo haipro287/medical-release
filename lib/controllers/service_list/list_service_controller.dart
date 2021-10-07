@@ -14,6 +14,8 @@ class ListServiceController extends GetxController {
   int totalPage = 0;
   RxString title = 'serviceList'.tr.obs;
 
+  bool isClickDisconnect = false;
+
   Future disconnectService({required String serviceId}) async {
     try {
       var response;

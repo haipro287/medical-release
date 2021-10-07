@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/list_service_controller.dart';
@@ -203,11 +204,192 @@ Widget switchService(
                 value: listController.serviceList[index].isConnected ?? true,
                 onChanged: (bool value) async {
                   if (!value) {
-                    var a = await listController.disconnectService(
-                        serviceId: listController.serviceList[index].id ?? "");
-                    if (a) {
-                      listController.serviceList[index].isConnected = false;
-                    }
+                    showDialog(
+                        context: Get.context!,
+                        barrierColor: Colors.black38,
+                        builder: (builder) {
+                          return Container(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(
+                                    getWidth(5),
+                                  ),
+                                ),
+                                child: Material(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(16.0)),
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(Get.context!).size.width -
+                                            getWidth(16) * 2,
+                                    padding: EdgeInsets.all(getWidth(18)),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SvgPicture.asset(
+                                          "assets/images/question-icon.svg",
+                                          width: getWidth(56),
+                                          height: getWidth(56),
+                                        ),
+                                        SizedBox(
+                                          height: getHeight(26),
+                                        ),
+                                        RichText(
+                                          textAlign: TextAlign.center,
+                                          text: TextSpan(children: [
+                                            TextSpan(
+                                              text: "ブロックチェーンアプリ",
+                                              style: TextStyle(
+                                                  fontSize: getWidth(17),
+                                                  height: 1.5,
+                                                  color: Colors.black),
+                                            ),
+                                            TextSpan(
+                                              text: serviceName,
+                                              style: TextStyle(
+                                                  fontSize: getWidth(17),
+                                                  height: 1.5,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                            TextSpan(
+                                              text: "の連携を停止しますか？共有された",
+                                              style: TextStyle(
+                                                  fontSize: getWidth(17),
+                                                  height: 1.5,
+                                                  color: Colors.black),
+                                            ),
+                                            TextSpan(
+                                              text: serviceName,
+                                              style: TextStyle(
+                                                  fontSize: getWidth(17),
+                                                  height: 1.5,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                            TextSpan(
+                                              text: "のデータに影響ありません。",
+                                              style: TextStyle(
+                                                  fontSize: getWidth(17),
+                                                  height: 1.5,
+                                                  color: Colors.black),
+                                            ),
+                                          ]),
+                                        ),
+                                        // Text(
+                                        //   "email_alert".tr,
+                                        //   textAlign: TextAlign.center,
+                                        //   style: TextStyle(
+                                        //       fontSize: getWidth(17),
+                                        //       height: 1.5),
+                                        // ),
+                                        SizedBox(
+                                          height: getHeight(40),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Expanded(
+                                              child: Bouncing(
+                                                  child: Container(
+                                                    height: getHeight(50),
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFFE9E9E9),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                        getWidth(4),
+                                                      ),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "cancel".tr,
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              getWidth(17),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  onPress: () {
+                                                    Get.back();
+                                                  }),
+                                            ),
+                                            SizedBox(
+                                              width: getWidth(16),
+                                            ),
+                                            Expanded(
+                                              child: Bouncing(
+                                                  child: Container(
+                                                    height: getHeight(50),
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFFD0E8FF),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                        getWidth(4),
+                                                      ),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "stop".tr,
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              getWidth(17),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  onPress: () async {
+                                                    if (listController
+                                                            .isClickDisconnect ==
+                                                        false) {
+                                                      try {
+                                                        listController
+                                                                .isClickDisconnect =
+                                                            true;
+                                                        var a = await listController
+                                                            .disconnectService(
+                                                                serviceId: listController
+                                                                        .serviceList[
+                                                                            index]
+                                                                        .id ??
+                                                                    "");
+                                                        if (a) {
+                                                          listController
+                                                                  .serviceList[
+                                                                      index]
+                                                                  .isConnected =
+                                                              false;
+                                                          listController
+                                                              .update();
+                                                          Get.back();
+                                                        }
+                                                        listController
+                                                                .isClickDisconnect =
+                                                            false;
+                                                      } catch (e) {
+                                                        listController
+                                                                .isClickDisconnect =
+                                                            false;
+                                                      }
+                                                    }
+                                                  }),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        });
                   } else {
                     // listController.update();
                     // listController.serviceList[index].isConnected =
