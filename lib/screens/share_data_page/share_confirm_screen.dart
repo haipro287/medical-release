@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -158,14 +160,23 @@ class ShareConfirmScreen extends StatelessWidget {
                         height: getHeight(78),
                         child: Row(
                           children: [
-                            e["icon"].toString().contains('http')
-                                ? Container(
-                                    width: getWidth(27),
-                                    child: Image.network(e["icon"].toString()))
-                                : SvgPicture.asset(
-                                    'assets/images/avatar.svg',
-                                    width: getWidth(27),
-                                  ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(27),
+                              child: Container(
+                                width: getWidth(27),
+                                height: getWidth(27),
+                                child: e["icon"].toString().contains("http")
+                                    ? Image.asset(
+                                        e["icon"].toString(),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.memory(
+                                        base64Decode(
+                                            e["icon"].toString().split(",")[1]),
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
+                            ),
                             SizedBox(width: getWidth(15)),
                             Container(
                               alignment: Alignment.center,
