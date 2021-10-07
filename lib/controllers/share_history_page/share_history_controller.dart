@@ -132,7 +132,7 @@ class ShareHistoryController extends GetxController {
         item["secondaryId"] = list[i]['secondaryId'];
         item["name"] = list[i]['name'];
         item["username"] = list[i]["username"];
-        item["romanji"] = list[i]["romanji"];
+        item["katakana"] = list[i]["katakana"];
         item["kanji"] = list[i]["kanji"];
         item["fromTime"] = list[i]["fromTime"];
         item["endTime"] = list[i]["endTime"];
