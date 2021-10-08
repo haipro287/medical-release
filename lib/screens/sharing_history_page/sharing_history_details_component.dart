@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/notification/notification_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
@@ -19,9 +20,11 @@ Widget historyDetailComponent({required record}) {
   var mode = globalController.historyStatus.value == "SENDING_MODE";
   var subMode = ["sharing", "expired"].contains(record["status"]);
   return GestureDetector(
-    onTap: () {
+    onTap: () async {
       if (record["status"] != "invalid") {
-        shareHistoryController.itemSelected.value = record;
+        var item = await Get.put(NotificationController())
+            .getRequest(id: record["id"]);
+        shareHistoryController.itemSelected.value = item;
         Get.to(() => DetailHistoryPage());
       }
     },

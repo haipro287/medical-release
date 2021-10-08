@@ -44,7 +44,8 @@ class PrivacyController extends GetxController {
   }
 
   logout2() {
-    if (Get.put(GlobalController()).user.value.id != null) {
+    if (Get.put(GlobalController()).user.value.id != null &&
+        Get.put(GlobalController()).user.value.kanji != "") {
       Get.put(GlobalController()).db.deleteFromDisk();
       Get.put(GlobalController()).user.value = User();
       Get.put(HomePageController()).onClose();

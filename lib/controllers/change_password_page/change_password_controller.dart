@@ -224,7 +224,7 @@ class ChangePasswordController extends GetxController {
             CustomDialog(context, "CHANGE_PASSWORD").show();
           } else {
             print('debug2');
-            errPassword.value = "パスワードが合っていません。";
+            errPassword.value = "エラーが発生しました。";
           }
         } else {
           print('debug3');

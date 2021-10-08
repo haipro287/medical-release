@@ -10,6 +10,8 @@ import 'package:medical_chain_mobile_ui/services/local_notification_service.dart
 
 class NotificationController extends GetxController {
   GlobalController globalController = Get.put(GlobalController());
+  static const avatarList = [0, 0xFFD0E8FF, 0xFFFFF0D1, 0xFFDAD5FF, 0xFFF7EBE8];
+
   @override
   Future<void> onInit() async {
     // TODO: implement onInit
@@ -56,6 +58,8 @@ class NotificationController extends GetxController {
     item["fromTime"] = list["fromTime"];
     item["endTime"] = list["endTime"];
     item["status"] = list["status"];
+    item['avatar'] = avatarList[list['avatar']];
+
     item["services"] = [];
     for (var j = 0; j < list["services"].length; j++) {
       var service = {};

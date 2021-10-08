@@ -214,7 +214,7 @@ class EditMyAccountScreen extends StatelessWidget {
                             if (editMyAccountController.isValid()) {
                               if (myAccountController.email.value !=
                                   editMyAccountController.email.text) {
-                                editMyAccountController.signup.value = false;
+                                // editMyAccountController.signup.value = false;
                                 editMyAccountController.changeEmailNotSignUp =
                                     true;
                                 LoginPageController loginPageController =

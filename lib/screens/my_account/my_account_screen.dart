@@ -174,6 +174,19 @@ class MyAccountScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       Get.put(EditMyAccountController()).signup.value = false;
+                      Get.put(EditMyAccountController()).kanjiName.text =
+                          myAccountController.kanjiName.value;
+                      Get.put(EditMyAccountController()).katakanaName.text =
+                          myAccountController.katakanaName.value;
+                      Get.put(EditMyAccountController()).dob.text =
+                          TimeService.dateTimeToString4(
+                              myAccountController.dob.value);
+                      Get.put(EditMyAccountController()).email.text =
+                          myAccountController.email.value;
+                      Get.put(EditMyAccountController()).phone.text =
+                          myAccountController.phoneNumber.value;
+                      Get.put(EditMyAccountController()).citizenCode.text =
+                          myAccountController.citizenCode.value;
                       Get.to(() => EditMyAccountScreen());
                     },
                     child: myAccountText('edit'.trParams()),

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
@@ -83,7 +82,14 @@ class DetailHistoryPage extends StatelessWidget {
               height: getHeight(78),
               child: Row(
                 children: [
-                  SvgPicture.asset("assets/images/avatar.svg"),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(56),
+                    child: Container(
+                      width: getWidth(36),
+                      height: getWidth(36),
+                      color: Color(itemSelected["avatar"]),
+                    ),
+                  ),
                   SizedBox(width: getWidth(15)),
                   Container(
                     child: Column(
