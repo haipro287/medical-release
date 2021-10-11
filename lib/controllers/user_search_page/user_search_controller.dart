@@ -15,6 +15,7 @@ class UserSearchController extends GetxController {
   ShareListController shareListController = Get.put(ShareListController());
   TextEditingController searchInput = TextEditingController();
   TextEditingController nickname = TextEditingController();
+  static const avatarList = [0, 0xFFD0E8FF, 0xFFFFF0D1, 0xFFDAD5FF, 0xFFF7EBE8];
 
   var userData = {}.obs;
   var isEditing = false.obs;
@@ -105,6 +106,7 @@ class UserSearchController extends GetxController {
         userData.value = {
           ...data,
           ...contactData,
+          "avatar": avatarList[data['avatar']],
           "secondaryUsername": data["username"],
           "secondaryName": data["secondaryName"] ?? ""
         };

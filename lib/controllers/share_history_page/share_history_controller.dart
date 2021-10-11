@@ -159,9 +159,9 @@ class ShareHistoryController extends GetxController {
     }
   }
 
-  void calculatorTimeOption(String fromTime, String endTime) {
-    var fromTimeParsed = DateTime.parse(fromTime);
-    var endTimeParsed = DateTime.parse(endTime);
+  void calculatorTimeOption(int fromTime, int endTime) {
+    var fromTimeParsed = DateTime.fromMicrosecondsSinceEpoch(fromTime * 1000);
+    var endTimeParsed = DateTime.fromMicrosecondsSinceEpoch(endTime * 1000);
     var diffTime = endTimeParsed.difference(fromTimeParsed);
     var hourDiff = diffTime.inHours;
     // TO DO: determine time options: 1 day, 1 week, 1 month or until turn off

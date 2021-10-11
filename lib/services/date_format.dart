@@ -73,8 +73,8 @@ class TimeService {
     return DateTime.tryParse(datedFormat);
   }
 
-  static String getTimeFormat(String time, String suffix) {
-    DateTime dateTime = DateTime.parse(time);
+  static String getTimeFormat(int time, String suffix) {
+    DateTime dateTime = DateTime.fromMicrosecondsSinceEpoch(time * 1000);
     var datedFormat = DateFormat("yyyy/MM/dd HH:mm$suffix").format(dateTime);
     return datedFormat;
   }

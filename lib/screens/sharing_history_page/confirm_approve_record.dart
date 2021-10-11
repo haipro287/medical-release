@@ -122,7 +122,8 @@ class ConfirmApproveRecordPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
               child: Text(
                 TimeService.getTimeFormat(
-                    TimeService.getTimeNow().toString(), ""),
+                    TimeService.getTimeNow().toUtc().millisecondsSinceEpoch,
+                    ""),
               ),
               alignment: Alignment.centerLeft,
             ),
