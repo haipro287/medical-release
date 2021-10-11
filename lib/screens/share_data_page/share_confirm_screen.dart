@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
@@ -20,6 +21,7 @@ class ShareConfirmScreen extends StatelessWidget {
   ShareServiceListController shareServiceListController =
       Get.put(ShareServiceListController());
   UserSearchController userSearchController = Get.put(UserSearchController());
+  bool isClick = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,42 +52,51 @@ class ShareConfirmScreen extends StatelessWidget {
               ),
             ),
             onPressed: () async {
-              var editMode = globalController.editToShareMode.value;
-              if (editMode == "STOP_SHARING") {
-                var stopResult =
-                    await Get.put(ShareHistoryController()).sharingService(
-                  context,
-                  status: "STOP_SHARING",
-                );
-                print(stopResult.toString());
-              }
+              if (isClick == false) {
+                isClick = true;
+                try {
+                  var editMode = globalController.editToShareMode.value;
+                  if (editMode == "STOP_SHARING") {
+                    var stopResult =
+                        await Get.put(ShareHistoryController()).sharingService(
+                      context,
+                      status: "STOP_SHARING",
+                    );
+                    print(stopResult.toString());
+                  }
 
-              var result = await shareServiceListController.shareService(
-                id: userSearchController.userData["secondaryId"],
-                sharingStatus: globalController.sharingStatus.value,
-              );
+                  var result = await shareServiceListController.shareService(
+                    id: userSearchController.userData["secondaryId"],
+                    sharingStatus: globalController.sharingStatus.value,
+                  );
 
-              if (globalController.sharingStatus.value == "SENT_DATA") {
-                globalController.historyStatus.value = "SENDING_MODE";
-              } else {
-                globalController.historyStatus.value = "REQUEST_MODE";
-              }
+                  if (globalController.sharingStatus.value == "SENT_DATA") {
+                    globalController.historyStatus.value = "SENDING_MODE";
+                  } else {
+                    globalController.historyStatus.value = "REQUEST_MODE";
+                  }
 
-              if (result["id"] != null) {
-                var tabChange =
-                    globalController.historyStatus.value == "SENDING_MODE"
-                        ? 1
-                        : 3;
-                globalController.recordsTabMode.value = tabChange;
+                  if (result["id"] != null) {
+                    var tabChange =
+                        globalController.historyStatus.value == "SENDING_MODE"
+                            ? 1
+                            : 3;
+                    globalController.recordsTabMode.value = tabChange;
 
-                Get.offAll(() => HomePageScreen());
-                Get.to(() => ShareHistoryPage());
-              }
+                    Get.offAll(() => HomePageScreen());
+                    Get.put(HomePageController()).onChangeTab(0);
+                    Get.to(() => ShareHistoryPage());
+                  }
 
-              if (result["success"] == false) {
-                print({"servicesss": result["services"]});
-                CustomDialog(context, "ALREADY_SHARED")
-                    .show({"servicesList": result["services"]});
+                  if (result["success"] == false) {
+                    print({"servicesss": result["services"]});
+                    CustomDialog(context, "ALREADY_SHARED")
+                        .show({"servicesList": result["services"]});
+                  }
+                  isClick = false;
+                } catch (e) {
+                  isClick = false;
+                }
               }
             },
             child: Text(
@@ -114,7 +125,14 @@ class ShareConfirmScreen extends StatelessWidget {
               height: getHeight(78),
               child: Row(
                 children: [
-                  SvgPicture.asset("assets/images/avatar.svg"),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(56),
+                    child: Container(
+                      width: getWidth(36),
+                      height: getWidth(36),
+                      color: Color(userSearchController.userData["avatar"]),
+                    ),
+                  ),
                   SizedBox(width: getWidth(15)),
                   Container(
                     child: Column(
