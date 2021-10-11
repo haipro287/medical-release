@@ -174,6 +174,8 @@ class MyAccountScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       Get.put(EditMyAccountController()).signup.value = false;
+                      Get.put(EditMyAccountController()).avatar.value =
+                          myAccountController.avatar.value;
                       Get.put(EditMyAccountController()).kanjiName.text =
                           myAccountController.kanjiName.value;
                       Get.put(EditMyAccountController()).katakanaName.text =

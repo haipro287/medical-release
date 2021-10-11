@@ -112,7 +112,7 @@ class ChangePasswordController extends GetxController {
         var certificateInfo = SignatureService.getCertificateInfo(userId);
         String signature = SignatureService.getSignature(
             certificateInfo, privateKey as String);
-        String times = TimeService.getTimeNow().toString();
+        int times = TimeService.getTimeNow().toUtc().millisecondsSinceEpoch;
         List<String> certificateList = SignatureService.getCertificateLogin(
             certificateInfo,
             userId,
@@ -204,7 +204,8 @@ class ChangePasswordController extends GetxController {
                 globalController.user.value.id);
             String signature =
                 SignatureService.getSignature(certificateInfo, newPrivateKey);
-            String times = TimeService.getTimeNow().toString();
+            int times = TimeService.getTimeNow().toUtc().millisecondsSinceEpoch;
+
             List<String> certificateList = SignatureService.getCertificateLogin(
                 certificateInfo,
                 globalController.user.value.id,

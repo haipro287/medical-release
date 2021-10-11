@@ -44,7 +44,7 @@ class SignatureService {
       String? encryptedPrivateKey,
       String signature,
       String publicKey,
-      String time) {
+      int time) {
     // print({"cf": certificateInfo});
     var certificate = jsonEncode({
       "signature": signature,

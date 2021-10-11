@@ -11,7 +11,6 @@ import 'package:medical_chain_mobile_ui/controllers/privacy/privacy_controller.d
 import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/models/status.dart';
-import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/services/db_service.dart';
 import 'package:medical_chain_mobile_ui/services/response_validator.dart';
 
@@ -182,7 +181,7 @@ class LoginPageController extends GetxController {
           print(certificateInfo);
           String signature = SignatureService.getSignature(
               certificateInfo, privateKey as String);
-          String times = TimeService.getTimeNow().toString();
+          int times = DateTime.now().toUtc().millisecondsSinceEpoch;
           List<String> certificateList = SignatureService.getCertificateLogin(
               certificateInfo,
               userId,

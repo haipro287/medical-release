@@ -210,8 +210,36 @@ class ShareConfirmScreen extends StatelessWidget {
               alignment: Alignment.centerLeft,
             ),
             SizedBox(
-              height: 30,
-            )
+              height: getHeight(13),
+            ),
+            globalController.sharingStatus.value == "SENT_DATA"
+                ? Container(
+                    margin: EdgeInsets.symmetric(horizontal: getWidth(16)),
+                    padding: EdgeInsets.symmetric(horizontal: getWidth(12)),
+                    width: double.infinity,
+                    height: getHeight(74),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        getWidth(6),
+                      ),
+                      color: Color(0xFFFFBC0F).withOpacity(0.1),
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset("assets/images/alert.svg"),
+                        SizedBox(
+                          width: getWidth(12),
+                        ),
+                        Text(
+                          "共有を停止するまでデータは共有さ\nれます。",
+                          style: TextStyle(
+                            fontSize: getWidth(17),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                : Container()
           ],
         ),
       ),
