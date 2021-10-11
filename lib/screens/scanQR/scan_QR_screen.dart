@@ -286,6 +286,7 @@ class ScanQRScreen extends StatelessWidget {
   void _onQRViewCreated(QRViewController controller) {
     this.qrScanController.controller = controller;
     UserSearchController userSearchController = Get.put(UserSearchController());
+    const avatarList = [0, 0xFFD0E8FF, 0xFFFFF0D1, 0xFFDAD5FF, 0xFFF7EBE8];
 
     controller.scannedDataStream.listen((scanData) async {
       if (scanData.code != qrScanController.qr.toString() &&
@@ -307,6 +308,7 @@ class ScanQRScreen extends StatelessWidget {
               responseData["secondaryUsername"] ?? responseData["username"];
           item["katakana"] = responseData["katakana"] ?? "";
           item["kanji"] = responseData["kanji"];
+          item['avatar'] = avatarList[responseData['avatar']];
 
           if (responseData["contactId"] == "" ||
               responseData["contactId"] == null) {
