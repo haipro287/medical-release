@@ -132,7 +132,7 @@ class Messages extends Translations {
           "data_reference": "データ参照",
           "data_request": "データリクエスト",
           "confirmPassword": "再入力パスワード",
-          "dataReceiver": "共有先",
+          "dataReceiver": "送信先",
           "dataSender": "共有元",
           "requestReceived": "送信先",
           "requestSender": "送信元",
