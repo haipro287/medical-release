@@ -131,7 +131,8 @@ class RejectedChangePage extends StatelessWidget {
               height: getHeight(78),
               padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
               child: Text(
-                TimeService.getTimeFormat(shareHistoryController.itemSelected.value["fromTime"], ""),
+                TimeService.getTimeFormat(
+                    shareHistoryController.itemSelected.value["fromTime"], ""),
               ),
               alignment: Alignment.centerLeft,
             ),

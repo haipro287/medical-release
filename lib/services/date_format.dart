@@ -74,7 +74,9 @@ class TimeService {
   }
 
   static String getTimeFormat(int time, String suffix) {
-    DateTime dateTime = DateTime.fromMicrosecondsSinceEpoch(time * 1000);
+    bool a = time.toString().length < 12;
+    DateTime dateTime =
+        DateTime.fromMicrosecondsSinceEpoch(a ? time * 1000000 : time * 1000);
     var datedFormat = DateFormat("yyyy/MM/dd HH:mm$suffix").format(dateTime);
     return datedFormat;
   }

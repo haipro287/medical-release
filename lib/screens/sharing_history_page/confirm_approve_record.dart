@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
@@ -38,7 +39,14 @@ class ConfirmApproveRecordPage extends StatelessWidget {
               height: getHeight(78),
               child: Row(
                 children: [
-                  SvgPicture.asset("assets/images/avatar.svg"),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(56),
+                    child: Container(
+                      width: getWidth(36),
+                      height: getWidth(36),
+                      color: Color(itemSelected["avatar"]),
+                    ),
+                  ),
                   SizedBox(width: getWidth(15)),
                   Container(
                     child: Column(
@@ -83,14 +91,22 @@ class ConfirmApproveRecordPage extends StatelessWidget {
                         height: getHeight(78),
                         child: Row(
                           children: [
-                            Container(
-                              width: getWidth(24),
-                              child: e["icon"].toString().contains('http')
-                                  ? Image.network(e["icon"].toString())
-                                  : SvgPicture.asset(
-                                      "assets/images/avatar.svg",
-                                      width: getWidth(16),
-                                    ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(27),
+                              child: Container(
+                                width: getWidth(27),
+                                height: getWidth(27),
+                                child: e["icon"].toString().contains("http")
+                                    ? Image.asset(
+                                        e["icon"].toString(),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.memory(
+                                        base64Decode(
+                                            e["icon"].toString().split(",")[1]),
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
                             ),
                             SizedBox(width: getWidth(15)),
                             Container(

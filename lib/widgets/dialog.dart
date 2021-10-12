@@ -390,14 +390,22 @@ AlertDialog servicesNotConnectDialog(context, List<dynamic> servicesList) {
                           bottom: getHeight(8),
                         ),
                         child: Row(children: [
-                          Container(
-                            width: getWidth(27),
-                            child: e["icon"].toString().contains('http')
-                                ? Image.network(e["icon"].toString())
-                                : SvgPicture.asset(
-                                    "assets/images/avatar.svg",
-                                    width: getWidth(27),
-                                  ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(27),
+                            child: Container(
+                              width: getWidth(27),
+                              height: getWidth(27),
+                              child: e["icon"].toString().contains("http")
+                                  ? Image.asset(
+                                      e["icon"].toString(),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.memory(
+                                      base64Decode(
+                                          e["icon"].toString().split(",")[1]),
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
                           ),
                           SizedBox(width: getWidth(8)),
                           Container(
