@@ -9,6 +9,7 @@ import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_his
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
 import 'detail_history_page.dart';
 
@@ -148,6 +149,7 @@ Widget historyDetailComponent({required record}) {
             alignment: Alignment.center,
             margin: EdgeInsets.only(
               left: getWidth(16),
+              right: getWidth(16),
               bottom: getHeight(12),
             ),
             child: Padding(
@@ -156,29 +158,171 @@ Widget historyDetailComponent({required record}) {
                 bottom: getHeight(15),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SvgPicture.asset("assets/images/calendar.svg"),
-                  SizedBox(
-                    width: getWidth(8),
-                  ),
-                  record["status"] == "expired"
-                      ? Text(
-                          TimeService.getTimeFormat(record["fromTime"], "") +
-                              "～" +
-                              // endTime , bao h noi api that fix sau
-                              TimeService.getTimeFormat(record["endTime"], ""),
-                          style: TextStyle(fontSize: getWidth(13)),
-                        )
-                      : record["status"] == "rejected"
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset("assets/images/calendar.svg"),
+                      SizedBox(
+                        width: getWidth(8),
+                      ),
+                      record["status"] == "expired"
                           ? Text(
-                              TimeService.getTimeFormat(record["endTime"], ""),
+                              TimeService.getTimeFormat(
+                                      record["fromTime"], "") +
+                                  "～" +
+                                  // endTime , bao h noi api that fix sau
+                                  TimeService.getTimeFormat(
+                                      record["endTime"], ""),
                               style: TextStyle(fontSize: getWidth(13)),
                             )
-                          : Text(
-                              TimeService.getTimeFormat(record["fromTime"], ""),
-                              style: TextStyle(fontSize: getWidth(13)),
-                            ),
+                          : record["status"] == "rejected"
+                              ? Text(
+                                  TimeService.getTimeFormat(
+                                      record["endTime"], ""),
+                                  style: TextStyle(fontSize: getWidth(13)),
+                                )
+                              : Text(
+                                  TimeService.getTimeFormat(
+                                      record["fromTime"], ""),
+                                  style: TextStyle(fontSize: getWidth(13)),
+                                ),
+                    ],
+                  ),
+                  record["status"] == "invalid"
+                      ? GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: Get.context!,
+                                barrierColor: Colors.black38,
+                                builder: (builder) {
+                                  return Container(
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(
+                                            getWidth(5),
+                                          ),
+                                        ),
+                                        child: Material(
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0)),
+                                          child: Container(
+                                            width: MediaQuery.of(Get.context!)
+                                                    .size
+                                                    .width -
+                                                getWidth(16) * 2,
+                                            padding:
+                                                EdgeInsets.all(getWidth(18)),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                SvgPicture.asset(
+                                                  "assets/images/alert_delete.svg",
+                                                  width: getWidth(56),
+                                                  height: getWidth(56),
+                                                ),
+                                                SizedBox(
+                                                  height: getHeight(26),
+                                                ),
+                                                Text(
+                                                  "削除してもよろしいでしょうか。",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: getWidth(17),
+                                                      height: 1.5),
+                                                ),
+                                                SizedBox(
+                                                  height: getHeight(40),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Bouncing(
+                                                          child: Container(
+                                                            height:
+                                                                getHeight(50),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xFFE9E9E9),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                getWidth(4),
+                                                              ),
+                                                            ),
+                                                            child: Center(
+                                                              child: Text(
+                                                                "cancel".tr,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      getWidth(
+                                                                          17),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          onPress: () {
+                                                            Get.back();
+                                                          }),
+                                                    ),
+                                                    SizedBox(
+                                                      width: getWidth(16),
+                                                    ),
+                                                    Expanded(
+                                                      child: Bouncing(
+                                                          child: Container(
+                                                            height:
+                                                                getHeight(50),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xFFEB5757),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                getWidth(4),
+                                                              ),
+                                                            ),
+                                                            child: Center(
+                                                              child: Text(
+                                                                "削除",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        getWidth(
+                                                                            17),
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          onPress: () async {}),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                });
+                          },
+                          child:
+                              SvgPicture.asset("assets/images/delete-icon.svg"),
+                        )
+                      : Container()
                 ],
               ),
             ),

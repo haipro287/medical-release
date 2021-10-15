@@ -31,23 +31,26 @@ class DetailHistoryPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: hideMode
           ? null
-          : Padding(
-              padding: EdgeInsets.only(top: getHeight(12)),
-              child: mode
-                  ? sentButtonContainer(
-                      sharingStatus:
-                          shareHistoryController.itemSelected["status"] ??
-                              "pending",
-                      shareHistoryController: shareHistoryController,
-                      context: context,
-                      itemSelected: itemSelected)
-                  : requestButtonContainer(
-                      sharingStatus:
-                          shareHistoryController.itemSelected["status"],
-                      shareHistoryController: shareHistoryController,
-                      context: context,
-                    ),
-            ),
+          : (globalController.historyStatus.value == "REQUEST_MODE" &&
+                  itemSelected["status"] == "pending")
+              ? null
+              : Padding(
+                  padding: EdgeInsets.only(top: getHeight(12)),
+                  child: mode
+                      ? sentButtonContainer(
+                          sharingStatus:
+                              shareHistoryController.itemSelected["status"] ??
+                                  "pending",
+                          shareHistoryController: shareHistoryController,
+                          context: context,
+                          itemSelected: itemSelected)
+                      : requestButtonContainer(
+                          sharingStatus:
+                              shareHistoryController.itemSelected["status"],
+                          shareHistoryController: shareHistoryController,
+                          context: context,
+                        ),
+                ),
       appBar: mode
           ? appBarWithButton(
               context,
