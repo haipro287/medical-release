@@ -258,7 +258,7 @@ class SignupPageController extends GetxController {
       var keyPair = generateKeyPairAndEncrypt(password.text);
       CustomDio customDio = CustomDio();
       response = await customDio.post(
-          "/user",
+          "/users",
           {
             "data": {
               "username": userId.text,

@@ -50,7 +50,7 @@ class LoginPageController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
 
-      response = await customDio.post("/user/$userID/notification/subscribe", {
+      response = await customDio.post("/users/$userID/notification/subscribe", {
         "data": {"token": token}
       });
 
@@ -74,7 +74,7 @@ class LoginPageController extends GetxController {
           globalController.user.value.certificate.toString();
 
       response =
-          await customDio.post("/user/$userID/notification/unsubscribe", {
+          await customDio.post("/users/$userID/notification/unsubscribe", {
         "data": {"token": token}
       });
 
@@ -97,7 +97,7 @@ class LoginPageController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
 
-      response = await customDio.post("/user/$userID/notification/fetch", {});
+      response = await customDio.post("/users/$userID/notification/fetch", {});
 
       var json = jsonDecode(response.toString());
       print(json.toString());

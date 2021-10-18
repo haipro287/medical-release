@@ -22,6 +22,8 @@ class ShareHistoryController extends GetxController {
   RxList<dynamic> searchList = [].obs;
   var isHideNotiSearch = true.obs;
 
+  var isClickDetele = false;
+
   var itemSelected = {}.obs;
   var servicesNotConnect = [].obs;
 
@@ -111,12 +113,12 @@ class ShareHistoryController extends GetxController {
           globalController.user.value.certificate.toString();
 
       if (mode == "SENDING_MODE") {
-        response = await customDio.get("/users/${userId}requests", {
+        response = await customDio.get("/users/$userID/requests", {
           "primary_id": userID,
           "status": status,
         });
       } else {
-        response = await customDio.get("/users/${userId}requests", {
+        response = await customDio.get("/users/$userID/requests", {
           "secondary_id": userID,
           "status": status,
         });
@@ -186,7 +188,7 @@ class ShareHistoryController extends GetxController {
         value =
             globalController.editToShareMode.value == "STOP_SHARING" ? 1 : 2;
         response = await customDio.post(
-          'user/$userId/requests/$recordId/stop',
+          'user/$userID/requests/$recordID/stop',
           {
             "data": {
               "id": recordID,
@@ -199,7 +201,7 @@ class ShareHistoryController extends GetxController {
         value = 1;
         redirectToNewTab = true;
         response = await customDio.post(
-          'user/$userId/requests/$recordId/accept',
+          'user/$userID/requests/$recordID/accept',
           {
             "data": {
               "id": recordID,
@@ -211,12 +213,12 @@ class ShareHistoryController extends GetxController {
         );
       } else if (status == "EDIT") {
         value = 1;
-        var url = "/request/edit";
+        var url = "/requests/edit";
       } else if (status == "REJECTED_REQUEST") {
         redirectToNewTab = true;
         value = 4;
         response = await customDio.post(
-          'user/$userId/requests/$recordId/deny',
+          'user/$userID/requests/$recordID/deny',
           {
             "data": {
               "id": recordID,
@@ -308,5 +310,33 @@ class ShareHistoryController extends GetxController {
     var json = jsonDecode(response.toString());
     print(json["data"]["ownerId"]);
     return json["data"]["ownerId"];
+  }
+
+  Future<dynamic> getStatusService({required dynamic item}) async {
+    CustomDio customDio = CustomDio();
+    customDio.dio.options.headers["Authorization"] =
+        globalController.user.value.certificate.toString();
+    var response = await customDio.get(
+        "/requests/view?primaryId=${item["ownerId"]}&serviceId=${item["services"][0]["id"]}");
+    print(response);
+    var json = jsonDecode(response.toString());
+    if (json["success"] == true && (json["data"]["ownerId"] != null)) {
+      return true;
+    } else
+      return false;
+  }
+
+  Future<dynamic> deleteHistory({required dynamic item}) async {
+    CustomDio customDio = CustomDio();
+    customDio.dio.options.headers["Authorization"] =
+        globalController.user.value.certificate.toString();
+    var response = await customDio.delete(
+        "/users/${globalController.user.value.id}/requests/${item["id"]}", {});
+    print(response);
+    var json = jsonDecode(response.toString());
+    if (json["success"] == true) {
+      return true;
+    } else
+      return false;
   }
 }

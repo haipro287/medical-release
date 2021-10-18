@@ -25,7 +25,7 @@ class ListServiceController extends GetxController {
           globalController.user.value.certificate.toString();
 
       response = await customDio.post(
-        "/user/$userID/service/disconnect/$serviceId",
+        "/users/$userID/services/$serviceId/disconnect",
         {},
       );
 
@@ -48,7 +48,7 @@ class ListServiceController extends GetxController {
           globalController.user.value.certificate.toString();
 
       response = await customDio.post(
-        "/user/$userID/service/connect/$serviceId",
+        "/users/$userID/services/$serviceId/connect",
         {},
       );
 
@@ -72,7 +72,7 @@ class ListServiceController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
       response = await customDio.get(
-          "/user/$userID/services?name=${searchService.text}&limit=10&offset=$offset");
+          "/users/$userID/services?name=${searchService.text}&limit=10&offset=$offset");
       var json = jsonDecode(response.toString());
       print(json["data"]);
       var list = json["data"]["results"] ?? json["data"] ?? [];
@@ -117,7 +117,7 @@ class ListServiceController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
       response = await customDio.get(
-          "/user/$userID/services?name=${searchService.text}&limit=10&offset=$offset");
+          "/users/$userID/services?name=${searchService.text}&limit=10&offset=$offset");
       var json = jsonDecode(response.toString());
       print(json["data"]);
       var list = json["data"]["results"] ?? json["data"] ?? [];

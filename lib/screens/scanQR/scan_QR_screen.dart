@@ -298,7 +298,7 @@ class ScanQRScreen extends StatelessWidget {
           var certificate =
               Get.put(GlobalController()).user.value.certificate.toString();
           customDio.dio.options.headers["Authorization"] = certificate;
-          response = await customDio.get("/user/${scanData.code}");
+          response = await customDio.get("/users/${scanData.code}");
           controller.pauseCamera();
           var json = jsonDecode(response.toString());
           var responseData = json["data"];

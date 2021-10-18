@@ -32,11 +32,11 @@ class ShareListController extends GetxController {
       var certificate =
           Get.put(GlobalController()).user.value.certificate.toString();
       customDio.dio.options.headers["Authorization"] = certificate;
-      response = await customDio.get("/user/$userID/contacts");
+      response = await customDio.get("/users/$userID/contacts");
 
       var json = jsonDecode(response.toString());
 
-      var responseData = json['data']['contacts'];
+      var responseData = json['data']['results'];
 
       List<Map<dynamic, dynamic>> res = [];
 

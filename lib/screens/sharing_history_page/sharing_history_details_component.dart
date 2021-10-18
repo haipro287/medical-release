@@ -25,6 +25,12 @@ Widget historyDetailComponent({required record}) {
       if (record["status"] != "invalid") {
         var item = await Get.put(NotificationController())
             .getRequest(id: record["id"]);
+        if (!mode) {
+          var a = await shareHistoryController.getStatusService(item: item);
+          if (!a) {
+            item["services"][0]["status"] = false;
+          }
+        }
         shareHistoryController.itemSelected.value = item;
         Get.to(() => DetailHistoryPage());
       }
@@ -306,7 +312,28 @@ Widget historyDetailComponent({required record}) {
                                                               ),
                                                             ),
                                                           ),
-                                                          onPress: () async {}),
+                                                          onPress: () async {
+                                                            if (shareHistoryController
+                                                                    .isClickDetele ==
+                                                                false) {
+                                                              shareHistoryController
+                                                                      .isClickDetele =
+                                                                  true;
+                                                              try {
+                                                                await shareHistoryController
+                                                                    .deleteHistory(
+                                                                        item:
+                                                                            record);
+                                                                shareHistoryController
+                                                                        .isClickDetele =
+                                                                    false;
+                                                              } catch (e) {
+                                                                shareHistoryController
+                                                                        .isClickDetele =
+                                                                    false;
+                                                              }
+                                                            }
+                                                          }),
                                                     ),
                                                   ],
                                                 )

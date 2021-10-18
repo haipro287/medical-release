@@ -14,7 +14,7 @@ Future getPrivacy() async {
         globalController.user.value.certificate.toString();
 
     response = await customDio.get(
-      "/user/$userID/privacy",
+      "/users/$userID/privacy",
     );
 
     var json = jsonDecode(response.toString());
@@ -36,7 +36,7 @@ Future updatePrivacy({required bool status}) async {
     customDio.dio.options.headers["Authorization"] =
         globalController.user.value.certificate.toString();
 
-    response = await customDio.put("/user/$userID/privacy", {
+    response = await customDio.put("/users/$userID/privacy", {
       "data": {"status": status}
     });
 

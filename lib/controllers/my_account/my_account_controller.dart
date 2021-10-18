@@ -36,7 +36,7 @@ class MyAccountController extends GetxController {
       CustomDio customDio = CustomDio();
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
-      response = await customDio.get("/user/$userID/my-account");
+      response = await customDio.get("/users/$userID/my-account");
       var json = jsonDecode(response.toString());
       print(json.toString());
       print(userID);
@@ -136,7 +136,7 @@ class MyAccountController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
       response = await customDio.put(
-        "/user/$userID/my-account",
+        "/users/$userID/my-account",
         {
           "data": {
             "katakana": romanji,

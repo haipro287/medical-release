@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 
@@ -95,7 +96,12 @@ class ShareServiceListController extends GetxController {
       CustomDio customDio = CustomDio();
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
-      response = await customDio.get("/user/$userID/services");
+      if (globalController.sharingStatus.value == "SENT_DATA")
+        response = await customDio.get(
+            "/requests/services?primaryId=$userID&secondaryId=${Get.put(UserSearchController()).userData["secondaryId"]}");
+      else
+        response = await customDio.get(
+            "/requests/services?primaryId=${Get.put(UserSearchController()).userData["secondaryId"]}&secondaryId=$userID");
       var json = jsonDecode(response.toString());
       print(json["data"]);
       var list = json["data"]["results"];
@@ -110,6 +116,7 @@ class ShareServiceListController extends GetxController {
         service["username"] = list[i]['username'];
         service["isConnected"] = list[i]["connected"] ?? false;
         service["icon"] = list[i]["icon"];
+        service["status"] = list[i]["status"] ?? "";
         listService.add(service);
       }
 

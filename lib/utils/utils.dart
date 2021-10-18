@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/signature_service.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 
 String getMessage(String serviceId) {
   String messageSign = jsonEncode({
@@ -53,4 +54,18 @@ String getMessage1(String ownerId) {
   message = message.replaceAll("=", "");
 
   return message;
+}
+
+Future<dynamic> getStatusService({required dynamic item}) async {
+  CustomDio customDio = CustomDio();
+  customDio.dio.options.headers["Authorization"] =
+      Get.put(GlobalController()).user.value.certificate.toString();
+  var response = await customDio.get(
+      "/requests/view?primaryId=${item["ownerId"]}&serviceId=${item["services"][0]["id"]}");
+  print(response);
+  var json = jsonDecode(response.toString());
+  if (json["success"] == true && (json["data"]["ownerId"] != null)) {
+    return true;
+  } else
+    return false;
 }

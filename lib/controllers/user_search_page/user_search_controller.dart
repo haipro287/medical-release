@@ -68,7 +68,7 @@ class UserSearchController extends GetxController {
       CustomDio customDio = CustomDio();
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate;
-      response = await customDio.get("/user", {
+      response = await customDio.get("/users", {
         "username": username,
       });
       var json = jsonDecode(response.toString());
@@ -138,7 +138,7 @@ class UserSearchController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
       response = await customDio.put(
-        "/user/$userID/contacts/$contactID",
+        "/users/$userID/contacts/$contactID",
         {
           "data": {
             "secondaryName": nickname,
@@ -166,7 +166,7 @@ class UserSearchController extends GetxController {
       customDio.dio.options.headers["Authorization"] =
           globalController.user.value.certificate.toString();
       response = await customDio.post(
-        "/user/$userID/contacts",
+        "/users/$userID/contacts",
         {
           "data": {
             "secondaryId": secondaryId,
@@ -193,7 +193,7 @@ class UserSearchController extends GetxController {
           globalController.user.value.certificate.toString();
       print(contactID);
       response = await customDio.delete(
-        "/user/$userID/contacts/$contactID",
+        "/users/$userID/contacts/$contactID",
         {
           "data": {
             "id": contactID,

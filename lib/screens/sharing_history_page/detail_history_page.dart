@@ -163,33 +163,45 @@ class DetailHistoryPage extends StatelessWidget {
                             ),
                             hideMode
                                 ? Expanded(
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        print(e["id"]);
-                                        print(itemSelected["primaryId"]);
-                                        var ownerId =
-                                            await shareHistoryController
-                                                .getData(
-                                                    primaryId: itemSelected[
-                                                        "primaryId"],
-                                                    serviceId: e["id"]);
-                                        var base64 = getMessage1(ownerId);
-                                        Get.to(() => WebViewPage(
-                                              url: e["viewUrl"] +
-                                                  "?message=$base64",
-                                            ));
-                                      },
-                                      child: Container(
-                                        alignment: Alignment.centerRight,
-                                        child: Text(
-                                          "ビュー",
-                                          style: TextStyle(
-                                            color: Color(0xFF61B3FF),
-                                            fontSize: getWidth(17),
+                                    child: e["status"]
+                                        ? GestureDetector(
+                                            onTap: () async {
+                                              print(e["id"]);
+                                              print(itemSelected["primaryId"]);
+                                              var ownerId =
+                                                  await shareHistoryController
+                                                      .getData(
+                                                          primaryId:
+                                                              itemSelected[
+                                                                  "primaryId"],
+                                                          serviceId: e["id"]);
+                                              var base64 = getMessage1(ownerId);
+                                              Get.to(() => WebViewPage(
+                                                    url: e["viewUrl"] +
+                                                        "?message=$base64",
+                                                  ));
+                                            },
+                                            child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "ビュー",
+                                                style: TextStyle(
+                                                  color: Color(0xFF61B3FF),
+                                                  fontSize: getWidth(17),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : Container(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              "停止",
+                                              style: TextStyle(
+                                                color: Color(0xFF838AA2),
+                                                fontSize: getWidth(17),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                    ),
                                   )
                                 : Container(),
                           ],

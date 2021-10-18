@@ -7,6 +7,7 @@ import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_his
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/detail_history_page.dart';
 import 'package:medical_chain_mobile_ui/services/local_notification_service.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 
 class NotificationController extends GetxController {
   GlobalController globalController = Get.put(GlobalController());
@@ -42,7 +43,7 @@ class NotificationController extends GetxController {
     CustomDio customDio = CustomDio();
     customDio.dio.options.headers["Authorization"] =
         globalController.user.value.certificate.toString();
-    var response = await customDio.get("/requests?id=$id");
+    var response = await customDio.get("/requests/$id");
     print(response);
     var json = jsonDecode(response.toString());
     var list = json["data"];
@@ -67,6 +68,7 @@ class NotificationController extends GetxController {
       service["name"] = list["services"][j]["name"];
       service["icon"] = list["services"][j]["icon"];
       service["viewUrl"] = list["services"][j]["viewUrl"];
+      service["status"] = true;
       item["services"].add(service);
     }
     return item;
@@ -79,6 +81,10 @@ class NotificationController extends GetxController {
       globalController.historyStatus.value = "SENDING_MODE";
     } else if (globalController.user.value.id == item["secondaryId"]) {
       globalController.historyStatus.value = "REQUEST_MODE";
+      var a = await getStatusService(item: item);
+      if (!a) {
+        item["services"][0]["status"] = false;
+      }
     }
     ShareHistoryController shareHistoryController =
         Get.put(ShareHistoryController());
