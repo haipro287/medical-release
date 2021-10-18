@@ -111,12 +111,12 @@ class ShareHistoryController extends GetxController {
           globalController.user.value.certificate.toString();
 
       if (mode == "SENDING_MODE") {
-        response = await customDio.get("/requests/list?", {
+        response = await customDio.get("/users/${userId}requests", {
           "primary_id": userID,
           "status": status,
         });
       } else {
-        response = await customDio.get("/requests/list?", {
+        response = await customDio.get("/users/${userId}requests", {
           "secondary_id": userID,
           "status": status,
         });
@@ -174,6 +174,7 @@ class ShareHistoryController extends GetxController {
   }) async {
     var redirectToNewTab = false;
     var value = 0;
+    var userID = globalController.user.value.id.toString();
     var recordID = itemSelected.value["id"];
     try {
       var response;
@@ -185,7 +186,7 @@ class ShareHistoryController extends GetxController {
         value =
             globalController.editToShareMode.value == "STOP_SHARING" ? 1 : 2;
         response = await customDio.post(
-          '/request/stop',
+          'user/$userId/requests/$recordId/stop',
           {
             "data": {
               "id": recordID,
@@ -198,7 +199,7 @@ class ShareHistoryController extends GetxController {
         value = 1;
         redirectToNewTab = true;
         response = await customDio.post(
-          '/request/accept',
+          'user/$userId/requests/$recordId/accept',
           {
             "data": {
               "id": recordID,
@@ -215,7 +216,7 @@ class ShareHistoryController extends GetxController {
         redirectToNewTab = true;
         value = 4;
         response = await customDio.post(
-          "/request/deny",
+          'user/$userId/requests/$recordId/deny',
           {
             "data": {
               "id": recordID,
@@ -302,7 +303,7 @@ class ShareHistoryController extends GetxController {
         globalController.user.value.certificate.toString();
 
     response = await customDio
-        .get("/request/view?primaryId=$primaryId&serviceId=$serviceId");
+        .get("/requests/view?primaryId=$primaryId&serviceId=$serviceId");
 
     var json = jsonDecode(response.toString());
     print(json["data"]["ownerId"]);

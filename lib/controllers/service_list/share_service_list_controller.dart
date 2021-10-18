@@ -45,7 +45,7 @@ class ShareServiceListController extends GetxController {
       }
 
       if (sharingStatus == "SENT_DATA") {
-        response = await customDio.post("/request/share", {
+        response = await customDio.post("/requests/share", {
           "data": {
             "secondaryId": id,
             "services": services,
@@ -53,7 +53,7 @@ class ShareServiceListController extends GetxController {
           }
         });
       } else {
-        response = await customDio.post("/request/ask", {
+        response = await customDio.post("/requests/ask", {
           "data": {
             "primaryId": id,
             "services": services,
