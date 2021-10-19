@@ -106,7 +106,7 @@ class CustomDio {
 
   Future put(String url, dynamic params) async {
     var finalData;
-    var data = params!["data"];
+    var data = params!["data"] ?? {};
     data = {
       ...data,
       "_actionType": _getActionType("put", url),
@@ -126,7 +126,7 @@ class CustomDio {
 
   Future delete(String url, dynamic params) async {
     var finalData;
-    var data = params!["data"];
+    var data = params!["data"] ?? {};
     data = {
       ...data,
       "_actionType": _getActionType("delete", url),

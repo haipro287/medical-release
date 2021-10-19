@@ -29,31 +29,31 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: getHeight(62),
+              height: getHeight(40),
             ),
             RichText(
               text: TextSpan(
                 text: forgotPasswordController.email.text,
                 style: TextStyle(
-                  color: Color(0xFF2F3842),
-                  fontSize: getWidth(17),
-                  fontWeight: FontWeight.bold,
-                ),
+                    color: Color(0xFF2F3842),
+                    fontSize: getWidth(17),
+                    fontWeight: FontWeight.bold,
+                    height: 1.8),
                 children: [
                   TextSpan(
-                      text: "resetPasswordOTP1".tr,
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                      ))
+                    text: "resetPasswordOTP1".tr,
+                    style:
+                        TextStyle(fontWeight: FontWeight.normal, height: 1.8),
+                  )
                 ],
               ),
             ),
             Text(
               "resetPasswordOTP2".tr,
               style: TextStyle(
-                color: Color(0xFF2F3842),
-                fontSize: getWidth(17),
-              ),
+                  color: Color(0xFF2F3842),
+                  fontSize: getWidth(17),
+                  height: 1.8),
             ),
             SizedBox(
               height: getHeight(22),

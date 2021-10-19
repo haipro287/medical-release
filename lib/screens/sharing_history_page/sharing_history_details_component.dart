@@ -36,11 +36,16 @@ Widget historyDetailComponent({required record}) {
       }
     },
     child: Container(
-      color: Colors.white,
       margin: EdgeInsets.only(
         left: getWidth(16),
         right: getWidth(16),
         bottom: getHeight(20),
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(
+          getWidth(4),
+        ),
+        color: Colors.white,
       ),
       child: Column(
         children: [
@@ -50,7 +55,6 @@ Widget historyDetailComponent({required record}) {
               bottom: getHeight(10),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SvgPicture.asset(
                     'assets/images/jp_${record["status"]}_tag.svg'),
@@ -313,6 +317,7 @@ Widget historyDetailComponent({required record}) {
                                                             ),
                                                           ),
                                                           onPress: () async {
+                                                            print("a");
                                                             if (shareHistoryController
                                                                     .isClickDetele ==
                                                                 false) {
@@ -324,6 +329,15 @@ Widget historyDetailComponent({required record}) {
                                                                     .deleteHistory(
                                                                         item:
                                                                             record);
+                                                                var records = await shareHistoryController.getRecords(shareHistoryController.getStatusFromValue(
+                                                                    globalController
+                                                                        .recordsTabMode
+                                                                        .value));
+                                                                shareHistoryController
+                                                                        .searchList
+                                                                        .value =
+                                                                    records;
+                                                                Get.back();
                                                                 shareHistoryController
                                                                         .isClickDetele =
                                                                     false;

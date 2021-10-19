@@ -62,7 +62,7 @@ class ShareHistoryController extends GetxController {
       isHideNotiSearch.value = false;
       searchList.value = historyRecords.value.where((ele) {
         String pattern = searchInput.text.toLowerCase();
-        var listCheck = ["username", "name", "kanji", "romanji"];
+        var listCheck = ["username", "kanji", "katakana"];
         for (int i = 0; i < listCheck.length; i++) {
           if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern))
             return true;

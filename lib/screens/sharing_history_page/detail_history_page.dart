@@ -184,7 +184,7 @@ class DetailHistoryPage extends StatelessWidget {
                                             child: Container(
                                               alignment: Alignment.centerRight,
                                               child: Text(
-                                                "ビュー",
+                                                "参照",
                                                 style: TextStyle(
                                                   color: Color(0xFF61B3FF),
                                                   fontSize: getWidth(17),
