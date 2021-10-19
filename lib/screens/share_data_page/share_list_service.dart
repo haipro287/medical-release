@@ -220,7 +220,7 @@ class ShareListService extends StatelessWidget {
                                       children: [
                                         Container(
                                           width: 50,
-                                          child: e["status"] == "sharing"
+                                          child: e["status"] == ""
                                               ? Checkbox(
                                                   value:
                                                       shareServiceListController
