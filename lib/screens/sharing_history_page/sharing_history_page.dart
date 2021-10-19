@@ -10,7 +10,6 @@ import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
 import 'package:medical_chain_mobile_ui/widgets/search_navigator.dart';
-import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ShareHistoryPage extends StatelessWidget {
   GlobalController globalController = Get.put(GlobalController());
@@ -42,61 +41,89 @@ class ShareHistoryPage extends StatelessWidget {
             onSearch: sharingHistoryController.search,
           ),
           sharingHistoryNavigator(controller: sharingHistoryController),
-          Obx(
-            () => sharingHistoryController.isHideNotiSearch.value
-                ? Container(
-                    color: Color(0xFFABD6FE),
-                    height: getHeight(20),
-                  )
-                : customBoxHeader(
-                    sharingHistoryController.searchInput.text +
-                        " " +
-                        "so".tr +
-                        " " +
-                        sharingHistoryController.searchList.length.toString() +
-                        "records_result".tr,
-                  ),
-          ),
           Expanded(
             child: Container(
               color: Color(0xFFABD6FE),
-              child: PageView(
-                controller: sharingHistoryController.pageController,
-                physics: NeverScrollableScrollPhysics(),
-                children: List.generate(5, (index) {
-                  return Container(
-                    alignment: Alignment.center,
-                    child:
-                        Obx(() => sharingHistoryController.searchList.length > 0
-                            ? ListView(
-                                children: sharingHistoryController.searchList
-                                    .map((e) =>
-                                        historyDetailComponent(record: e))
-                                    .toList(),
-                              )
-                            : Column(
-                                children: [
-                                  SizedBox(
-                                    height: getHeight(41.15),
-                                  ),
-                                  Container(
-                                    child: SvgPicture.asset(
-                                        "assets/images/empty-records.svg"),
-                                  ),
-                                  SizedBox(
-                                    height: getHeight(33.3),
-                                  ),
-                                  Text(
-                                    "emptyRecords".tr,
-                                    style: TextStyle(fontSize: getWidth(17)),
-                                  ),
-                                ],
-                              )),
-                  );
-                }),
+              child: Column(
+                children: [
+                  Obx(() => sharingHistoryController.isHideNotiSearch.value
+                      ? Container(
+                          color: Color(0xFFABD6FE),
+                          height: getHeight(20),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFABD6FE),
+                            border: Border.all(
+                              color: Color(0xFFABD6FE),
+                              width: getHeight(1),
+                            ),
+                          ),
+                          height: getHeight(56),
+                          child: Row(
+                            children: [
+                              SizedBox(width: getWidth(15)),
+                              Text(
+                                sharingHistoryController.searchInput.text +
+                                    " " +
+                                    "so".tr +
+                                    " " +
+                                    sharingHistoryController.searchList.length
+                                        .toString() +
+                                    "records_result".tr,
+                                style: TextStyle(fontSize: getWidth(13)),
+                              ),
+                            ],
+                          ),
+                          alignment: Alignment.centerLeft,
+                        )),
+                  Expanded(
+                    child: Container(
+                      color: Color(0xFFABD6FE),
+                      child: PageView(
+                        controller: sharingHistoryController.pageController,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: List.generate(5, (index) {
+                          return Container(
+                            alignment: Alignment.center,
+                            child: Obx(() => sharingHistoryController
+                                        .searchList.length >
+                                    0
+                                ? ListView(
+                                    children: sharingHistoryController
+                                        .searchList
+                                        .map((e) =>
+                                            historyDetailComponent(record: e))
+                                        .toList(),
+                                  )
+                                : Column(
+                                    children: [
+                                      SizedBox(
+                                        height: getHeight(41.15),
+                                      ),
+                                      Container(
+                                        child: SvgPicture.asset(
+                                            "assets/images/empty-records.svg"),
+                                      ),
+                                      SizedBox(
+                                        height: getHeight(33.3),
+                                      ),
+                                      Text(
+                                        "emptyRecords".tr,
+                                        style:
+                                            TextStyle(fontSize: getWidth(17)),
+                                      ),
+                                    ],
+                                  )),
+                          );
+                        }),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
+          )
         ]),
       ),
     );

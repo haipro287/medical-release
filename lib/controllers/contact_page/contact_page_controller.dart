@@ -36,7 +36,7 @@ class ContactPageController extends GetxController {
       response = await customDio.get('/users/$userID/contacts');
       var json = jsonDecode(response.toString());
 
-      var responseData = json['data']['contacts'] ?? [];
+      var responseData = json['data']['results'] ?? [];
 
       print({'responseData': responseData});
 

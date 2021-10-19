@@ -5,9 +5,9 @@ import 'package:medical_chain_mobile_ui/utils/config.dart';
 Container customBoxHeader(text) {
   return Container(
     decoration: BoxDecoration(
-      color: Color(0xFFABD6FE),
+      color: Color(0xFFF6F7FB),
       border: Border.all(
-        color: Color(0xFFABD6FE),
+        color: Color(0xFFF6F7FB),
         width: getHeight(1),
       ),
     ),
