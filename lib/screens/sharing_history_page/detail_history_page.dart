@@ -29,28 +29,31 @@ class DetailHistoryPage extends StatelessWidget {
     List<dynamic> servicesList = itemSelected["services"];
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: hideMode
+      bottomNavigationBar: shareHistoryController.itemSelected["status"] ==
+              "invalid"
           ? null
-          : (globalController.historyStatus.value == "REQUEST_MODE" &&
-                  itemSelected["status"] == "pending")
+          : hideMode
               ? null
-              : Padding(
-                  padding: EdgeInsets.only(top: getHeight(12)),
-                  child: mode
-                      ? sentButtonContainer(
-                          sharingStatus:
-                              shareHistoryController.itemSelected["status"] ??
+              : (globalController.historyStatus.value == "REQUEST_MODE" &&
+                      itemSelected["status"] == "pending")
+                  ? null
+                  : Padding(
+                      padding: EdgeInsets.only(top: getHeight(12)),
+                      child: mode
+                          ? sentButtonContainer(
+                              sharingStatus: shareHistoryController
+                                      .itemSelected["status"] ??
                                   "pending",
-                          shareHistoryController: shareHistoryController,
-                          context: context,
-                          itemSelected: itemSelected)
-                      : requestButtonContainer(
-                          sharingStatus:
-                              shareHistoryController.itemSelected["status"],
-                          shareHistoryController: shareHistoryController,
-                          context: context,
-                        ),
-                ),
+                              shareHistoryController: shareHistoryController,
+                              context: context,
+                              itemSelected: itemSelected)
+                          : requestButtonContainer(
+                              sharingStatus:
+                                  shareHistoryController.itemSelected["status"],
+                              shareHistoryController: shareHistoryController,
+                              context: context,
+                            ),
+                    ),
       appBar: mode
           ? appBarWithButton(
               context,
@@ -490,6 +493,9 @@ Color colorTag(String sharingStatus) {
       break;
     case "rejected":
       result = Color(0xFFED4D4D);
+      break;
+    case "invalid":
+      result = Color(0xFF878C92);
       break;
     default:
       result = Color(0xFFFFBC0F);

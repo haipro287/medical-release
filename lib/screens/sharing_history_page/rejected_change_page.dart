@@ -32,11 +32,6 @@ class RejectedChangePage extends StatelessWidget {
       appBar: appBarWithButton(
         context,
         "detail_request".tr,
-        InkWell(
-          onTap: () {
-            shareHistoryController.editToShare("SENT_DATA");
-          },
-        ),
       ),
       backgroundColor: Colors.white,
       body: Container(

@@ -120,6 +120,7 @@ class Messages extends Translations {
           "sharing_color": "共有中",
           "expired_color": "共有中止 ",
           "rejected_color": "拒否",
+          "invalid_color": "無効",
           "expired_reqModeBtn": "リクエスト送信",
           "sharing_reqModeBtn": "ビュー",
           "rejected_reqModeBtn": "リクエスト再送信",

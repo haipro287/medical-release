@@ -188,7 +188,7 @@ class ShareHistoryController extends GetxController {
         value =
             globalController.editToShareMode.value == "STOP_SHARING" ? 1 : 2;
         response = await customDio.post(
-          'users/$userID/requests/$recordID/stop',
+          '/users/$userID/requests/$recordID/stop',
           {
             "data": {
               "id": recordID,
@@ -201,7 +201,7 @@ class ShareHistoryController extends GetxController {
         value = 1;
         redirectToNewTab = true;
         response = await customDio.post(
-          'users/$userID/requests/$recordID/accept',
+          '/users/$userID/requests/$recordID/accept',
           {
             "data": {
               "id": recordID,
@@ -218,7 +218,7 @@ class ShareHistoryController extends GetxController {
         redirectToNewTab = true;
         value = 4;
         response = await customDio.post(
-          'users/$userID/requests/$recordID/deny',
+          '/users/$userID/requests/$recordID/deny',
           {
             "data": {
               "id": recordID,
@@ -283,8 +283,9 @@ class ShareHistoryController extends GetxController {
       userData["secondaryId"] = itemSelected['primaryId'];
     }
     userData["name"] = itemSelected['name'];
+    userData["avatar"] = itemSelected['avatar'];
     userData["secondaryUsername"] = itemSelected["username"];
-    userData["romanji"] = itemSelected["romanji"];
+    userData["katakana"] = itemSelected["katakana"];
     userData["kanji"] = itemSelected["kanji"];
     print("itemSeeee: " + itemSelected["id"]);
     print("itemSeeee: " + itemSelected["secondaryId"]);
