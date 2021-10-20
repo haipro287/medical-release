@@ -38,12 +38,12 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
                     color: Color(0xFF2F3842),
                     fontSize: getWidth(17),
                     fontWeight: FontWeight.bold,
-                    height: 1.8),
+                    height: 1.2),
                 children: [
                   TextSpan(
                     text: "resetPasswordOTP1".tr,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, height: 1.8),
+                        TextStyle(fontWeight: FontWeight.normal, height: 1.2),
                   )
                 ],
               ),
@@ -53,7 +53,7 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
               style: TextStyle(
                   color: Color(0xFF2F3842),
                   fontSize: getWidth(17),
-                  height: 1.8),
+                  height: 1.2),
             ),
             SizedBox(
               height: getHeight(22),
