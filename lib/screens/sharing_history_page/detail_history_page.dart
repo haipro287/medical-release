@@ -55,18 +55,6 @@ class DetailHistoryPage extends StatelessWidget {
           ? appBarWithButton(
               context,
               subMode ? "detail_sharing".tr : "detail_request".tr,
-              itemSelected["status"] != "pending"
-                  ? null
-                  : InkWell(
-                      onTap: () {
-                        shareHistoryController.editToShare("SENT_DATA");
-                      },
-                      child: Text(
-                        'edit'.tr,
-                        style: TextStyle(
-                            color: Colors.blue, fontSize: getWidth(17)),
-                      ),
-                    ),
             )
           : appBar(context, subMode ? "data_reference".tr : "data_request".tr),
       backgroundColor: Colors.white,

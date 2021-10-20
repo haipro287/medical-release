@@ -188,7 +188,7 @@ class ShareHistoryController extends GetxController {
         value =
             globalController.editToShareMode.value == "STOP_SHARING" ? 1 : 2;
         response = await customDio.post(
-          'user/$userID/requests/$recordID/stop',
+          'users/$userID/requests/$recordID/stop',
           {
             "data": {
               "id": recordID,
@@ -201,7 +201,7 @@ class ShareHistoryController extends GetxController {
         value = 1;
         redirectToNewTab = true;
         response = await customDio.post(
-          'user/$userID/requests/$recordID/accept',
+          'users/$userID/requests/$recordID/accept',
           {
             "data": {
               "id": recordID,
@@ -218,7 +218,7 @@ class ShareHistoryController extends GetxController {
         redirectToNewTab = true;
         value = 4;
         response = await customDio.post(
-          'user/$userID/requests/$recordID/deny',
+          'users/$userID/requests/$recordID/deny',
           {
             "data": {
               "id": recordID,

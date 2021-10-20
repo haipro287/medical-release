@@ -36,10 +36,6 @@ class RejectedChangePage extends StatelessWidget {
           onTap: () {
             shareHistoryController.editToShare("SENT_DATA");
           },
-          child: Text(
-            'edit'.tr,
-            style: TextStyle(color: Colors.blue, fontSize: getWidth(17)),
-          ),
         ),
       ),
       backgroundColor: Colors.white,
