@@ -12,6 +12,14 @@ class TimeService {
     return time;
   }
 
+  static DateTime? stringToDateTime2(int dateTime) {
+    if (dateTime == null) return null;
+    DateTime temp = DateTime.fromMicrosecondsSinceEpoch(dateTime * 1000 * 1000);
+    DateTime time = temp
+        .add(Duration(hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
+    return time;
+  }
+
   static DateTime stringToDateTime3(String dateTime) {
     return DateTime.now();
   }

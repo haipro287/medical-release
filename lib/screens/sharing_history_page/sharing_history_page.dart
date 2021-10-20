@@ -46,37 +46,44 @@ class ShareHistoryPage extends StatelessWidget {
               color: Color(0xFFABD6FE),
               child: Column(
                 children: [
-                  Obx(() => sharingHistoryController.isHideNotiSearch.value
-                      ? Container(
-                          color: Color(0xFFABD6FE),
-                          height: getHeight(20),
-                        )
-                      : Container(
-                          decoration: BoxDecoration(
+                  Obx(
+                    () => sharingHistoryController.isHideNotiSearch.value
+                        ? Container(
                             color: Color(0xFFABD6FE),
-                            border: Border.all(
+                            height: getHeight(20),
+                          )
+                        : Container(
+                            decoration: BoxDecoration(
                               color: Color(0xFFABD6FE),
-                              width: getHeight(1),
-                            ),
-                          ),
-                          height: getHeight(56),
-                          child: Row(
-                            children: [
-                              SizedBox(width: getWidth(15)),
-                              Text(
-                                sharingHistoryController.searchInput.text +
-                                    " " +
-                                    "so".tr +
-                                    " " +
-                                    sharingHistoryController.searchList.length
-                                        .toString() +
-                                    "records_result".tr,
-                                style: TextStyle(fontSize: getWidth(13)),
+                              border: Border.all(
+                                color: Color(0xFFABD6FE),
+                                width: getHeight(1),
                               ),
-                            ],
+                            ),
+                            height: getHeight(56),
+                            child: Row(
+                              children: [
+                                SizedBox(width: getWidth(15)),
+                                sharingHistoryController.searchList.length == 0
+                                    ? Container()
+                                    : Text(
+                                        sharingHistoryController
+                                                .searchInput.text +
+                                            " " +
+                                            "so".tr +
+                                            " " +
+                                            sharingHistoryController
+                                                .searchList.length
+                                                .toString() +
+                                            "records_result".tr,
+                                        style:
+                                            TextStyle(fontSize: getWidth(13)),
+                                      ),
+                              ],
+                            ),
+                            alignment: Alignment.centerLeft,
                           ),
-                          alignment: Alignment.centerLeft,
-                        )),
+                  ),
                   Expanded(
                     child: Container(
                       color: Color(0xFFABD6FE),

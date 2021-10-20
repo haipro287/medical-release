@@ -219,7 +219,6 @@ class EditMyAccountScreen extends StatelessWidget {
                             if (editMyAccountController.isValid()) {
                               if (myAccountController.email.value !=
                                   editMyAccountController.email.text) {
-                                // editMyAccountController.signup.value = false;
                                 editMyAccountController.changeEmailNotSignUp =
                                     true;
                                 LoginPageController loginPageController =
@@ -239,8 +238,9 @@ class EditMyAccountScreen extends StatelessWidget {
                                   romanji:
                                       editMyAccountController.katakanaName.text,
                                   mail: editMyAccountController.email.text,
-                                  birthday: TimeService.timeToBackEnd(
-                                      editMyAccountController.birthday),
+                                  birthday: editMyAccountController
+                                          .birthday.millisecondsSinceEpoch ~/
+                                      1000,
                                   pid: editMyAccountController.citizenCode.text,
                                   phone: editMyAccountController.phone.text,
                                   avatar: editMyAccountController.avatar.value,
@@ -250,9 +250,13 @@ class EditMyAccountScreen extends StatelessWidget {
                                       await myAccountController.requestMailOTP(
                                           editMyAccountController.email.text);
                                   Get.put(SignupPageController()).otpId = otp;
-                                  if (myAccountController.editError.value == "")
+                                  if (myAccountController.editError.value ==
+                                      "") {
                                     Get.off(() => ConfirmSignupScreen(
                                         type: "signup_edit_mail"));
+                                    editMyAccountController.signup.value =
+                                        false;
+                                  }
                                 }
                               } else {
                                 print("dsadsa");
@@ -279,8 +283,9 @@ class EditMyAccountScreen extends StatelessWidget {
                                     romanji: editMyAccountController
                                         .katakanaName.text,
                                     mail: editMyAccountController.email.text,
-                                    birthday: TimeService.timeToBackEnd(
-                                        editMyAccountController.birthday),
+                                    birthday: editMyAccountController
+                                            .birthday.millisecondsSinceEpoch ~/
+                                        1000,
                                     pid: editMyAccountController
                                         .citizenCode.text,
                                     phone: editMyAccountController.phone.text,
@@ -351,8 +356,9 @@ class EditMyAccountScreen extends StatelessWidget {
                                       romanji: editMyAccountController
                                           .katakanaName.text,
                                       mail: myAccountController.email.value,
-                                      birthday: TimeService.timeToBackEnd(
-                                          editMyAccountController.birthday),
+                                      birthday: editMyAccountController.birthday
+                                              .millisecondsSinceEpoch ~/
+                                          1000,
                                       pid: editMyAccountController
                                           .citizenCode.text,
                                       phone: editMyAccountController.phone.text,
@@ -382,8 +388,9 @@ class EditMyAccountScreen extends StatelessWidget {
                                       romanji: editMyAccountController
                                           .katakanaName.text,
                                       mail: editMyAccountController.email.text,
-                                      birthday: TimeService.timeToBackEnd(
-                                          editMyAccountController.birthday),
+                                      birthday: editMyAccountController.birthday
+                                              .millisecondsSinceEpoch ~/
+                                          1000,
                                       pid: editMyAccountController
                                           .citizenCode.text,
                                       phone: editMyAccountController.phone.text,

@@ -84,7 +84,7 @@ class SignupSuccessScreen extends StatelessWidget {
                       var signupController = Get.put(SignupPageController());
                       var editMyAccountController =
                           Get.put(EditMyAccountController());
-                      editMyAccountController.signup.value = false;
+                      editMyAccountController.signup.value = true;
                       editMyAccountController.email.text =
                           signupController.email.text;
                       editMyAccountController.phone.text =
