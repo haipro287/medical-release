@@ -46,6 +46,6 @@ Future updatePrivacy({required bool status}) async {
   } catch (e, s) {
     print(e);
     print(s);
-    return null;
+    return false;
   }
 }

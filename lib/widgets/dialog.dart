@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/scanQRController/scanQR_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/list_service/list_service_screen.dart';
@@ -19,7 +20,7 @@ class CustomDialog {
   void show([optionData]) {
     AlertDialog alert;
     if (type == "DELETE_CONTACT") {
-      alert = deleteDialog(context);
+      alert = deleteDialog(context, scan: optionData["scan"]);
     } else if (type == "CHANGE_PASSWORD") {
       alert = changePasswordDialog(context);
     } else if (type == "RESET_PASSWORD") {
@@ -44,7 +45,7 @@ class CustomDialog {
   }
 }
 
-AlertDialog deleteDialog(context) {
+AlertDialog deleteDialog(context, {bool? scan}) {
   UserSearchController userSearchController = Get.put(UserSearchController());
   return AlertDialog(
     content: Container(
@@ -104,7 +105,12 @@ AlertDialog deleteDialog(context) {
                       ),
                       onPressed: () async {
                         var a = await userSearchController.deleteContact();
-                        // Navigator.of(context).pop();
+                        if (scan != null && scan == true) {
+                          Get.put(QrScanController())
+                              .controller!
+                              .resumeCamera();
+                          Get.put(QrScanController()).qr = "";
+                        }
                         Get.back();
                         Get.back();
                       },

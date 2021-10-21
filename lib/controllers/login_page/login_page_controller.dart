@@ -28,12 +28,12 @@ class LoginPageController extends GetxController {
 
   @override
   void onInit() {
-    password.addListener(() {
-      messValidatePassword.value = "";
-    });
-    username.addListener(() {
-      messValidateUsername.value = "";
-    });
+    // password.addListener(() {
+    //   messValidatePassword.value = "";
+    // });
+    // username.addListener(() {
+    //   messValidateUsername.value = "";
+    // });
     super.onInit();
   }
 

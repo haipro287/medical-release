@@ -53,7 +53,8 @@ class UserSavedScreen extends StatelessWidget {
                 "",
                 GestureDetector(
                   onTap: () async {
-                    CustomDialog(context, "DELETE_CONTACT").show();
+                    CustomDialog(context, "DELETE_CONTACT")
+                        .show({"scan": scan == "scan"});
                   },
                   child: Container(
                     padding: EdgeInsets.all(6),

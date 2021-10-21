@@ -240,10 +240,10 @@ Widget switchService(
                                           height: getHeight(26),
                                         ),
                                         RichText(
-                                          textAlign: TextAlign.center,
+                                          textAlign: TextAlign.justify,
                                           text: TextSpan(children: [
                                             TextSpan(
-                                              text: "ブロックチェーンアプリ",
+                                              text: "ブロックチェーンアプリと",
                                               style: TextStyle(
                                                   fontSize: getWidth(17),
                                                   height: 1.5,
@@ -258,22 +258,8 @@ Widget switchService(
                                                   color: Colors.black),
                                             ),
                                             TextSpan(
-                                              text: "の連携を停止しますか？共有された",
-                                              style: TextStyle(
-                                                  fontSize: getWidth(17),
-                                                  height: 1.5,
-                                                  color: Colors.black),
-                                            ),
-                                            TextSpan(
-                                              text: serviceName,
-                                              style: TextStyle(
-                                                  fontSize: getWidth(17),
-                                                  height: 1.5,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),
-                                            TextSpan(
-                                              text: "のデータに影響ありません。",
+                                              text:
+                                                  "の連携を停止しますか？過去にこのサービスに関するデータ共有も停止になります。",
                                               style: TextStyle(
                                                   fontSize: getWidth(17),
                                                   height: 1.5,

@@ -332,8 +332,8 @@ class UserScreen extends StatelessWidget {
                                 Obx(() {
                                   return CupertinoSwitch(
                                     value: privacyController.privacy.value,
-                                    onChanged: (bool value) async {
-                                      await privacyController.upPrivacy(value);
+                                    onChanged: (bool value) {
+                                      privacyController.upPrivacy(value);
                                     },
                                   );
                                 })

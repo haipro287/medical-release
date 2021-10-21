@@ -11,6 +11,7 @@ import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.da
 import 'package:medical_chain_mobile_ui/screens/my_account/edit_my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
@@ -91,6 +92,7 @@ class LoginPageScreen extends StatelessWidget {
                   try {
                     if (loginController.isClick == false) {
                       loginController.isClick = true;
+                      showLoading();
                       bool result = await loginController.login();
                       if (result) {
                         var info =
@@ -99,20 +101,28 @@ class LoginPageScreen extends StatelessWidget {
                           MyAccountController myAccountController =
                               Get.put(MyAccountController());
                           if (myAccountController.kanjiName.value == "") {
+                            Get.back();
                             Get.put(EditMyAccountController()).signup.value =
                                 true;
                             Get.to(() => EditMyAccountScreen());
                           } else {
+                            Get.back();
                             Get.offAll(() => HomePageScreen());
                             Get.put(GlobalController()).onChangeTab(0);
                           }
                           // loginController.username.clear();
                           // loginController.password.clear();
+                        } else {
+                          Get.back();
                         }
+                      } else {
+                        Get.back();
                       }
+
                       loginController.isClick = false;
                     }
                   } catch (E) {
+                    Get.back();
                     loginController.isClick = false;
                   }
                 },

@@ -66,10 +66,10 @@ Widget historyDetailComponent({required record}) {
                     children: [
                       Text(mode
                           ? (subMode
-                              ? 'dataReceiver'.tr
+                              ? 'dataReceiver'.tr + ':'
                               : 'requestSender'.tr + ':')
                           : (subMode
-                              ? 'dataSender'.tr
+                              ? 'dataSender'.tr + ':'
                               : 'requestReceived'.tr + ':')),
                       SizedBox(
                         width: getWidth(8),
@@ -385,11 +385,13 @@ Widget historyDetailComponent({required record}) {
           alignment: Alignment.topLeft,
           child: Container(
             padding: EdgeInsets.only(
-              top: getHeight(7),
+              top: getHeight(4),
               left: getHeight(10),
             ),
             child: SvgPicture.asset(
-                'assets/images/jp_${record["status"]}_tag.svg'),
+              'assets/images/jp_${record["status"]}_tag.svg',
+              width: getWidth(75),
+            ),
           ),
         )
       ],

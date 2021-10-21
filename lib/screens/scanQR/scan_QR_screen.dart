@@ -10,6 +10,7 @@ import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/screens/contact_page/user_saved_screen.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -120,8 +121,8 @@ class ScanQRScreen extends StatelessWidget {
                                 dataModuleShape: QrDataModuleShape.circle,
                                 color: Colors.black,
                               ),
-                              embeddedImage:
-                                  AssetImage("assets/images/avatar.png"),
+                              // embeddedImage:
+                              //     AssetImage("assets/images/avatar.png"),
                               embeddedImageStyle: QrEmbeddedImageStyle(
                                 size: Size(
                                   getWidth(30),
@@ -292,6 +293,7 @@ class ScanQRScreen extends StatelessWidget {
       if (scanData.code != qrScanController.qr.toString() &&
           scanData.code != Get.put(GlobalController()).user.value.id) {
         try {
+          showLoading();
           qrScanController.qr = scanData.code;
           var response;
           CustomDio customDio = CustomDio();
@@ -325,10 +327,12 @@ class ScanQRScreen extends StatelessWidget {
           userSearchController.userData.value = item;
           userSearchController.isEditing.value = false;
           userSearchController.searchInput.text = responseData["username"];
+          Get.back();
           Get.to(() => UserSavedScreen(
                 scan: "scan",
               ));
         } catch (e) {
+          Get.back();
           controller.resumeCamera();
         }
       }
