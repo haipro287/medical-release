@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
+import 'package:medical_chain_mobile_ui/models/GMT.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 
@@ -158,7 +159,9 @@ class MyAccountController extends GetxController {
         myAccountController.kanjiName.value = data['kanji'].toString();
         myAccountController.katakanaName.value = data['katakana'].toString();
         myAccountController.dob.value =
-            DateTime.fromMicrosecondsSinceEpoch(data['birthday'] * 1000 * 1000);
+            DateTime.fromMicrosecondsSinceEpoch(data['birthday'] * 1000 * 1000)
+                .add(Duration(
+                    hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
         myAccountController.email.value = data['mail'].toString();
         myAccountController.phoneNumber.value = data['phone'].toString();
         myAccountController.citizenCode.value = data['pid'].toString();

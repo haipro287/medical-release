@@ -14,7 +14,12 @@ class TimeService {
 
   static DateTime? stringToDateTime2(int dateTime) {
     if (dateTime == null) return null;
-    DateTime temp = DateTime.fromMicrosecondsSinceEpoch(dateTime * 1000 * 1000);
+    DateTime temp;
+    if (dateTime.toString().length >= 13)
+      temp = DateTime.fromMicrosecondsSinceEpoch(dateTime * 1000);
+    else
+      temp = DateTime.fromMicrosecondsSinceEpoch(dateTime * 1000 * 1000);
+
     DateTime time = temp
         .add(Duration(hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
     return time;
@@ -29,8 +34,10 @@ class TimeService {
     return "time";
   }
 
-  static String dateTimeToString(DateTime dateTime) {
-    return DateFormat("yyyy-MM-dd HH:mm:ss").format(dateTime);
+  static int dateTimeToString(DateTime dateTime) {
+    DateTime time = dateTime.subtract(
+        Duration(hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
+    return time.millisecondsSinceEpoch ~/ 1000;
   }
 
   static String dateTimeToString2(DateTime dateTime) {

@@ -238,9 +238,8 @@ class EditMyAccountScreen extends StatelessWidget {
                                   romanji:
                                       editMyAccountController.katakanaName.text,
                                   mail: editMyAccountController.email.text,
-                                  birthday: editMyAccountController
-                                          .birthday.millisecondsSinceEpoch ~/
-                                      1000,
+                                  birthday: TimeService.dateTimeToString(
+                                      editMyAccountController.birthday),
                                   pid: editMyAccountController.citizenCode.text,
                                   phone: editMyAccountController.phone.text,
                                   avatar: editMyAccountController.avatar.value,
@@ -283,9 +282,8 @@ class EditMyAccountScreen extends StatelessWidget {
                                     romanji: editMyAccountController
                                         .katakanaName.text,
                                     mail: editMyAccountController.email.text,
-                                    birthday: editMyAccountController
-                                            .birthday.millisecondsSinceEpoch ~/
-                                        1000,
+                                    birthday: TimeService.dateTimeToString(
+                                        editMyAccountController.birthday),
                                     pid: editMyAccountController
                                         .citizenCode.text,
                                     phone: editMyAccountController.phone.text,
@@ -356,9 +354,8 @@ class EditMyAccountScreen extends StatelessWidget {
                                       romanji: editMyAccountController
                                           .katakanaName.text,
                                       mail: myAccountController.email.value,
-                                      birthday: editMyAccountController.birthday
-                                              .millisecondsSinceEpoch ~/
-                                          1000,
+                                      birthday: TimeService.dateTimeToString(
+                                          editMyAccountController.birthday),
                                       pid: editMyAccountController
                                           .citizenCode.text,
                                       phone: editMyAccountController.phone.text,
@@ -388,9 +385,8 @@ class EditMyAccountScreen extends StatelessWidget {
                                       romanji: editMyAccountController
                                           .katakanaName.text,
                                       mail: editMyAccountController.email.text,
-                                      birthday: editMyAccountController.birthday
-                                              .millisecondsSinceEpoch ~/
-                                          1000,
+                                      birthday: TimeService.dateTimeToString(
+                                          editMyAccountController.birthday),
                                       pid: editMyAccountController
                                           .citizenCode.text,
                                       phone: editMyAccountController.phone.text,
