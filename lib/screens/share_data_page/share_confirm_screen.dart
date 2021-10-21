@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
-import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/user_search_page/user_search_controller.dart';
@@ -12,6 +11,7 @@ import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart'
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_page.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
@@ -55,6 +55,7 @@ class ShareConfirmScreen extends StatelessWidget {
               if (isClick == false) {
                 isClick = true;
                 try {
+                  showLoading();
                   var editMode = globalController.editToShareMode.value;
                   if (editMode == "STOP_SHARING") {
                     var stopResult =
@@ -82,14 +83,15 @@ class ShareConfirmScreen extends StatelessWidget {
                             ? 1
                             : 3;
                     globalController.recordsTabMode.value = tabChange;
-
+                    Get.back();
                     Get.offAll(() => HomePageScreen());
-                    Get.put(HomePageController()).onChangeTab(0);
+                    globalController.onChangeTab(0);
                     Get.to(() => ShareHistoryPage());
                   }
 
                   if (result["success"] == false) {
                     print({"servicesss": result["services"]});
+                    Get.back();
                     CustomDialog(context, "ALREADY_SHARED")
                         .show({"servicesList": result["services"]});
                   }

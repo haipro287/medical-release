@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/api/signature_service.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
+import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 String getMessage(String serviceId) {
   String messageSign = jsonEncode({
@@ -68,4 +70,43 @@ Future<dynamic> getStatusService({required dynamic item}) async {
     return true;
   } else
     return false;
+}
+
+void showLoading() {
+  showDialog(
+      barrierDismissible: false,
+      context: Get.context!,
+      barrierColor: Colors.black38,
+      builder: (builder) {
+        return WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: Container(
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(
+                    getWidth(5),
+                  ),
+                ),
+                child: Material(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0)),
+                  child: Padding(
+                    padding: EdgeInsets.all(getWidth(10)),
+                    child: Image.asset(
+                      "assets/images/wifi.gif",
+                      width: getWidth(90),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      });
 }

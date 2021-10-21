@@ -10,6 +10,7 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/models/status.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/services/response_validator.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 
 class ChangePasswordController extends GetxController {
@@ -77,9 +78,9 @@ class ChangePasswordController extends GetxController {
     var text = newPassword.text;
     var confirmText = confirmPassword.text;
     if (confirmText == "") {
-      return "再入力新パスワードを入力してください。";
+      return "新パスワード確認入力を実施してください。";
     } else if (text != confirmText) {
-      return "再入力新パスワードは合っていません。";
+      return "新パスワードと確認入力されたパスワードが一致していません。";
     } else {
       return "";
     }
@@ -182,6 +183,7 @@ class ChangePasswordController extends GetxController {
       errPassword.value = "";
       if (errNewPassword.value == "" && errConfirmPassword.value == "") {
         // Todo change password api
+        showLoading();
         print(password.text);
         // var truePassword = await checkPassword(password.text);
         var truePassword = checkCurrentPassword(password.text);
@@ -221,13 +223,15 @@ class ChangePasswordController extends GetxController {
             password.clear();
             newPassword.clear();
             confirmPassword.clear();
-
+            Get.back();
             CustomDialog(context, "CHANGE_PASSWORD").show();
           } else {
             print('debug2');
+            Get.back();
             errPassword.value = "エラーが発生しました。";
           }
         } else {
+          Get.back();
           print('debug3');
           errPassword.value = "パスワードが合っていません。";
         }

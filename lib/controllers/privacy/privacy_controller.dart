@@ -39,7 +39,7 @@ class PrivacyController extends GetxController {
         .unSubcribe(token: token.toString());
     print(unSubcribe);
     Get.put(GlobalController()).db.deleteFromDisk();
-    Get.put(HomePageController()).onChangeTab(0);
+    Get.put(GlobalController()).onChangeTab(0);
     Get.offAll(() => LoginWelcomePage());
   }
 

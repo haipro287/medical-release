@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/privacy/privacy_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_tab_screen.dart';
@@ -17,7 +18,7 @@ class HomePageScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         bottomNavigationBar: bottomNavigator(),
         body: PageView(
-          controller: homePageController.pageController,
+          controller: Get.put(GlobalController()).pageController,
           physics: NeverScrollableScrollPhysics(),
           children: [
             HomePageTabScreen(),

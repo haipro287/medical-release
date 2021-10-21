@@ -20,356 +20,379 @@ Widget historyDetailComponent({required record}) {
   List<dynamic> serviceList = record["services"];
   var mode = globalController.historyStatus.value == "SENDING_MODE";
   var subMode = ["sharing", "expired"].contains(record["status"]);
-  return GestureDetector(
-    onTap: () async {
-      if (record["status"] != "invalid") {
-        var item = await Get.put(NotificationController())
-            .getRequest(id: record["id"]);
-        if (!mode) {
-          var a = await shareHistoryController.getStatusService(item: item);
-          if (!a) {
-            item["services"][0]["status"] = false;
-          }
-        }
-        shareHistoryController.itemSelected.value = item;
-        Get.to(() => DetailHistoryPage());
-      }
-    },
-    child: Container(
-      margin: EdgeInsets.only(
-        left: getWidth(16),
-        right: getWidth(16),
-        bottom: getHeight(20),
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          getWidth(4),
-        ),
-        color: Colors.white,
-      ),
-      child: Column(
-        children: [
-          Container(
+  return Container(
+    child: Stack(
+      children: [
+        GestureDetector(
+          onTap: () async {
+            if (record["status"] != "invalid") {
+              var item = await Get.put(NotificationController())
+                  .getRequest(id: record["id"]);
+              if (!mode) {
+                var a =
+                    await shareHistoryController.getStatusService(item: item);
+                if (!a) {
+                  item["services"][0]["status"] = false;
+                }
+              }
+              shareHistoryController.itemSelected.value = item;
+              Get.to(() => DetailHistoryPage());
+            }
+          },
+          child: Container(
             margin: EdgeInsets.only(
+              left: getWidth(16),
               right: getWidth(16),
-              bottom: getHeight(10),
+              bottom: getHeight(20),
             ),
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                    'assets/images/jp_${record["status"]}_tag.svg'),
-                // Text(
-                //   "${record["status"]}_color".tr,
-                //   style: TextStyle(color: Colors.red, fontSize: getWidth(13)),
-                // ),
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              left: getWidth(16),
-              bottom: getHeight(12),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(mode
-                    ? (subMode ? 'dataReceiver'.tr : 'requestSender'.tr + ':')
-                    : (subMode ? 'dataSender'.tr : 'requestReceived'.tr + ':')),
-                SizedBox(
-                  width: getWidth(8),
-                ),
-                Text(
-                  getHintText(record),
-                  style: TextStyle(
-                      fontSize: getWidth(17), fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              left: getWidth(16),
-              bottom: getHeight(12),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('data'.tr + ':'),
-                SizedBox(
-                  width: getWidth(8),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: serviceList
-                      .map((e) => Container(
-                            margin: EdgeInsets.only(
-                              bottom: getHeight(8),
-                            ),
-                            child: Row(children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(27),
-                                child: Container(
-                                  width: getWidth(16),
-                                  height: getWidth(16),
-                                  child: e["icon"].toString().contains("http")
-                                      ? Image.asset(
-                                          e["icon"].toString(),
-                                          fit: BoxFit.cover,
-                                        )
-                                      : Image.memory(
-                                          base64Decode(e["icon"]
-                                              .toString()
-                                              .split(",")[1]),
-                                          fit: BoxFit.cover,
-                                        ),
-                                ),
-                              ),
-                              // Container(
-                              //   width: getWidth(16),
-                              //   child: e["icon"].toString().contains('http')
-                              //       ? Image.network(e["icon"].toString())
-                              //       : SvgPicture.asset(
-                              //           "assets/images/avatar.svg",
-                              //           width: getWidth(16),
-                              //         ),
-                              // ),
-                              SizedBox(width: getWidth(8)),
-                              Container(
-                                child: Text(upperFirstString(e["name"])),
-                              ),
-                            ]),
-                          ))
-                      .toList(),
-                ),
-              ],
-            ),
-          ),
-          Container(
             decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: Color(0xFFF8F8F9),
-                  width: getHeight(3),
+              borderRadius: BorderRadius.circular(
+                getWidth(4),
+              ),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: getHeight(30),
                 ),
-              ),
-            ),
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(
-              left: getWidth(16),
-              right: getWidth(16),
-              bottom: getHeight(12),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: getHeight(15),
-                bottom: getHeight(15),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
+                Container(
+                  margin: EdgeInsets.only(
+                    left: getWidth(16),
+                    bottom: getHeight(12),
+                  ),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SvgPicture.asset("assets/images/calendar.svg"),
+                      Text(mode
+                          ? (subMode
+                              ? 'dataReceiver'.tr
+                              : 'requestSender'.tr + ':')
+                          : (subMode
+                              ? 'dataSender'.tr
+                              : 'requestReceived'.tr + ':')),
                       SizedBox(
                         width: getWidth(8),
                       ),
-                      record["status"] == "expired"
-                          ? Text(
-                              TimeService.getTimeFormat(
-                                      record["fromTime"], "") +
-                                  "～" +
-                                  // endTime , bao h noi api that fix sau
-                                  TimeService.getTimeFormat(
-                                      record["endTime"], ""),
-                              style: TextStyle(fontSize: getWidth(13)),
-                            )
-                          : record["status"] == "rejected"
-                              ? Text(
-                                  TimeService.getTimeFormat(
-                                      record["endTime"], ""),
-                                  style: TextStyle(fontSize: getWidth(13)),
-                                )
-                              : Text(
-                                  TimeService.getTimeFormat(
-                                      record["fromTime"], ""),
-                                  style: TextStyle(fontSize: getWidth(13)),
-                                ),
+                      Text(
+                        getHintText(record),
+                        style: TextStyle(
+                            fontSize: getWidth(17),
+                            fontWeight: FontWeight.w400),
+                      ),
                     ],
                   ),
-                  record["status"] == "invalid"
-                      ? GestureDetector(
-                          onTap: () {
-                            showDialog(
-                                context: Get.context!,
-                                barrierColor: Colors.black38,
-                                builder: (builder) {
-                                  return Container(
-                                    child: Align(
-                                      alignment: Alignment.center,
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                    left: getWidth(16),
+                    bottom: getHeight(12),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('data'.tr + ':'),
+                      SizedBox(
+                        width: getWidth(8),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: serviceList
+                            .map((e) => Container(
+                                  margin: EdgeInsets.only(
+                                    bottom: getHeight(8),
+                                  ),
+                                  child: Row(children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(27),
                                       child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(
-                                            getWidth(5),
-                                          ),
-                                        ),
-                                        child: Material(
-                                          color: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(16.0)),
-                                          child: Container(
-                                            width: MediaQuery.of(Get.context!)
-                                                    .size
-                                                    .width -
-                                                getWidth(16) * 2,
-                                            padding:
-                                                EdgeInsets.all(getWidth(18)),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                SvgPicture.asset(
-                                                  "assets/images/alert_delete.svg",
-                                                  width: getWidth(56),
-                                                  height: getWidth(56),
-                                                ),
-                                                SizedBox(
-                                                  height: getHeight(26),
-                                                ),
-                                                Text(
-                                                  "削除してもよろしいでしょうか。",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: getWidth(17),
-                                                      height: 1.5),
-                                                ),
-                                                SizedBox(
-                                                  height: getHeight(40),
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Bouncing(
-                                                          child: Container(
-                                                            height:
-                                                                getHeight(50),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xFFE9E9E9),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                getWidth(4),
-                                                              ),
-                                                            ),
-                                                            child: Center(
-                                                              child: Text(
-                                                                "cancel".tr,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize:
-                                                                      getWidth(
-                                                                          17),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          onPress: () {
-                                                            Get.back();
-                                                          }),
-                                                    ),
-                                                    SizedBox(
-                                                      width: getWidth(16),
-                                                    ),
-                                                    Expanded(
-                                                      child: Bouncing(
-                                                          child: Container(
-                                                            height:
-                                                                getHeight(50),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xFFEB5757),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                getWidth(4),
-                                                              ),
-                                                            ),
-                                                            child: Center(
-                                                              child: Text(
-                                                                "削除",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        getWidth(
-                                                                            17),
-                                                                    color: Colors
-                                                                        .white),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          onPress: () async {
-                                                            print("a");
-                                                            if (shareHistoryController
-                                                                    .isClickDetele ==
-                                                                false) {
-                                                              shareHistoryController
-                                                                      .isClickDetele =
-                                                                  true;
-                                                              try {
-                                                                await shareHistoryController
-                                                                    .deleteHistory(
-                                                                        item:
-                                                                            record);
-                                                                var records = await shareHistoryController.getRecords(shareHistoryController.getStatusFromValue(
-                                                                    globalController
-                                                                        .recordsTabMode
-                                                                        .value));
-                                                                shareHistoryController
-                                                                        .searchList
-                                                                        .value =
-                                                                    records;
-                                                                Get.back();
-                                                                shareHistoryController
-                                                                        .isClickDetele =
-                                                                    false;
-                                                              } catch (e) {
-                                                                shareHistoryController
-                                                                        .isClickDetele =
-                                                                    false;
-                                                              }
-                                                            }
-                                                          }),
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
+                                        width: getWidth(16),
+                                        height: getWidth(16),
+                                        child: e["icon"]
+                                                .toString()
+                                                .contains("http")
+                                            ? Image.asset(
+                                                e["icon"].toString(),
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Image.memory(
+                                                base64Decode(e["icon"]
+                                                    .toString()
+                                                    .split(",")[1]),
+                                                fit: BoxFit.cover,
+                                              ),
                                       ),
                                     ),
-                                  );
-                                });
-                          },
-                          child:
-                              SvgPicture.asset("assets/images/delete-icon.svg"),
-                        )
-                      : Container()
-                ],
-              ),
+                                    // Container(
+                                    //   width: getWidth(16),
+                                    //   child: e["icon"].toString().contains('http')
+                                    //       ? Image.network(e["icon"].toString())
+                                    //       : SvgPicture.asset(
+                                    //           "assets/images/avatar.svg",
+                                    //           width: getWidth(16),
+                                    //         ),
+                                    // ),
+                                    SizedBox(width: getWidth(8)),
+                                    Container(
+                                      child: Text(upperFirstString(e["name"])),
+                                    ),
+                                  ]),
+                                ))
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: Color(0xFFF8F8F9),
+                        width: getHeight(3),
+                      ),
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(
+                    left: getWidth(16),
+                    right: getWidth(16),
+                    bottom: getHeight(12),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: getHeight(15),
+                      bottom: getHeight(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SvgPicture.asset("assets/images/calendar.svg"),
+                            SizedBox(
+                              width: getWidth(8),
+                            ),
+                            record["status"] == "expired"
+                                ? Text(
+                                    TimeService.getTimeFormat(
+                                            record["fromTime"], "") +
+                                        "～" +
+                                        // endTime , bao h noi api that fix sau
+                                        TimeService.getTimeFormat(
+                                            record["endTime"], ""),
+                                    style: TextStyle(fontSize: getWidth(13)),
+                                  )
+                                : record["status"] == "rejected"
+                                    ? Text(
+                                        TimeService.getTimeFormat(
+                                            record["endTime"], ""),
+                                        style:
+                                            TextStyle(fontSize: getWidth(13)),
+                                      )
+                                    : Text(
+                                        TimeService.getTimeFormat(
+                                            record["fromTime"], ""),
+                                        style:
+                                            TextStyle(fontSize: getWidth(13)),
+                                      ),
+                          ],
+                        ),
+                        record["status"] == "invalid"
+                            ? GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                      context: Get.context!,
+                                      barrierColor: Colors.black38,
+                                      builder: (builder) {
+                                        return Container(
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  getWidth(5),
+                                                ),
+                                              ),
+                                              child: Material(
+                                                color: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16.0)),
+                                                child: Container(
+                                                  width: MediaQuery.of(
+                                                              Get.context!)
+                                                          .size
+                                                          .width -
+                                                      getWidth(16) * 2,
+                                                  padding: EdgeInsets.all(
+                                                      getWidth(18)),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      SvgPicture.asset(
+                                                        "assets/images/alert_delete.svg",
+                                                        width: getWidth(56),
+                                                        height: getWidth(56),
+                                                      ),
+                                                      SizedBox(
+                                                        height: getHeight(26),
+                                                      ),
+                                                      Text(
+                                                        "削除してもよろしいでしょうか。",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                getWidth(17),
+                                                            height: 1.5),
+                                                      ),
+                                                      SizedBox(
+                                                        height: getHeight(40),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Bouncing(
+                                                                child:
+                                                                    Container(
+                                                                  height:
+                                                                      getHeight(
+                                                                          50),
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color(
+                                                                        0xFFE9E9E9),
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                      getWidth(
+                                                                          4),
+                                                                    ),
+                                                                  ),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      "cancel"
+                                                                          .tr,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontSize:
+                                                                            getWidth(17),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                onPress: () {
+                                                                  Get.back();
+                                                                }),
+                                                          ),
+                                                          SizedBox(
+                                                            width: getWidth(16),
+                                                          ),
+                                                          Expanded(
+                                                            child: Bouncing(
+                                                                child:
+                                                                    Container(
+                                                                  height:
+                                                                      getHeight(
+                                                                          50),
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color(
+                                                                        0xFFEB5757),
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                      getWidth(
+                                                                          4),
+                                                                    ),
+                                                                  ),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      "削除",
+                                                                      style: TextStyle(
+                                                                          fontSize: getWidth(
+                                                                              17),
+                                                                          color:
+                                                                              Colors.white),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                onPress:
+                                                                    () async {
+                                                                  print("a");
+                                                                  if (shareHistoryController
+                                                                          .isClickDetele ==
+                                                                      false) {
+                                                                    shareHistoryController
+                                                                            .isClickDetele =
+                                                                        true;
+                                                                    try {
+                                                                      await shareHistoryController.deleteHistory(
+                                                                          item:
+                                                                              record);
+                                                                      var records = await shareHistoryController.getRecords(shareHistoryController.getStatusFromValue(globalController
+                                                                          .recordsTabMode
+                                                                          .value));
+                                                                      shareHistoryController
+                                                                          .searchList
+                                                                          .value = records;
+                                                                      Get.back();
+                                                                      shareHistoryController
+                                                                              .isClickDetele =
+                                                                          false;
+                                                                    } catch (e) {
+                                                                      shareHistoryController
+                                                                              .isClickDetele =
+                                                                          false;
+                                                                    }
+                                                                  }
+                                                                }),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                },
+                                child: SvgPicture.asset(
+                                    "assets/images/delete-icon.svg"),
+                              )
+                            : Container()
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Container(
+            padding: EdgeInsets.only(
+              top: getHeight(7),
+              left: getHeight(10),
+            ),
+            child: SvgPicture.asset(
+                'assets/images/jp_${record["status"]}_tag.svg'),
+          ),
+        )
+      ],
     ),
   );
 }

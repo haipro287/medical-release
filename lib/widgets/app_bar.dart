@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/scanQRController/scanQR_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
@@ -23,7 +23,8 @@ AppBar appBar(
       ),
       onPressed: () {
         if (backHome == true) {
-          Get.put(HomePageController()).currentPage.value = 0;
+          Get.put(GlobalController()).currentPage.value = 0;
+          Get.put(GlobalController()).onChangeTab(0);
           Get.offAll(HomePageScreen(), transition: Transition.leftToRight);
         } else if (backToLogin == true) {
           Get.offAll(LoginWelcomePage());

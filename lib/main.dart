@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
@@ -47,6 +48,11 @@ class MyApp extends StatelessWidget {
     ]);
     return GetMaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+      supportedLocales: [
+        const Locale('ja'),
+        const Locale('en'),
+      ],
       translations: Messages(),
       locale: Locale('ja', 'JP'),
       fallbackLocale: Locale('en', 'UK'),

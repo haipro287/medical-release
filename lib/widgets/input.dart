@@ -451,6 +451,7 @@ Container inputDate(BuildContext context,
   _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
+      locale: Locale('ja', 'JP'),
       initialDate: DateTime.now(),
       firstDate: DateTime(1800),
       lastDate: DateTime.now(),

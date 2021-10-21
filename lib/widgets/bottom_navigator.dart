@@ -33,7 +33,7 @@ Container bottomNavigator() {
                   Obx(() {
                     return Bouncing(
                       onPress: () {
-                        homePageController.onChangeTab(0);
+                        globalController.onChangeTab(0);
                       },
                       child: Container(
                         color: Colors.white,
@@ -44,7 +44,7 @@ Container bottomNavigator() {
                             SvgPicture.asset(
                               "assets/images/home.svg",
                               width: getWidth(24),
-                              color: homePageController.currentPage.value == 0
+                              color: globalController.currentPage.value == 0
                                   ? Color(0xFF61B3FF)
                                   : Color(0xFF878C92),
                             ),
@@ -52,10 +52,9 @@ Container bottomNavigator() {
                               "home".tr,
                               style: TextStyle(
                                   fontSize: getWidth(12),
-                                  color:
-                                      homePageController.currentPage.value == 0
-                                          ? Color(0xFF61B3FF)
-                                          : Color(0xFF878C92)),
+                                  color: globalController.currentPage.value == 0
+                                      ? Color(0xFF61B3FF)
+                                      : Color(0xFF878C92)),
                             )
                           ],
                         ),
@@ -76,7 +75,7 @@ Container bottomNavigator() {
                             SvgPicture.asset(
                               "assets/images/share.svg",
                               width: getWidth(24),
-                              color: homePageController.currentPage.value == 5
+                              color: globalController.currentPage.value == 5
                                   ? Color(0xFF61B3FF)
                                   : Color(0xFF878C92),
                             ),
@@ -84,10 +83,9 @@ Container bottomNavigator() {
                               "share".tr,
                               style: TextStyle(
                                   fontSize: getWidth(12),
-                                  color:
-                                      homePageController.currentPage.value == 5
-                                          ? Color(0xFF61B3FF)
-                                          : Color(0xFF878C92)),
+                                  color: globalController.currentPage.value == 5
+                                      ? Color(0xFF61B3FF)
+                                      : Color(0xFF878C92)),
                             )
                           ],
                         ),
@@ -133,7 +131,7 @@ Container bottomNavigator() {
                             SvgPicture.asset(
                               "assets/images/view.svg",
                               width: getWidth(24),
-                              color: homePageController.currentPage.value == 5
+                              color: globalController.currentPage.value == 5
                                   ? Color(0xFF61B3FF)
                                   : Color(0xFF878C92),
                             ),
@@ -141,10 +139,9 @@ Container bottomNavigator() {
                               "view".tr,
                               style: TextStyle(
                                   fontSize: getWidth(12),
-                                  color:
-                                      homePageController.currentPage.value == 5
-                                          ? Color(0xFF61B3FF)
-                                          : Color(0xFF878C92)),
+                                  color: globalController.currentPage.value == 5
+                                      ? Color(0xFF61B3FF)
+                                      : Color(0xFF878C92)),
                             )
                           ],
                         ),
@@ -154,7 +151,7 @@ Container bottomNavigator() {
                   Obx(() {
                     return Bouncing(
                       onPress: () {
-                        homePageController.onChangeTab(1);
+                        globalController.onChangeTab(1);
                       },
                       child: Container(
                         width: getWidth(65),
@@ -164,7 +161,7 @@ Container bottomNavigator() {
                             SvgPicture.asset(
                               "assets/images/user.svg",
                               width: getWidth(24),
-                              color: homePageController.currentPage.value == 1
+                              color: globalController.currentPage.value == 1
                                   ? Color(0xFF61B3FF)
                                   : Color(0xFF878C92),
                             ),
@@ -174,8 +171,7 @@ Container bottomNavigator() {
                                 style: TextStyle(
                                     fontSize: getWidth(12),
                                     color:
-                                        homePageController.currentPage.value ==
-                                                1
+                                        globalController.currentPage.value == 1
                                             ? Color(0xFF61B3FF)
                                             : Color(0xFF878C92)),
                               ),

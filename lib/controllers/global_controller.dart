@@ -19,6 +19,26 @@ class GlobalController extends GetxController {
   bool isPopup = false;
   var connectivityResult;
 
+  late PageController pageController;
+  RxInt currentPage = 0.obs;
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    pageController = PageController(initialPage: 0, keepPage: true);
+  }
+
+  void onChangeTab(int value) {
+    currentPage.value = value;
+    pageController
+      ..animateToPage(
+        value,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.ease,
+      );
+  }
+
   Future<void> initActivity() async {
     connectivityResult = await (Connectivity().checkConnectivity());
     subscription = Connectivity()

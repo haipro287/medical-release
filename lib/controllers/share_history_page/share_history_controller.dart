@@ -8,6 +8,7 @@ import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/screens/share_data_page/share_list_service.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_page.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
 
 class ShareHistoryController extends GetxController {
@@ -179,6 +180,7 @@ class ShareHistoryController extends GetxController {
     var userID = globalController.user.value.id.toString();
     var recordID = itemSelected.value["id"];
     try {
+      showLoading();
       var response;
       CustomDio customDio = CustomDio();
       customDio.dio.options.headers["Authorization"] =
@@ -237,16 +239,20 @@ class ShareHistoryController extends GetxController {
         historyRecords.value = records;
         searchList.value = records;
         print("redirect: " + redirectToNewTab.toString());
+        Get.back();
         if (redirectToNewTab) {
           Get.to(() => ShareHistoryPage());
         }
       } else if (json["success"] == false && status == "APPROVE_REQUEST") {
+        Get.back();
+
         handleApproveRequest(json, context as BuildContext);
       }
 
       return (json["success"]);
     } catch (e, s) {
       print(e);
+      Get.back();
       print(s);
       return null;
     }

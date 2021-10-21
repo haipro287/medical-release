@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
-import 'package:medical_chain_mobile_ui/controllers/home_page/home_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/sharing_history_details_component.dart';
@@ -20,7 +19,7 @@ class ShareHistoryPage extends StatelessWidget {
     var mode = globalController.historyStatus.value;
     return WillPopScope(
       onWillPop: () async {
-        Get.put(HomePageController()).onChangeTab(0);
+        globalController.onChangeTab(0);
         Get.offAll(() => HomePageScreen(), transition: Transition.leftToRight);
         return true;
       },

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/service_list/share_service_list_controller.dart';
@@ -9,6 +10,7 @@ import 'package:medical_chain_mobile_ui/screens/share_data_page/share_confirm_sc
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
+import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
 class ShareListService extends StatelessWidget {
@@ -104,28 +106,46 @@ class ShareListService extends StatelessWidget {
                                             Container(
                                               width: getWidth(50),
                                               child: e["status"] == ""
-                                                  ? Checkbox(
-                                                      value: shareServiceListController
-                                                              .checkList
-                                                              .where((item) =>
-                                                                  item["id"] ==
-                                                                  e["id"])
-                                                              .length >
-                                                          0,
-                                                      onChanged:
-                                                          (bool? isCheck) {
-                                                        if (isCheck == true) {
-                                                          shareServiceListController
-                                                              .checkList
-                                                              .clear();
-                                                          shareServiceListController
-                                                              .checkList
-                                                              .add(e);
-                                                        } else
-                                                          shareServiceListController
-                                                              .checkList
-                                                              .remove(e);
-                                                      })
+                                                  ? Bouncing(
+                                                      onPress: () {
+                                                        shareServiceListController
+                                                            .checkList
+                                                            .clear();
+                                                        shareServiceListController
+                                                            .checkList
+                                                            .add(e);
+                                                      },
+                                                      child: SvgPicture.asset(
+                                                        shareServiceListController
+                                                                .checkList
+                                                                .contains(e)
+                                                            ? "assets/images/radio-check.svg"
+                                                            : "assets/images/radio-uncheck.svg",
+                                                        width: getWidth(20),
+                                                      ),
+                                                    )
+                                                  // Checkbox(
+                                                  //         value: shareServiceListController
+                                                  //                 .checkList
+                                                  //                 .where((item) =>
+                                                  //                     item["id"] ==
+                                                  //                     e["id"])
+                                                  //                 .length >
+                                                  //             0,
+                                                  //         onChanged:
+                                                  //             (bool? isCheck) {
+                                                  //           if (isCheck == true) {
+                                                  //             shareServiceListController
+                                                  //                 .checkList
+                                                  //                 .clear();
+                                                  //             shareServiceListController
+                                                  //                 .checkList
+                                                  //                 .add(e);
+                                                  //           } else
+                                                  //             shareServiceListController
+                                                  //                 .checkList
+                                                  //                 .remove(e);
+                                                  //         })
                                                   : Container(),
                                             ),
                                             ClipRRect(
@@ -221,28 +241,46 @@ class ShareListService extends StatelessWidget {
                                         Container(
                                           width: 50,
                                           child: e["status"] == ""
-                                              ? Checkbox(
-                                                  value:
-                                                      shareServiceListController
-                                                              .checkList
-                                                              .where((item) =>
-                                                                  item["id"] ==
-                                                                  e["id"])
-                                                              .length >
-                                                          0,
-                                                  onChanged: (bool? isCheck) {
-                                                    if (isCheck == true) {
-                                                      shareServiceListController
-                                                          .checkList
-                                                          .clear();
-                                                      shareServiceListController
-                                                          .checkList
-                                                          .add(e);
-                                                    } else
-                                                      shareServiceListController
-                                                          .checkList
-                                                          .remove(e);
-                                                  })
+                                              ? Bouncing(
+                                                  onPress: () {
+                                                    shareServiceListController
+                                                        .checkList
+                                                        .clear();
+                                                    shareServiceListController
+                                                        .checkList
+                                                        .add(e);
+                                                  },
+                                                  child: SvgPicture.asset(
+                                                    shareServiceListController
+                                                            .checkList
+                                                            .contains(e)
+                                                        ? "assets/images/radio-check.svg"
+                                                        : "assets/images/radio-uncheck.svg",
+                                                    width: getWidth(20),
+                                                  ),
+                                                )
+                                              // Checkbox(
+                                              //         value:
+                                              //             shareServiceListController
+                                              //                     .checkList
+                                              //                     .where((item) =>
+                                              //                         item["id"] ==
+                                              //                         e["id"])
+                                              //                     .length >
+                                              //                 0,
+                                              //         onChanged: (bool? isCheck) {
+                                              //           if (isCheck == true) {
+                                              //             shareServiceListController
+                                              //                 .checkList
+                                              //                 .clear();
+                                              //             shareServiceListController
+                                              //                 .checkList
+                                              //                 .add(e);
+                                              //           } else
+                                              //             shareServiceListController
+                                              //                 .checkList
+                                              //                 .remove(e);
+                                              //         })
                                               : SizedBox.shrink(),
                                         ),
                                         ClipRRect(
