@@ -38,7 +38,7 @@ class NewPasswordScreen extends StatelessWidget {
                   false,
                   forgotPasswordController.passwordErr.value != "",
                   onchange: () {
-                forgotPasswordController.passwordErr.value == "";
+                forgotPasswordController.passwordErr.value = "";
               });
             }),
             SizedBox(
@@ -68,7 +68,7 @@ class NewPasswordScreen extends StatelessWidget {
                   false,
                   forgotPasswordController.passwordConfirmErr.value != "",
                   onchange: () {
-                forgotPasswordController.passwordConfirmErr.value == "";
+                forgotPasswordController.passwordConfirmErr.value = "";
               });
             }),
             SizedBox(
