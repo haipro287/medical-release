@@ -30,10 +30,10 @@ class PrivacyController extends GetxController {
     privacy.value = status;
     var res = await updatePrivacy(status: status);
     print(res);
-    if (res == true)
-      privacy.value = status;
-    else
-      privacy.value = !status;
+    // if (res == true)
+    //   privacy.value = status;
+    // else
+    //   privacy.value = !status;
   }
 
   logout() async {
