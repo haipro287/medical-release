@@ -171,6 +171,8 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
                     if (forgotPasswordController.resetSuccess.value) {
                       forgotPasswordController.password.text = "";
                       forgotPasswordController.confirmPassword.text = "";
+                      forgotPasswordController.passwordErr.value = "";
+                      forgotPasswordController.passwordConfirmErr.value = "";
                       Get.to(() => NewPasswordScreen());
                     }
                   }

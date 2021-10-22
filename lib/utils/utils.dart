@@ -63,7 +63,7 @@ Future<dynamic> getStatusService({required dynamic item}) async {
   customDio.dio.options.headers["Authorization"] =
       Get.put(GlobalController()).user.value.certificate.toString();
   var response = await customDio.get(
-      "/requests/view?primaryId=${item["ownerId"]}&serviceId=${item["services"][0]["id"]}");
+      "/requests/view?primaryId=${item["primaryId"]}&serviceId=${item["services"][0]["id"]}");
   print(response);
   var json = jsonDecode(response.toString());
   if (json["success"] == true && (json["data"]["ownerId"] != null)) {
