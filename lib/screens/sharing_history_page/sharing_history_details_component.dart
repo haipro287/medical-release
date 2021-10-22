@@ -9,6 +9,7 @@ import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_his
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
 import 'detail_history_page.dart';
@@ -26,17 +27,23 @@ Widget historyDetailComponent({required record}) {
         GestureDetector(
           onTap: () async {
             if (record["status"] != "invalid") {
-              var item = await Get.put(NotificationController())
-                  .getRequest(id: record["id"]);
-              if (!mode) {
-                var a =
-                    await shareHistoryController.getStatusService(item: item);
-                if (!a) {
-                  item["services"][0]["status"] = false;
+              showLoading();
+              try {
+                var item = await Get.put(NotificationController())
+                    .getRequest(id: record["id"]);
+                if (!mode) {
+                  var a =
+                      await shareHistoryController.getStatusService(item: item);
+                  if (!a) {
+                    item["services"][0]["status"] = false;
+                  }
                 }
+                shareHistoryController.itemSelected.value = item;
+                Get.back();
+                Get.to(() => DetailHistoryPage());
+              } catch (e) {
+                Get.back();
               }
-              shareHistoryController.itemSelected.value = item;
-              Get.to(() => DetailHistoryPage());
             }
           },
           child: Container(
@@ -74,11 +81,14 @@ Widget historyDetailComponent({required record}) {
                       SizedBox(
                         width: getWidth(8),
                       ),
-                      Text(
-                        getHintText(record),
-                        style: TextStyle(
-                            fontSize: getWidth(17),
-                            fontWeight: FontWeight.w400),
+                      Expanded(
+                        child: Text(
+                          getHintText(record),
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: getWidth(17),
+                              fontWeight: FontWeight.w400),
+                        ),
                       ),
                     ],
                   ),

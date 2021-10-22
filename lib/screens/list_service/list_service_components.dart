@@ -335,6 +335,7 @@ Widget switchService(
                                                             .isClickDisconnect ==
                                                         false) {
                                                       try {
+                                                        showLoading();
                                                         listController
                                                                 .isClickDisconnect =
                                                             true;
@@ -355,10 +356,12 @@ Widget switchService(
                                                               .update();
                                                           Get.back();
                                                         }
+                                                        Get.back();
                                                         listController
                                                                 .isClickDisconnect =
                                                             false;
                                                       } catch (e) {
+                                                        Get.back();
                                                         listController
                                                                 .isClickDisconnect =
                                                             false;
