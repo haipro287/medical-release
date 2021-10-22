@@ -104,10 +104,10 @@ class ForgotPasswordController extends GetxController {
 
     if (this.confirmPassword.text == "") {
       isValid = false;
-      passwordConfirmErr.value = "再入力新パスワードを入力してください。";
+      passwordConfirmErr.value = "新パスワード確認入力を実施してください。";
     } else if (this.confirmPassword.text != this.password.text) {
       isValid = false;
-      passwordConfirmErr.value = "再入力新パスワードは合っていません。";
+      passwordConfirmErr.value = "新パスワードと確認入力されたパスワードが一致していません。";
     }
 
     return isValid;

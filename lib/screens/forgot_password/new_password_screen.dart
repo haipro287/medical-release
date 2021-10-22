@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/forgot_password_page/forgot_password_controller.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:medical_chain_mobile_ui/widgets/dialog.dart';
@@ -104,8 +105,10 @@ class NewPasswordScreen extends StatelessWidget {
               ),
               onPress: () async {
                 if (forgotPasswordController.isPasswordValid()) {
+                  showLoading();
                   var success =
                       await forgotPasswordController.forgotPasswordChange();
+                  Get.back();
                   if (success) {
                     CustomDialog(context, "RESET_PASSWORD").show();
                   }

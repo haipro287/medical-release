@@ -38,7 +38,7 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
                     color: Color(0xFF2F3842),
                     fontSize: getWidth(17),
                     fontWeight: FontWeight.bold,
-                    height: 1.2),
+                    height: 1.4),
                 children: [
                   TextSpan(
                     text: "resetPasswordOTP1".tr,
@@ -169,6 +169,8 @@ class ForgotPasswordOTPScreen extends StatelessWidget {
                     forgotPasswordController.resetSuccess.value =
                         await forgotPasswordController.checkOTP();
                     if (forgotPasswordController.resetSuccess.value) {
+                      forgotPasswordController.password.text = "";
+                      forgotPasswordController.confirmPassword.text = "";
                       Get.to(() => NewPasswordScreen());
                     }
                   }

@@ -339,6 +339,8 @@ Widget switchService(
                                                         listController
                                                                 .isClickDisconnect =
                                                             true;
+                                                        Get.back();
+                                                        showLoading();
                                                         var a = await listController
                                                             .disconnectService(
                                                                 serviceId: listController

@@ -15,7 +15,7 @@ class LocalNotificationService {
     notificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? route) async {
       print(route);
-      await Get.put(NotificationController()).notiAction(route.toString());
+      await Get.put(NotificationController()).notiAction1(route.toString());
     });
   }
 

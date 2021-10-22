@@ -25,9 +25,10 @@ AppBar appBar(
         if (backHome == true) {
           Get.put(GlobalController()).currentPage.value = 0;
           Get.put(GlobalController()).onChangeTab(0);
-          Get.offAll(HomePageScreen(), transition: Transition.leftToRight);
+          Get.offAll(() => HomePageScreen(),
+              transition: Transition.leftToRight);
         } else if (backToLogin == true) {
-          Get.offAll(LoginWelcomePage());
+          Get.offAll(() => LoginWelcomePage());
         } else if (scan == "scan") {
           Get.put(QrScanController()).controller!.resumeCamera();
           Get.put(QrScanController()).qr = "";

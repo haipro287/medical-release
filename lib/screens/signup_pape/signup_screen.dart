@@ -7,6 +7,7 @@ import 'package:medical_chain_mobile_ui/screens/confirm_signup/confirm_signup_sc
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/terms_and_conditions/terms_and_conditions.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
@@ -414,6 +415,8 @@ class SignupScreen extends StatelessWidget {
                                                               signupPageController
                                                                       .isCheck1 =
                                                                   true;
+                                                              Get.back();
+                                                              showLoading();
                                                               try {
                                                                 var res =
                                                                     await signupPageController
@@ -435,6 +438,7 @@ class SignupScreen extends StatelessWidget {
                                                                         .isCheck1 =
                                                                     false;
                                                               } catch (E) {
+                                                                Get.back();
                                                                 signupPageController
                                                                         .isCheck1 =
                                                                     false;

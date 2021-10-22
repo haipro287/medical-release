@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
+import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/sharing_history_page/detail_history_page.dart';
 import 'package:medical_chain_mobile_ui/services/local_notification_service.dart';
 import 'package:medical_chain_mobile_ui/utils/utils.dart';
@@ -90,5 +91,24 @@ class NotificationController extends GetxController {
         Get.put(ShareHistoryController());
     shareHistoryController.itemSelected.value = item;
     Get.to(() => DetailHistoryPage());
+  }
+
+  Future<void> notiAction1(String id) async {
+    GlobalController globalController = Get.put(GlobalController());
+    var item = await Get.put(NotificationController()).getRequest(id: id);
+    if (globalController.user.value.id == item["primaryId"]) {
+      globalController.historyStatus.value = "SENDING_MODE";
+    } else if (globalController.user.value.id == item["secondaryId"]) {
+      globalController.historyStatus.value = "REQUEST_MODE";
+      var a = await getStatusService(item: item);
+      if (!a) {
+        item["services"][0]["status"] = false;
+      }
+    }
+    ShareHistoryController shareHistoryController =
+        Get.put(ShareHistoryController());
+    shareHistoryController.itemSelected.value = item;
+    Get.to(() => HomePageScreen());
+    Get.off(() => DetailHistoryPage());
   }
 }
