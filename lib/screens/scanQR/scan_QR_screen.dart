@@ -44,7 +44,7 @@ class ScanQRScreen extends StatelessWidget {
                         borderColor: Colors.white,
                         borderLength: 30,
                         borderWidth: 10,
-                        cutOutSize: getWidth(237),
+                        cutOutSize: MediaQuery.of(context).size.width * 0.8,
                         cutOutBottomOffset: 120),
                   ),
                   Container(
@@ -110,7 +110,7 @@ class ScanQRScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            padding: EdgeInsets.all(getWidth(30)),
+                            padding: EdgeInsets.all(getWidth(20)),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
                                   getWidth(12),
@@ -118,25 +118,25 @@ class ScanQRScreen extends StatelessWidget {
                                 color: Colors.white),
                             child: QrImage(
                               dataModuleStyle: const QrDataModuleStyle(
-                                dataModuleShape: QrDataModuleShape.circle,
+                                dataModuleShape: QrDataModuleShape.square,
                                 color: Colors.black,
                               ),
                               // embeddedImage:
                               //     AssetImage("assets/images/avatar.png"),
-                              embeddedImageStyle: QrEmbeddedImageStyle(
-                                size: Size(
-                                  getWidth(30),
-                                  getWidth(30),
-                                ),
-                              ),
+                              // embeddedImageStyle: QrEmbeddedImageStyle(
+                              //   size: Size(
+                              //     getWidth(30),
+                              //     getWidth(30),
+                              //   ),
+                              // ),
                               data: Get.put(GlobalController())
                                   .user
                                   .value
                                   .id
                                   .toString(),
                               version: QrVersions.auto,
-                              size: getWidth(180),
-                              gapless: false,
+                              size: getWidth(200),
+                              gapless: true,
                             ),
                           ),
                           SizedBox(

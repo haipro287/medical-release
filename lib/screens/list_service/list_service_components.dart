@@ -240,7 +240,7 @@ Widget switchService(
                                           height: getHeight(26),
                                         ),
                                         RichText(
-                                          textAlign: TextAlign.justify,
+                                          textAlign: TextAlign.center,
                                           text: TextSpan(children: [
                                             TextSpan(
                                               text: "ブロックチェーンアプリと",
@@ -322,7 +322,7 @@ Widget switchService(
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        "stop".tr,
+                                                        "停止",
                                                         style: TextStyle(
                                                           fontSize:
                                                               getWidth(17),

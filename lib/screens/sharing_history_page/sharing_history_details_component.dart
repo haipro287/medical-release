@@ -54,7 +54,7 @@ Widget historyDetailComponent({required record}) {
             child: Column(
               children: [
                 SizedBox(
-                  height: getHeight(30),
+                  height: getHeight(35),
                 ),
                 Container(
                   margin: EdgeInsets.only(
