@@ -8,7 +8,7 @@ import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 
 Container inputPassword(BuildContext context, TextEditingController controller,
-    String hintText, bool isHide, Function changeHide) {
+    String hintText, bool isHide, Function changeHide, Function onchange) {
   return Container(
     height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
@@ -26,6 +26,9 @@ Container inputPassword(BuildContext context, TextEditingController controller,
               style: TextStyle(fontSize: getWidth(16)),
               controller: controller,
               obscureText: isHide,
+              onChanged: (e) {
+                onchange();
+              },
               decoration: InputDecoration(
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
@@ -137,7 +140,8 @@ Container inputPasswordWithBorder(
 
 Container inputRegular(BuildContext context,
     {required String hintText,
-    required TextEditingController textEditingController}) {
+    required TextEditingController textEditingController,
+    required Function onChange}) {
   return Container(
     height: getWidth(56),
     padding: EdgeInsets.symmetric(vertical: getHeight(5)),
@@ -154,6 +158,9 @@ Container inputRegular(BuildContext context,
           child: TextFormField(
             controller: textEditingController,
             style: TextStyle(fontSize: getWidth(16)),
+            onChanged: (e) {
+              onChange();
+            },
             decoration: InputDecoration(
               border: InputBorder.none,
               focusedBorder: InputBorder.none,

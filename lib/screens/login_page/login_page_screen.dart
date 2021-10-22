@@ -23,6 +23,8 @@ class LoginPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     loginController.username.text = "";
     loginController.password.text = "";
+    loginController.messValidatePassword.value = "";
+    loginController.messValidateUsername.value = "";
     return WillPopScope(
       onWillPop: () async {
         Get.off(LoginWelcomePage());
@@ -40,11 +42,12 @@ class LoginPageScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              inputRegular(
-                context,
-                hintText: "userId".tr,
-                textEditingController: loginController.username,
-              ),
+              inputRegular(context,
+                  hintText: "userId".tr,
+                  textEditingController: loginController.username,
+                  onChange: () {
+                loginController.messValidateUsername.value = "";
+              }),
               Container(
                 padding: EdgeInsets.symmetric(
                   vertical: getHeight(12),
@@ -64,7 +67,9 @@ class LoginPageScreen extends StatelessWidget {
                     loginController.password,
                     "password".tr,
                     loginController.isHidePassword.value,
-                    loginController.changeHidePassword),
+                    loginController.changeHidePassword, () {
+                  loginController.messValidatePassword.value = "";
+                }),
               ),
               SizedBox(
                 height: getHeight(24),
