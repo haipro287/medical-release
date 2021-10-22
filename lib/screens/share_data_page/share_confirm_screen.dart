@@ -97,6 +97,7 @@ class ShareConfirmScreen extends StatelessWidget {
                   }
                   isClick = false;
                 } catch (e) {
+                  Get.back();
                   isClick = false;
                 }
               }

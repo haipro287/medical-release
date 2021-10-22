@@ -49,16 +49,18 @@ class ConfirmApproveRecordPage extends StatelessWidget {
                   ),
                   SizedBox(width: getWidth(15)),
                   Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(getHintText(itemSelected)),
-                        Text(
-                          itemSelected["username"] ?? "",
-                          style: TextStyle(color: Color(0xFF838AA2)),
-                        ),
-                      ],
+                    child: Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(getHintText(itemSelected)),
+                          Text(
+                            itemSelected["username"] ?? "",
+                            style: TextStyle(color: Color(0xFF838AA2)),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],

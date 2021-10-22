@@ -155,20 +155,26 @@ class DetailHistoryPage extends StatelessWidget {
                                     child: e["status"]
                                         ? GestureDetector(
                                             onTap: () async {
-                                              print(e["id"]);
-                                              print(itemSelected["primaryId"]);
-                                              var ownerId =
-                                                  await shareHistoryController
-                                                      .getData(
-                                                          primaryId:
-                                                              itemSelected[
-                                                                  "primaryId"],
-                                                          serviceId: e["id"]);
-                                              var base64 = getMessage1(ownerId);
-                                              Get.to(() => WebViewPage(
-                                                    url: e["viewUrl"] +
-                                                        "?message=$base64",
-                                                  ));
+                                              showLoading();
+
+                                              try {
+                                                var ownerId =
+                                                    await shareHistoryController
+                                                        .getData(
+                                                            primaryId:
+                                                                itemSelected[
+                                                                    "primaryId"],
+                                                            serviceId: e["id"]);
+                                                var base64 =
+                                                    getMessage1(ownerId);
+                                                Get.back();
+                                                Get.to(() => WebViewPage(
+                                                      url: e["viewUrl"] +
+                                                          "?message=$base64",
+                                                    ));
+                                              } catch (e) {
+                                                Get.back();
+                                              }
                                             },
                                             child: Container(
                                               alignment: Alignment.centerRight,
