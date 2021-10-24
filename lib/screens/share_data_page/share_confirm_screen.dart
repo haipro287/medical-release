@@ -138,19 +138,21 @@ class ShareConfirmScreen extends StatelessWidget {
                   ),
                   SizedBox(width: getWidth(15)),
                   Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(getHintText(userSearchController.userData)),
-                        Text(
-                          userSearchController.userData["username"] ??
-                              userSearchController
-                                  .userData["secondaryUsername"] ??
-                              "userid1234",
-                          style: TextStyle(color: Color(0xFF838AA2)),
-                        ),
-                      ],
+                    child: Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(getHintText(userSearchController.userData)),
+                          Text(
+                            userSearchController.userData["username"] ??
+                                userSearchController
+                                    .userData["secondaryUsername"] ??
+                                "userid1234",
+                            style: TextStyle(color: Color(0xFF838AA2)),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
