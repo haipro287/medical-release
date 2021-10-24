@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:fk_user_agent/fk_user_agent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart';
@@ -30,13 +31,18 @@ class GlobalController extends GetxController {
   }
 
   void onChangeTab(int value) {
-    currentPage.value = value;
-    pageController
-      ..animateToPage(
-        value,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.ease,
-      );
+    try {
+      currentPage.value = value;
+      pageController
+        ..animateToPage(
+          value,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.ease,
+        );
+    } catch (e) {
+      print(e);
+      Phoenix.rebirth(Get.context!);
+    }
   }
 
   Future<void> initActivity() async {
