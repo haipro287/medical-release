@@ -21,7 +21,7 @@ class DetailHistoryPage extends StatelessWidget {
   GlobalController globalController = Get.put(GlobalController());
   @override
   Widget build(BuildContext context) {
-    var itemSelected = shareHistoryController.itemSelected;
+    var itemSelected = shareHistoryController.itemSelected.value;
     var mode = globalController.historyStatus.value == "SENDING_MODE";
     var subMode = ["sharing", "expired"].contains(itemSelected["status"]);
     var hideMode =

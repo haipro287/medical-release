@@ -12,18 +12,23 @@ class HomePageScreen extends StatelessWidget {
   PrivacyController privacyController = Get.put(PrivacyController());
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        bottomNavigationBar: bottomNavigator(),
-        body: PageView(
-          controller: Get.put(GlobalController()).pageController,
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            HomePageTabScreen(),
-            UserScreen(),
-          ],
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Container(
+        color: Colors.white,
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          bottomNavigationBar: bottomNavigator(),
+          body: PageView(
+            controller: Get.put(GlobalController()).pageController,
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              HomePageTabScreen(),
+              UserScreen(),
+            ],
+          ),
         ),
       ),
     );
