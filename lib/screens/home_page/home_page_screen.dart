@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
@@ -10,11 +12,20 @@ import 'package:medical_chain_mobile_ui/widgets/bottom_navigator.dart';
 class HomePageScreen extends StatelessWidget {
   HomePageController homePageController = Get.put(HomePageController());
   PrivacyController privacyController = Get.put(PrivacyController());
+  bool isBack = false;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return false;
+        if (isBack == false) {
+          isBack = true;
+          Future.delayed(Duration(seconds: 3), () {
+            isBack = false;
+          });
+          return false;
+        } else {
+          exit(0);
+        }
       },
       child: Container(
         color: Colors.white,

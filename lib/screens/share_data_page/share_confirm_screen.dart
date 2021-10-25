@@ -98,6 +98,28 @@ class ShareConfirmScreen extends StatelessWidget {
                   isClick = false;
                 } catch (e) {
                   Get.back();
+                  Get.rawSnackbar(
+                      boxShadows: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 2,
+                          blurRadius: 1,
+                          offset:
+                              const Offset(0, 0), // changes position of shadow
+                        ),
+                      ],
+                      borderRadius: getWidth(6),
+                      margin: EdgeInsets.only(
+                        bottom: getHeight(40),
+                        left: getWidth(16),
+                        right: getWidth(16),
+                      ),
+                      messageText: Text(
+                        "エラーが発生しました。",
+                        style: TextStyle(fontSize: getWidth(17)),
+                      ),
+                      backgroundColor: Colors.white,
+                      icon: SvgPicture.asset("assets/images/error.svg"));
                   isClick = false;
                 }
               }
@@ -106,7 +128,10 @@ class ShareConfirmScreen extends StatelessWidget {
               globalController.sharingStatus.value == "SENT_DATA"
                   ? 'sentDataBtn'.tr
                   : 'sentRequestBtn'.tr,
-              style: TextStyle(color: Colors.black, fontSize: getWidth(15)),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: getWidth(15),
+              ),
             ),
           ),
         ),

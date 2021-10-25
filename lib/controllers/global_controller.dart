@@ -33,12 +33,7 @@ class GlobalController extends GetxController {
   void onChangeTab(int value) {
     try {
       currentPage.value = value;
-      pageController
-        ..animateToPage(
-          value,
-          duration: Duration(milliseconds: 500),
-          curve: Curves.ease,
-        );
+      pageController.jumpToPage(value);
     } catch (e) {
       print(e);
       Phoenix.rebirth(Get.context!);

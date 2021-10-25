@@ -11,7 +11,7 @@ class LocalNotificationService {
   static void init() {
     final InitializationSettings initializationSettings =
         InitializationSettings(
-            android: AndroidInitializationSettings("notification_image"));
+            android: AndroidInitializationSettings("@mipmap/ic_launcher"));
     notificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? route) async {
       print(route);
