@@ -28,23 +28,31 @@ class ShareHistoryController extends GetxController {
   var itemSelected = {}.obs;
   var servicesNotConnect = [].obs;
 
-  @override
-  void onInit() async {
+  // @override
+  // void onInit() async {
+  //   var currentPage = globalController.recordsTabMode.value;
+  //   var records = await getRecords(getStatusFromValue(currentPage));
+  //   historyRecords.value = records;
+  //   searchList.value = records;
+  //   print('shareHistoryController init !!!');
+  //   // globalController.recordsTabMode.listen((value) async {
+  //   //   print("statuss: " + getStatusFromValue(value));
+  //   //   var records = await getRecords(getStatusFromValue(currentPage));
+  //   //   historyRecords.value = records;
+  //   //   searchList.value = records;
+  //   // });
+  //   // var itemSelectedCache = globalController.itemSelected.value;
+  //   // itemSelected.value = itemSelectedCache;
+  //
+  //   super.onInit();
+  // }
+
+  Future<void> init() async {
     var currentPage = globalController.recordsTabMode.value;
     var records = await getRecords(getStatusFromValue(currentPage));
     historyRecords.value = records;
     searchList.value = records;
     print('shareHistoryController init !!!');
-    // globalController.recordsTabMode.listen((value) async {
-    //   print("statuss: " + getStatusFromValue(value));
-    //   var records = await getRecords(getStatusFromValue(currentPage));
-    //   historyRecords.value = records;
-    //   searchList.value = records;
-    // });
-    // var itemSelectedCache = globalController.itemSelected.value;
-    // itemSelected.value = itemSelectedCache;
-
-    super.onInit();
   }
 
   @override

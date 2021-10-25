@@ -22,16 +22,19 @@ class LocalNotificationService {
   static Future<void> display(RemoteMessage message) async {
     try {
       final NotificationDetails notificationDetails = NotificationDetails(
-          android: AndroidNotificationDetails(
-        "medical",
-        "medical channel",
-        "this is channel",
-        importance: Importance.max,
-        priority: Priority.high,
-      ));
+        android: AndroidNotificationDetails(
+          "medical",
+          "medical channel",
+          "this is channel",
+          importance: Importance.max,
+          priority: Priority.high,
+          ongoing: true,
+          styleInformation: BigTextStyleInformation(''),
+        ),
+      );
 
       Random random = new Random();
-      int randomNumber = random.nextInt(100000);
+      int randomNumber = random.nextInt(10);
 
       await notificationsPlugin.show(
           randomNumber + 1,

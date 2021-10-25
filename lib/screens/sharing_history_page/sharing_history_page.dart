@@ -16,6 +16,7 @@ class ShareHistoryPage extends StatelessWidget {
       Get.put(ShareHistoryController());
   @override
   Widget build(BuildContext context) {
+    sharingHistoryController.init();
     var mode = globalController.historyStatus.value;
     return WillPopScope(
       onWillPop: () async {

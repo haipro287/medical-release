@@ -152,51 +152,38 @@ class DetailHistoryPage extends StatelessWidget {
                             ),
                             hideMode
                                 ? Expanded(
-                                    child: e["status"]
-                                        ? GestureDetector(
-                                            onTap: () async {
-                                              showLoading();
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        showLoading();
 
-                                              try {
-                                                var ownerId =
-                                                    await shareHistoryController
-                                                        .getData(
-                                                            primaryId:
-                                                                itemSelected[
-                                                                    "primaryId"],
-                                                            serviceId: e["id"]);
-                                                var base64 =
-                                                    getMessage1(ownerId);
-                                                Get.back();
-                                                Get.to(() => WebViewPage(
-                                                      url: e["viewUrl"] +
-                                                          "?message=$base64",
-                                                    ));
-                                              } catch (e) {
-                                                Get.back();
-                                              }
-                                            },
-                                            child: Container(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "参照",
-                                                style: TextStyle(
-                                                  color: Color(0xFF61B3FF),
-                                                  fontSize: getWidth(17),
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        : Container(
-                                            alignment: Alignment.centerRight,
-                                            child: Text(
-                                              "停止",
-                                              style: TextStyle(
-                                                color: Color(0xFF838AA2),
-                                                fontSize: getWidth(17),
-                                              ),
-                                            ),
+                                        try {
+                                          var ownerId =
+                                              await shareHistoryController
+                                                  .getData(
+                                                      primaryId: itemSelected[
+                                                          "primaryId"],
+                                                      serviceId: e["id"]);
+                                          var base64 = getMessage1(ownerId);
+                                          Get.back();
+                                          Get.to(() => WebViewPage(
+                                                url: e["viewUrl"] +
+                                                    "?message=$base64",
+                                              ));
+                                        } catch (e) {
+                                          Get.back();
+                                        }
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "参照",
+                                          style: TextStyle(
+                                            color: Color(0xFF61B3FF),
+                                            fontSize: getWidth(17),
                                           ),
+                                        ),
+                                      ),
+                                    ),
                                   )
                                 : Container(),
                           ],
