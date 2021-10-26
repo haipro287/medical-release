@@ -37,7 +37,7 @@ class TimeService {
   static int dateTimeToString(DateTime dateTime) {
     DateTime time = dateTime.subtract(
         Duration(hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
-    return time.millisecondsSinceEpoch ~/ 1000;
+    return time.millisecondsSinceEpoch;
   }
 
   static String dateTimeToString2(DateTime dateTime) {

@@ -6,6 +6,7 @@ import 'package:medical_chain_mobile_ui/api/signature_service.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/widgets/spinning.dart';
 
 String getMessage(String serviceId) {
   String messageSign = jsonEncode({
@@ -76,7 +77,7 @@ void showLoading() {
   showDialog(
       barrierDismissible: false,
       context: Get.context!,
-      barrierColor: Colors.black38,
+      barrierColor: Colors.black12,
       builder: (builder) {
         return WillPopScope(
           onWillPop: () async {
@@ -86,6 +87,8 @@ void showLoading() {
             child: Align(
               alignment: Alignment.center,
               child: Container(
+                width: 100,
+                height: 100,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(
@@ -98,9 +101,11 @@ void showLoading() {
                       borderRadius: BorderRadius.circular(16.0)),
                   child: Padding(
                     padding: EdgeInsets.all(getWidth(10)),
-                    child: Image.asset(
-                      "assets/images/wifi.gif",
-                      width: getWidth(90),
+                    child: Spinning(
+                      child: Image.asset(
+                        "assets/images/loading.png",
+                        width: getWidth(90),
+                      ),
                     ),
                   ),
                 ),

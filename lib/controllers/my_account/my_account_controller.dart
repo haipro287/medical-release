@@ -159,9 +159,8 @@ class MyAccountController extends GetxController {
         myAccountController.kanjiName.value = data['kanji'].toString();
         myAccountController.katakanaName.value = data['katakana'].toString();
         myAccountController.dob.value =
-            DateTime.fromMicrosecondsSinceEpoch(data['birthday'] * 1000 * 1000)
-                .add(Duration(
-                    hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
+            DateTime.fromMillisecondsSinceEpoch(data['birthday']).add(Duration(
+                hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
         myAccountController.email.value = data['mail'].toString();
         myAccountController.phoneNumber.value = data['phone'].toString();
         myAccountController.citizenCode.value = data['pid'].toString();
