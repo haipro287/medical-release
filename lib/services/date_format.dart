@@ -14,12 +14,7 @@ class TimeService {
 
   static DateTime? stringToDateTime2(int dateTime) {
     if (dateTime == null) return null;
-    DateTime temp;
-    if (dateTime.toString().length >= 13)
-      temp = DateTime.fromMicrosecondsSinceEpoch(dateTime * 1000);
-    else
-      temp = DateTime.fromMicrosecondsSinceEpoch(dateTime * 1000 * 1000);
-
+    DateTime temp = DateTime.fromMillisecondsSinceEpoch(dateTime);
     DateTime time = temp
         .add(Duration(hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
     return time;

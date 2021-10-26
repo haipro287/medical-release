@@ -21,11 +21,6 @@ class EditMyAccountScreen extends StatelessWidget {
         Get.put(EditMyAccountController());
     MyAccountController myAccountController = Get.put(MyAccountController());
 
-    if (editMyAccountController.signup.value) {
-      editMyAccountController.dob.text =
-          TimeService.dateTimeToString4(DateTime.now());
-    }
-
     return WillPopScope(
       onWillPop: () async {
         print("back");

@@ -47,8 +47,12 @@ class MyAccountController extends GetxController {
       myAccountController.userName = userInfo['username'] ?? "";
       myAccountController.kanjiName.value = userInfo['kanji'] ?? "";
       myAccountController.katakanaName.value = userInfo['katakana'] ?? "";
-      myAccountController.dob.value =
-          TimeService.stringToDateTime2(userInfo["birthday"])!;
+      if (userInfo['kanji'] == null) {
+        myAccountController.dob.value = DateTime.now();
+      } else {
+        myAccountController.dob.value =
+            TimeService.stringToDateTime2(userInfo["birthday"])!;
+      }
       myAccountController.email.value = userInfo['mail'] ?? "";
       myAccountController.phoneNumber.value = userInfo['phone'] ?? "";
       myAccountController.citizenCode.value = userInfo['pid'] ?? "";
