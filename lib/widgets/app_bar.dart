@@ -23,7 +23,6 @@ AppBar appBar(
       ),
       onPressed: () {
         if (backHome == true) {
-          Get.put(GlobalController()).currentPage.value = 0;
           Get.put(GlobalController()).onChangeTab(0);
           Get.offAll(() => HomePageScreen(),
               transition: Transition.leftToRight);

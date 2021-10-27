@@ -32,8 +32,10 @@ class GlobalController extends GetxController {
 
   void onChangeTab(int value) {
     try {
-      currentPage.value = value;
-      pageController.jumpToPage(value);
+      if (pageController.hasClients) {
+        currentPage.value = value;
+        pageController.jumpToPage(value);
+      }
     } catch (e) {
       print(e);
       Phoenix.rebirth(Get.context!);

@@ -84,8 +84,8 @@ class ShareConfirmScreen extends StatelessWidget {
                             : 3;
                     globalController.recordsTabMode.value = tabChange;
                     Get.back();
-                    Get.offAll(() => HomePageScreen());
                     globalController.onChangeTab(0);
+                    Get.offAll(() => HomePageScreen());
                     Get.to(() => ShareHistoryPage());
                   }
 

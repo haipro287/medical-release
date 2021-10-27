@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/searchUserController/search_user_controller.dart';
+import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
@@ -125,7 +126,7 @@ Obx customObx({
   return Obx(() {
     return Bouncing(
       onPress: () {
-        controller.onChangeTab(tabIndex);
+        Get.put(ShareHistoryController()).onChangeTab(tabIndex);
         print(tabIndex);
       },
       child: Container(

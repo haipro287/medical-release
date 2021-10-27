@@ -48,11 +48,13 @@ class ShareHistoryController extends GetxController {
   // }
 
   Future<void> init() async {
-    var currentPage = globalController.recordsTabMode.value;
-    var records = await getRecords(getStatusFromValue(currentPage));
-    historyRecords.value = records;
-    searchList.value = records;
-    print('shareHistoryController init !!!');
+    if (searchInput.text == "") {
+      var currentPage = globalController.recordsTabMode.value;
+      var records = await getRecords(getStatusFromValue(currentPage));
+      historyRecords.value = records;
+      searchList.value = records;
+      print('shareHistoryController init !!!');
+    }
   }
 
   @override
@@ -73,11 +75,13 @@ class ShareHistoryController extends GetxController {
         String pattern = searchInput.text.toLowerCase();
         var listCheck = ["username", "kanji", "katakana"];
         for (int i = 0; i < listCheck.length; i++) {
+          if (ele[listCheck[i]] == null) return false;
           if (ele[listCheck[i]]!.toString().toLowerCase().contains(pattern))
             return true;
         }
         return false;
       }).toList();
+      print("a");
     }
   }
 

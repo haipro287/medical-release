@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -33,11 +31,11 @@ class LocalNotificationService {
         ),
       );
 
-      Random random = new Random();
-      int randomNumber = random.nextInt(10);
+      // Random random = new Random();
+      // int randomNumber = random.nextInt(10);
 
       await notificationsPlugin.show(
-          randomNumber + 1,
+          int.parse(message.data["seq"]),
           message.notification!.title,
           message.notification!.body!,
           notificationDetails,
