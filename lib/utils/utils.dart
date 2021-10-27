@@ -115,3 +115,26 @@ void showLoading() {
         );
       });
 }
+
+Future subscribe({required String token}) async {
+  try {
+    GlobalController globalController = Get.put(GlobalController());
+    var response;
+    var userID = globalController.user.value.id.toString();
+    CustomDio customDio = CustomDio();
+    customDio.dio.options.headers["Authorization"] =
+        globalController.user.value.certificate.toString();
+
+    response = await customDio.post("/users/$userID/notification/subscribe", {
+      "data": {"token": token}
+    });
+
+    var json = jsonDecode(response.toString());
+    print(json.toString());
+    return (json["success"]);
+  } catch (e, s) {
+    print(e);
+    print(s);
+    return null;
+  }
+}

@@ -5,6 +5,7 @@ import 'package:medical_chain_mobile_ui/controllers/my_account/edit_my_account_c
 import 'package:medical_chain_mobile_ui/controllers/my_account/my_account_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/edit_my_account_screen.dart';
+import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
@@ -91,6 +92,8 @@ class SignupSuccessScreen extends StatelessWidget {
                           signupController.phone.text;
                       editMyAccountController.avatar.value =
                           MyAccountController.avatarList[1];
+                      editMyAccountController.dob.text =
+                          TimeService.dateTimeToString4(DateTime.now());
 
                       Get.to(() => EditMyAccountScreen());
                     },

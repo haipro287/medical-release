@@ -10,6 +10,7 @@ import 'package:medical_chain_mobile_ui/screens/home_page/home_page_screen.dart'
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 import 'package:medical_chain_mobile_ui/screens/my_account/edit_my_account_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_screen.dart';
+import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/utils/utils.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
@@ -109,6 +110,8 @@ class LoginPageScreen extends StatelessWidget {
                             Get.back();
                             Get.put(EditMyAccountController()).signup.value =
                                 true;
+                            Get.put(EditMyAccountController()).dob.text =
+                                TimeService.dateTimeToString4(DateTime.now());
                             Get.to(() => EditMyAccountScreen());
                           } else {
                             Get.back();

@@ -346,7 +346,14 @@ class ShareHistoryController extends GetxController {
     customDio.dio.options.headers["Authorization"] =
         globalController.user.value.certificate.toString();
     var response = await customDio.delete(
-        "/users/${globalController.user.value.id}/requests/${item["id"]}", {});
+      "/users/${globalController.user.value.id}/requests/${item["id"]}",
+      {
+        "data": {
+          "userId": globalController.user.value.id,
+          "requestId": item["id"]
+        },
+      },
+    );
     print(response);
     var json = jsonDecode(response.toString());
     if (json["success"] == true) {

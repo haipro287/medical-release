@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/notification/notification_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/share_history_page/share_history_controller.dart';
+import 'package:medical_chain_mobile_ui/models/custom_dio.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
@@ -31,13 +32,16 @@ Widget historyDetailComponent({required record}) {
               try {
                 var item = await Get.put(NotificationController())
                     .getRequest(id: record["id"]);
-                if (!mode) {
-                  var a =
-                      await shareHistoryController.getStatusService(item: item);
-                  if (!a) {
-                    item["services"][0]["status"] = false;
-                  }
-                }
+                CustomDio customDio = CustomDio();
+                var certificate = Get.put(GlobalController())
+                    .user
+                    .value
+                    .certificate
+                    .toString();
+                customDio.dio.options.headers["Authorization"] = certificate;
+                var response = await customDio.get(
+                    "/users/${!mode ? record["primaryId"] : record["secondaryId"]}");
+                item["isBan"] = !response.data["success"];
                 shareHistoryController.itemSelected.value = item;
                 Get.back();
                 Get.to(() => DetailHistoryPage());

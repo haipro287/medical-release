@@ -29,31 +29,34 @@ class DetailHistoryPage extends StatelessWidget {
     List<dynamic> servicesList = itemSelected["services"];
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: shareHistoryController.itemSelected["status"] ==
-              "invalid"
+      bottomNavigationBar: itemSelected["isBan"] == true
           ? null
-          : hideMode
+          : shareHistoryController.itemSelected["status"] == "invalid"
               ? null
-              : (globalController.historyStatus.value == "REQUEST_MODE" &&
-                      itemSelected["status"] == "pending")
+              : hideMode
                   ? null
-                  : Padding(
-                      padding: EdgeInsets.only(top: getHeight(12)),
-                      child: mode
-                          ? sentButtonContainer(
-                              sharingStatus: shareHistoryController
-                                      .itemSelected["status"] ??
-                                  "pending",
-                              shareHistoryController: shareHistoryController,
-                              context: context,
-                              itemSelected: itemSelected)
-                          : requestButtonContainer(
-                              sharingStatus:
-                                  shareHistoryController.itemSelected["status"],
-                              shareHistoryController: shareHistoryController,
-                              context: context,
-                            ),
-                    ),
+                  : (globalController.historyStatus.value == "REQUEST_MODE" &&
+                          itemSelected["status"] == "pending")
+                      ? null
+                      : Padding(
+                          padding: EdgeInsets.only(top: getHeight(12)),
+                          child: mode
+                              ? sentButtonContainer(
+                                  sharingStatus: shareHistoryController
+                                          .itemSelected["status"] ??
+                                      "pending",
+                                  shareHistoryController:
+                                      shareHistoryController,
+                                  context: context,
+                                  itemSelected: itemSelected)
+                              : requestButtonContainer(
+                                  sharingStatus: shareHistoryController
+                                      .itemSelected["status"],
+                                  shareHistoryController:
+                                      shareHistoryController,
+                                  context: context,
+                                ),
+                        ),
       appBar: mode
           ? appBarWithButton(
               context,

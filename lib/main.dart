@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -17,6 +18,7 @@ import 'package:medical_chain_mobile_ui/screens/internet/no_internet_screeen.dar
 import 'package:medical_chain_mobile_ui/screens/login_page/login_welcome_page.dart';
 import 'package:medical_chain_mobile_ui/services/db_service.dart';
 import 'package:medical_chain_mobile_ui/services/local_notification_service.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,8 +35,10 @@ Future<void> main() async {
   await globalController.getInfoDevice();
   if (globalController.db.get("user") != null)
     globalController.user.value = globalController.db.get("user");
-  // if (globalController.user.value.id != null)
-  //   var info = await Get.put(MyAccountController()).getUserInfo();
+  if (globalController.user.value.id != null) {
+    String? token = await FirebaseMessaging.instance.getToken();
+    var info = await subscribe(token: token.toString());
+  }
   runApp(
     Phoenix(
       child: MyApp(),

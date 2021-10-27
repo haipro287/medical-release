@@ -82,11 +82,15 @@ class NotificationController extends GetxController {
       globalController.historyStatus.value = "SENDING_MODE";
     } else if (globalController.user.value.id == item["secondaryId"]) {
       globalController.historyStatus.value = "REQUEST_MODE";
-      var a = await getStatusService(item: item);
-      if (!a) {
-        item["services"][0]["status"] = false;
-      }
     }
+
+    CustomDio customDio = CustomDio();
+    var certificate =
+        Get.put(GlobalController()).user.value.certificate.toString();
+    customDio.dio.options.headers["Authorization"] = certificate;
+    var response = await customDio.get(
+        "/users/${!(globalController.historyStatus.value == "SENDING_MODE") ? item["primaryId"] : item["secondaryId"]}");
+    item["isBan"] = !response.data["success"];
     ShareHistoryController shareHistoryController =
         Get.put(ShareHistoryController());
     shareHistoryController.itemSelected.value = item;
