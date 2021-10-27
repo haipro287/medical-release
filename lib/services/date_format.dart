@@ -30,15 +30,15 @@ class TimeService {
   }
 
   static int dateTimeToString(DateTime dateTime) {
-    DateTime time = dateTime.subtract(
-        Duration(hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
-    return time.millisecondsSinceEpoch;
+    // DateTime time = dateTime.subtract(
+    //     Duration(hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
+    return dateTime.millisecondsSinceEpoch;
   }
 
   static String dateTimeToString2(DateTime dateTime) {
-    DateTime time = dateTime.subtract(
-        Duration(hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
-    return DateFormat("HH:mm:ss dd-MM-yyyy").format(time);
+    // DateTime time = dateTime.subtract(
+    //     Duration(hours: GMT.getGMT().hour, minutes: GMT.getGMT().minute));
+    return DateFormat("HH:mm:ss dd-MM-yyyy").format(dateTime);
   }
 
   static String dateTimeToString3(DateTime dateTime) {
