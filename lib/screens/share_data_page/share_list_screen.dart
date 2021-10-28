@@ -52,15 +52,13 @@ class ShareListScreen extends StatelessWidget {
                     ),
                     Obx(
                       () => shareListController.isLoading.value
-                          ? Expanded(
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: getHeight(41.15),
-                                  ),
-                                  loading(),
-                                ],
-                              ),
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                  height: getHeight(41.15),
+                                ),
+                                loading(),
+                              ],
                             )
                           : shareListController.searchList.length == 0
                               ? Column(
