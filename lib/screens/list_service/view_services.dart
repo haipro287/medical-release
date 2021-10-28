@@ -120,6 +120,12 @@ class WebViewPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: WebView(
         onPageStarted: (e) async {
+          if (callbackURL != null) {
+            if (e.toString() == callbackURL.toString()) {
+              Get.put(ListServiceController()).getServiceList();
+              Get.back();
+            }
+          }
           viewServicesController.serUrlNotSplit(e);
           var data = await MetadataFetch.extract(e);
           viewServicesController.setTitle(data!.title.toString());
@@ -129,14 +135,7 @@ class WebViewPage extends StatelessWidget {
         onProgress: (percent) {
           viewServicesController.setLoading(percent);
         },
-        onPageFinished: (e) async {
-          if (callbackURL != null) {
-            if (e.toString() == callbackURL.toString()) {
-              await Get.put(ListServiceController()).getServiceList();
-              Get.back();
-            }
-          }
-        },
+        onPageFinished: (e) async {},
         javascriptMode: JavascriptMode.unrestricted,
         initialUrl: url,
       ),

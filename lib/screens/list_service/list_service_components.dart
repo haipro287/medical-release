@@ -390,8 +390,8 @@ Widget switchService(
                         .toString());
                     Get.to(() => WebViewPage(
                           url: url +
-                              "?message=$message&redirectURL=$redirectURL",
-                          callbackURL: redirectURL.toString(),
+                              "?message=$message&redirectURL=https://blank.page/",
+                          callbackURL: "https://blank.page/",
                         ));
                     // var a = await listController.connectService(
                     //     serviceId: listController.serviceList[index].id ?? "");
