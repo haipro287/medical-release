@@ -120,7 +120,7 @@ class NotificationController extends GetxController {
     ShareHistoryController shareHistoryController =
         Get.put(ShareHistoryController());
     shareHistoryController.itemSelected.value = item;
-    Get.to(() => HomePageScreen());
+    Get.offAll(() => HomePageScreen());
     await Get.to(() => DetailHistoryPage());
   }
 }
