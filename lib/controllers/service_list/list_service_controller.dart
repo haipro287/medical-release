@@ -13,6 +13,7 @@ class ListServiceController extends GetxController {
   int offset = 0;
   int totalPage = 0;
   RxString title = 'serviceList'.tr.obs;
+  RxBool isLoading = false.obs;
 
   bool isClickDisconnect = false;
 
@@ -64,6 +65,7 @@ class ListServiceController extends GetxController {
 
   Future<List<Service>> getServiceList() async {
     try {
+      isLoading.value = true;
       offset = 0;
       totalPage = 0;
       var userID = globalController.user.value.id.toString();
@@ -100,9 +102,11 @@ class ListServiceController extends GetxController {
       serviceList.clear();
       serviceList.value = listService;
       offset = serviceList.length;
+      isLoading.value = false;
 
       return (listService);
     } catch (e, s) {
+      isLoading.value = true;
       print(e);
       print(s);
       return [];

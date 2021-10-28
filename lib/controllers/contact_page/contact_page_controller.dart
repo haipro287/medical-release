@@ -18,6 +18,8 @@ class ContactPageController extends GetxController {
 
   var category = ''.obs;
 
+  RxBool isLoading = false.obs;
+
   @override
   void onInit() async {
     var response = await getContactList();
@@ -27,6 +29,7 @@ class ContactPageController extends GetxController {
 
   Future getContactList() async {
     try {
+      isLoading.value = true;
       var userID = Get.put(GlobalController()).user.value.id.toString();
       var response;
       CustomDio customDio = CustomDio();
@@ -63,8 +66,10 @@ class ContactPageController extends GetxController {
       searchList.value = res;
 
       title.value = "";
+      isLoading.value = false;
       return res;
     } catch (e, s) {
+      isLoading.value = false;
       print(e);
       print(s);
       return null;

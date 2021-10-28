@@ -16,6 +16,8 @@ class ShareServiceListController extends GetxController {
 
   RxList<dynamic> serviceList = [].obs;
 
+  RxBool isLoading = false.obs;
+
   @override
   void onInit() async {
     var servicesData = await getServiceList();
@@ -91,6 +93,7 @@ class ShareServiceListController extends GetxController {
 
   Future<List<Map<String, dynamic>>> getServiceList() async {
     try {
+      isLoading.value = true;
       var userID = globalController.user.value.id.toString();
       var response;
       CustomDio customDio = CustomDio();
@@ -119,9 +122,11 @@ class ShareServiceListController extends GetxController {
         service["status"] = list[i]["status"] ?? "";
         listService.add(service);
       }
+      isLoading.value = false;
 
       return (listService);
     } catch (e, s) {
+      isLoading.value = false;
       print(e);
       print(s);
       return [];

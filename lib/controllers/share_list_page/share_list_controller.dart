@@ -17,6 +17,8 @@ class ShareListController extends GetxController {
   var userSelected = "".obs;
   var userData = {}.obs;
 
+  RxBool isLoading = false.obs;
+
   @override
   void onInit() async {
     dynamic response = await getContactList();
@@ -26,6 +28,7 @@ class ShareListController extends GetxController {
 
   Future getContactList() async {
     try {
+      isLoading.value = true;
       var userID = Get.put(GlobalController()).user.value.id.toString();
       var response;
       CustomDio customDio = CustomDio();
@@ -61,8 +64,11 @@ class ShareListController extends GetxController {
       print({"aaaaaa": res});
       contactList.value = res;
       searchList.value = res;
+      isLoading.value = false;
       return res;
     } catch (e, s) {
+      isLoading.value = false;
+
       print(e);
       print(s);
       return null;

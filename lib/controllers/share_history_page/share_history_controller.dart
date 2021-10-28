@@ -28,6 +28,8 @@ class ShareHistoryController extends GetxController {
   var itemSelected = {}.obs;
   var servicesNotConnect = [].obs;
 
+  RxBool isLoading = false.obs;
+
   // @override
   // void onInit() async {
   //   var currentPage = globalController.recordsTabMode.value;
@@ -118,6 +120,7 @@ class ShareHistoryController extends GetxController {
 
   Future<List<Map<String, dynamic>>> getRecords(String status) async {
     try {
+      isLoading.value = true;
       var userID = globalController.user.value.id.toString();
       var mode = globalController.historyStatus.value;
       var response;
@@ -166,8 +169,12 @@ class ShareHistoryController extends GetxController {
         listRecords.add(item);
       }
       calculatorTimeOption(list[0]["fromTime"], list[0]["endTime"]);
+      isLoading.value = false;
+
       return listRecords;
     } catch (e, s) {
+      isLoading.value = false;
+
       print(e);
       print(s);
       return [];

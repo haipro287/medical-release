@@ -11,6 +11,7 @@ import 'package:medical_chain_mobile_ui/utils/common-function.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
 import 'package:medical_chain_mobile_ui/widgets/app_bar.dart';
 import 'package:medical_chain_mobile_ui/widgets/input.dart';
+import 'package:medical_chain_mobile_ui/widgets/loaiding.dart';
 import 'package:medical_chain_mobile_ui/widgets/search_navigator.dart';
 import 'package:medical_chain_mobile_ui/widgets/text_box.dart';
 
@@ -50,127 +51,147 @@ class ShareListScreen extends StatelessWidget {
                       onSearch: shareListController.search,
                     ),
                     Obx(
-                      () => shareListController.searchList.length == 0
-                          ? Column(
-                              children: [
-                                SizedBox(
-                                  height: getHeight(41.15),
-                                ),
-                                Container(
-                                  child: SvgPicture.asset(
-                                      "assets/images/no-result.svg"),
-                                ),
-                                SizedBox(
-                                  height: getHeight(33.3),
-                                ),
-                                Text("userNotFound".tr),
-                              ],
+                      () => shareListController.isLoading.value
+                          ? Expanded(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: getHeight(41.15),
+                                  ),
+                                  loading(),
+                                ],
+                              ),
                             )
-                          : Column(
-                              children: [
-                                SizedBox(
-                                  height: getHeight(18),
-                                ),
-                                customBoxHeader(
-                                    globalController.sharingStatus.value ==
-                                            "SENT_DATA"
-                                        ? "chooseUserToSent".tr
-                                        : "chooseUserToRequest".tr),
-                                Container(
-                                  height: getHeight(442),
-                                  child: ListView(
-                                    scrollDirection: Axis.vertical,
-                                    children: shareListController
-                                        .searchList.value
-                                        .map(
-                                          (e) => Container(
-                                            margin: EdgeInsets.only(
-                                              left: getWidth(15),
-                                              right: getWidth(15),
-                                            ),
-                                            decoration: BoxDecoration(
-                                              border: Border(
-                                                bottom: BorderSide(
-                                                  color: Color(0xFFF2F3F7),
-                                                  width: getHeight(2),
+                          : shareListController.searchList.length == 0
+                              ? Column(
+                                  children: [
+                                    SizedBox(
+                                      height: getHeight(41.15),
+                                    ),
+                                    Container(
+                                      child: SvgPicture.asset(
+                                          "assets/images/no-result.svg"),
+                                    ),
+                                    SizedBox(
+                                      height: getHeight(33.3),
+                                    ),
+                                    Text("userNotFound".tr),
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    SizedBox(
+                                      height: getHeight(18),
+                                    ),
+                                    customBoxHeader(
+                                        globalController.sharingStatus.value ==
+                                                "SENT_DATA"
+                                            ? "chooseUserToSent".tr
+                                            : "chooseUserToRequest".tr),
+                                    Container(
+                                      height: getHeight(442),
+                                      child: ListView(
+                                        scrollDirection: Axis.vertical,
+                                        children: shareListController
+                                            .searchList.value
+                                            .map(
+                                              (e) => Container(
+                                                margin: EdgeInsets.only(
+                                                  left: getWidth(15),
+                                                  right: getWidth(15),
                                                 ),
-                                              ),
-                                            ),
-                                            height: getHeight(78),
-                                            child: Row(
-                                              children: [
-                                                Radio(
-                                                  value: shareListController
-                                                          .userSelected.value !=
-                                                      e["secondaryUsername"],
-                                                  groupValue: false,
-                                                  onChanged: (var a) {
-                                                    shareListController
-                                                            .userSelected
-                                                            .value =
-                                                        e["secondaryUsername"] ??
-                                                            "";
-                                                  },
-                                                ),
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(56),
-                                                  child: Container(
-                                                    width: getWidth(36),
-                                                    height: getWidth(36),
-                                                    color: Color(e["avatar"]),
-                                                  ),
-                                                ),
-                                                SizedBox(width: getWidth(15)),
-                                                Container(
-                                                  child: Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          e["secondaryName"] !=
-                                                                  ""
-                                                              ? e["secondaryName"]
-                                                              : getHintText(e),
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  getWidth(17),
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis),
-                                                        ),
-                                                        Text(
-                                                          e["secondaryUsername"] ??
-                                                              "Unknown",
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  getWidth(13),
-                                                              color: Color(
-                                                                  0xFF838AA2)),
-                                                        )
-                                                      ],
+                                                decoration: BoxDecoration(
+                                                  border: Border(
+                                                    bottom: BorderSide(
+                                                      color: Color(0xFFF2F3F7),
+                                                      width: getHeight(2),
                                                     ),
                                                   ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                  alignment: Alignment.centerLeft,
+                                                ),
+                                                height: getHeight(78),
+                                                child: Row(
+                                                  children: [
+                                                    Radio(
+                                                      value: shareListController
+                                                              .userSelected
+                                                              .value !=
+                                                          e["secondaryUsername"],
+                                                      groupValue: false,
+                                                      onChanged: (var a) {
+                                                        shareListController
+                                                                .userSelected
+                                                                .value =
+                                                            e["secondaryUsername"] ??
+                                                                "";
+                                                      },
+                                                    ),
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              56),
+                                                      child: Container(
+                                                        width: getWidth(36),
+                                                        height: getWidth(36),
+                                                        color:
+                                                            Color(e["avatar"]),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                        width: getWidth(15)),
+                                                    Container(
+                                                      child: Expanded(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              e["secondaryName"] !=
+                                                                      ""
+                                                                  ? e[
+                                                                      "secondaryName"]
+                                                                  : getHintText(
+                                                                      e),
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      getWidth(
+                                                                          17),
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis),
+                                                            ),
+                                                            Text(
+                                                              e["secondaryUsername"] ??
+                                                                  "Unknown",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      getWidth(
+                                                                          13),
+                                                                  color: Color(
+                                                                      0xFF838AA2)),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                      ),
+                                      alignment: Alignment.centerLeft,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
                     ),
                   ],
                 ),
               ),
+              //////
               Container(
                 alignment: Alignment.center,
                 child: Column(
