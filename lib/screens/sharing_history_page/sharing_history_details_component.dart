@@ -347,6 +347,8 @@ Widget historyDetailComponent({required record}) {
                                                                   if (shareHistoryController
                                                                           .isClickDetele ==
                                                                       false) {
+                                                                    Get.back();
+                                                                    showLoading();
                                                                     shareHistoryController
                                                                             .isClickDetele =
                                                                         true;
@@ -368,6 +370,7 @@ Widget historyDetailComponent({required record}) {
                                                                       shareHistoryController
                                                                               .isClickDetele =
                                                                           false;
+                                                                      Get.back();
                                                                     }
                                                                   }
                                                                 }),
