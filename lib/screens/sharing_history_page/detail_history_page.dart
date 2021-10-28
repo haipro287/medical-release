@@ -68,7 +68,7 @@ class DetailHistoryPage extends StatelessWidget {
         color: Color(0xFFF6F7FB),
         child: ListView(
           children: [
-            customBoxHeader((subMode ? '共有元' : "送信元")),
+            customBoxHeader((subMode ? '共有先' : "送信元")),
             Container(
               color: Colors.white,
               padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
