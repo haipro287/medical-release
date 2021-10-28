@@ -76,51 +76,63 @@ class NotificationController extends GetxController {
   }
 
   Future<void> notiAction(String id) async {
-    GlobalController globalController = Get.put(GlobalController());
-    var item = await Get.put(NotificationController()).getRequest(id: id);
-    if (globalController.user.value.id == item["primaryId"]) {
-      globalController.historyStatus.value = "SENDING_MODE";
-    } else if (globalController.user.value.id == item["secondaryId"]) {
-      globalController.historyStatus.value = "REQUEST_MODE";
-    }
+    try {
+      showLoading();
+      GlobalController globalController = Get.put(GlobalController());
+      var item = await Get.put(NotificationController()).getRequest(id: id);
+      if (globalController.user.value.id == item["primaryId"]) {
+        globalController.historyStatus.value = "SENDING_MODE";
+      } else if (globalController.user.value.id == item["secondaryId"]) {
+        globalController.historyStatus.value = "REQUEST_MODE";
+      }
 
-    CustomDio customDio = CustomDio();
-    var certificate =
-        Get.put(GlobalController()).user.value.certificate.toString();
-    customDio.dio.options.headers["Authorization"] = certificate;
-    var response = await customDio.get(
-        "/users/${!(globalController.historyStatus.value == "SENDING_MODE") ? item["primaryId"] : item["secondaryId"]}");
-    item["isBan"] = !response.data["success"];
-    ShareHistoryController shareHistoryController =
-        Get.put(ShareHistoryController());
-    shareHistoryController.itemSelected.value = item;
-    Get.to(() => DetailHistoryPage());
+      CustomDio customDio = CustomDio();
+      var certificate =
+          Get.put(GlobalController()).user.value.certificate.toString();
+      customDio.dio.options.headers["Authorization"] = certificate;
+      var response = await customDio.get(
+          "/users/${!(globalController.historyStatus.value == "SENDING_MODE") ? item["primaryId"] : item["secondaryId"]}");
+      item["isBan"] = !response.data["success"];
+      ShareHistoryController shareHistoryController =
+          Get.put(ShareHistoryController());
+      shareHistoryController.itemSelected.value = item;
+      Get.back();
+      Get.to(() => DetailHistoryPage());
+    } catch (e) {
+      Get.back();
+    }
   }
 
   Future<void> notiAction1(String id) async {
-    GlobalController globalController = Get.put(GlobalController());
-    var item = await Get.put(NotificationController()).getRequest(id: id);
-    if (globalController.user.value.id == item["primaryId"]) {
-      globalController.historyStatus.value = "SENDING_MODE";
-    } else if (globalController.user.value.id == item["secondaryId"]) {
-      globalController.historyStatus.value = "REQUEST_MODE";
-      var a = await getStatusService(item: item);
-      if (!a) {
-        item["services"][0]["status"] = false;
+    try {
+      showLoading();
+      GlobalController globalController = Get.put(GlobalController());
+      var item = await Get.put(NotificationController()).getRequest(id: id);
+      if (globalController.user.value.id == item["primaryId"]) {
+        globalController.historyStatus.value = "SENDING_MODE";
+      } else if (globalController.user.value.id == item["secondaryId"]) {
+        globalController.historyStatus.value = "REQUEST_MODE";
+        var a = await getStatusService(item: item);
+        if (!a) {
+          item["services"][0]["status"] = false;
+        }
       }
-    }
-    CustomDio customDio = CustomDio();
-    var certificate =
-        Get.put(GlobalController()).user.value.certificate.toString();
-    customDio.dio.options.headers["Authorization"] = certificate;
-    var response = await customDio.get(
-        "/users/${!(globalController.historyStatus.value == "SENDING_MODE") ? item["primaryId"] : item["secondaryId"]}");
-    item["isBan"] = !response.data["success"];
+      CustomDio customDio = CustomDio();
+      var certificate =
+          Get.put(GlobalController()).user.value.certificate.toString();
+      customDio.dio.options.headers["Authorization"] = certificate;
+      var response = await customDio.get(
+          "/users/${!(globalController.historyStatus.value == "SENDING_MODE") ? item["primaryId"] : item["secondaryId"]}");
+      item["isBan"] = !response.data["success"];
 
-    ShareHistoryController shareHistoryController =
-        Get.put(ShareHistoryController());
-    shareHistoryController.itemSelected.value = item;
-    Get.offAll(() => HomePageScreen());
-    await Get.to(() => DetailHistoryPage());
+      ShareHistoryController shareHistoryController =
+          Get.put(ShareHistoryController());
+      shareHistoryController.itemSelected.value = item;
+      Get.back();
+      Get.offAll(() => HomePageScreen());
+      await Get.to(() => DetailHistoryPage());
+    } catch (e) {
+      Get.back();
+    }
   }
 }
