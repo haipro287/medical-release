@@ -162,34 +162,42 @@ class ShareListService extends StatelessWidget {
                                                     width: getWidth(15),
                                                   ),
                                                   Container(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          upperFirstString(
-                                                              e["name"]),
-                                                        ),
-                                                        (globalController
-                                                                        .sharingStatus
-                                                                        .value ==
-                                                                    "SENT_DATA" &&
-                                                                e["username"] !=
-                                                                    null)
-                                                            ? Text(
-                                                                e["username"],
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Color(
-                                                                      0xFF838AA2),
-                                                                ),
-                                                              )
-                                                            : Container(),
-                                                      ],
+                                                    child: Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            upperFirstString(
+                                                                e["name"]),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                          ),
+                                                          (globalController
+                                                                          .sharingStatus
+                                                                          .value ==
+                                                                      "SENT_DATA" &&
+                                                                  e["username"] !=
+                                                                      null)
+                                                              ? Text(
+                                                                  e["username"],
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Color(
+                                                                        0xFF838AA2),
+                                                                  ),
+                                                                )
+                                                              : Container(),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                   SizedBox(width: getWidth(15)),

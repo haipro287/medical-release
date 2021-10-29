@@ -110,51 +110,52 @@ Widget historyDetailComponent({required record}) {
                       SizedBox(
                         width: getWidth(8),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: serviceList
-                            .map((e) => Container(
-                                  margin: EdgeInsets.only(
-                                    bottom: getHeight(8),
-                                  ),
-                                  child: Row(children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(27),
-                                      child: Container(
-                                        width: getWidth(16),
-                                        height: getWidth(16),
-                                        child: e["icon"]
-                                                .toString()
-                                                .contains("http")
-                                            ? Image.asset(
-                                                e["icon"].toString(),
-                                                fit: BoxFit.cover,
-                                              )
-                                            : Image.memory(
-                                                base64Decode(e["icon"]
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: serviceList
+                              .map((e) => Container(
+                                    margin: EdgeInsets.only(
+                                      bottom: getHeight(8),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(27),
+                                          child: Container(
+                                            width: getWidth(16),
+                                            height: getWidth(16),
+                                            child: e["icon"]
                                                     .toString()
-                                                    .split(",")[1]),
-                                                fit: BoxFit.cover,
-                                              ),
-                                      ),
+                                                    .contains("http")
+                                                ? Image.asset(
+                                                    e["icon"].toString(),
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : Image.memory(
+                                                    base64Decode(e["icon"]
+                                                        .toString()
+                                                        .split(",")[1]),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: getWidth(8),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            upperFirstString(e["name"]),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    // Container(
-                                    //   width: getWidth(16),
-                                    //   child: e["icon"].toString().contains('http')
-                                    //       ? Image.network(e["icon"].toString())
-                                    //       : SvgPicture.asset(
-                                    //           "assets/images/avatar.svg",
-                                    //           width: getWidth(16),
-                                    //         ),
-                                    // ),
-                                    SizedBox(width: getWidth(8)),
-                                    Container(
-                                      child: Text(upperFirstString(e["name"])),
-                                    ),
-                                  ]),
-                                ))
-                            .toList(),
+                                  ))
+                              .toList(),
+                        ),
                       ),
                     ],
                   ),

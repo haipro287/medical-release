@@ -130,6 +130,7 @@ class DetailHistoryPage extends StatelessWidget {
                         ),
                         height: getHeight(78),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(27),
@@ -149,41 +150,45 @@ class DetailHistoryPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: getWidth(15)),
-                            Container(
-                              alignment: Alignment.center,
-                              child: Text(upperFirstString(e["name"])),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  upperFirstString(e["name"]),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
                             ),
+                            SizedBox(width: getWidth(15)),
                             hideMode
-                                ? Expanded(
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        showLoading();
+                                ? GestureDetector(
+                                    onTap: () async {
+                                      showLoading();
 
-                                        try {
-                                          var ownerId =
-                                              await shareHistoryController
-                                                  .getData(
-                                                      primaryId: itemSelected[
-                                                          "primaryId"],
-                                                      serviceId: e["id"]);
-                                          var base64 = getMessage1(ownerId);
-                                          Get.back();
-                                          Get.to(() => WebViewPage(
-                                                url: e["viewUrl"] +
-                                                    "?message=$base64",
-                                              ));
-                                        } catch (e) {
-                                          Get.back();
-                                        }
-                                      },
-                                      child: Container(
-                                        alignment: Alignment.centerRight,
-                                        child: Text(
-                                          "参照",
-                                          style: TextStyle(
-                                            color: Color(0xFF61B3FF),
-                                            fontSize: getWidth(17),
-                                          ),
+                                      try {
+                                        var ownerId =
+                                            await shareHistoryController
+                                                .getData(
+                                                    primaryId: itemSelected[
+                                                        "primaryId"],
+                                                    serviceId: e["id"]);
+                                        var base64 = getMessage1(ownerId);
+                                        Get.back();
+                                        Get.to(() => WebViewPage(
+                                              url: e["viewUrl"] +
+                                                  "?message=$base64",
+                                            ));
+                                      } catch (e) {
+                                        Get.back();
+                                      }
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "参照",
+                                        style: TextStyle(
+                                          color: Color(0xFF61B3FF),
+                                          fontSize: getWidth(17),
                                         ),
                                       ),
                                     ),
