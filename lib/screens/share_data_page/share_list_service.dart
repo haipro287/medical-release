@@ -166,7 +166,7 @@ class ShareListService extends StatelessWidget {
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
-                                                                .center,
+                                                                .start,
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
                                                                 .center,
