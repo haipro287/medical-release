@@ -403,37 +403,35 @@ AlertDialog servicesNotConnectDialog(context, List<dynamic> servicesList) {
                       margin: EdgeInsets.only(
                         bottom: getHeight(8),
                       ),
-                      child: Expanded(
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(27),
-                              child: Container(
-                                width: getWidth(27),
-                                height: getWidth(27),
-                                child: e["icon"].toString().contains("http")
-                                    ? Image.asset(
-                                        e["icon"].toString(),
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.memory(
-                                        base64Decode(
-                                            e["icon"].toString().split(",")[1]),
-                                        fit: BoxFit.cover,
-                                      ),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(27),
+                            child: Container(
+                              width: getWidth(27),
+                              height: getWidth(27),
+                              child: e["icon"].toString().contains("http")
+                                  ? Image.asset(
+                                      e["icon"].toString(),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.memory(
+                                      base64Decode(
+                                          e["icon"].toString().split(",")[1]),
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                          ),
+                          SizedBox(width: getWidth(8)),
+                          Expanded(
+                            child: Container(
+                              child: Text(
+                                upperFirstString(e["name"]),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            SizedBox(width: getWidth(8)),
-                            Expanded(
-                              child: Container(
-                                child: Text(
-                                  upperFirstString(e["name"]),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   )

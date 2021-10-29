@@ -111,14 +111,13 @@ class ConfirmApproveRecordPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: getWidth(15)),
-                            Container(
-                              alignment: Alignment.center,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(upperFirstString(e["name"])),
-                                ],
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  upperFirstString(e["name"]),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             )
                           ],
