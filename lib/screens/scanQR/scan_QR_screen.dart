@@ -44,7 +44,6 @@ class ScanQRScreen extends StatelessWidget {
                     child: QRView(
                       key: GlobalKey(debugLabel: 'QR'),
                       onQRViewCreated: _onQRViewCreated,
-                      overlayMargin: EdgeInsets.only(bottom: 300),
                       overlay: QrScannerOverlayShape(
                         borderColor: Colors.white,
                         borderLength: 30,
@@ -142,7 +141,7 @@ class ScanQRScreen extends StatelessWidget {
                           );
                         }),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.17,
+                          height: getHeight(150),
                         )
                       ],
                     ),
