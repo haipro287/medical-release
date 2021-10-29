@@ -106,6 +106,7 @@ Widget switchService(
                         horizontal: getWidth(16),
                       ),
                       child: Column(
+                        // mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(
                             height: getHeight(35),
@@ -113,39 +114,48 @@ Widget switchService(
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(27),
-                                    child: Container(
-                                      width: getWidth(24),
-                                      height: getWidth(24),
-                                      child: icon.toString().contains("http")
-                                          ? Image.asset(
-                                              icon.toString(),
-                                              fit: BoxFit.cover,
-                                            )
-                                          : Image.memory(
-                                              base64Decode(icon
-                                                  .toString()
-                                                  .split(",")[1]),
-                                              fit: BoxFit.cover,
-                                            ),
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(27),
+                                      child: Container(
+                                        width: getWidth(24),
+                                        height: getWidth(24),
+                                        child: icon.toString().contains("http")
+                                            ? Image.asset(
+                                                icon.toString(),
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Image.memory(
+                                                base64Decode(icon
+                                                    .toString()
+                                                    .split(",")[1]),
+                                                fit: BoxFit.cover,
+                                              ),
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: getWidth(12),
-                                  ),
-                                  Text(
-                                    upperFirstString(serviceName ?? ""),
-                                    style: TextStyle(
-                                      fontSize: getWidth(17),
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xFF22262B),
+                                    SizedBox(
+                                      width: getWidth(12),
                                     ),
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                ],
+                                    Expanded(
+                                      child: Text(
+                                        upperFirstString(serviceName ?? ""),
+                                        style: TextStyle(
+                                          fontSize: getWidth(17),
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xFF22262B),
+                                        ),
+                                        textAlign: TextAlign.justify,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
                               ),
                               Bouncing(
                                 onPress: () {
