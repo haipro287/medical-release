@@ -131,28 +131,6 @@ class ShareListService extends StatelessWidget {
                                                                   getWidth(20),
                                                             ),
                                                           )
-                                                        // Checkbox(
-                                                        //         value: shareServiceListController
-                                                        //                 .checkList
-                                                        //                 .where((item) =>
-                                                        //                     item["id"] ==
-                                                        //                     e["id"])
-                                                        //                 .length >
-                                                        //             0,
-                                                        //         onChanged:
-                                                        //             (bool? isCheck) {
-                                                        //           if (isCheck == true) {
-                                                        //             shareServiceListController
-                                                        //                 .checkList
-                                                        //                 .clear();
-                                                        //             shareServiceListController
-                                                        //                 .checkList
-                                                        //                 .add(e);
-                                                        //           } else
-                                                        //             shareServiceListController
-                                                        //                 .checkList
-                                                        //                 .remove(e);
-                                                        //         })
                                                         : Container(),
                                                   ),
                                                   ClipRRect(
@@ -180,7 +158,9 @@ class ShareListService extends StatelessWidget {
                                                             ),
                                                     ),
                                                   ),
-                                                  SizedBox(width: getWidth(15)),
+                                                  SizedBox(
+                                                    width: getWidth(15),
+                                                  ),
                                                   Container(
                                                     child: Column(
                                                       crossAxisAlignment:
@@ -190,8 +170,10 @@ class ShareListService extends StatelessWidget {
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Text(upperFirstString(
-                                                            e["name"])),
+                                                        Text(
+                                                          upperFirstString(
+                                                              e["name"]),
+                                                        ),
                                                         (globalController
                                                                         .sharingStatus
                                                                         .value ==
@@ -200,9 +182,11 @@ class ShareListService extends StatelessWidget {
                                                                     null)
                                                             ? Text(
                                                                 e["username"],
-                                                                style: TextStyle(
-                                                                    color: Color(
-                                                                        0xFF838AA2)),
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Color(
+                                                                      0xFF838AA2),
+                                                                ),
                                                               )
                                                             : Container(),
                                                       ],
@@ -279,28 +263,6 @@ class ShareListService extends StatelessWidget {
                                                           width: getWidth(20),
                                                         ),
                                                       )
-                                                    // Checkbox(
-                                                    //         value:
-                                                    //             shareServiceListController
-                                                    //                     .checkList
-                                                    //                     .where((item) =>
-                                                    //                         item["id"] ==
-                                                    //                         e["id"])
-                                                    //                     .length >
-                                                    //                 0,
-                                                    //         onChanged: (bool? isCheck) {
-                                                    //           if (isCheck == true) {
-                                                    //             shareServiceListController
-                                                    //                 .checkList
-                                                    //                 .clear();
-                                                    //             shareServiceListController
-                                                    //                 .checkList
-                                                    //                 .add(e);
-                                                    //           } else
-                                                    //             shareServiceListController
-                                                    //                 .checkList
-                                                    //                 .remove(e);
-                                                    //         })
                                                     : SizedBox.shrink(),
                                               ),
                                               ClipRRect(
@@ -325,7 +287,13 @@ class ShareListService extends StatelessWidget {
                                                 ),
                                               ),
                                               SizedBox(width: getWidth(15)),
-                                              Text(upperFirstString(e["name"])),
+                                              Expanded(
+                                                child: Text(
+                                                  upperFirstString(e["name"]),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
                                               SizedBox(width: getWidth(15)),
                                               if (e["status"] == "sharing")
                                                 Container(
