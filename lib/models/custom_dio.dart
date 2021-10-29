@@ -65,7 +65,8 @@ class CustomDio {
           print({'onResponse': response});
           if (response.data["error"] == "ERROR.AUTH.USER_BANNED") {
             print('banned!!!');
-            Get.put(PrivacyController()).logout2();
+            if (Get.put(GlobalController()).user.value.id != null)
+              Get.put(PrivacyController()).logout2();
           }
           return handler.next(response);
         },
