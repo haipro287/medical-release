@@ -357,6 +357,11 @@ Widget historyDetailComponent({required record}) {
                                                                       await shareHistoryController.deleteHistory(
                                                                           item:
                                                                               record);
+                                                                      shareHistoryController
+                                                                          .searchInput
+                                                                          .text = "";
+                                                                      shareHistoryController
+                                                                          .search();
                                                                       var records = await shareHistoryController.getRecords(shareHistoryController.getStatusFromValue(globalController
                                                                           .recordsTabMode
                                                                           .value));

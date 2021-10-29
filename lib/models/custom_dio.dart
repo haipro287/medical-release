@@ -9,6 +9,7 @@ import 'package:get/instance_manager.dart';
 import 'package:medical_chain_mobile_ui/api/certificate_service.dart';
 import 'package:medical_chain_mobile_ui/controllers/global_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/privacy/privacy_controller.dart';
+import 'package:medical_chain_mobile_ui/models/User.dart';
 import 'package:medical_chain_mobile_ui/services/date_format.dart';
 
 class CustomDio {
@@ -65,7 +66,9 @@ class CustomDio {
           print({'onResponse': response});
           if (response.data["error"] == "ERROR.AUTH.USER_BANNED") {
             print('banned!!!');
-            if (Get.put(GlobalController()).user.value.id != null)
+            Get.put(GlobalController()).user.value = User();
+            if (Get.put(GlobalController()).user.value.id != null &&
+                Get.put(GlobalController()).user.value.kanji != null)
               Get.put(PrivacyController()).logout2();
           }
           return handler.next(response);
