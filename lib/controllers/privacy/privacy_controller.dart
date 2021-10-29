@@ -42,6 +42,7 @@ class PrivacyController extends GetxController {
     var unSubcribe = await Get.put(LoginPageController())
         .unSubcribe(token: token.toString());
     print(unSubcribe);
+    Get.put(GlobalController()).user.value = User();
     Get.put(GlobalController()).db.deleteFromDisk();
     Get.put(GlobalController()).onChangeTab(0);
     Get.offAll(() => LoginWelcomePage());
