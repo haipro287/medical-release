@@ -37,16 +37,74 @@ class ScanQRScreen extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  QRView(
-                    key: GlobalKey(debugLabel: 'QR'),
-                    onQRViewCreated: _onQRViewCreated,
-                    overlay: QrScannerOverlayShape(
+                  Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    alignment: Alignment.topCenter,
+                    child: QRView(
+                      key: GlobalKey(debugLabel: 'QR'),
+                      onQRViewCreated: _onQRViewCreated,
+                      overlayMargin: EdgeInsets.only(bottom: 300),
+                      overlay: QrScannerOverlayShape(
                         borderColor: Colors.white,
                         borderLength: 30,
                         borderWidth: 10,
-                        cutOutSize: MediaQuery.of(context).size.width * 0.8,
-                        cutOutBottomOffset: 120),
+                        cutOutSize: MediaQuery.of(context).size.width * 0.85,
+                      ),
+                    ),
                   ),
+                  // Expanded(
+                  //   child: Container(
+                  //     child: Column(
+                  //       children: [
+                  //         SizedBox(
+                  //           height: getHeight(100),
+                  //           child: Container(
+                  //             color: Colors.black.withOpacity(0.48),
+                  //           ),
+                  //         ),
+                  //         Container(
+                  //           height: MediaQuery.of(context).size.width * 0.85,
+                  //           child: Row(
+                  //             children: [
+                  //               Expanded(
+                  //                 child: Container(
+                  //                   color: Colors.black.withOpacity(0.48),
+                  //                 ),
+                  //               ),
+                  //               Container(
+                  //                 height:
+                  //                     MediaQuery.of(context).size.width * 0.85,
+                  //                 width:
+                  //                     MediaQuery.of(context).size.width * 0.85,
+                  //                 decoration: ShapeDecoration(
+                  //                   shape: QrScannerOverlayShape(
+                  //                     borderColor: Colors.white,
+                  //                     borderLength: 30,
+                  //                     borderWidth: 10,
+                  //                     cutOutSize:
+                  //                         MediaQuery.of(context).size.width *
+                  //                             0.85,
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //               Expanded(
+                  //                 child: Container(
+                  //                   color: Colors.black.withOpacity(0.48),
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         Expanded(
+                  //           child: Container(
+                  //             color: Colors.black.withOpacity(0.48),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   Container(
                     width: double.infinity,
                     child: Column(
@@ -84,7 +142,7 @@ class ScanQRScreen extends StatelessWidget {
                           );
                         }),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.3,
+                          height: MediaQuery.of(context).size.height * 0.17,
                         )
                       ],
                     ),

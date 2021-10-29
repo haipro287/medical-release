@@ -37,7 +37,8 @@ class GlobalController extends GetxController {
     } catch (e) {
       print(e);
       Phoenix.rebirth(Get.context!);
-      pageController = PageController(initialPage: 1, keepPage: true);
+      currentPage.value = value;
+      pageController = PageController(initialPage: value, keepPage: true);
     }
   }
 

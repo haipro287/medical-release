@@ -135,8 +135,8 @@ class DetailHistoryPage extends StatelessWidget {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(27),
                               child: Container(
-                                width: getWidth(16),
-                                height: getWidth(16),
+                                width: getWidth(27),
+                                height: getWidth(27),
                                 child: e["icon"].toString().contains("http")
                                     ? Image.asset(
                                         e["icon"].toString(),
