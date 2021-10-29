@@ -230,7 +230,7 @@ class ShareConfirmScreen extends StatelessWidget {
                             SizedBox(width: getWidth(15)),
                             Expanded(
                               child: Container(
-                                alignment: Alignment.center,
+                                alignment: Alignment.centerLeft,
                                 child: Text(
                                   upperFirstString(e["name"]),
                                   overflow: TextOverflow.ellipsis,

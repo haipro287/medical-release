@@ -311,6 +311,7 @@ class ScanQRScreen extends StatelessWidget {
           item["katakana"] = responseData["katakana"] ?? "";
           item["kanji"] = responseData["kanji"];
           item['avatar'] = avatarList[responseData['avatar']];
+          item['secondaryId'] = responseData['id'];
 
           if (responseData["contactId"] == "" ||
               responseData["contactId"] == null) {
