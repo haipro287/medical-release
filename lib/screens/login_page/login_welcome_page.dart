@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/signup_pape/signup_screen.dart';
@@ -30,7 +31,7 @@ class LoginWelcomePage extends StatelessWidget {
           child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-                text: "ブローオーシャンアプリ",
+                text: "ブロックチェーン\nアプリ",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: getWidth(28),
@@ -89,6 +90,12 @@ class LoginWelcomePage extends StatelessWidget {
                   child: Text('login'.tr),
                 ),
                 onPress: () {
+                  Get.put(LoginPageController()).username.text = "";
+                  Get.put(LoginPageController()).password.text = "";
+                  Get.put(LoginPageController()).messValidatePassword.value =
+                      "";
+                  Get.put(LoginPageController()).messValidateUsername.value =
+                      "";
                   Get.to(() => LoginPageScreen());
                 },
               ),

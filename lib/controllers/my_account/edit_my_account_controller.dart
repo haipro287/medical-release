@@ -93,7 +93,7 @@ class EditMyAccountController extends GetxController {
     } else if (!phoneReg.hasMatch(this.phone.text)) {
       isValid = false;
       phoneErr.value = "電話番号は半角数字のみで、入力して下さい。";
-    } else if (this.phone.text.length != 10 ||
+    } else if (this.phone.text.length != 11 ||
         this.phone.text.toString()[0] != '0') {
       isValid = false;
       phoneErr.value = "電話番号の値が不正です。正しい電話番号を入力して下さい。";

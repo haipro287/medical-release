@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:medical_chain_mobile_ui/controllers/login_page/login_page_controller.dart';
 import 'package:medical_chain_mobile_ui/controllers/signup_page/signup_page_controller.dart';
 import 'package:medical_chain_mobile_ui/screens/confirm_signup/confirm_signup_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/login_page/login_page_screen.dart';
@@ -42,10 +43,11 @@ class SignupScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: appBar(context, "新規アカウント作成"),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        reverse: true,
+        // padding: EdgeInsets.only(
+        //   bottom: MediaQuery.of(context).viewInsets.bottom,
+        // ),
+        // reverse: true,
+        physics: BouncingScrollPhysics(),
         child: Container(
             margin: EdgeInsets.only(
                 top: getHeight(40), left: getWidth(16), right: getWidth(16)),
@@ -470,6 +472,12 @@ class SignupScreen extends StatelessWidget {
                 ),
                 Bouncing(
                   onPress: () {
+                    Get.put(LoginPageController()).username.text = "";
+                    Get.put(LoginPageController()).password.text = "";
+                    Get.put(LoginPageController()).messValidatePassword.value =
+                        "";
+                    Get.put(LoginPageController()).messValidateUsername.value =
+                        "";
                     Get.to(() => LoginPageScreen());
                   },
                   child: Text(
