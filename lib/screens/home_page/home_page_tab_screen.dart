@@ -20,8 +20,8 @@ class HomePageTabScreen extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: getWidth(16)),
-      child: ListView(
+      margin: EdgeInsets.symmetric(horizontal: getWidth(10)),
+      child: Column(
         children: [
           SizedBox(
             height: getHeight(60),
@@ -36,104 +36,175 @@ class HomePageTabScreen extends StatelessWidget {
           SizedBox(
             height: getHeight(40),
           ),
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: getWidth(10),
-            runSpacing: getWidth(10),
-            children: [
-              Container(
-                width: getWidth(165),
-                height: getWidth(130),
-                decoration: BoxDecoration(
-                  color: Color(0xFFF5FAFF),
-                  borderRadius: BorderRadius.circular(
-                    getWidth(6),
-                  ),
-                ),
-                padding: EdgeInsets.only(
-                  left: getWidth(14),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'konichiwa'.tr,
-                      style: TextStyle(
-                        fontSize: getWidth(17),
-                        color: Color(0xFF838AA2),
+          Expanded(
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF5FAFF),
+                        borderRadius: BorderRadius.circular(
+                          getWidth(6),
+                        ),
+                      ),
+                      padding: EdgeInsets.only(
+                        left: getWidth(14),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'konichiwa'.tr,
+                            style: TextStyle(
+                              fontSize: getWidth(17),
+                              color: Color(0xFF838AA2),
+                            ),
+                          ),
+                          Obx(() {
+                            return Text(
+                              globalController.user.value.username.toString(),
+                              style: TextStyle(
+                                fontSize: getWidth(24),
+                              ),
+                            );
+                          }),
+                        ],
                       ),
                     ),
-                    Obx(() {
-                      return Text(
-                        globalController.user.value.username.toString(),
-                        style: TextStyle(
-                          fontSize: getWidth(24),
-                        ),
-                      );
-                    }),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    width: getWidth(10),
+                  ),
+                  Expanded(
+                    child: actionTab(
+                        color: Color(0xFFD0E8FF),
+                        icon: "assets/images/share1.svg",
+                        tag: "shareData",
+                        function: () {
+                          globalController.sharingStatus.value = "SENT_DATA";
+                          Get.to(() => ShareListScreen());
+                        }),
+                  ),
+                ],
               ),
-              actionTab(
-                  color: Color(0xFFD0E8FF),
-                  icon: "assets/images/share1.svg",
-                  tag: "shareData",
-                  function: () {
-                    globalController.sharingStatus.value = "SENT_DATA";
-                    Get.to(() => ShareListScreen());
-                  }),
-              actionTab(
-                  color: Color(0xFFDAD4FF),
-                  icon: "assets/images/data.svg",
-                  tag: "viewDataRequest",
-                  function: () => {
-                        globalController.historyStatus.value = "REQUEST_MODE",
-                        globalController.recordsTabMode.value = 0,
-                        Get.to(() => ShareHistoryPage()),
-                      }),
-              actionTab(
-                  color: Color(0xFFFFF0D1),
-                  icon: "assets/images/share2.svg",
-                  tag: "viewDataShare",
-                  function: () => {
-                        globalController.historyStatus.value = "SENDING_MODE",
-                        globalController.recordsTabMode.value = 0,
-                        Get.to(() => ShareHistoryPage()),
-                      }),
-              actionTab(
-                  color: Color(0xFFF7EBE8),
-                  icon: "assets/images/link.svg",
-                  tag: "connectService",
-                  function: () {
-                    Get.to(() => ListServiceScreen());
-                  }),
-              actionTab(
-                  color: Color(0xFFD8F4FF),
-                  icon: "assets/images/people.svg",
-                  tag: "contact_address",
-                  function: () => Get.to(() => ContactListPage())),
-              actionTab(
-                  color: Color(0xFFD0E8FF),
-                  icon: "assets/images/send.svg",
-                  tag: "sentRequest",
-                  function: () => {
-                        globalController.sharingStatus.value = "SENT_REQUEST",
-                        Get.to(() => ShareListScreen()),
-                      }),
-              actionTab(
-                  color: Color(0xFFF0F7E6),
-                  icon: "assets/images/person.svg",
-                  tag: "my_account",
-                  function: () => {
-                        Get.put(MyAccountController()).getUserInfo(),
-                        Get.to(() => MyAccountScreen())
-                      }),
-              SizedBox(
-                height: getHeight(10),
+            ),
+          ),
+          SizedBox(
+            height: getWidth(10),
+          ),
+          Expanded(
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: actionTab(
+                        color: Color(0xFFDAD4FF),
+                        icon: "assets/images/data.svg",
+                        tag: "viewDataRequest",
+                        function: () => {
+                              globalController.historyStatus.value =
+                                  "REQUEST_MODE",
+                              globalController.recordsTabMode.value = 0,
+                              Get.to(() => ShareHistoryPage()),
+                            }),
+                  ),
+                  SizedBox(
+                    width: getWidth(10),
+                  ),
+                  Expanded(
+                    child: actionTab(
+                        color: Color(0xFFFFF0D1),
+                        icon: "assets/images/share2.svg",
+                        tag: "viewDataShare",
+                        function: () => {
+                              globalController.historyStatus.value =
+                                  "SENDING_MODE",
+                              globalController.recordsTabMode.value = 0,
+                              Get.to(() => ShareHistoryPage()),
+                            }),
+                  ),
+                ],
               ),
-            ],
-          )
+            ),
+          ),
+          SizedBox(
+            height: getWidth(10),
+          ),
+          Expanded(
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: actionTab(
+                        color: Color(0xFFF7EBE8),
+                        icon: "assets/images/link.svg",
+                        tag: "connectService",
+                        function: () {
+                          Get.to(() => ListServiceScreen());
+                        }),
+                  ),
+                  SizedBox(
+                    width: getWidth(10),
+                  ),
+                  Expanded(
+                    child: actionTab(
+                        color: Color(0xFFD8F4FF),
+                        icon: "assets/images/people.svg",
+                        tag: "contact_address",
+                        function: () => Get.to(() => ContactListPage())),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: getWidth(10),
+          ),
+          Expanded(
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: actionTab(
+                        color: Color(0xFFD0E8FF),
+                        icon: "assets/images/send.svg",
+                        tag: "sentRequest",
+                        function: () => {
+                              globalController.sharingStatus.value =
+                                  "SENT_REQUEST",
+                              Get.to(() => ShareListScreen()),
+                            }),
+                  ),
+                  SizedBox(
+                    width: getWidth(10),
+                  ),
+                  Expanded(
+                    child: actionTab(
+                        color: Color(0xFFF0F7E6),
+                        icon: "assets/images/person.svg",
+                        tag: "my_account",
+                        function: () => {
+                              Get.put(MyAccountController()).getUserInfo(),
+                              Get.to(() => MyAccountScreen())
+                            }),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: getWidth(10),
+          ),
         ],
       ),
     );
@@ -151,8 +222,8 @@ class HomePageTabScreen extends StatelessWidget {
         }
       },
       child: Container(
-        width: getWidth(165),
-        height: getWidth(130),
+        // width: getWidth(165),
+        // height: getWidth(130),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(

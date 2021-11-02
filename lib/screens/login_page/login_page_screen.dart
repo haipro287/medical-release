@@ -27,157 +27,163 @@ class LoginPageScreen extends StatelessWidget {
         Get.off(LoginWelcomePage());
         return true;
       },
-      child: Scaffold(
-        appBar: appBar(context, "ログイン", null, false, true),
-        backgroundColor: Colors.white,
-        resizeToAvoidBottomInset: false,
-        body: Container(
-          margin: EdgeInsets.only(
-            left: getWidth(16),
-            right: getWidth(16),
-            top: getHeight(62),
-          ),
-          child: Column(
-            children: [
-              inputRegular(context,
-                  hintText: "userId".tr,
-                  textEditingController: loginController.username,
-                  onChange: () {
-                loginController.messValidateUsername.value = "";
-              }),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: getHeight(12),
-                ),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "ユーザーID、メールアドレスまたは電話番号",
-                  style: TextStyle(
-                    fontSize: getWidth(13),
-                    fontWeight: FontWeight.w400,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Scaffold(
+          appBar: appBar(context, "ログイン", null, false, true),
+          backgroundColor: Colors.white,
+          resizeToAvoidBottomInset: false,
+          body: Container(
+            margin: EdgeInsets.only(
+              left: getWidth(16),
+              right: getWidth(16),
+              top: getHeight(62),
+            ),
+            child: Column(
+              children: [
+                inputRegular(context,
+                    hintText: "userId".tr,
+                    textEditingController: loginController.username,
+                    onChange: () {
+                  loginController.messValidateUsername.value = "";
+                }),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: getHeight(12),
+                  ),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "ユーザーID、メールアドレスまたは電話番号",
+                    style: TextStyle(
+                      fontSize: getWidth(13),
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
-              ),
-              Obx(
-                () => inputPassword(
-                    context,
-                    loginController.password,
-                    "password".tr,
-                    loginController.isHidePassword.value,
-                    loginController.changeHidePassword, () {
-                  loginController.messValidatePassword.value = "";
-                }),
-              ),
-              SizedBox(
-                height: getHeight(24),
-              ),
-              InkWell(
-                child: Text("forgotPassword".tr),
-                onTap: () {
-                  print('forgot password');
-                  Get.to(() => ForgotPasswordScreen());
-                },
-              ),
-              SizedBox(
-                height: getHeight(24),
-              ),
-              Bouncing(
-                child: Container(
-                  width: getWidth(double.infinity),
-                  height: getHeight(48),
-                  color: Color(0xFFD0E8FF),
-                  alignment: Alignment.center,
-                  child: Text('login'.tr),
+                Obx(
+                  () => inputPassword(
+                      context,
+                      loginController.password,
+                      "password".tr,
+                      loginController.isHidePassword.value,
+                      loginController.changeHidePassword, () {
+                    loginController.messValidatePassword.value = "";
+                  }),
                 ),
-                onPress: () async {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  try {
-                    if (loginController.isClick == false) {
-                      loginController.isClick = true;
-                      showLoading();
-                      bool result = await loginController.login();
-                      if (result) {
-                        var info =
-                            await Get.put(MyAccountController()).getUserInfo();
-                        if (info != {}) {
-                          MyAccountController myAccountController =
-                              Get.put(MyAccountController());
-                          if (myAccountController.kanjiName.value == "") {
-                            Get.back();
-                            Get.put(EditMyAccountController()).signup.value =
-                                true;
-                            Get.put(EditMyAccountController()).dob.text =
-                                TimeService.dateTimeToString4(DateTime.now());
-                            Get.to(() => EditMyAccountScreen());
+                SizedBox(
+                  height: getHeight(24),
+                ),
+                InkWell(
+                  child: Text("forgotPassword".tr),
+                  onTap: () {
+                    print('forgot password');
+                    Get.to(() => ForgotPasswordScreen());
+                  },
+                ),
+                SizedBox(
+                  height: getHeight(24),
+                ),
+                Bouncing(
+                  child: Container(
+                    width: getWidth(double.infinity),
+                    height: getHeight(48),
+                    color: Color(0xFFD0E8FF),
+                    alignment: Alignment.center,
+                    child: Text('login'.tr),
+                  ),
+                  onPress: () async {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    try {
+                      if (loginController.isClick == false) {
+                        loginController.isClick = true;
+                        showLoading();
+                        bool result = await loginController.login();
+                        if (result) {
+                          var info = await Get.put(MyAccountController())
+                              .getUserInfo();
+                          if (info != {}) {
+                            MyAccountController myAccountController =
+                                Get.put(MyAccountController());
+                            if (myAccountController.kanjiName.value == "") {
+                              Get.back();
+                              Get.put(EditMyAccountController()).signup.value =
+                                  true;
+                              Get.put(EditMyAccountController()).dob.text =
+                                  TimeService.dateTimeToString4(DateTime.now());
+                              Get.to(() => EditMyAccountScreen());
+                            } else {
+                              Get.back();
+                              Get.put(GlobalController()).onChangeTab(0);
+                              Get.offAll(() => HomePageScreen());
+                            }
+                            // loginController.username.clear();
+                            // loginController.password.clear();
                           } else {
                             Get.back();
-                            Get.put(GlobalController()).onChangeTab(0);
-                            Get.offAll(() => HomePageScreen());
                           }
-                          // loginController.username.clear();
-                          // loginController.password.clear();
                         } else {
                           Get.back();
                         }
-                      } else {
-                        Get.back();
-                      }
 
+                        loginController.isClick = false;
+                      }
+                    } catch (E) {
+                      Get.back();
                       loginController.isClick = false;
                     }
-                  } catch (E) {
-                    Get.back();
-                    loginController.isClick = false;
-                  }
-                },
-              ),
-              Obx(
-                () => (loginController.messValidateUsername.value != "" ||
-                        loginController.messValidatePassword.value != "")
-                    ? Padding(
-                        padding: EdgeInsets.only(top: getHeight(24)),
-                        child: InkWell(
-                          child: Text(
-                            loginController.messValidateUsername.value ==
-                                    "Error Server"
-                                ? "Server crash"
-                                : loginController.messValidateUsername.value ==
-                                        "User Banned"
-                                    ? "banned_user_msg".tr
-                                    : "wrongPass".tr,
-                            style: TextStyle(
-                              color: Colors.red,
+                  },
+                ),
+                Obx(
+                  () => (loginController.messValidateUsername.value != "" ||
+                          loginController.messValidatePassword.value != "")
+                      ? Padding(
+                          padding: EdgeInsets.only(top: getHeight(24)),
+                          child: InkWell(
+                            child: Text(
+                              loginController.messValidateUsername.value ==
+                                      "Error Server"
+                                  ? "Server crash"
+                                  : loginController
+                                              .messValidateUsername.value ==
+                                          "User Banned"
+                                      ? "banned_user_msg".tr
+                                      : "wrongPass".tr,
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
                             ),
+                            onTap: () {},
                           ),
-                          onTap: () {},
-                        ),
-                      )
-                    : Container(),
-              ),
-              SizedBox(
-                height: getHeight(24),
-              ),
-              InkWell(
-                child: Text("signup".tr),
-                onTap: () {
-                  SignupPageController signupPageController =
-                      Get.put(SignupPageController());
+                        )
+                      : Container(),
+                ),
+                SizedBox(
+                  height: getHeight(24),
+                ),
+                InkWell(
+                  child: Text("signup".tr),
+                  onTap: () {
+                    SignupPageController signupPageController =
+                        Get.put(SignupPageController());
 
-                  signupPageController.userId.text = "";
-                  signupPageController.email.text = "";
-                  signupPageController.phone.text = "";
-                  signupPageController.password.text = "";
-                  signupPageController.confirmPassword.text = "";
+                    signupPageController.userId.text = "";
+                    signupPageController.email.text = "";
+                    signupPageController.phone.text = "";
+                    signupPageController.password.text = "";
+                    signupPageController.confirmPassword.text = "";
 
-                  signupPageController.userIdErr.value = "";
-                  signupPageController.mailErr.value = "";
-                  signupPageController.phoneErr.value = "";
-                  signupPageController.passwordErr.value = "";
-                  signupPageController.confirmPasswordErr.value = "";
-                  Get.to(() => SignupScreen());
-                },
-              ),
-            ],
+                    signupPageController.userIdErr.value = "";
+                    signupPageController.mailErr.value = "";
+                    signupPageController.phoneErr.value = "";
+                    signupPageController.passwordErr.value = "";
+                    signupPageController.confirmPasswordErr.value = "";
+                    Get.to(() => SignupScreen());
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -22,7 +22,7 @@ class _BouncingState extends State<Bouncing>
       vsync: this,
       duration: Duration(milliseconds: 200),
       lowerBound: 0.0,
-      upperBound: 0.05,
+      upperBound: 0.1,
     );
     _controller.addListener(() {
       setState(() {});
