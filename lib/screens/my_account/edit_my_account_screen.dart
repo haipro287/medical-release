@@ -32,203 +32,236 @@ class EditMyAccountScreen extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: appBar(context, 'myAccount'.tr, null, false,
             editMyAccountController.signup.value),
-        body: SingleChildScrollView(
+        body: Container(
           padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
+            top: getHeight(26),
+            left: getWidth(16),
+            right: getWidth(16),
           ),
-          reverse: true,
-          child: Container(
-            padding: EdgeInsets.only(
-              top: getHeight(26),
-              left: getWidth(16),
-              right: getWidth(16),
-            ),
-            // width: double.infinity,
-            // height: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Obx(() {
-                  return Container(
-                    margin: EdgeInsets.only(bottom: getHeight(18)),
-                    height: getHeight(100),
-                    width: getWidth(100),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: Colors.white,
-                      ),
-                      shape: BoxShape.circle,
-                      color: Color(editMyAccountController.avatar.value),
+          // width: double.infinity,
+          // height: double.infinity,
+          child: ListView(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Obx(() {
+                return Container(
+                  margin: EdgeInsets.only(bottom: getHeight(18)),
+                  height: getHeight(100),
+                  width: getWidth(100),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: Colors.white,
                     ),
-                  );
-                }),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                    shape: BoxShape.circle,
+                    color: Color(editMyAccountController.avatar.value),
+                  ),
+                );
+              }),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  colorButton(MyAccountController.avatarList[1]),
+                  colorButton(MyAccountController.avatarList[2]),
+                  colorButton(MyAccountController.avatarList[3]),
+                  colorButton(MyAccountController.avatarList[4]),
+                ],
+              ),
+              SizedBox(
+                height: getHeight(24),
+              ),
+              Obx(() {
+                var err = editMyAccountController.kanjiErr.value != "";
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    colorButton(MyAccountController.avatarList[1]),
-                    colorButton(MyAccountController.avatarList[2]),
-                    colorButton(MyAccountController.avatarList[3]),
-                    colorButton(MyAccountController.avatarList[4]),
+                    inputWithHint(
+                      context,
+                      hintText: "山田太郎",
+                      labelText: 'editName'.tr,
+                      initialText: myAccountController.kanjiName.value,
+                      textEditingController: editMyAccountController.kanjiName,
+                      err: err,
+                    ),
+                    errText(errMess: editMyAccountController.kanjiErr.value),
                   ],
-                ),
-                SizedBox(
-                  height: getHeight(24),
-                ),
-                Obx(() {
-                  var err = editMyAccountController.kanjiErr.value != "";
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      inputWithHint(
-                        context,
-                        hintText: "山田太郎",
-                        labelText: 'editName'.tr,
-                        initialText: myAccountController.kanjiName.value,
+                );
+              }),
+              SizedBox(
+                height: getHeight(12),
+              ),
+              Obx(() {
+                var err = editMyAccountController.katakanaErr.value != "";
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputWithHint(context,
+                        hintText: "ヤマダイチロウ",
+                        labelText: 'editAlphabetName'.tr,
+                        initialText: myAccountController.katakanaName.value,
                         textEditingController:
-                            editMyAccountController.kanjiName,
-                        err: err,
-                      ),
-                      errText(errMess: editMyAccountController.kanjiErr.value),
-                    ],
-                  );
-                }),
-                SizedBox(
-                  height: getHeight(12),
-                ),
-                Obx(() {
-                  var err = editMyAccountController.katakanaErr.value != "";
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      inputWithHint(context,
-                          hintText: "ヤマダイチロウ",
-                          labelText: 'editAlphabetName'.tr,
-                          initialText: myAccountController.katakanaName.value,
-                          textEditingController:
-                              editMyAccountController.katakanaName,
-                          err: err),
-                      errText(
-                          errMess: editMyAccountController.katakanaErr.value),
-                    ],
-                  );
-                }),
-                SizedBox(
-                  height: getHeight(12),
-                ),
-                inputDate(
-                  context,
-                  hintText: "山田太郎",
-                  labelText: 'dob'.tr,
-                  textEditingController: editMyAccountController.dob,
-                ),
-                SizedBox(
-                  height: getHeight(12),
-                ),
-                Obx(() {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      inputWithHint(context,
-                          hintText: "山田太郎",
-                          labelText: 'email'.tr,
-                          initialText: myAccountController.email.value,
-                          textEditingController: editMyAccountController.email,
-                          err: editMyAccountController.mailErr.value != "",
-                          onchange: () {
-                        editMyAccountController.mailErr.value = "";
-                      }),
-                      errText(errMess: editMyAccountController.mailErr.value),
-                    ],
-                  );
-                }),
-                SizedBox(
-                  height: getHeight(12),
-                ),
-                Obx(() {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      inputWithHint(context,
-                          hintText: "山田太郎",
-                          labelText: 'phoneNumber'.tr,
-                          initialText: myAccountController.phoneNumber.value,
-                          textEditingController: editMyAccountController.phone,
-                          err: editMyAccountController.phoneErr.value != "",
-                          onchange: () {
-                        editMyAccountController.phoneErr.value = "";
-                      }),
-                      errText(errMess: editMyAccountController.phoneErr.value),
-                    ],
-                  );
-                }),
-                SizedBox(
-                  height: getHeight(12),
-                ),
-                Obx(() {
-                  var err = editMyAccountController.citizenCodeErr.value != "";
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      inputWithHint(context,
-                          hintText: "123456789012",
-                          labelText: 'citizenCode'.tr,
-                          initialText: myAccountController.citizenCode.value,
-                          textEditingController:
-                              editMyAccountController.citizenCode,
-                          err: err, onchange: () {
-                        editMyAccountController.citizenCodeErr.value = "";
-                      }),
-                      errText(
-                          errMess:
-                              editMyAccountController.citizenCodeErr.value),
-                    ],
-                  );
-                }),
-                SizedBox(
-                  height: getHeight(24),
-                ),
-                Obx(() {
-                  return editMyAccountController.signup.value
-                      ? Bouncing(
-                          child: Container(
-                            height: getHeight(48),
-                            width: double.infinity,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFD0E8FF),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              "save".tr,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: getWidth(17),
-                              ),
+                            editMyAccountController.katakanaName,
+                        err: err),
+                    errText(errMess: editMyAccountController.katakanaErr.value),
+                  ],
+                );
+              }),
+              SizedBox(
+                height: getHeight(12),
+              ),
+              inputDate(
+                context,
+                hintText: "山田太郎",
+                labelText: 'dob'.tr,
+                textEditingController: editMyAccountController.dob,
+              ),
+              SizedBox(
+                height: getHeight(12),
+              ),
+              Obx(() {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputWithHint(context,
+                        hintText: "山田太郎",
+                        labelText: 'email'.tr,
+                        initialText: myAccountController.email.value,
+                        textEditingController: editMyAccountController.email,
+                        err: editMyAccountController.mailErr.value != "",
+                        onchange: () {
+                      editMyAccountController.mailErr.value = "";
+                    }),
+                    errText(errMess: editMyAccountController.mailErr.value),
+                  ],
+                );
+              }),
+              SizedBox(
+                height: getHeight(12),
+              ),
+              Obx(() {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputWithHint(context,
+                        hintText: "山田太郎",
+                        labelText: 'phoneNumber'.tr,
+                        initialText: myAccountController.phoneNumber.value,
+                        textEditingController: editMyAccountController.phone,
+                        err: editMyAccountController.phoneErr.value != "",
+                        onchange: () {
+                      editMyAccountController.phoneErr.value = "";
+                    }),
+                    errText(errMess: editMyAccountController.phoneErr.value),
+                  ],
+                );
+              }),
+              SizedBox(
+                height: getHeight(12),
+              ),
+              Obx(() {
+                var err = editMyAccountController.citizenCodeErr.value != "";
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputWithHint(context,
+                        hintText: "123456789012",
+                        labelText: 'citizenCode'.tr,
+                        initialText: myAccountController.citizenCode.value,
+                        textEditingController:
+                            editMyAccountController.citizenCode,
+                        err: err, onchange: () {
+                      editMyAccountController.citizenCodeErr.value = "";
+                    }),
+                    errText(
+                        errMess: editMyAccountController.citizenCodeErr.value),
+                  ],
+                );
+              }),
+              SizedBox(
+                height: getHeight(24),
+              ),
+              Obx(() {
+                return editMyAccountController.signup.value
+                    ? Bouncing(
+                        child: Container(
+                          height: getHeight(48),
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFD0E8FF),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            "save".tr,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: getWidth(17),
                             ),
                           ),
-                          onPress: () async {
-                            if (editMyAccountController.isValid()) {
-                              if (myAccountController.email.value !=
-                                  editMyAccountController.email.text) {
-                                editMyAccountController.changeEmailNotSignUp =
-                                    true;
-                                LoginPageController loginPageController =
-                                    Get.put(LoginPageController());
+                        ),
+                        onPress: () async {
+                          if (editMyAccountController.isValid()) {
+                            if (myAccountController.email.value !=
+                                editMyAccountController.email.text) {
+                              editMyAccountController.changeEmailNotSignUp =
+                                  true;
+                              LoginPageController loginPageController =
+                                  Get.put(LoginPageController());
 
-                                SignupPageController signupController =
-                                    Get.put(SignupPageController());
+                              SignupPageController signupController =
+                                  Get.put(SignupPageController());
 
+                              loginPageController.username.text =
+                                  signupController.userId.text;
+                              loginPageController.password.text =
+                                  signupController.password.text;
+
+                              var login = await loginPageController.login();
+                              var a = await myAccountController.editUserInfo(
+                                kanji: editMyAccountController.kanjiName.text,
+                                romanji:
+                                    editMyAccountController.katakanaName.text,
+                                mail: editMyAccountController.email.text,
+                                birthday: TimeService.dateTimeToString(
+                                    editMyAccountController.birthday),
+                                pid: editMyAccountController.citizenCode.text,
+                                phone: editMyAccountController.phone.text,
+                                avatar: editMyAccountController.avatar.value,
+                              );
+                              if (myAccountController.phoneErr.value == "") {
+                                var otp =
+                                    await myAccountController.requestMailOTP(
+                                        editMyAccountController.email.text);
+                                Get.put(SignupPageController()).otpId = otp;
+                                if (myAccountController.editError.value == "") {
+                                  Get.off(() => ConfirmSignupScreen(
+                                      type: "signup_edit_mail"));
+                                  editMyAccountController.signup.value = false;
+                                }
+                              }
+                            } else {
+                              print("dsadsa");
+                              LoginPageController loginPageController =
+                                  Get.put(LoginPageController());
+
+                              SignupPageController signupController =
+                                  Get.put(SignupPageController());
+
+                              if (signupController.userId.text != "")
                                 loginPageController.username.text =
                                     signupController.userId.text;
+                              if (signupController.password.text != "")
                                 loginPageController.password.text =
                                     signupController.password.text;
 
-                                var login = await loginPageController.login();
-                                var a = await myAccountController.editUserInfo(
+                              var login = await loginPageController.login();
+
+                              if (login) {
+                                var info =
+                                    await myAccountController.editUserInfo(
                                   kanji: editMyAccountController.kanjiName.text,
                                   romanji:
                                       editMyAccountController.katakanaName.text,
@@ -239,38 +272,93 @@ class EditMyAccountScreen extends StatelessWidget {
                                   phone: editMyAccountController.phone.text,
                                   avatar: editMyAccountController.avatar.value,
                                 );
-                                if (myAccountController.phoneErr.value == "") {
-                                  var otp =
-                                      await myAccountController.requestMailOTP(
-                                          editMyAccountController.email.text);
-                                  Get.put(SignupPageController()).otpId = otp;
-                                  if (myAccountController.editError.value ==
+
+                                if (info != null) {
+                                  // LoginPageController loginPageController =
+                                  //     Get.put(LoginPageController());
+                                  //
+                                  // SignupPageController signupController =
+                                  //     Get.put(SignupPageController());
+                                  //
+                                  // loginPageController.username.text =
+                                  //     signupController.userId.text;
+                                  // loginPageController.password.text =
+                                  //     signupController.password.text;
+                                  //
+                                  // var login = await loginPageController.login();
+                                  // Get.put(HomePageController())
+                                  //     .onChangeTab(0);
+                                  Get.offAll(() => HomePageScreen());
+                                }
+                              }
+                            }
+                          }
+                        })
+                    : Row(
+                        children: [
+                          Bouncing(
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: getHeight(48),
+                              width: getWidth(116),
+                              child: myAccountText('cancel'.tr),
+                              decoration: BoxDecoration(
+                                color: Color(0xFFE9E9E9),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                            onPress: () {
+                              Get.back();
+                            },
+                          ),
+                          SizedBox(
+                            width: getWidth(8),
+                          ),
+                          Bouncing(
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: getHeight(48),
+                              width: getWidth(219),
+                              child: myAccountText('save'.tr),
+                              decoration: BoxDecoration(
+                                color: Color(0xFFD0E8FF),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                            onPress: () async {
+                              if (editMyAccountController.isValid()) {
+                                if (myAccountController.email.value !=
+                                    editMyAccountController.email.text) {
+                                  var a =
+                                      await myAccountController.editUserInfo(
+                                    kanji:
+                                        editMyAccountController.kanjiName.text,
+                                    romanji: editMyAccountController
+                                        .katakanaName.text,
+                                    mail: myAccountController.email.value,
+                                    birthday: TimeService.dateTimeToString(
+                                        editMyAccountController.birthday),
+                                    pid: editMyAccountController
+                                        .citizenCode.text,
+                                    phone: editMyAccountController.phone.text,
+                                    avatar:
+                                        editMyAccountController.avatar.value,
+                                  );
+                                  if (myAccountController.phoneErr.value ==
                                       "") {
-                                    Get.off(() => ConfirmSignupScreen(
-                                        type: "signup_edit_mail"));
                                     editMyAccountController.signup.value =
                                         false;
+                                    var otp = await myAccountController
+                                        .requestMailOTP(
+                                            editMyAccountController.email.text);
+                                    Get.put(SignupPageController()).otpId = otp;
+                                    if (myAccountController.editError.value ==
+                                        "")
+                                      Get.off(() => ConfirmSignupScreen(
+                                          type: "signup_edit_mail"));
                                   }
-                                }
-                              } else {
-                                print("dsadsa");
-                                LoginPageController loginPageController =
-                                    Get.put(LoginPageController());
-
-                                SignupPageController signupController =
-                                    Get.put(SignupPageController());
-
-                                if (signupController.userId.text != "")
-                                  loginPageController.username.text =
-                                      signupController.userId.text;
-                                if (signupController.password.text != "")
-                                  loginPageController.password.text =
-                                      signupController.password.text;
-
-                                var login = await loginPageController.login();
-
-                                if (login) {
-                                  var info =
+                                } else {
+                                  var a =
                                       await myAccountController.editUserInfo(
                                     kanji:
                                         editMyAccountController.kanjiName.text,
@@ -285,120 +373,16 @@ class EditMyAccountScreen extends StatelessWidget {
                                     avatar:
                                         editMyAccountController.avatar.value,
                                   );
-
-                                  if (info != null) {
-                                    // LoginPageController loginPageController =
-                                    //     Get.put(LoginPageController());
-                                    //
-                                    // SignupPageController signupController =
-                                    //     Get.put(SignupPageController());
-                                    //
-                                    // loginPageController.username.text =
-                                    //     signupController.userId.text;
-                                    // loginPageController.password.text =
-                                    //     signupController.password.text;
-                                    //
-                                    // var login = await loginPageController.login();
-                                    // Get.put(HomePageController())
-                                    //     .onChangeTab(0);
-                                    Get.offAll(() => HomePageScreen());
-                                  }
+                                  if (myAccountController.editError.value == "")
+                                    Get.back();
                                 }
                               }
-                            }
-                          })
-                      : Row(
-                          children: [
-                            Bouncing(
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: getHeight(48),
-                                width: getWidth(116),
-                                child: myAccountText('cancel'.tr),
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFE9E9E9),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                              ),
-                              onPress: () {
-                                Get.back();
-                              },
-                            ),
-                            SizedBox(
-                              width: getWidth(8),
-                            ),
-                            Bouncing(
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: getHeight(48),
-                                width: getWidth(219),
-                                child: myAccountText('save'.tr),
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFD0E8FF),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                              ),
-                              onPress: () async {
-                                if (editMyAccountController.isValid()) {
-                                  if (myAccountController.email.value !=
-                                      editMyAccountController.email.text) {
-                                    var a =
-                                        await myAccountController.editUserInfo(
-                                      kanji: editMyAccountController
-                                          .kanjiName.text,
-                                      romanji: editMyAccountController
-                                          .katakanaName.text,
-                                      mail: myAccountController.email.value,
-                                      birthday: TimeService.dateTimeToString(
-                                          editMyAccountController.birthday),
-                                      pid: editMyAccountController
-                                          .citizenCode.text,
-                                      phone: editMyAccountController.phone.text,
-                                      avatar:
-                                          editMyAccountController.avatar.value,
-                                    );
-                                    if (myAccountController.phoneErr.value ==
-                                        "") {
-                                      editMyAccountController.signup.value =
-                                          false;
-                                      var otp = await myAccountController
-                                          .requestMailOTP(
-                                              editMyAccountController
-                                                  .email.text);
-                                      Get.put(SignupPageController()).otpId =
-                                          otp;
-                                      if (myAccountController.editError.value ==
-                                          "")
-                                        Get.off(() => ConfirmSignupScreen(
-                                            type: "signup_edit_mail"));
-                                    }
-                                  } else {
-                                    var a =
-                                        await myAccountController.editUserInfo(
-                                      kanji: editMyAccountController
-                                          .kanjiName.text,
-                                      romanji: editMyAccountController
-                                          .katakanaName.text,
-                                      mail: editMyAccountController.email.text,
-                                      birthday: TimeService.dateTimeToString(
-                                          editMyAccountController.birthday),
-                                      pid: editMyAccountController
-                                          .citizenCode.text,
-                                      phone: editMyAccountController.phone.text,
-                                      avatar:
-                                          editMyAccountController.avatar.value,
-                                    );
-                                    if (myAccountController.editError.value ==
-                                        "") Get.back();
-                                  }
-                                }
-                              },
-                            ),
-                          ],
-                        );
-                })
-              ],
-            ),
+                            },
+                          ),
+                        ],
+                      );
+              })
+            ],
           ),
         ),
       ),
