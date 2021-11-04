@@ -45,11 +45,12 @@ class ScanQRScreen extends StatelessWidget {
                       key: GlobalKey(debugLabel: 'QR'),
                       onQRViewCreated: _onQRViewCreated,
                       overlay: QrScannerOverlayShape(
-                        borderColor: Colors.white,
-                        borderLength: 30,
-                        borderWidth: 10,
-                        cutOutSize: MediaQuery.of(context).size.width * 0.85,
-                      ),
+                          borderColor: Colors.white,
+                          borderLength: 30,
+                          borderWidth: 10,
+                          cutOutSize: MediaQuery.of(context).size.width * 0.85,
+                          cutOutBottomOffset:
+                              MediaQuery.of(context).size.width * 0.25),
                     ),
                   ),
                   // Expanded(
@@ -373,7 +374,8 @@ class ScanQRScreen extends StatelessWidget {
           if (responseData["contactId"] == "" ||
               responseData["contactId"] == null) {
             var contactData = await Get.put(UserSearchController())
-                .createContact(nickname: "", secondaryId: scanData.code);
+                .createContact(
+                    nickname: "", secondaryId: scanData.code.toString());
             var newContactList =
                 await Get.put(ContactPageController()).getContactList();
             Get.put(UserSearchController()).refetchList(newContactList);
