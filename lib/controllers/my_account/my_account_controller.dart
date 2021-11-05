@@ -174,7 +174,7 @@ class MyAccountController extends GetxController {
       } else {
         editError.value = json["error"];
         signupErrorMessage(editError.value);
-        return "";
+        return null;
       }
     } catch (e, s) {
       print(e);

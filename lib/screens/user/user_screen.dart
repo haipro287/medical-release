@@ -10,6 +10,7 @@ import 'package:medical_chain_mobile_ui/screens/my_account/my_account_screen.dar
 import 'package:medical_chain_mobile_ui/screens/scanQR/scan_QR_screen.dart';
 import 'package:medical_chain_mobile_ui/screens/terms_and_conditions/terms_and_conditions.dart';
 import 'package:medical_chain_mobile_ui/utils/config.dart';
+import 'package:medical_chain_mobile_ui/utils/utils.dart';
 import 'package:medical_chain_mobile_ui/widgets/bounce_button.dart';
 
 class UserScreen extends StatelessWidget {
@@ -427,7 +428,10 @@ class UserScreen extends StatelessWidget {
                                         Expanded(
                                           child: Bouncing(
                                             onPress: () async {
+                                              Get.back();
+                                              showLoading();
                                               await privacyController.logout();
+                                              Get.back();
                                             },
                                             child: Container(
                                               height: getHeight(48),

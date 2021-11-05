@@ -25,6 +25,8 @@ class EditMyAccountController extends GetxController {
 
   String? otp;
 
+  bool isClick = false;
+
   @override
   void onInit() {
     avatar.value = myAccountController.avatar.value;

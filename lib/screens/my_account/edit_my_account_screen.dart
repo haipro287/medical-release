@@ -203,94 +203,98 @@ class EditMyAccountScreen extends StatelessWidget {
                           ),
                         ),
                         onPress: () async {
-                          if (editMyAccountController.isValid()) {
-                            if (myAccountController.email.value !=
-                                editMyAccountController.email.text) {
-                              editMyAccountController.changeEmailNotSignUp =
-                                  true;
-                              LoginPageController loginPageController =
-                                  Get.put(LoginPageController());
+                          if (editMyAccountController.isClick == false) {
+                            try {
+                              editMyAccountController.isClick = true;
+                              if (editMyAccountController.isValid()) {
+                                if (myAccountController.email.value !=
+                                    editMyAccountController.email.text) {
+                                  editMyAccountController.changeEmailNotSignUp =
+                                      true;
+                                  LoginPageController loginPageController =
+                                      Get.put(LoginPageController());
 
-                              SignupPageController signupController =
-                                  Get.put(SignupPageController());
+                                  SignupPageController signupController =
+                                      Get.put(SignupPageController());
 
-                              loginPageController.username.text =
-                                  signupController.userId.text;
-                              loginPageController.password.text =
-                                  signupController.password.text;
+                                  loginPageController.username.text =
+                                      signupController.userId.text;
+                                  loginPageController.password.text =
+                                      signupController.password.text;
 
-                              var login = await loginPageController.login();
-                              var a = await myAccountController.editUserInfo(
-                                kanji: editMyAccountController.kanjiName.text,
-                                romanji:
-                                    editMyAccountController.katakanaName.text,
-                                mail: editMyAccountController.email.text,
-                                birthday: TimeService.dateTimeToString(
-                                    editMyAccountController.birthday),
-                                pid: editMyAccountController.citizenCode.text,
-                                phone: editMyAccountController.phone.text,
-                                avatar: editMyAccountController.avatar.value,
-                              );
-                              if (myAccountController.phoneErr.value == "") {
-                                var otp =
-                                    await myAccountController.requestMailOTP(
-                                        editMyAccountController.email.text);
-                                Get.put(SignupPageController()).otpId = otp;
-                                if (myAccountController.editError.value == "") {
-                                  Get.off(() => ConfirmSignupScreen(
-                                      type: "signup_edit_mail"));
-                                  editMyAccountController.signup.value = false;
+                                  var login = await loginPageController.login();
+                                  var a =
+                                      await myAccountController.editUserInfo(
+                                    kanji:
+                                        editMyAccountController.kanjiName.text,
+                                    romanji: editMyAccountController
+                                        .katakanaName.text,
+                                    mail: editMyAccountController.email.text,
+                                    birthday: TimeService.dateTimeToString(
+                                        editMyAccountController.birthday),
+                                    pid: editMyAccountController
+                                        .citizenCode.text,
+                                    phone: editMyAccountController.phone.text,
+                                    avatar:
+                                        editMyAccountController.avatar.value,
+                                  );
+                                  if (myAccountController.phoneErr.value ==
+                                      "") {
+                                    var otp = await myAccountController
+                                        .requestMailOTP(
+                                            editMyAccountController.email.text);
+                                    Get.put(SignupPageController()).otpId = otp;
+                                    if (myAccountController.editError.value ==
+                                        "") {
+                                      Get.off(() => ConfirmSignupScreen(
+                                          type: "signup_edit_mail"));
+                                      editMyAccountController.signup.value =
+                                          false;
+                                    }
+                                  }
+                                } else {
+                                  print("dsadsa");
+                                  LoginPageController loginPageController =
+                                      Get.put(LoginPageController());
+
+                                  SignupPageController signupController =
+                                      Get.put(SignupPageController());
+
+                                  if (signupController.userId.text != "")
+                                    loginPageController.username.text =
+                                        signupController.userId.text;
+                                  if (signupController.password.text != "")
+                                    loginPageController.password.text =
+                                        signupController.password.text;
+
+                                  var login = await loginPageController.login();
+
+                                  if (login) {
+                                    var info =
+                                        await myAccountController.editUserInfo(
+                                      kanji: editMyAccountController
+                                          .kanjiName.text,
+                                      romanji: editMyAccountController
+                                          .katakanaName.text,
+                                      mail: editMyAccountController.email.text,
+                                      birthday: TimeService.dateTimeToString(
+                                          editMyAccountController.birthday),
+                                      pid: editMyAccountController
+                                          .citizenCode.text,
+                                      phone: editMyAccountController.phone.text,
+                                      avatar:
+                                          editMyAccountController.avatar.value,
+                                    );
+
+                                    if (info != null) {
+                                      Get.offAll(() => HomePageScreen());
+                                    }
+                                  }
                                 }
                               }
-                            } else {
-                              print("dsadsa");
-                              LoginPageController loginPageController =
-                                  Get.put(LoginPageController());
-
-                              SignupPageController signupController =
-                                  Get.put(SignupPageController());
-
-                              if (signupController.userId.text != "")
-                                loginPageController.username.text =
-                                    signupController.userId.text;
-                              if (signupController.password.text != "")
-                                loginPageController.password.text =
-                                    signupController.password.text;
-
-                              var login = await loginPageController.login();
-
-                              if (login) {
-                                var info =
-                                    await myAccountController.editUserInfo(
-                                  kanji: editMyAccountController.kanjiName.text,
-                                  romanji:
-                                      editMyAccountController.katakanaName.text,
-                                  mail: editMyAccountController.email.text,
-                                  birthday: TimeService.dateTimeToString(
-                                      editMyAccountController.birthday),
-                                  pid: editMyAccountController.citizenCode.text,
-                                  phone: editMyAccountController.phone.text,
-                                  avatar: editMyAccountController.avatar.value,
-                                );
-
-                                if (info != null) {
-                                  // LoginPageController loginPageController =
-                                  //     Get.put(LoginPageController());
-                                  //
-                                  // SignupPageController signupController =
-                                  //     Get.put(SignupPageController());
-                                  //
-                                  // loginPageController.username.text =
-                                  //     signupController.userId.text;
-                                  // loginPageController.password.text =
-                                  //     signupController.password.text;
-                                  //
-                                  // var login = await loginPageController.login();
-                                  // Get.put(HomePageController())
-                                  //     .onChangeTab(0);
-                                  Get.offAll(() => HomePageScreen());
-                                }
-                              }
+                              editMyAccountController.isClick = false;
+                            } catch (e) {
+                              editMyAccountController.isClick = false;
                             }
                           }
                         })
@@ -326,55 +330,69 @@ class EditMyAccountScreen extends StatelessWidget {
                               ),
                             ),
                             onPress: () async {
-                              if (editMyAccountController.isValid()) {
-                                if (myAccountController.email.value !=
-                                    editMyAccountController.email.text) {
-                                  var a =
-                                      await myAccountController.editUserInfo(
-                                    kanji:
-                                        editMyAccountController.kanjiName.text,
-                                    romanji: editMyAccountController
-                                        .katakanaName.text,
-                                    mail: myAccountController.email.value,
-                                    birthday: TimeService.dateTimeToString(
-                                        editMyAccountController.birthday),
-                                    pid: editMyAccountController
-                                        .citizenCode.text,
-                                    phone: editMyAccountController.phone.text,
-                                    avatar:
-                                        editMyAccountController.avatar.value,
-                                  );
-                                  if (myAccountController.phoneErr.value ==
-                                      "") {
-                                    editMyAccountController.signup.value =
-                                        false;
-                                    var otp = await myAccountController
-                                        .requestMailOTP(
-                                            editMyAccountController.email.text);
-                                    Get.put(SignupPageController()).otpId = otp;
-                                    if (myAccountController.editError.value ==
-                                        "")
-                                      Get.off(() => ConfirmSignupScreen(
-                                          type: "signup_edit_mail"));
+                              if (editMyAccountController.isClick == false) {
+                                try {
+                                  editMyAccountController.isClick = true;
+                                  if (editMyAccountController.isValid()) {
+                                    if (myAccountController.email.value !=
+                                        editMyAccountController.email.text) {
+                                      var a = await myAccountController
+                                          .editUserInfo(
+                                        kanji: editMyAccountController
+                                            .kanjiName.text,
+                                        romanji: editMyAccountController
+                                            .katakanaName.text,
+                                        mail: myAccountController.email.value,
+                                        birthday: TimeService.dateTimeToString(
+                                            editMyAccountController.birthday),
+                                        pid: editMyAccountController
+                                            .citizenCode.text,
+                                        phone:
+                                            editMyAccountController.phone.text,
+                                        avatar: editMyAccountController
+                                            .avatar.value,
+                                      );
+                                      if (myAccountController.phoneErr.value ==
+                                          "") {
+                                        editMyAccountController.signup.value =
+                                            false;
+                                        var otp = await myAccountController
+                                            .requestMailOTP(
+                                                editMyAccountController
+                                                    .email.text);
+                                        Get.put(SignupPageController()).otpId =
+                                            otp;
+                                        if (myAccountController
+                                                .editError.value ==
+                                            "")
+                                          Get.off(() => ConfirmSignupScreen(
+                                              type: "signup_edit_mail"));
+                                      }
+                                    } else {
+                                      var a = await myAccountController
+                                          .editUserInfo(
+                                        kanji: editMyAccountController
+                                            .kanjiName.text,
+                                        romanji: editMyAccountController
+                                            .katakanaName.text,
+                                        mail:
+                                            editMyAccountController.email.text,
+                                        birthday: TimeService.dateTimeToString(
+                                            editMyAccountController.birthday),
+                                        pid: editMyAccountController
+                                            .citizenCode.text,
+                                        phone:
+                                            editMyAccountController.phone.text,
+                                        avatar: editMyAccountController
+                                            .avatar.value,
+                                      );
+                                      if (myAccountController.editError.value ==
+                                          "") Get.back();
+                                    }
                                   }
-                                } else {
-                                  var a =
-                                      await myAccountController.editUserInfo(
-                                    kanji:
-                                        editMyAccountController.kanjiName.text,
-                                    romanji: editMyAccountController
-                                        .katakanaName.text,
-                                    mail: editMyAccountController.email.text,
-                                    birthday: TimeService.dateTimeToString(
-                                        editMyAccountController.birthday),
-                                    pid: editMyAccountController
-                                        .citizenCode.text,
-                                    phone: editMyAccountController.phone.text,
-                                    avatar:
-                                        editMyAccountController.avatar.value,
-                                  );
-                                  if (myAccountController.editError.value == "")
-                                    Get.back();
+                                  editMyAccountController.isClick = false;
+                                } catch (e) {
+                                  editMyAccountController.isClick = false;
                                 }
                               }
                             },
